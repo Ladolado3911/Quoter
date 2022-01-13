@@ -50,10 +50,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func configureRootVC(with scene: UIWindowScene) {
         window = UIWindow(windowScene: scene)
-        let navController = UINavigationController()
         let vc = AuthorsVC()
-        navController.setViewControllers([vc], animated: false)
-        window?.rootViewController = navController
+        window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }
 }

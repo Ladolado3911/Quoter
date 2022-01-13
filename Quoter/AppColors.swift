@@ -10,6 +10,6 @@ import UIKit
 class AppColors {
     
     static var mainColor: UIColor {
-        UIColor(hex: "642525")
+        UIColor(named: "MainColor")!
     }
 }
