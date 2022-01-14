@@ -11,7 +11,7 @@ class AuthorsContentView: UIView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Choose Quoter"
+        label.text = "Select Quoter"
         label.textColor = .black
         label.textAlignment = .center
         label.font = UIFont(name: "Arial Rounded MT Bold", size: 18)
@@ -20,6 +20,9 @@ class AuthorsContentView: UIView {
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
         return collectionView
     }()
     
