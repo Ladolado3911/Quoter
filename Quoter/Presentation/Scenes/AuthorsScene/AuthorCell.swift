@@ -15,6 +15,9 @@ enum CellState {
 class AuthorCell: UICollectionViewCell {
     
     var authorCellVM: AuthorCellVM?
+    var collectionViewHeight: CGFloat?
+    
+    private var isInitialSetup = true
     
     let imageView: UIImageView = {
         let imgView = UIImageView()
@@ -30,7 +33,8 @@ class AuthorCell: UICollectionViewCell {
         clipsToBounds = true
         buildSubviews()
         buildConstraints()
-        configCell()
+        switchCell()
+        isInitialSetup = false
     }
     
     private func buildSubviews() {
@@ -43,16 +47,40 @@ class AuthorCell: UICollectionViewCell {
         }
     }
     
-    private func configCell() {
+    private func switchCell() {
         guard let vm = authorCellVM else { return }
+        guard let collectionViewHeight = collectionViewHeight else { return  }
+
+        let selectTransform = CGAffineTransform(translationX: 0,
+                                                y: -(collectionViewHeight - bounds.height))
+        imageView.image = vm.image
         
         switch vm.state {
         case .on:
-            backgroundColor = .red
+            //backgroundColor = .red
             // jazz
+            if isInitialSetup {
+                transform = selectTransform
+                return
+            }
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                guard let self = self else { return }
+                self.transform = selectTransform
+            }
+            print("on")
+            
         case .off:
-            backgroundColor = .blue
+            //backgroundColor = .blue
             // jazz
+            if isInitialSetup {
+                transform = .identity
+                return
+            }
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                guard let self = self else { return }
+                self.transform = .identity
+            }
+            print("off")
         }
     }
 }

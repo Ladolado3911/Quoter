@@ -18,29 +18,29 @@ class AuthorsVC: UIViewController {
         UIImage(named: "ralph")
     ]
     
-    var data2 = Array(repeating: AuthorCellVM(state: .off, color: .blue) , count: 30)
+    //var data2 = Array(repeating: AuthorCellVM(state: .off, color: .blue) , count: 30)
     
     var data3 = [
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
-        AuthorCellVM(state: .off, color: .blue),
+        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
+        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
     ]
     
     lazy var data3Subject = CurrentValueSubject<[AuthorCellVM], Never>(data3)
@@ -74,11 +74,9 @@ class AuthorsVC: UIViewController {
     }
     
     private func configButton() {
-        
         authorsView.authorsContentView.setQuoteButton.addTarget(self,
                                                                 action: #selector(onSeeQuoteButton(sender:)),
                                                                 for: .touchUpInside)
-        
         data3Subject
             .map { vms in
                 vms.map({ $0.state }).contains(.on) ? true : false
@@ -109,8 +107,8 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AuthorCell", for: indexPath) as? AuthorCell
-        //cell!.imageView.image = data[indexPath.item]
         cell?.authorCellVM = data3[indexPath.item]
+        cell?.collectionViewHeight = collectionView.bounds.height
         return cell!
     }
     

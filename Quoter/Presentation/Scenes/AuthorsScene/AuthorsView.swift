@@ -23,9 +23,9 @@ class AuthorsView: UIView {
         let gradient = CAGradientLayer()
         gradient.frame = frame
         gradient.colors = [
-            UIColor.black.withAlphaComponent(1).cgColor,
+            UIColor.black.withAlphaComponent(0.8).cgColor,
             UIColor.black.withAlphaComponent(0).cgColor,
-            UIColor.black.withAlphaComponent(1).cgColor
+            UIColor.black.withAlphaComponent(0.8).cgColor
         ]
         gradient.startPoint = CGPoint(x: 0.5, y: 0)
         gradient.endPoint = CGPoint(x: 0.5, y: 1)
