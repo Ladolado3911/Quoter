@@ -19,6 +19,7 @@
 		24D1289F2790AB4900AD7F3D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 24D1289E2790AB4900AD7F3D /* Kingfisher */; };
 		24D128A12790AD0500AD7F3D /* AuthorsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D128A02790AD0500AD7F3D /* AuthorsContentView.swift */; };
 		24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D128A22790AE0E00AD7F3D /* PublicConstants.swift */; };
+		24D264F62791777500614218 /* AuthorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D264F52791777500614218 /* AuthorCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		24D1289827904D0E00AD7F3D /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		24D128A02790AD0500AD7F3D /* AuthorsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorsContentView.swift; sourceTree = "<group>"; };
 		24D128A22790AE0E00AD7F3D /* PublicConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicConstants.swift; sourceTree = "<group>"; };
+		24D264F52791777500614218 /* AuthorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				24D1287627903ECD00AD7F3D /* AuthorsVC.swift */,
 				24D1288727903FB100AD7F3D /* AuthorsView.swift */,
 				24D128A02790AD0500AD7F3D /* AuthorsContentView.swift */,
+				24D264F52791777500614218 /* AuthorCell.swift */,
 			);
 			path = AuthorsScene;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				24D128972790491500AD7F3D /* UIColor+Extension.swift in Sources */,
 				24D1287727903ECD00AD7F3D /* AuthorsVC.swift in Sources */,
 				24D128A12790AD0500AD7F3D /* AuthorsContentView.swift in Sources */,
+				24D264F62791777500614218 /* AuthorCell.swift in Sources */,
 				24D1288827903FB100AD7F3D /* AuthorsView.swift in Sources */,
 				24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */,
 				24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */,

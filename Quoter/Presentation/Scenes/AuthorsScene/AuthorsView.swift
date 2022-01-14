@@ -37,6 +37,10 @@ class AuthorsView: UIView {
     
     let quoterNameLabel: UILabel = {
         let label = UILabel()
+        label.text = "A. A. Milne"
+        label.font = UIFont(name: "Arial Rounded MT Bold", size: 30)
+        label.textAlignment = .center
+        label.textColor = .white
         return label
     }()
 
@@ -59,9 +63,10 @@ class AuthorsView: UIView {
     }
     
     private func buildConstraints() {
-//        quoterNameLabel.snp.makeConstraints { make in
-//
-//        }
+        quoterNameLabel.snp.makeConstraints { make in
+            make.left.right.equalTo(self)
+            make.bottom.equalTo(authorsContentView.snp.top).inset(-11)
+        }
         authorsContentView.snp.makeConstraints { make in
             make.left.right.bottom.equalTo(self)
             make.height.equalTo(PublicConstants.screenHeight * 0.382)
