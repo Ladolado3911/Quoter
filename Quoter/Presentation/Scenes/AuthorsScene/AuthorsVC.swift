@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Combine
+import AVFoundation
 
 class AuthorsVC: UIViewController {
     
@@ -41,23 +43,49 @@ class AuthorsVC: UIViewController {
         AuthorCellVM(state: .off, color: .blue),
     ]
     
+    lazy var data3Subject = CurrentValueSubject<[AuthorCellVM], Never>(data3)
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
+    var cancellables: Set<AnyCancellable> = []
     
     let authorsView: AuthorsView = {
         let authorsView = AuthorsView()
         return authorsView
     }()
-    
+        
     override func loadView() {
         super.loadView()
         view = authorsView
+    }
+    
+    deinit {
+        cancellables.forEach { cancellable in
+            cancellable.cancel()
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configCollectionView()
+        configButton()
+    }
+    
+    private func configButton() {
+        
+        authorsView.authorsContentView.setQuoteButton.addTarget(self,
+                                                                action: #selector(onSeeQuoteButton(sender:)),
+                                                                for: .touchUpInside)
+        
+        data3Subject
+            .map { vms in
+                vms.map({ $0.state }).contains(.on) ? true : false
+            }
+            .assign(to: \.isUserInteractionEnabled,
+                    on: authorsView.authorsContentView.setQuoteButton)
+            .store(in: &cancellables)
     }
     
     private func configCollectionView() {
@@ -65,6 +93,10 @@ class AuthorsVC: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(AuthorCell.self, forCellWithReuseIdentifier: "AuthorCell")
+    }
+    
+    @objc func onSeeQuoteButton(sender: UIButton) {
+        print("on See Quote Button")
     }
 }
 
@@ -106,13 +138,14 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         let itemState = data3[indexPath.item].state
         switch itemState {
         case .on:
-            data3[indexPath.item].state = .off
+            data3[indexPath.item].turnOff()
         case .off:
             for vm in data3 {
-                vm.state = .off
+                vm.turnOff()
             }
-            data3[indexPath.item].state = .on
+            data3[indexPath.item].turnOn()
         }
+        data3Subject.send(data3)
         collectionView.reloadData()
     }
 }

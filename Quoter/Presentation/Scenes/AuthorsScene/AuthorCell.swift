@@ -49,8 +49,10 @@ class AuthorCell: UICollectionViewCell {
         switch vm.state {
         case .on:
             backgroundColor = .red
+            // jazz
         case .off:
             backgroundColor = .blue
+            // jazz
         }
     }
 }

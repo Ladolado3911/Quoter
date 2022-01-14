@@ -17,11 +17,11 @@ class AuthorCellVM {
         self.color = color
     }
     
-//    mutating func turnOn() {
-//        state = .on
-//    }
-//    
-//    mutating func turnOff() {
-//        state = .off
-//    }
+    func turnOn() {
+        state = .on
+    }
+    
+    func turnOff() {
+        state = .off
+    }
 }

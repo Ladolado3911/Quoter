@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class AuthorsContentView: UIView {
     
@@ -26,7 +27,7 @@ class AuthorsContentView: UIView {
         return collectionView
     }()
     
-    let setQuoteButton: UIButton = {
+    var setQuoteButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle("See Quotes", for: .normal)
         button.setTitleColor(.white, for: .normal)
