@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 enum CellState {
     case on
@@ -14,10 +15,10 @@ enum CellState {
 
 class AuthorCell: UICollectionViewCell {
     
-    var authorCellVM: AuthorCellVM?
+    var authorCellVM: AuthorCellVM? 
     var collectionViewHeight: CGFloat?
     
-    private var isInitialSetup = true
+    var isInitialSetup = true
     
     let imageView: UIImageView = {
         let imgView = UIImageView()
@@ -40,6 +41,9 @@ class AuthorCell: UICollectionViewCell {
             switchCell()
         }
         isInitialSetup = false
+        
+        
+        
     }
     
     private func buildSubviews() {
@@ -58,6 +62,7 @@ class AuthorCell: UICollectionViewCell {
 
         let selectTransform = CGAffineTransform(translationX: 0,
                                                 y: -(collectionViewHeight - bounds.height))
+
         imageView.image = vm.image
         
         switch vm.state {
@@ -81,24 +86,25 @@ class AuthorCell: UICollectionViewCell {
 
         let selectTransform = CGAffineTransform(translationX: 0,
                                                 y: -(collectionViewHeight - bounds.height))
+
         imageView.image = vm.image
+        
         
         switch vm.state {
         case .on:
+            print("up")
             UIView.animate(withDuration: 0.3) { [weak self] in
                 guard let self = self else { return }
                 self.transform = selectTransform
             }
-            print("on")
-            
         case .off:
             if vm.isChanging! {
-                UIView.animate(withDuration: 1) { [weak self] in
+                print("down")
+                UIView.animate(withDuration: 0.3) { [weak self] in
                     guard let self = self else { return }
                     self.transform = .identity
                 }
                 vm.isChanging = false
-                print("off")
             }
         }
     }

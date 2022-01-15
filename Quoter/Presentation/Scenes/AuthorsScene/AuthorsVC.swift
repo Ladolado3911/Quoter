@@ -138,12 +138,17 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         case .on:
             data3[indexPath.item].turnOff(isChanging: true)
         case .off:
-            for vm in data3 {
-                vm.turnOff(isChanging: false)
+            let filtered = data3.filter { $0 !== data3[indexPath.item] }
+            for vm in 0..<filtered.count {
+                if data3[vm].state == .on {
+                    data3[vm].turnOff(isChanging: true)
+                    return
+                }
             }
             data3[indexPath.item].turnOn()
         }
         data3Subject.send(data3)
-        collectionView.reloadData()
+        //collectionView.reloadData()
+        //collectionView.reloadItems(at: [indexPath])
     }
 }
