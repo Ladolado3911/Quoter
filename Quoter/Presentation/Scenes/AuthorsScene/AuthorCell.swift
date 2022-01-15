@@ -31,7 +31,8 @@ class AuthorCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = 20
-        clipsToBounds = true
+        //clipsToBounds = true
+        layer.masksToBounds = false
         buildSubviews()
         buildConstraints()
         if isInitialSetup {
@@ -62,6 +63,10 @@ class AuthorCell: UICollectionViewCell {
 
         let selectTransform = CGAffineTransform(translationX: 0,
                                                 y: -(collectionViewHeight - bounds.height))
+        
+        self.layer.shadowColor = UIColor(named: "ShadowColor")?.cgColor
+        self.layer.shadowOffset = CGSize(width: 0,
+                                         height: 13)
 
         imageView.image = vm.image
         
@@ -96,6 +101,7 @@ class AuthorCell: UICollectionViewCell {
             UIView.animate(withDuration: 0.3) { [weak self] in
                 guard let self = self else { return }
                 self.transform = selectTransform
+                self.layer.shadowOpacity = 1
             }
         case .off:
             if vm.isChanging! {
@@ -103,6 +109,7 @@ class AuthorCell: UICollectionViewCell {
                 UIView.animate(withDuration: 0.3) { [weak self] in
                     guard let self = self else { return }
                     self.transform = .identity
+                    self.layer.shadowOpacity = 0
                 }
                 vm.isChanging = false
             }

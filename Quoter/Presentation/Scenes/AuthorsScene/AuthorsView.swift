@@ -38,7 +38,7 @@ class AuthorsView: UIView {
     let quoterNameLabel: UILabel = {
         let label = UILabel()
         label.text = "A. A. Milne"
-        label.font = UIFont(name: "Arial Rounded MT Bold", size: 30)
+        label.font = UIFont(name: "Arial Rounded MT Bold", size: 40)
         label.textAlignment = .center
         label.textColor = .white
         return label
