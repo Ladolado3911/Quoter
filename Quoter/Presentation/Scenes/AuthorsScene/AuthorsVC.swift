@@ -71,6 +71,18 @@ class AuthorsVC: UIViewController {
         super.viewDidLoad()
         configCollectionView()
         configButton()
+        
+        data3Subject
+            .map { vms -> UIImage in
+                for vm in vms {
+                    if vm.state == .on {
+                        return vm.image
+                    }
+                }
+                return UIImage(named: "milne")!
+            }
+            .assign(to: \.image, on: authorsView.mainImageView)
+            .store(in: &cancellables)
     }
     
     private func configButton() {
@@ -142,13 +154,13 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             for vm in 0..<filtered.count {
                 if data3[vm].state == .on {
                     data3[vm].turnOff(isChanging: true)
+                    data3[indexPath.item].turnOn()
+                    data3Subject.send(data3)
                     return
                 }
             }
             data3[indexPath.item].turnOn()
         }
         data3Subject.send(data3)
-        //collectionView.reloadData()
-        //collectionView.reloadItems(at: [indexPath])
     }
 }
