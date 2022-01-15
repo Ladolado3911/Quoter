@@ -136,10 +136,10 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         let itemState = data3[indexPath.item].state
         switch itemState {
         case .on:
-            data3[indexPath.item].turnOff()
+            data3[indexPath.item].turnOff(isChanging: true)
         case .off:
             for vm in data3 {
-                vm.turnOff()
+                vm.turnOff(isChanging: false)
             }
             data3[indexPath.item].turnOn()
         }

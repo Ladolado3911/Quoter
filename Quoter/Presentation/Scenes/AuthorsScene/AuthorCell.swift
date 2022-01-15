@@ -33,7 +33,12 @@ class AuthorCell: UICollectionViewCell {
         clipsToBounds = true
         buildSubviews()
         buildConstraints()
-        switchCell()
+        if isInitialSetup {
+            setupCell()
+        }
+        else {
+            switchCell()
+        }
         isInitialSetup = false
     }
     
@@ -47,7 +52,7 @@ class AuthorCell: UICollectionViewCell {
         }
     }
     
-    private func switchCell() {
+    private func setupCell() {
         guard let vm = authorCellVM else { return }
         guard let collectionViewHeight = collectionViewHeight else { return  }
 
@@ -57,12 +62,29 @@ class AuthorCell: UICollectionViewCell {
         
         switch vm.state {
         case .on:
-            //backgroundColor = .red
-            // jazz
             if isInitialSetup {
                 transform = selectTransform
                 return
             }
+            
+        case .off:
+            if isInitialSetup {
+                transform = .identity
+                return
+            }
+        }
+    }
+    
+    func switchCell() {
+        guard let vm = authorCellVM else { return }
+        guard let collectionViewHeight = collectionViewHeight else { return  }
+
+        let selectTransform = CGAffineTransform(translationX: 0,
+                                                y: -(collectionViewHeight - bounds.height))
+        imageView.image = vm.image
+        
+        switch vm.state {
+        case .on:
             UIView.animate(withDuration: 0.3) { [weak self] in
                 guard let self = self else { return }
                 self.transform = selectTransform
@@ -70,17 +92,14 @@ class AuthorCell: UICollectionViewCell {
             print("on")
             
         case .off:
-            //backgroundColor = .blue
-            // jazz
-            if isInitialSetup {
-                transform = .identity
-                return
+            if vm.isChanging! {
+                UIView.animate(withDuration: 1) { [weak self] in
+                    guard let self = self else { return }
+                    self.transform = .identity
+                }
+                vm.isChanging = false
+                print("off")
             }
-            UIView.animate(withDuration: 0.3) { [weak self] in
-                guard let self = self else { return }
-                self.transform = .identity
-            }
-            print("off")
         }
     }
 }

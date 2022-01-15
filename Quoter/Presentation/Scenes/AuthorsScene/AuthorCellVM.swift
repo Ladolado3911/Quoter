@@ -10,6 +10,7 @@ import UIKit
 class AuthorCellVM {
     
     var state: CellState
+    var isChanging: Bool? = false
     var image: UIImage
     //var color: UIColor
     
@@ -22,7 +23,8 @@ class AuthorCellVM {
         state = .on
     }
     
-    func turnOff() {
-        state = .off
+    func turnOff(isChanging: Bool) {
+        self.state = .off
+        self.isChanging = isChanging
     }
 }
