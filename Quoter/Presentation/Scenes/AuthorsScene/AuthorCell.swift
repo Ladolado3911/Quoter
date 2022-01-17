@@ -42,9 +42,6 @@ class AuthorCell: UICollectionViewCell {
             switchCell()
         }
         isInitialSetup = false
-        
-        
-        
     }
     
     private func buildSubviews() {
@@ -71,16 +68,7 @@ class AuthorCell: UICollectionViewCell {
         //imageView.image = vm.image
         
         setImage(vm: vm)
-//
-//        if let url = URL(string: QuoteEndpoints.getAuthorImageURLString(authorName: vm.name)) {
-//            print(QuoteEndpoints.getAuthorImageURLString(authorName: vm.name))
-//            print(vm.name)
-//            imageView.kf.setImage(with: url)
-//        }
-//        else {
-//            imageView.image = UIImage(named: "milne")
-//        }
-        
+
         switch vm.state {
         case .on:
             if isInitialSetup {
@@ -108,6 +96,7 @@ class AuthorCell: UICollectionViewCell {
                     let url = URL(string: urlString!)!
                     DispatchQueue.main.async {
                         self.imageView.kf.setImage(with: url)
+                        self.backgroundColor = .white
                     }
                 }
                 else {
@@ -131,14 +120,6 @@ class AuthorCell: UICollectionViewCell {
         let selectTransform = CGAffineTransform(translationX: 0,
                                                 y: -(collectionViewHeight - bounds.height))
 
-        //imageView.image = vm.image
-//        if let url = URL(string: QuoteEndpoints.getAuthorImageURLString(authorName: vm.name)) {
-//            //print(url)
-//            imageView.kf.setImage(with: url)
-//        }
-//        else {
-//            imageView.image = UIImage(named: "milne")
-//        }
         setImage(vm: vm)
         
         switch vm.state {

@@ -183,4 +183,16 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         }
         data3Subject.send(data3)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let cell = cell as? AuthorCell
+        cell!.imageView.image = nil
+        cell!.backgroundColor = .red
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let cell = cell as? AuthorCell
+        cell!.imageView.image = nil
+        cell!.backgroundColor = .red
+    }
 }
