@@ -20,30 +20,31 @@ class AuthorsVC: UIViewController {
     
     //var data2 = Array(repeating: AuthorCellVM(state: .off, color: .blue) , count: 30)
     
-    var data3 = [
-        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
-        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
-    ]
+//    var data3 = [
+//        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
+//        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
+//    ]
+    var data3: [AuthorVM] = []
     
-    lazy var data3Subject = CurrentValueSubject<[AuthorCellVM], Never>(data3)
+    lazy var data3Subject = CurrentValueSubject<[AuthorVM], Never>(data3)
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -71,18 +72,37 @@ class AuthorsVC: UIViewController {
         super.viewDidLoad()
         configCollectionView()
         configButton()
+        populateData()
         
         data3Subject
-            .map { vms -> UIImage in
+            .map { vms -> String in
                 for vm in vms {
                     if vm.state == .on {
-                        return vm.image
+                        return vm.link
                     }
                 }
-                return UIImage(named: "milne")!
+                return "Empty"
             }
-            .assign(to: \.image, on: authorsView.mainImageView)
+            .sink { [weak self] val in
+                guard let self = self else { return }
+                self.authorsView.mainImageView.kf.setImage(with: URL(string: val)!)
+            }
+//            .assign(to: \.image, on: authorsView.mainImageView)
             .store(in: &cancellables)
+    }
+    
+    private func populateData() {
+        QuoteManager.getAuthors { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let authors):
+                self.data3 = authors
+                self.data3Subject.send(self.data3)
+                self.authorsView.authorsContentView.collectionView.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     private func configButton() {

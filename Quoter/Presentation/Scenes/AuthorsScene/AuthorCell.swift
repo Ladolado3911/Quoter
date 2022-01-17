@@ -15,7 +15,7 @@ enum CellState {
 
 class AuthorCell: UICollectionViewCell {
     
-    var authorCellVM: AuthorCellVM? 
+    var authorCellVM: AuthorVM? 
     var collectionViewHeight: CGFloat?
     
     var isInitialSetup = true
@@ -68,7 +68,18 @@ class AuthorCell: UICollectionViewCell {
         self.layer.shadowOffset = CGSize(width: 0,
                                          height: 13)
 
-        imageView.image = vm.image
+        //imageView.image = vm.image
+        
+        setImage(vm: vm)
+//
+//        if let url = URL(string: QuoteEndpoints.getAuthorImageURLString(authorName: vm.name)) {
+//            print(QuoteEndpoints.getAuthorImageURLString(authorName: vm.name))
+//            print(vm.name)
+//            imageView.kf.setImage(with: url)
+//        }
+//        else {
+//            imageView.image = UIImage(named: "milne")
+//        }
         
         switch vm.state {
         case .on:
@@ -85,6 +96,34 @@ class AuthorCell: UICollectionViewCell {
         }
     }
     
+    private func setImage(vm: AuthorVM) {
+        let name = self.getNameFromUrl(urlString: vm.link)
+        let url = QuoteEndpoints.getAuthorImageURL(authorName: name)!
+        NetworkManager.getData(url: url,
+                               model: Resource(model: Response.self)) { result in
+            switch result {
+            case .success(let response):
+                if let thumbnail = response.query?.pages?.first!.thumbnail {
+                    let urlString = thumbnail.source
+                    let url = URL(string: urlString!)!
+                    DispatchQueue.main.async {
+                        self.imageView.kf.setImage(with: url)
+                    }
+                }
+                else {
+                    self.imageView.image = UIImage(named: "avatar")
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func getNameFromUrl(urlString: String) -> String {
+        let fullName = urlString.split(separator: "/").last!
+        return String(fullName)
+    }
+    
     func switchCell() {
         guard let vm = authorCellVM else { return }
         guard let collectionViewHeight = collectionViewHeight else { return  }
@@ -92,8 +131,15 @@ class AuthorCell: UICollectionViewCell {
         let selectTransform = CGAffineTransform(translationX: 0,
                                                 y: -(collectionViewHeight - bounds.height))
 
-        imageView.image = vm.image
-        
+        //imageView.image = vm.image
+//        if let url = URL(string: QuoteEndpoints.getAuthorImageURLString(authorName: vm.name)) {
+//            //print(url)
+//            imageView.kf.setImage(with: url)
+//        }
+//        else {
+//            imageView.image = UIImage(named: "milne")
+//        }
+        setImage(vm: vm)
         
         switch vm.state {
         case .on:

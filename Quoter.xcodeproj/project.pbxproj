@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24CB9FE327930C0B00E9D49F /* JokeEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FE127930C0B00E9D49F /* JokeEndpoints.swift */; };
+		24CB9FE427930C0B00E9D49F /* QuoteEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FE227930C0B00E9D49F /* QuoteEndpoints.swift */; };
+		24CB9FE827930C1700E9D49F /* JokeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FE627930C1700E9D49F /* JokeModel.swift */; };
+		24CB9FE927930C1700E9D49F /* AuthorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FE727930C1700E9D49F /* AuthorModel.swift */; };
+		24CB9FED27930C2700E9D49F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FEB27930C2700E9D49F /* NetworkManager.swift */; };
+		24CB9FEE27930C2700E9D49F /* QuoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FEC27930C2700E9D49F /* QuoteManager.swift */; };
 		24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1287227903ECD00AD7F3D /* AppDelegate.swift */; };
 		24D1287527903ECD00AD7F3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1287427903ECD00AD7F3D /* SceneDelegate.swift */; };
 		24D1287727903ECD00AD7F3D /* AuthorsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1287627903ECD00AD7F3D /* AuthorsVC.swift */; };
@@ -24,6 +30,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24CB9FE127930C0B00E9D49F /* JokeEndpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JokeEndpoints.swift; sourceTree = "<group>"; };
+		24CB9FE227930C0B00E9D49F /* QuoteEndpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteEndpoints.swift; sourceTree = "<group>"; };
+		24CB9FE627930C1700E9D49F /* JokeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JokeModel.swift; sourceTree = "<group>"; };
+		24CB9FE727930C1700E9D49F /* AuthorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorModel.swift; sourceTree = "<group>"; };
+		24CB9FEB27930C2700E9D49F /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		24CB9FEC27930C2700E9D49F /* QuoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteManager.swift; sourceTree = "<group>"; };
 		24D1286F27903ECD00AD7F3D /* Quoter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quoter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D1287227903ECD00AD7F3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24D1287427903ECD00AD7F3D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +65,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24CB9FE027930C0B00E9D49F /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				24CB9FE127930C0B00E9D49F /* JokeEndpoints.swift */,
+				24CB9FE227930C0B00E9D49F /* QuoteEndpoints.swift */,
+			);
+			path = Endpoints;
+			sourceTree = "<group>";
+		};
+		24CB9FE527930C1700E9D49F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				24CB9FE627930C1700E9D49F /* JokeModel.swift */,
+				24CB9FE727930C1700E9D49F /* AuthorModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		24CB9FEA27930C2700E9D49F /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				24CB9FEB27930C2700E9D49F /* NetworkManager.swift */,
+				24CB9FEC27930C2700E9D49F /* QuoteManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		24D1286627903ECD00AD7F3D = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +114,9 @@
 				24D1289827904D0E00AD7F3D /* AppColors.swift */,
 				24D128A22790AE0E00AD7F3D /* PublicConstants.swift */,
 				24D1288627903F5900AD7F3D /* App */,
+				24CB9FE527930C1700E9D49F /* Models */,
+				24CB9FEA27930C2700E9D49F /* Managers */,
+				24CB9FE027930C0B00E9D49F /* Endpoints */,
 				24D128952790490400AD7F3D /* Extensions */,
 				24D1288927903FE000AD7F3D /* Presentation */,
 				24D1287B27903ECE00AD7F3D /* Assets.xcassets */,
@@ -217,12 +259,18 @@
 			files = (
 				24D128972790491500AD7F3D /* UIColor+Extension.swift in Sources */,
 				24D1287727903ECD00AD7F3D /* AuthorsVC.swift in Sources */,
+				24CB9FE827930C1700E9D49F /* JokeModel.swift in Sources */,
 				24D128A12790AD0500AD7F3D /* AuthorsContentView.swift in Sources */,
 				24D264F82791940F00614218 /* AuthorCellVM.swift in Sources */,
 				24D264F62791777500614218 /* AuthorCell.swift in Sources */,
+				24CB9FEE27930C2700E9D49F /* QuoteManager.swift in Sources */,
+				24CB9FE927930C1700E9D49F /* AuthorModel.swift in Sources */,
+				24CB9FE427930C0B00E9D49F /* QuoteEndpoints.swift in Sources */,
 				24D1288827903FB100AD7F3D /* AuthorsView.swift in Sources */,
 				24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */,
+				24CB9FE327930C0B00E9D49F /* JokeEndpoints.swift in Sources */,
 				24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */,
+				24CB9FED27930C2700E9D49F /* NetworkManager.swift in Sources */,
 				24D1289927904D0E00AD7F3D /* AppColors.swift in Sources */,
 				24D1287527903ECD00AD7F3D /* SceneDelegate.swift in Sources */,
 			);
