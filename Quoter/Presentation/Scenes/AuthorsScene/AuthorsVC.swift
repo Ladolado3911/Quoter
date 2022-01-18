@@ -7,44 +7,19 @@
 
 import UIKit
 import Combine
-import AVFoundation
+import Kingfisher
 
 class AuthorsVC: UIViewController {
-    
-    let data = [
-        UIImage(named: "milne"),
-        UIImage(named: "laozi"),
-        UIImage(named: "gautama"),
-        UIImage(named: "ralph")
-    ]
-    
-    //var data2 = Array(repeating: AuthorCellVM(state: .off, color: .blue) , count: 30)
-    
-//    var data3 = [
-//        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "milne")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "laozi")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "gautama")!),
-//        AuthorCellVM(state: .off, image: UIImage(named: "ralph")!),
-//    ]
+
     var data3: [AuthorVM] = []
     
     lazy var data3Subject = CurrentValueSubject<[AuthorVM], Never>(data3)
+    let mainImageSubject = CurrentValueSubject<UIImage, Never>(UIImage(named: "avatar")!)
+    
+    lazy var sendMainImagetoSubject: (UIImage) -> Void = { [weak self] image in
+        guard let self = self else { return }
+        self.mainImageSubject.send(image)
+    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -74,21 +49,27 @@ class AuthorsVC: UIViewController {
         configButton()
         populateData()
         
-        data3Subject
-            .map { vms -> String in
-                for vm in vms {
-                    if vm.state == .on {
-                        return vm.link
-                    }
-                }
-                return "Empty"
-            }
+        mainImageSubject
             .sink { [weak self] val in
                 guard let self = self else { return }
-                self.authorsView.mainImageView.kf.setImage(with: URL(string: val)!)
+                self.authorsView.mainImageView.image = val
             }
-//            .assign(to: \.image, on: authorsView.mainImageView)
             .store(in: &cancellables)
+        
+//        data3Subject
+//            .map { vms -> String in
+//                for vm in vms {
+//                    if vm.state == .on {
+//                        return vm.link
+//                    }
+//                }
+//                return "Empty"
+//            }
+//            .sink { [weak self] val in
+//                guard let self = self else { return }
+//                self.authorsView.mainImageView.kf.setImage(with: URL(string: val)!)
+//            }
+//            .store(in: &cancellables)
     }
     
     private func populateData() {
@@ -104,7 +85,7 @@ class AuthorsVC: UIViewController {
             }
         }
     }
-    
+
     private func configButton() {
         authorsView.authorsContentView.setQuoteButton.addTarget(self,
                                                                 action: #selector(onSeeQuoteButton(sender:)),
@@ -132,8 +113,6 @@ class AuthorsVC: UIViewController {
 
 extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //data.count
-        //30
         data3.count
     }
     
@@ -141,6 +120,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AuthorCell", for: indexPath) as? AuthorCell
         cell?.authorCellVM = data3[indexPath.item]
         cell?.collectionViewHeight = collectionView.bounds.height
+        cell?.combineSubject = sendMainImagetoSubject
         return cell!
     }
     
@@ -182,6 +162,18 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             data3[indexPath.item].turnOn()
         }
         data3Subject.send(data3)
+        mainImageSubject.send(((collectionView.cellForItem(at: indexPath) as? AuthorCell)?.imageView.image)!)
+
+//        let resource = ImageResource(downloadURL: url)
+//        KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
+//            switch result {
+//            case .success(let value):
+//                combineSubject(value.image)
+//            case .failure(let error):
+//                print("Error: \(error)")
+//            }
+//        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

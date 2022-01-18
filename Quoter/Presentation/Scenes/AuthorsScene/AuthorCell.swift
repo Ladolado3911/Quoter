@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import Kingfisher
 
 enum CellState {
     case on
@@ -17,6 +18,7 @@ class AuthorCell: UICollectionViewCell {
     
     var authorCellVM: AuthorVM? 
     var collectionViewHeight: CGFloat?
+    var combineSubject: ((UIImage) -> Void)?
     
     var isInitialSetup = true
     
@@ -97,6 +99,17 @@ class AuthorCell: UICollectionViewCell {
                     DispatchQueue.main.async {
                         self.imageView.kf.setImage(with: url)
                         self.backgroundColor = .white
+//                        if let combineSubject = self.combineSubject {
+//                            let resource = ImageResource(downloadURL: url)
+//                            KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
+//                                switch result {
+//                                case .success(let value):
+//                                    combineSubject(value.image)
+//                                case .failure(let error):
+//                                    print("Error: \(error)")
+//                                }
+//                            }
+//                        }
                     }
                 }
                 else {
