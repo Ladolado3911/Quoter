@@ -15,6 +15,7 @@ class AuthorsVC: UIViewController {
     
     lazy var data3Subject = CurrentValueSubject<[AuthorVM], Never>(data3)
     let mainImageSubject = CurrentValueSubject<UIImage, Never>(UIImage(named: "avatar")!)
+    let mainTitle = CurrentValueSubject<String, Never>("Avatar")
     
     lazy var sendMainImagetoSubject: (UIImage) -> Void = { [weak self] image in
         guard let self = self else { return }
@@ -48,28 +49,7 @@ class AuthorsVC: UIViewController {
         configCollectionView()
         configButton()
         populateData()
-        
-        mainImageSubject
-            .sink { [weak self] val in
-                guard let self = self else { return }
-                self.authorsView.mainImageView.image = val
-            }
-            .store(in: &cancellables)
-        
-//        data3Subject
-//            .map { vms -> String in
-//                for vm in vms {
-//                    if vm.state == .on {
-//                        return vm.link
-//                    }
-//                }
-//                return "Empty"
-//            }
-//            .sink { [weak self] val in
-//                guard let self = self else { return }
-//                self.authorsView.mainImageView.kf.setImage(with: URL(string: val)!)
-//            }
-//            .store(in: &cancellables)
+        addListeners()
     }
     
     private func populateData() {
@@ -84,6 +64,20 @@ class AuthorsVC: UIViewController {
                 print(error)
             }
         }
+    }
+    
+    private func addListeners() {
+        mainImageSubject
+            .sink { [weak self] val in
+                guard let self = self else { return }
+                self.authorsView.mainImageView.image = val
+            }
+            .store(in: &cancellables)
+        
+        mainTitle
+            .assign(to: \.text!, on: authorsView.quoterNameLabel)
+            .store(in: &cancellables)
+        
     }
 
     private func configButton() {
@@ -146,9 +140,13 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let itemState = data3[indexPath.item].state
+        let image = ((collectionView.cellForItem(at: indexPath) as? AuthorCell)?.imageView.image)!
+        let name = data3[indexPath.item].name
         switch itemState {
         case .on:
             data3[indexPath.item].turnOff(isChanging: true)
+            mainImageSubject.send(UIImage(named: "avatar")!)
+            mainTitle.send("Avatar")
         case .off:
             let filtered = data3.filter { $0 !== data3[indexPath.item] }
             for vm in 0..<filtered.count {
@@ -156,35 +154,27 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
                     data3[vm].turnOff(isChanging: true)
                     data3[indexPath.item].turnOn()
                     data3Subject.send(data3)
+                    mainImageSubject.send(image)
+                    mainTitle.send(name)
                     return
                 }
             }
             data3[indexPath.item].turnOn()
+            mainImageSubject.send(image)
+            mainTitle.send(name)
         }
         data3Subject.send(data3)
-        mainImageSubject.send(((collectionView.cellForItem(at: indexPath) as? AuthorCell)?.imageView.image)!)
-
-//        let resource = ImageResource(downloadURL: url)
-//        KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
-//            switch result {
-//            case .success(let value):
-//                combineSubject(value.image)
-//            case .failure(let error):
-//                print("Error: \(error)")
-//            }
-//        }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let cell = cell as? AuthorCell
         cell!.imageView.image = nil
-        cell!.backgroundColor = .red
+        cell!.backgroundColor = .white
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let cell = cell as? AuthorCell
         cell!.imageView.image = nil
-        cell!.backgroundColor = .red
+        cell!.backgroundColor = .white
     }
 }

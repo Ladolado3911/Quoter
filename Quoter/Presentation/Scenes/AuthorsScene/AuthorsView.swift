@@ -19,20 +19,26 @@ class AuthorsView: UIView {
         let imgView = UIImageView(frame: frame)
         imgView.image = UIImage(named: "milne")
         imgView.contentMode = .scaleAspectFill
-        
-        let gradient = CAGradientLayer()
-        gradient.frame = frame
-        gradient.colors = [
-            UIColor.black.withAlphaComponent(0.8).cgColor,
-            UIColor.black.withAlphaComponent(0).cgColor,
-            UIColor.black.withAlphaComponent(0.8).cgColor
-        ]
-        gradient.startPoint = CGPoint(x: 0.5, y: 0)
-        gradient.endPoint = CGPoint(x: 0.5, y: 1)
-        gradient.locations = [0, 0.5, 1]
+//
+//        let gradient = CAGradientLayer()
+//        gradient.frame = frame
+//        gradient.colors = [
+//            UIColor.black.withAlphaComponent(0.8).cgColor,
+//            UIColor.black.withAlphaComponent(0).cgColor,
+//            UIColor.black.withAlphaComponent(0.8).cgColor
+//        ]
+//        gradient.startPoint = CGPoint(x: 0.5, y: 0)
+//        gradient.endPoint = CGPoint(x: 0.5, y: 1)
+//        gradient.locations = [0, 0.5, 1]
 
-        imgView.layer.addSublayer(gradient)
+        //imgView.layer.addSublayer(gradient)
         return imgView
+    }()
+    
+    lazy var darkView: UIView = {
+        let dark = UIView(frame: mainImageView.bounds)
+        dark.backgroundColor = .black.withAlphaComponent(0.5)
+        return dark
     }()
     
     let quoterNameLabel: UILabel = {
@@ -58,6 +64,7 @@ class AuthorsView: UIView {
     
     private func buildSubviews() {
         addSubview(mainImageView)
+        addSubview(darkView)
         addSubview(quoterNameLabel)
         addSubview(authorsContentView)
     }
