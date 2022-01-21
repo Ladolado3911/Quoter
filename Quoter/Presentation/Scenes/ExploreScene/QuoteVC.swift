@@ -8,6 +8,12 @@
 import UIKit
 
 class QuoteVC: UIViewController {
+    
+    var quoteVM: QuoteVM? {
+        didSet {
+            configWithVM()
+        }
+    }
         
     let quoteView: QuoteView = {
         let quoteView = QuoteView()
@@ -23,5 +29,13 @@ class QuoteVC: UIViewController {
         super.viewDidLoad()
         
         
+    }
+    
+    private func configWithVM() {
+        guard let quoteVM = quoteVM else {
+            return
+        }
+        quoteView.quoteTextView.text = quoteVM.content
+        view.layoutIfNeeded()
     }
 }

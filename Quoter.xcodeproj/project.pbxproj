@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24AD7D62279A9DA300BFC1BF /* QuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */; };
 		24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3DD27985FEE009DB491 /* ExploreVC.swift */; };
 		24BEA3E02798601A009DB491 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3DF2798601A009DB491 /* QuoteView.swift */; };
 		24BEA3E427986C08009DB491 /* QuoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3E327986C08009DB491 /* QuoteVC.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteModel.swift; sourceTree = "<group>"; };
 		24BEA3DD27985FEE009DB491 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		24BEA3DF2798601A009DB491 /* QuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
 		24BEA3E327986C08009DB491 /* QuoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteVC.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			children = (
 				24CB9FE627930C1700E9D49F /* JokeModel.swift */,
 				24CB9FE727930C1700E9D49F /* AuthorModel.swift */,
+				24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				24CB9FE927930C1700E9D49F /* AuthorModel.swift in Sources */,
 				24CB9FE427930C0B00E9D49F /* QuoteEndpoints.swift in Sources */,
 				24D1288827903FB100AD7F3D /* AuthorsView.swift in Sources */,
+				24AD7D62279A9DA300BFC1BF /* QuoteModel.swift in Sources */,
 				24BEA3E02798601A009DB491 /* QuoteView.swift in Sources */,
 				24BEA3E427986C08009DB491 /* QuoteVC.swift in Sources */,
 				24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */,

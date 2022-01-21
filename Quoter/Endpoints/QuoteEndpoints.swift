@@ -13,6 +13,10 @@ struct QuoteEndpoints {
         URL(string: "https://quotable.io/authors?sortBy=quoteCount&order=desc")
     }
     
+    static var randomQuote: URL? {
+        URL(string: "https://api.quotable.io/random")
+    }
+    
     static func getAuthorImageURL(authorName: String) -> URL? {
         URL(string: "https://en.wikipedia.org/w/api.php?action=query&formatversion=2&titles=\(authorName)&prop=pageimages&format=json&pithumbsize=500")
     }

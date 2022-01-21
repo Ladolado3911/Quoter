@@ -22,6 +22,15 @@ class QuoteView: UIView {
         return darkView
     }()
     
+    let quoteTextView: UITextView = {
+        let quoteTextView = UITextView()
+        quoteTextView.isEditable = false
+        quoteTextView.isSelectable = false
+        quoteTextView.backgroundColor = .clear
+        quoteTextView.textColor = .blue
+        return quoteTextView
+    }()
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         buildSubviews()
@@ -31,6 +40,7 @@ class QuoteView: UIView {
     private func buildSubviews() {
         addSubview(mainImageView)
         addSubview(darkView)
+        addSubview(quoteTextView)
     }
     
     private func buildConstraints() {
@@ -39,6 +49,11 @@ class QuoteView: UIView {
         }
         darkView.snp.makeConstraints { make in
             make.left.right.top.bottom.equalTo(self)
+        }
+        quoteTextView.snp.makeConstraints { make in
+            make.left.right.equalTo(self).inset(36)
+            make.top.equalTo(self).inset(PublicConstants.screenHeight * 0.519)
+            make.bottom.equalTo(self).inset(100)
         }
     }
 }

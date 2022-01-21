@@ -29,6 +29,18 @@ class QuoteManager: NetworkManager {
             }
         }
     }
+    
+    static func getRandomQuote(completion: @escaping (Result<QuoteVM, Error>) -> Void) {
+        getData(url: QuoteEndpoints.authors!, model: Resource(model: Quote.self)) { result in
+            switch result {
+            case .success(let randomQuote):
+                completion(.success(QuoteVM(rootQuote: randomQuote)))
+            case .failure(let error):
+                print(error)
+                completion(.failure(error))
+            }
+        }
+    }
 }
 
 
