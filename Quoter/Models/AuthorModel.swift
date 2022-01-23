@@ -51,24 +51,6 @@ class AuthorVM {
         rootAuthor.link ?? "No Link"
     }
     
-//    var image: UIImage? {
-//        do {
-//            let url = URL(string: link)
-//            if let url = url {
-//                let data = try Data(contentsOf: url)
-//                let image = UIImage(data: data)
-//                return image
-//            }
-//            else {
-//                return nil
-//            }
-//        }
-//        catch {
-//            return nil
-//        }
-//
-//    }
-    
     var bio: String {
         rootAuthor.bio ?? "No Bio"
     }

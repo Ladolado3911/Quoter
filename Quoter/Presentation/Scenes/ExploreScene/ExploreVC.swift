@@ -116,7 +116,6 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
         if completed {
             print("completed")
             if currentIndex + 2 == quoteControllers.count {
-                print("fetch")
                 getRandomQuote()
             }
         }

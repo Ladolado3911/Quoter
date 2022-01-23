@@ -11,9 +11,7 @@
 		24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3DD27985FEE009DB491 /* ExploreVC.swift */; };
 		24BEA3E02798601A009DB491 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3DF2798601A009DB491 /* QuoteView.swift */; };
 		24BEA3E427986C08009DB491 /* QuoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3E327986C08009DB491 /* QuoteVC.swift */; };
-		24CB9FE327930C0B00E9D49F /* JokeEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FE127930C0B00E9D49F /* JokeEndpoints.swift */; };
 		24CB9FE427930C0B00E9D49F /* QuoteEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FE227930C0B00E9D49F /* QuoteEndpoints.swift */; };
-		24CB9FE827930C1700E9D49F /* JokeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FE627930C1700E9D49F /* JokeModel.swift */; };
 		24CB9FE927930C1700E9D49F /* AuthorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FE727930C1700E9D49F /* AuthorModel.swift */; };
 		24CB9FED27930C2700E9D49F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FEB27930C2700E9D49F /* NetworkManager.swift */; };
 		24CB9FEE27930C2700E9D49F /* QuoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FEC27930C2700E9D49F /* QuoteManager.swift */; };
@@ -38,9 +36,7 @@
 		24BEA3DD27985FEE009DB491 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		24BEA3DF2798601A009DB491 /* QuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
 		24BEA3E327986C08009DB491 /* QuoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteVC.swift; sourceTree = "<group>"; };
-		24CB9FE127930C0B00E9D49F /* JokeEndpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JokeEndpoints.swift; sourceTree = "<group>"; };
 		24CB9FE227930C0B00E9D49F /* QuoteEndpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteEndpoints.swift; sourceTree = "<group>"; };
-		24CB9FE627930C1700E9D49F /* JokeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JokeModel.swift; sourceTree = "<group>"; };
 		24CB9FE727930C1700E9D49F /* AuthorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorModel.swift; sourceTree = "<group>"; };
 		24CB9FEB27930C2700E9D49F /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		24CB9FEC27930C2700E9D49F /* QuoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteManager.swift; sourceTree = "<group>"; };
@@ -86,7 +82,6 @@
 		24CB9FE027930C0B00E9D49F /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
-				24CB9FE127930C0B00E9D49F /* JokeEndpoints.swift */,
 				24CB9FE227930C0B00E9D49F /* QuoteEndpoints.swift */,
 			);
 			path = Endpoints;
@@ -95,7 +90,6 @@
 		24CB9FE527930C1700E9D49F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				24CB9FE627930C1700E9D49F /* JokeModel.swift */,
 				24CB9FE727930C1700E9D49F /* AuthorModel.swift */,
 				24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */,
 			);
@@ -279,7 +273,6 @@
 			files = (
 				24D128972790491500AD7F3D /* UIColor+Extension.swift in Sources */,
 				24D1287727903ECD00AD7F3D /* AuthorsVC.swift in Sources */,
-				24CB9FE827930C1700E9D49F /* JokeModel.swift in Sources */,
 				24D128A12790AD0500AD7F3D /* AuthorsContentView.swift in Sources */,
 				24D264F82791940F00614218 /* AuthorCellVM.swift in Sources */,
 				24D264F62791777500614218 /* AuthorCell.swift in Sources */,
@@ -291,7 +284,6 @@
 				24BEA3E02798601A009DB491 /* QuoteView.swift in Sources */,
 				24BEA3E427986C08009DB491 /* QuoteVC.swift in Sources */,
 				24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */,
-				24CB9FE327930C0B00E9D49F /* JokeEndpoints.swift in Sources */,
 				24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */,
 				24CB9FED27930C2700E9D49F /* NetworkManager.swift in Sources */,
 				24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */,
