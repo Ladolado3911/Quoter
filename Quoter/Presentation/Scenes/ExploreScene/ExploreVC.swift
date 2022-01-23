@@ -11,6 +11,8 @@ class ExploreVC: UIViewController {
     
     var quoteControllers: [QuoteVC] = []
     var currentIndex: Int = 0
+    var currentX: CGFloat = 0
+    var prevX: CGFloat = -1
  
     lazy var pageVC: UIPageViewController = {
         let pageVC = UIPageViewController(transitionStyle: .pageCurl,
@@ -38,11 +40,9 @@ class ExploreVC: UIViewController {
     
     private func getRandomQuote(semaphore: DispatchSemaphore) {
         QuoteManager.getRandomQuote { [weak self] result in
-            print("2")
             guard let self = self else { return }
             switch result {
             case .success(let quoteVM):
-                print("success 2")
                 let vc = QuoteVC()
                 vc.quoteVM = quoteVM
                 self.quoteControllers.append(vc)
@@ -95,6 +95,7 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = quoteControllers.firstIndex(of: viewController as! QuoteVC), index > 0 else { return nil }
         currentIndex = index
+//        prevIndex = index - 1
         let before = index - 1
         return quoteControllers[before]
     }
@@ -105,18 +106,37 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
             return nil
         }
         currentIndex = index
+//        prevIndex = index - 1
         let after = index + 1
         return quoteControllers[after]
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if finished {
-            print("finished")
-        }
         if completed {
-            print("completed")
-            if currentIndex + 2 == quoteControllers.count {
+            pageViewController.gestureRecognizers.forEach { recognizer in
+                if let recog = recognizer as? UIPanGestureRecognizer {
+                    print(recog.location(in: pageViewController.view))
+                    currentX = recog.location(in: pageViewController.view).x
+                }
+            }
+//            if currentX > prevX {
+//                print("turn page to left")
+//            }
+//            else {
+//                print("turn page to right")
+//            }
+//
+            if currentIndex + 2 == quoteControllers.count && currentX < prevX {
                 getRandomQuote()
+            }
+        }
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        pageViewController.gestureRecognizers.forEach { recognizer in
+            if let recog = recognizer as? UIPanGestureRecognizer {
+                print(recog.location(in: pageViewController.view))
+                prevX = recog.location(in: pageViewController.view).x
             }
         }
     }
