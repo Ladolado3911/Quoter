@@ -12,7 +12,7 @@ class QuoteView: UIView {
     let mainImageView: UIImageView = {
         let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFill
-        imgView.backgroundColor = UIColor.randomColor()
+        //imgView.backgroundColor = UIColor.randomColor()
         return imgView
     }()
     

@@ -95,7 +95,6 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = quoteControllers.firstIndex(of: viewController as! QuoteVC), index > 0 else { return nil }
         currentIndex = index
-//        prevIndex = index - 1
         let before = index - 1
         return quoteControllers[before]
     }
@@ -106,7 +105,6 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
             return nil
         }
         currentIndex = index
-//        prevIndex = index - 1
         let after = index + 1
         return quoteControllers[after]
     }
@@ -115,7 +113,6 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
         if completed {
             pageViewController.gestureRecognizers.forEach { recognizer in
                 if let recog = recognizer as? UIPanGestureRecognizer {
-                    print(recog.location(in: pageViewController.view))
                     currentX = recog.location(in: pageViewController.view).x
                 }
             }
@@ -135,7 +132,6 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         pageViewController.gestureRecognizers.forEach { recognizer in
             if let recog = recognizer as? UIPanGestureRecognizer {
-                print(recog.location(in: pageViewController.view))
                 prevX = recog.location(in: pageViewController.view).x
             }
         }

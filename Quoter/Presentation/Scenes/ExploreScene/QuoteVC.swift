@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class QuoteVC: UIViewController {
     
@@ -36,6 +37,21 @@ class QuoteVC: UIViewController {
             return
         }
         quoteView.quoteTextView.text = quoteVM.content
+        print(quoteVM.author)
+        QuoteManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.author)) { [weak self] result in
+            
+            guard let self = self else { return }
+            switch result {
+            case .success(let url):
+                self.quoteView.mainImageView.kf.setImage(with: url)
+            case .failure(let error):
+                print(error)
+            }
+        }
         view.layoutIfNeeded()
+    }
+    
+    private func convertAuthorName(name: String) -> String {
+        name.replacingOccurrences(of: " ", with: "_")
     }
 }

@@ -31,13 +31,33 @@ class QuoteManager: NetworkManager {
     }
     
     static func getRandomQuote(completion: @escaping (Result<QuoteVM, Error>) -> Void) {
-        getData(url: QuoteEndpoints.authors!, model: Resource(model: Quote.self)) { result in
+        getData(url: QuoteEndpoints.randomQuote!, model: Resource(model: Quote.self)) { result in
             switch result {
             case .success(let randomQuote):
                 completion(.success(QuoteVM(rootQuote: randomQuote)))
             case .failure(let error):
-                print(error)
                 completion(.failure(error))
+            }
+        }
+    }
+    
+    static func getAuthorImageURLUsingSlug(slug: String, comletion: @escaping (Result<URL, Error>) -> Void) {
+        print(slug)
+        guard let url = QuoteEndpoints.getAuthorImageURL(authorName: slug) else { return }
+        getData(url: url, model: Resource(model: Response.self)) { result in
+            switch result {
+            case .success(let response):
+                if let thumbnail = response.query?.pages?.first!.thumbnail {
+                    let urlString = thumbnail.source
+                    if let url = URL(string: urlString!) {
+                        comletion(.success(url))
+                    }
+                    else {
+                        comletion(.failure(UnwrapError.unwrapError))
+                    }
+                }
+            case .failure(let error):
+                comletion(.failure(error))
             }
         }
     }

@@ -10,6 +10,7 @@ import UIKit
 struct Quote: Codable {
     var content: String?
     var authorSlug: String?
+    var author: String?
 }
 
 struct QuoteVM {
@@ -22,5 +23,9 @@ struct QuoteVM {
     
     var authorSlug: String {
         rootQuote.authorSlug ?? "No Slug"
+    }
+    
+    var author: String {
+        rootQuote.author ?? "No Author Name"
     }
 }
