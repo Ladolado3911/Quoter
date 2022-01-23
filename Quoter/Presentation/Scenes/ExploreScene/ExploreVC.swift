@@ -15,73 +15,74 @@ class ExploreVC: UIViewController {
         }
     }
     
-    let pageVC: UIPageViewController = {
+    var isPresenting = false
+    
+    lazy var pageVC: UIPageViewController = {
         let pageVC = UIPageViewController(transitionStyle: .pageCurl,
                                           navigationOrientation: .horizontal,
                                           options: nil)
+        
+        pageVC.dataSource = self
+        pageVC.delegate = self
+          
         return pageVC
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .lightContent
-//        QuoteManager.getRandomQuote { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success(let quoteVM):
-//                let vc = QuoteVC()
-//                vc.quoteVM = quoteVM
-//                self.quoteControllers.append(vc)
-//                self.reloadPageVC()
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//        QuoteManager.getRandomQuote { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success(let quoteVM):
-//                let vc = QuoteVC()
-//                vc.quoteVM = quoteVM
-//                self.quoteControllers.append(vc)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
+        configPageVC()
+        let semaphore = DispatchSemaphore(value: 1)
+
+        QuoteManager.getRandomQuote { [weak self] result in
+            print("1")
+            guard let self = self else { return }
+            switch result {
+            case .success(let quoteVM):
+                print("success 1")
+                let vc = QuoteVC()
+                vc.quoteVM = quoteVM
+                self.quoteControllers.append(vc)
+                self.configPageVC()
+                self.pageVC.dismiss(animated: false) {
+                    self.present(self.pageVC, animated: false) {
+                        semaphore.signal()
+                    }
+                    //semaphore.signal()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        semaphore.wait()
+        
+        QuoteManager.getRandomQuote { [weak self] result in
+            print("2")
+            guard let self = self else { return }
+            switch result {
+            case .success(let quoteVM):
+                print("success 2")
+                let vc = QuoteVC()
+                vc.quoteVM = quoteVM
+                self.quoteControllers.append(vc)
+                self.configPageVC()
+                
+                self.pageVC.dismiss(animated: false) {
+                    self.present(self.pageVC, animated: false) {
+                        semaphore.signal()
+                    }
+                    //semaphore.signal()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        configPageVC()
-        present(pageVC, animated: false)
-        QuoteManager.getRandomQuote { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let quoteVM):
-                let vc = QuoteVC()
-//                vc.modalPresentationStyle = .overFullScreen
-//                vc.modalTransitionStyle = .crossDissolve
-                vc.quoteVM = quoteVM
-                self.quoteControllers.append(vc)
-                self.configPageVC()
-            case .failure(let error):
-                print(error)
-            }
-        }
-        QuoteManager.getRandomQuote { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let quoteVM):
-                let vc = QuoteVC()
-//                vc.modalPresentationStyle = .overFullScreen
-//                vc.modalTransitionStyle = .crossDissolve
-                vc.quoteVM = quoteVM
-                self.quoteControllers.append(vc)
-                self.configPageVC()
-            case .failure(let error):
-                print(error)
-            }
-        }
+
     }
     
     private func configPageVC() {
@@ -90,13 +91,16 @@ class ExploreVC: UIViewController {
         pageVC.modalTransitionStyle = .crossDissolve
         pageVC.modalPresentationStyle = .fullScreen
         
+//        pageVC.viewControllers?.forEach({ vc in
+//            vc.modalTransitionStyle = .crossDissolve
+//            vc.modalPresentationStyle = .fullScreen
+//        })
+    
         pageVC.setViewControllers([first],
                                   direction: .forward,
                                   animated: false,
                                   completion: nil)
 
-        pageVC.dataSource = self
-        pageVC.delegate = self
     }
 }
 
