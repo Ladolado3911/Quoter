@@ -8,96 +8,46 @@
 import UIKit
 import SnapKit
 
-enum TabbarItemViewState {
-    case on
-    case off
-}
-
-class TabbarItemView: UIView {
-    
-    var state: TabbarItemViewState = .off {
-        didSet {
-            if state != oldValue {
-                switch state {
-                case .on:
-                    itemNameLabel.textColor = .white
-                case .off:
-                    itemNameLabel.textColor = .black
-                }
-            }
-        }
-    }
-    
-    let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
-    
-    let itemNameLabel: UILabel = {
-       
-        let itemNameLabel = UILabel()
-        itemNameLabel.backgroundColor = .clear
-        
-        return itemNameLabel
-        
-    }()
-    
-    var icon: UIImage? = nil {
-        didSet {
-            imageView.image = icon
-        }
-    }
-    
-    var itemName: String? = nil {
-        didSet {
-            
-        }
-    }
-    
-    init(icon: UIImage, itemName: String) {
-        super.init(frame: .zero)
-        self.icon = icon
-        self.itemName = itemName
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        buildSubviews()
-        buildConstraints()
-    }
-    
-    private func buildSubviews() {
-        addSubview(imageView)
-        addSubview(itemNameLabel)
-    }
-    
-    private func buildConstraints() {
-        imageView.snp.makeConstraints { make in
-            make.top.left.right.equalTo(self)
-        }
-        itemNameLabel.snp.makeConstraints { make in
-            
-        }
-    }
-}
-
-class TabbarItem {
-    var itemView: TabbarItemView!
-    var controller: UIViewController!
+struct TabbarItem {
+    var itemView: TabbarItemView
+    var controller: UIViewController
 }
 
 class TabbarView: UIView {
     
-    
+    var tabbarItems: [TabbarItem] = []
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        backgroundColor = .white
+        layer.cornerRadius = bounds.width * 0.0858
+        initialSetup()
+    }
+    
+    private func initialSetup() {
         
+        // MARK: Constants
+        
+        let views = tabbarItems.map { $0.itemView }
+        let itemHeight = bounds.height * 0.833
+        let itemWidth = (bounds.width / CGFloat(views.count)) * 0.6
+        let itemY = bounds.height / 2 - (itemHeight / 2)
+        let distanceOnEdge: CGFloat = bounds.width * 0.134
+        let tabbarWidthWithoutEdges = bounds.width - (2 * distanceOnEdge)
+        let spaceBetweenItems: CGFloat = (tabbarWidthWithoutEdges - (CGFloat(views.count) * itemWidth)) / CGFloat((views.count - 1))
+        
+        // MARK: Variables
+        
+        var itemX: CGFloat = distanceOnEdge
+        
+        // MARK: For Loop
+        
+        for index in 0..<views.count {
+            let itemFrame = CGRect(x: itemX, y: itemY, width: itemWidth, height: itemHeight)
+            itemX += (CGFloat(index + 1) * (itemWidth + spaceBetweenItems))
+            tabbarItems[index].itemView.frame = itemFrame
+            addSubview(views[index])
+        }
     }
     
     

@@ -50,7 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func configureRootVC(with scene: UIWindowScene) {
         window = UIWindow(windowScene: scene)
-        let vc = ExploreVC()
+        let vc = TestVC()
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }
