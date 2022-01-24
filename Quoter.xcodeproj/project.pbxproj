@@ -33,6 +33,7 @@
 		24F51F0A279E85ED003057F7 /* Kalam-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F06279E85ED003057F7 /* Kalam-Light.ttf */; };
 		24F51F0B279E85ED003057F7 /* Kalam-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F07279E85ED003057F7 /* Kalam-Bold.ttf */; };
 		24F51F0C279E85ED003057F7 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F08279E85ED003057F7 /* OFL.txt */; };
+		24F51F10279EA378003057F7 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F51F0F279EA378003057F7 /* TabbarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		24F51F06279E85ED003057F7 /* Kalam-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kalam-Light.ttf"; sourceTree = "<group>"; };
 		24F51F07279E85ED003057F7 /* Kalam-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kalam-Bold.ttf"; sourceTree = "<group>"; };
 		24F51F08279E85ED003057F7 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		24F51F0F279EA378003057F7 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,10 +134,10 @@
 		24D1287127903ECD00AD7F3D /* Quoter */ = {
 			isa = PBXGroup;
 			children = (
-				24F51F04279E85ED003057F7 /* Kalam */,
 				24D1289827904D0E00AD7F3D /* AppColors.swift */,
 				24D128A22790AE0E00AD7F3D /* PublicConstants.swift */,
 				24D1288627903F5900AD7F3D /* App */,
+				24F51F0D279EA27F003057F7 /* Fonts */,
 				24CB9FE527930C1700E9D49F /* Models */,
 				24CB9FEA27930C2700E9D49F /* Managers */,
 				24CB9FE027930C0B00E9D49F /* Endpoints */,
@@ -190,6 +192,7 @@
 		24D1288C2790400100AD7F3D /* SharedElements */ = {
 			isa = PBXGroup;
 			children = (
+				24F51F0E279EA360003057F7 /* TabbarController */,
 			);
 			path = SharedElements;
 			sourceTree = "<group>";
@@ -211,6 +214,22 @@
 				24F51F08279E85ED003057F7 /* OFL.txt */,
 			);
 			path = Kalam;
+			sourceTree = "<group>";
+		};
+		24F51F0D279EA27F003057F7 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				24F51F04279E85ED003057F7 /* Kalam */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		24F51F0E279EA360003057F7 /* TabbarController */ = {
+			isa = PBXGroup;
+			children = (
+				24F51F0F279EA378003057F7 /* TabbarView.swift */,
+			);
+			path = TabbarController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,6 +328,7 @@
 				24BEA3E427986C08009DB491 /* QuoteVC.swift in Sources */,
 				24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */,
 				24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */,
+				24F51F10279EA378003057F7 /* TabbarView.swift in Sources */,
 				24CB9FED27930C2700E9D49F /* NetworkManager.swift in Sources */,
 				24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */,
 				24D1289927904D0E00AD7F3D /* AppColors.swift in Sources */,
