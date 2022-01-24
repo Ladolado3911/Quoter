@@ -12,23 +12,36 @@ class QuoteView: UIView {
     let mainImageView: UIImageView = {
         let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFill
-        //imgView.backgroundColor = UIColor.randomColor()
         return imgView
     }()
     
     let darkView: UIView = {
         let darkView = UIView()
-        darkView.backgroundColor = .black.withAlphaComponent(0.65)
+        darkView.backgroundColor = .black.withAlphaComponent(0.7)
         return darkView
     }()
     
-    let quoteTextView: UITextView = {
-        let quoteTextView = UITextView()
-        quoteTextView.isEditable = false
-        quoteTextView.isSelectable = false
+    let quoteTextView: UILabel = {
+        let quoteTextView = UILabel()
+        let font = UIFont(name: "Kalam-Regular", size: 35)
+        //font?.lineHeight = 30
+//        quoteTextView.isEditable = false
+//        quoteTextView.isSelectable = false
         quoteTextView.backgroundColor = .clear
-        quoteTextView.textColor = .blue
+        quoteTextView.textColor = .white
+        quoteTextView.font = font
+        quoteTextView.textAlignment = .center
+        quoteTextView.numberOfLines = 4
         return quoteTextView
+    }()
+    
+    let authorLabel: UILabel = {
+        let authorLabel = UILabel()
+        authorLabel.backgroundColor = .clear
+        authorLabel.textColor = .white
+        authorLabel.textAlignment = .center
+        authorLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 25)
+        return authorLabel
     }()
     
     override func layoutSubviews() {
@@ -41,6 +54,7 @@ class QuoteView: UIView {
         addSubview(mainImageView)
         addSubview(darkView)
         addSubview(quoteTextView)
+        addSubview(authorLabel)
     }
     
     private func buildConstraints() {
@@ -51,9 +65,12 @@ class QuoteView: UIView {
             make.left.right.top.bottom.equalTo(self)
         }
         quoteTextView.snp.makeConstraints { make in
-            make.left.right.equalTo(self).inset(36)
-            make.top.equalTo(self).inset(PublicConstants.screenHeight * 0.519)
-            make.bottom.equalTo(self).inset(100)
+            make.left.right.equalTo(self).inset(10)
+            make.center.equalTo(self)
+        }
+        authorLabel.snp.makeConstraints { make in
+            make.left.right.equalTo(self)
+            make.top.equalTo(quoteTextView.snp.bottom).inset(-40)
         }
     }
 }

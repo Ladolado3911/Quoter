@@ -14,7 +14,7 @@ struct QuoteEndpoints {
     }
     
     static var randomQuote: URL? {
-        URL(string: "https://api.quotable.io/random")
+        URL(string: "https://api.quotable.io/random?maxLength=50")
     }
     
     static func getAuthorImageURL(authorName: String) -> URL? {

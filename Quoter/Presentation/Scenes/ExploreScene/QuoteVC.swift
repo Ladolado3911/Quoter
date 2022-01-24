@@ -37,9 +37,8 @@ class QuoteVC: UIViewController {
             return
         }
         quoteView.quoteTextView.text = quoteVM.content
-        print(quoteVM.author)
+        quoteView.authorLabel.text = quoteVM.author
         QuoteManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.author)) { [weak self] result in
-            
             guard let self = self else { return }
             switch result {
             case .success(let url):
