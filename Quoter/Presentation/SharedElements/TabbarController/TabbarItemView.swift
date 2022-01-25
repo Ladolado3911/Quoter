@@ -70,6 +70,20 @@ class TabbarItemView: UIView {
         }
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    convenience init(icon: UIImage, itemName: String) {
+        self.init(frame: .zero)
+        self.imageView.image = icon
+        self.itemNameLabel.text = itemName
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         //sizeToFit()

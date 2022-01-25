@@ -50,7 +50,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func configureRootVC(with scene: UIWindowScene) {
         window = UIWindow(windowScene: scene)
-        let vc = TestVC()
+        let tabbarController = TabbarController()
+        tabbarController.addTabbarItem(item: TabbarItem(itemView: TabbarItemView(icon: UIImage(named: "explore2")!,
+                                                                                 itemName: "Explore"),
+                                                        controller: ExploreVC()))
+        tabbarController.addTabbarItem(item: TabbarItem(itemView: TabbarItemView(icon: UIImage(named: "person")!,
+                                                                                 itemName: "Profile"),
+                                                        controller: AuthorsVC()))
+        let vc = tabbarController
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }

@@ -90,35 +90,3 @@ class TabbarView: UIView {
         }
     }
 }
-
-class TabbarController: UIViewController {
-    
-    var tabbarView: TabbarView!
-    
-    lazy var onTapGesture: UITapGestureRecognizer = {
-        let onTapGesture = UITapGestureRecognizer(target: self,
-                                                  action: #selector(onTap(sender:)))
-        return onTapGesture
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addGestures()
-    }
-    
-    private func addGestures() {
-        tabbarView.tabbarItems.forEach { item in
-            item.itemView.addGestureRecognizer(onTapGesture)
-        }
-    }
-    
-    func setViewControllers(controllers: [UIViewController]) {
-        
-    }
-    
-    @objc func onTap(sender: UITapGestureRecognizer) {
-        if let senderView = sender.view as? TabbarItemView {
-            tabbarView.currentItemIndex = senderView.indexInTabbar
-        }
-    }
-}
