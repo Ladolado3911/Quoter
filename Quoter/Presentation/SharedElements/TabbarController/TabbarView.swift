@@ -17,8 +17,7 @@ class TabbarView: UIView {
     
     var tabbarItems: [TabbarItem] = []
     var currentItemIndex: Int = 1
-    var movingRectX: CGFloat = 0
-    
+
     let movingRectView: UIView = {
         let movingRectView = UIView()
         movingRectView.backgroundColor = .black
@@ -33,6 +32,7 @@ class TabbarView: UIView {
         backgroundColor = .white
         layer.cornerRadius = PublicConstants.screenHeight * 0.0352
         initialSetup()
+        setPagesToItems()
     }
     
     private func initialSetup() {
@@ -58,7 +58,7 @@ class TabbarView: UIView {
         // MARK: Variables
         
         var itemX: CGFloat = distanceOnEdge
-//        var movingRectX: CGFloat = 0
+        var movingRectX: CGFloat = 0
         
         // MARK: For Loop
         
@@ -81,6 +81,44 @@ class TabbarView: UIView {
             addSubview(views[index])
             addSubview(movingRectView)
             sendSubviewToBack(movingRectView)
+        }
+    }
+    
+    private func setPagesToItems() {
+        for index in 0..<tabbarItems.count {
+            tabbarItems[index].itemView.indexInTabbar = index
+        }
+    }
+}
+
+class TabbarController: UIViewController {
+    
+    var tabbarView: TabbarView!
+    
+    lazy var onTapGesture: UITapGestureRecognizer = {
+        let onTapGesture = UITapGestureRecognizer(target: self,
+                                                  action: #selector(onTap(sender:)))
+        return onTapGesture
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addGestures()
+    }
+    
+    private func addGestures() {
+        tabbarView.tabbarItems.forEach { item in
+            item.itemView.addGestureRecognizer(onTapGesture)
+        }
+    }
+    
+    func setViewControllers(controllers: [UIViewController]) {
+        
+    }
+    
+    @objc func onTap(sender: UITapGestureRecognizer) {
+        if let senderView = sender.view as? TabbarItemView {
+            tabbarView.currentItemIndex = senderView.indexInTabbar
         }
     }
 }

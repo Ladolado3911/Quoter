@@ -30,6 +30,7 @@ class TestVC: UIViewController {
         
         view.addSubview(tabbarView)
         
+        
         tabbarView.snp.makeConstraints { make in
             make.left.right.equalTo(view).inset(20)
             make.bottom.equalTo(view).inset(20)

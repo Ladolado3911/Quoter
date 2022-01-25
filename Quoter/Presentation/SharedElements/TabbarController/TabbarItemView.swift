@@ -15,18 +15,22 @@ enum TabbarItemViewState {
 
 class TabbarItemView: UIView {
     
+    var indexInTabbar: Int = 0
+    
     var state: TabbarItemViewState = .off {
         didSet {
             if state != oldValue {
+                let origImage = imageView.image
+                let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+                imageView.image = nil
+                imageView.image = tintedImage
                 switch state {
                 case .on:
                     itemNameLabel.textColor = .white
-                    imageView.image = nil
-                    imageView.image = UIImage(named: "explore1")
+                    imageView.tintColor = .white
                 case .off:
                     itemNameLabel.textColor = .black
-                    imageView.image = nil
-                    imageView.image = UIImage(named: "explore2")
+                    imageView.tintColor = .black
                 }
             }
         }
