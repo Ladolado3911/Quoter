@@ -36,12 +36,14 @@ class TabbarItemView: UIView {
     
     private let itemNameLabel: UILabel = {
         let itemNameLabel = UILabel()
-        let font = UIFont(name: "Roboto-Regular", size: 18)
+        let font = UIFont(name: "Roboto-Bold", size: PublicConstants.screenHeight * 0.02288)
         itemNameLabel.backgroundColor = .clear
         itemNameLabel.textAlignment = .center
         itemNameLabel.textColor = .black
         itemNameLabel.text = "default"
         itemNameLabel.font = font
+        itemNameLabel.adjustsFontForContentSizeCategory = true
+        itemNameLabel.adjustsFontSizeToFitWidth = true
         //itemNameLabel.sizeToFit()
         return itemNameLabel
     }()

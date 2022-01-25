@@ -20,7 +20,7 @@ class TabbarView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = .white
-        layer.cornerRadius = bounds.width * 0.0858
+        layer.cornerRadius = PublicConstants.screenHeight * 0.0352
         initialSetup()
     }
     
@@ -49,6 +49,4 @@ class TabbarView: UIView {
             addSubview(views[index])
         }
     }
-    
-    
 }
