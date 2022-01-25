@@ -16,7 +16,7 @@ struct TabbarItem {
 class TabbarView: UIView {
     
     var tabbarItems: [TabbarItem] = []
-    var currentItemIndex: Int = 0
+    var currentItemIndex: Int = 1
     var movingRectX: CGFloat = 0
     
     let movingRectView: UIView = {
@@ -64,12 +64,12 @@ class TabbarView: UIView {
         
         for index in 0..<views.count {
             let itemFrame = CGRect(x: itemX, y: itemY, width: itemWidth, height: itemHeight)
-            itemX += (CGFloat(index + 1) * (itemWidth + spaceBetweenItems))
 
             if index == currentItemIndex {
                 tabbarItems[index].itemView.state = .on
                 movingRectX = ((itemX + (itemWidth / 2)) - (movingRectWidth / 2))
             }
+            itemX += (CGFloat(index + 1) * (itemWidth + spaceBetweenItems))
             
             let movingRectFrame = CGRect(x: movingRectX,
                                          y: movingRectY,
