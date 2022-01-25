@@ -21,8 +21,12 @@ class TabbarItemView: UIView {
                 switch state {
                 case .on:
                     itemNameLabel.textColor = .white
+                    imageView.image = nil
+                    imageView.image = UIImage(named: "explore1")
                 case .off:
                     itemNameLabel.textColor = .black
+                    imageView.image = nil
+                    imageView.image = UIImage(named: "explore2")
                 }
             }
         }
