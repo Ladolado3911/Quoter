@@ -48,9 +48,12 @@ class TabbarController: UIViewController {
     }
 
     func addTabbarItem(item: TabbarItem) {
+        let newItem = item
         let controller = item.controller
-        tabbarView.tabbarItems.append(item)
-        tabbarView.tabbarItems.last!.itemView.addGestureRecognizer(onTapGesture)
+        newItem.itemView.addGestureRecognizer(onTapGesture)
+        tabbarView.tabbarItems.append(newItem)
+        //tabbarView.tabbarItems.last!.itemView.addGestureRecognizer(onTapGesture)
+        print(item.itemView.itemName)
         if let control = controller as? ExploreVC {
             addChildController(controller: control)
         }
@@ -75,9 +78,9 @@ class TabbarController: UIViewController {
     }
     
     @objc func onTap(sender: UITapGestureRecognizer) {
-        if let senderView = sender.view as? TabbarItemView {
-            tabbarView.currentItemIndex = senderView.indexInTabbar
-        }
+//        if let senderView = sender.view as? TabbarItemView {
+//            tabbarView.currentItemIndex = senderView.indexInTabbar
+//        }
         print("clicked")
     }
 }
