@@ -34,6 +34,13 @@ class TabbarController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
+        view.addSubview(tabbarView)
+
+        tabbarView.snp.makeConstraints { make in
+            make.left.right.equalTo(view).inset(20)
+            make.bottom.equalTo(view).inset(20)
+            make.height.equalTo(PublicConstants.screenHeight * 0.0739)
+        }
     }
     
     private func switchToPage(page: Int) {
@@ -44,22 +51,27 @@ class TabbarController: UIViewController {
         let controller = item.controller
         tabbarView.tabbarItems.append(item)
         tabbarView.tabbarItems.last!.itemView.addGestureRecognizer(onTapGesture)
-        //addChild(controller)
-        
-        item.controller.view.tag = tabbarView.tabbarItems.count - 1
-        if tabbarView.tabbarItems.count - 1 == 0 {
-            let newView = controller.view!
-            view.addSubview(newView)
-            view.sendSubviewToBack(newView)
+        if let control = controller as? ExploreVC {
+            addChildController(controller: control)
         }
-        view.addSubview(tabbarView)
-
-        tabbarView.snp.makeConstraints { make in
-            make.left.right.equalTo(view).inset(20)
-            make.bottom.equalTo(view).inset(20)
-            make.height.equalTo(PublicConstants.screenHeight * 0.0739)
-        }
+    }
+    
+    func addChildController(controller: UIViewController) {
+        addChild(controller)
+        view.addSubview(controller.view)
+        controller.view.frame = view.bounds
+        controller.didMove(toParent: self)
         view.bringSubviewToFront(tabbarView)
+    }
+    
+    func removeChildController(controller: UIViewController) {
+        controller.removeFromParent()
+        view.subviews.forEach { subview in
+            if subview === controller.view {
+                subview.removeFromSuperview()
+            }
+        }
+        controller.didMove(toParent: self)
     }
     
     @objc func onTap(sender: UITapGestureRecognizer) {

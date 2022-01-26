@@ -47,11 +47,14 @@ class ExploreVC: UIViewController {
                 vc.quoteVM = quoteVM
                 self.quoteControllers.append(vc)
                 self.configPageVC()
-                self.pageVC.dismiss(animated: false) {
-                    self.present(self.pageVC, animated: false) {
-                        semaphore.signal()
-                    }
-                }
+                (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
+                semaphore.signal()
+//                self.pageVC.dismiss(animated: false) {
+//                    //self.configPageVC()
+////                    self.present(self.pageVC, animated: false) {
+////                        semaphore.signal()
+////                    }
+//                }
             case .failure(let error):
                 print(error)
             }
@@ -68,11 +71,12 @@ class ExploreVC: UIViewController {
                 vc.quoteVM = quoteVM
                 self.quoteControllers.append(vc)
                 //self.configPageVC()
-                self.pageVC.dismiss(animated: false) {
-                    self.present(self.pageVC, animated: false) {
-                        //semaphore.signal()
-                    }
-                }
+                (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
+//                self.pageVC.dismiss(animated: false) {
+//                    self.present(self.pageVC, animated: false) {
+//                        //semaphore.signal()
+//                    }
+//                }
             case .failure(let error):
                 print(error)
             }

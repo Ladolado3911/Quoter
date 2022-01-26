@@ -302,8 +302,8 @@
             filePath = "Quoter/Presentation/SharedElements/TabbarController/TabbarController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "addTabbarItem(item:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -311,16 +311,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1C49579E-A597-43B7-BD43-19B387790219"
+            uuid = "1F0F7613-5F76-4422-8EAB-14D9D4DD2F85"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/SharedElements/TabbarController/TabbarController.swift"
+            filePath = "Quoter/Presentation/Scenes/ExploreScene/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "addTabbarItem(item:)"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "getRandomQuote(semaphore:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E23E9BB7-FA8D-42E4-8A5A-1C19E72149F8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quoter/Presentation/Scenes/ExploreScene/ExploreVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "getRandomQuote(semaphore:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "37761A7A-48CA-40E7-953A-00A61D3A6073"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quoter/Presentation/Scenes/ExploreScene/ExploreVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "getRandomQuote(semaphore:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
