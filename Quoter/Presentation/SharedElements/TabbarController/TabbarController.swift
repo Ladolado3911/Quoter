@@ -25,12 +25,6 @@ class TabbarController: UIViewController {
         tabbarView.tabbarItems.map { $0.itemView }
     }
 //
-    lazy var onTapGesture: UITapGestureRecognizer = {
-        let onTapGesture = UITapGestureRecognizer(target: self,
-                                                  action: #selector(onTap(sender:)))
-        return onTapGesture
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
@@ -50,10 +44,9 @@ class TabbarController: UIViewController {
     func addTabbarItem(item: TabbarItem) {
         let newItem = item
         let controller = item.controller
-        newItem.itemView.addGestureRecognizer(onTapGesture)
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(onTap(sender:)))
+        newItem.itemView.addGestureRecognizer(gesture)
         tabbarView.tabbarItems.append(newItem)
-        //tabbarView.tabbarItems.last!.itemView.addGestureRecognizer(onTapGesture)
-        print(item.itemView.itemName)
         if let control = controller as? ExploreVC {
             addChildController(controller: control)
         }
