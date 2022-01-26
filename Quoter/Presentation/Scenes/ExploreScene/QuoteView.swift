@@ -40,7 +40,7 @@ class QuoteView: UIView {
         authorLabel.backgroundColor = .clear
         authorLabel.textColor = .white
         authorLabel.textAlignment = .center
-        authorLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 25)
+        authorLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 18)
         return authorLabel
     }()
     
@@ -65,7 +65,7 @@ class QuoteView: UIView {
             make.left.right.top.bottom.equalTo(self)
         }
         quoteTextView.snp.makeConstraints { make in
-            make.left.right.equalTo(self).inset(10)
+            make.left.right.equalTo(self).inset(20)
             make.center.equalTo(self)
         }
         authorLabel.snp.makeConstraints { make in

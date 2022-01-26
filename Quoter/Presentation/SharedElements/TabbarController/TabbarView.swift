@@ -16,7 +16,7 @@ struct TabbarItem {
 class TabbarView: UIView {
     
     var tabbarItems: [TabbarItem] = []
-    var currentItemIndex: Int = 1
+    var currentItemIndex: Int = 0
 
     let movingRectView: UIView = {
         let movingRectView = UIView()
