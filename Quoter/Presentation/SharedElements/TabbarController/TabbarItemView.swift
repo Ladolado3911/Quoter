@@ -26,11 +26,11 @@ class TabbarItemView: UIView {
                 imageView.image = tintedImage
                 switch state {
                 case .on:
-                    itemNameLabel.textColor = .white
-                    imageView.tintColor = .white
-                case .off:
                     itemNameLabel.textColor = .black
                     imageView.tintColor = .black
+                case .off:
+                    itemNameLabel.textColor = .white
+                    imageView.tintColor = .white
                 }
             }
         }

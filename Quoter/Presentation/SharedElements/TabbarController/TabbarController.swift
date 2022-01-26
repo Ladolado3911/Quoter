@@ -71,10 +71,11 @@ class TabbarController: UIViewController {
     }
     
     @objc func onTap(sender: UITapGestureRecognizer) {
-//        if let senderView = sender.view as? TabbarItemView {
-//            tabbarView.currentItemIndex = senderView.indexInTabbar
-//        }
-        print("clicked")
+        if let senderView = sender.view as? TabbarItemView {
+            tabbarView.currentItemIndex = senderView.indexInTabbar
+//            tabbarView.layoutIfNeeded()
+        }
+        //print("clicked")
     }
 }
 

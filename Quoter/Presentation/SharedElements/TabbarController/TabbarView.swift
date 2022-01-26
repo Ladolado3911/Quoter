@@ -16,7 +16,11 @@ struct TabbarItem {
 class TabbarView: UIView {
     
     var tabbarItems: [TabbarItem] = []
-    var currentItemIndex: Int = 0
+    var currentItemIndex: Int = 0 {
+        didSet {
+            layoutSubviews()
+        }
+    }
 
     let movingRectView: UIView = {
         let movingRectView = UIView()
