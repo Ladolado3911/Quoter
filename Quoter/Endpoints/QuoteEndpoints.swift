@@ -7,6 +7,8 @@
 
 import UIKit
 
+let pixabayApiKey = "23037768-717e451d8c6f76d8ebd54cf9d"
+
 struct QuoteEndpoints {
     
     static var authors: URL? {
@@ -15,6 +17,10 @@ struct QuoteEndpoints {
     
     static var randomQuote: URL? {
         URL(string: "https://api.quotable.io/random?maxLength=50")
+    }
+    
+    static var getRandomImageURL: URL? {
+        URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&category=nature")
     }
     
     static func getAuthorImageURL(authorName: String) -> URL? {
