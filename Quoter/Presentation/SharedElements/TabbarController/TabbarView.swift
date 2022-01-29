@@ -77,19 +77,32 @@ class TabbarView: UIView {
                     }
                 }
                 movingRectX = ((itemX + (itemWidth / 2)) - (movingRectWidth / 2))
+                
+                let movingRectFrame = CGRect(x: movingRectX,
+                                             y: movingRectY,
+                                             width: movingRectWidth,
+                                             height: movingRectHeight)
+                
+                UIView.animate(withDuration: 0.3) {
+                    self.movingRectView.frame = movingRectFrame
+                }
+                
+//                movingRectView.frame = movingRectFrame
+                addSubview(movingRectView)
+                sendSubviewToBack(movingRectView)
             }
             itemX += (CGFloat(index + 1) * (itemWidth + spaceBetweenItems))
-            
-            let movingRectFrame = CGRect(x: movingRectX,
-                                         y: movingRectY,
-                                         width: movingRectWidth,
-                                         height: movingRectHeight)
+//
+//            let movingRectFrame = CGRect(x: movingRectX,
+//                                         y: movingRectY,
+//                                         width: movingRectWidth,
+//                                         height: movingRectHeight)
             
             tabbarItems[index].itemView.frame = itemFrame
-            movingRectView.frame = movingRectFrame
+//            movingRectView.frame = movingRectFrame
             addSubview(views[index])
-            addSubview(movingRectView)
-            sendSubviewToBack(movingRectView)
+//            addSubview(movingRectView)
+//            sendSubviewToBack(movingRectView)
         }
     }
     
