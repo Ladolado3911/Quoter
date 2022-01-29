@@ -71,6 +71,11 @@ class TabbarView: UIView {
 
             if index == currentItemIndex {
                 tabbarItems[index].itemView.state = .on
+                for itemIndex in 0..<tabbarItems.count {
+                    if itemIndex != index {
+                        tabbarItems[itemIndex].itemView.state = .off
+                    }
+                }
                 movingRectX = ((itemX + (itemWidth / 2)) - (movingRectWidth / 2))
             }
             itemX += (CGFloat(index + 1) * (itemWidth + spaceBetweenItems))
