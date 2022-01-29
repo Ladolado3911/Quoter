@@ -26,12 +26,14 @@ class TabbarItemView: UIView {
                 imageView.image = tintedImage
                 switch state {
                 case .on:
-                    UIView.animate(withDuration: 0.3) {
+                    UIView.animate(withDuration: 0.3) { [weak self] in
+                        guard let self = self else { return }
                         self.itemNameLabel.textColor = .white
                         self.imageView.tintColor = .white
                     }
                 case .off:
-                    UIView.animate(withDuration: 0.3) {
+                    UIView.animate(withDuration: 0.3) { [weak self] in
+                        guard let self = self else { return }
                         self.itemNameLabel.textColor = .black
                         self.imageView.tintColor = .black
                     }

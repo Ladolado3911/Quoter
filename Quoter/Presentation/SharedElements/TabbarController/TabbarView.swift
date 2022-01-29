@@ -83,7 +83,8 @@ class TabbarView: UIView {
                                              width: movingRectWidth,
                                              height: movingRectHeight)
                 
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: 0.3) { [weak self] in
+                    guard let self = self else { return }
                     self.movingRectView.frame = movingRectFrame
                 }
                 
