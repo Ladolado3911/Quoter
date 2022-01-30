@@ -8,16 +8,16 @@
 import UIKit
 import SnapKit
 
-enum TabbarItemViewState {
-    case on
-    case off
-}
+//enum TabbarItemViewState {
+//    case on
+//    case off
+//}
 
 class TabbarItemView: UIView {
     
     var indexInTabbar: Int = 0
     
-    var state: TabbarItemViewState = .off {
+    var state: State = .off {
         didSet {
             if state != oldValue {
                 let origImage = imageView.image

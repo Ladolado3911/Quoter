@@ -54,8 +54,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabbarController.addTabbarItem(item: TabbarItem(itemView: TabbarItemView(icon: UIImage(named: "explore2")!,
                                                                                  itemName: "Explore"),
                                                         controller: ExploreVC()))
-        tabbarController.addTabbarItem(item: TabbarItem(itemView: TabbarItemView(icon: UIImage(named: "person")!,
-                                                                                 itemName: "Profile"),
+        tabbarController.addTabbarItem(item: TabbarItem(itemView: TabbarItemView(icon: UIImage(named: "IdeaTabbar")!,
+                                                                                 itemName: "Favorites"),
                                                         controller: AuthorsVC()))
         let vc = tabbarController
         window?.rootViewController = vc
