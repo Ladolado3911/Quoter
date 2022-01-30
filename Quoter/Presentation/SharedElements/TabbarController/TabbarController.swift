@@ -14,6 +14,8 @@ class TabbarController: UIViewController {
     let tabbarItemsSubject = PassthroughSubject<TabbarItem, Never>()
     var cancellables: Set<AnyCancellable> = []
     
+    var prevIndex: Int?
+    
     var tabbarView: TabbarView = TabbarView()
 //    var tabbarItems: [TabbarItem] = []
 //    var currentItemIndex: Int = 1
@@ -39,6 +41,7 @@ class TabbarController: UIViewController {
     
     private func switchToPage(page: Int) {
         tabbarView.currentItemIndex = page
+        print(#function)
     }
 
     func addTabbarItem(item: TabbarItem) {
@@ -71,11 +74,13 @@ class TabbarController: UIViewController {
     }
     
     @objc func onTap(sender: UITapGestureRecognizer) {
+        //removeChildController(controller: <#T##UIViewController#>)
         if let senderView = sender.view as? TabbarItemView {
+            let arr = tabbarView.tabbarItems
+            removeChildController(controller: arr[tabbarView.currentItemIndex].controller)
+            addChildController(controller: arr[senderView.indexInTabbar].controller)
             tabbarView.currentItemIndex = senderView.indexInTabbar
-//            tabbarView.layoutIfNeeded()
         }
-        //print("clicked")
     }
 }
 
