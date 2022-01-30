@@ -27,8 +27,15 @@ class ExploreVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .lightContent
+//        configPageVC()
+//        setUpInitialDataForPageController()
         configPageVC()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         setUpInitialDataForPageController()
+        configPageVC()
     }
     
     private func setUpInitialDataForPageController() {

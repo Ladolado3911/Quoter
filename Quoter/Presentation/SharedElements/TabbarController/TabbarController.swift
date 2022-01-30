@@ -17,8 +17,6 @@ class TabbarController: UIViewController {
     var prevIndex: Int?
     
     var tabbarView: TabbarView = TabbarView()
-//    var tabbarItems: [TabbarItem] = []
-//    var currentItemIndex: Int = 1
     var viewControllers: [UIViewController] {
         tabbarView.tabbarItems.map { $0.controller }
     }
@@ -26,7 +24,7 @@ class TabbarController: UIViewController {
     var itemViews: [TabbarItemView] {
         tabbarView.tabbarItems.map { $0.itemView }
     }
-//
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
@@ -74,7 +72,6 @@ class TabbarController: UIViewController {
     }
     
     @objc func onTap(sender: UITapGestureRecognizer) {
-        //removeChildController(controller: <#T##UIViewController#>)
         if let senderView = sender.view as? TabbarItemView {
             let arr = tabbarView.tabbarItems
             removeChildController(controller: arr[tabbarView.currentItemIndex].controller)

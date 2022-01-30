@@ -76,7 +76,7 @@ class AuthorsView: UIView {
         }
         authorsContentView.snp.makeConstraints { make in
             make.left.right.bottom.equalTo(self)
-            make.height.equalTo(PublicConstants.screenHeight * 0.382)
+            make.height.equalTo(PublicConstants.screenHeight * 0.5299)
         }
     }
 }

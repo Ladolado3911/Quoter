@@ -37,7 +37,6 @@
 		24F51F0B279E85ED003057F7 /* Kalam-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F07279E85ED003057F7 /* Kalam-Bold.ttf */; };
 		24F51F0C279E85ED003057F7 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F08279E85ED003057F7 /* OFL.txt */; };
 		24F51F10279EA378003057F7 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F51F0F279EA378003057F7 /* TabbarView.swift */; };
-		24F51F12279EB23F003057F7 /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F51F11279EB23F003057F7 /* TestVC.swift */; };
 		24F51F21279EB7CE003057F7 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F14279EB7CE003057F7 /* Roboto-Medium.ttf */; };
 		24F51F22279EB7CE003057F7 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F15279EB7CE003057F7 /* Roboto-Light.ttf */; };
 		24F51F23279EB7CE003057F7 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F16279EB7CE003057F7 /* Roboto-Regular.ttf */; };
@@ -85,7 +84,6 @@
 		24F51F07279E85ED003057F7 /* Kalam-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kalam-Bold.ttf"; sourceTree = "<group>"; };
 		24F51F08279E85ED003057F7 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		24F51F0F279EA378003057F7 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
-		24F51F11279EB23F003057F7 /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
 		24F51F14279EB7CE003057F7 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		24F51F15279EB7CE003057F7 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		24F51F16279EB7CE003057F7 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 				24BEA3DD27985FEE009DB491 /* ExploreVC.swift */,
 				24BEA3E327986C08009DB491 /* QuoteVC.swift */,
 				24BEA3DF2798601A009DB491 /* QuoteView.swift */,
-				24F51F11279EB23F003057F7 /* TestVC.swift */,
 			);
 			path = ExploreScene;
 			sourceTree = "<group>";
@@ -390,7 +387,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				24F51F2F279EEB12003057F7 /* TabbarItemView.swift in Sources */,
-				24F51F12279EB23F003057F7 /* TestVC.swift in Sources */,
 				24D128972790491500AD7F3D /* UIColor+Extension.swift in Sources */,
 				24D1287727903ECD00AD7F3D /* AuthorsVC.swift in Sources */,
 				24D128A12790AD0500AD7F3D /* AuthorsContentView.swift in Sources */,

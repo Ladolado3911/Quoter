@@ -14,8 +14,8 @@ class AuthorsVC: UIViewController {
     var data3: [AuthorVM] = []
     
     lazy var data3Subject = CurrentValueSubject<[AuthorVM], Never>(data3)
-    let mainImageSubject = CurrentValueSubject<UIImage, Never>(UIImage(named: "avatar")!)
-    let mainTitle = CurrentValueSubject<String, Never>("Avatar")
+    let mainImageSubject = CurrentValueSubject<UIImage, Never>(UIImage(named: "book")!)
+    let mainTitle = CurrentValueSubject<String, Never>("Select Author")
     
     lazy var sendMainImagetoSubject: (UIImage) -> Void = { [weak self] image in
         guard let self = self else { return }
@@ -120,7 +120,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: PublicConstants.screenWidth * 0.25,
-               height: authorsView.authorsContentView.bounds.height * 0.447)
+               height: authorsView.authorsContentView.bounds.height * 0.322)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -132,7 +132,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: collectionView.bounds.height - (authorsView.authorsContentView.bounds.height * 0.447),
+        UIEdgeInsets(top: collectionView.bounds.height - (authorsView.authorsContentView.bounds.height * 0.322),
                      left: PublicConstants.screenWidth * 0.04,
                      bottom: 0,
                      right: PublicConstants.screenWidth * 0.04)
@@ -145,8 +145,8 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         switch itemState {
         case .on:
             data3[indexPath.item].turnOff(isChanging: true)
-            mainImageSubject.send(UIImage(named: "avatar")!)
-            mainTitle.send("Avatar")
+            mainImageSubject.send(UIImage(named: "book")!)
+            mainTitle.send("Select Author")
         case .off:
             let filtered = data3.filter { $0 !== data3[indexPath.item] }
             for vm in 0..<filtered.count {
