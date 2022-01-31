@@ -42,6 +42,8 @@ class QuoteVC: UIViewController {
         super.viewDidAppear(animated)
         //print(quoteView.ideaImageView.gestureRecognizers)
         //CoreDataManager.clearQuotesAndAuthors()
+        //print(CoreDataManager.getQuote(quoteVM: quoteVM!)?.content)
+        CoreDataManager.printCoreDataItems()
     }
     
     private func configWithVM() {
@@ -80,12 +82,13 @@ class QuoteVC: UIViewController {
         case .on:
             quoteView.ideaImageView.state = .off
             // remove specified quote from core data
-            
+            CoreDataManager.removePair(quoteVM: quoteVM)
             
         case .off:
             quoteView.ideaImageView.state = .on
             // add specified quote to core data
             CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: image.pngData())
         }
+        CoreDataManager.printCoreDataItems()
     }
 }

@@ -3,15 +3,15 @@
     <entity name="AuthorCore" representedClassName="AuthorCore" syncable="YES" codeGenerationType="class">
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="relationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QuoteCore" inverseName="relationship" inverseEntity="QuoteCore"/>
+        <relationship name="relationship" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QuoteCore" inverseName="relationship" inverseEntity="QuoteCore"/>
     </entity>
     <entity name="QuoteCore" representedClassName="QuoteCore" syncable="YES" codeGenerationType="class">
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AuthorCore" inverseName="relationship" inverseEntity="AuthorCore"/>
+        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="AuthorCore" inverseName="relationship" inverseEntity="AuthorCore"/>
     </entity>
     <elements>
-        <element name="QuoteCore" positionX="-63" positionY="-18" width="128" height="74"/>
         <element name="AuthorCore" positionX="-54" positionY="9" width="128" height="74"/>
+        <element name="QuoteCore" positionX="-63" positionY="-18" width="128" height="74"/>
     </elements>
 </model>
