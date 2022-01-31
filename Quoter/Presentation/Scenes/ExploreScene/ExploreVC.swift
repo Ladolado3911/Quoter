@@ -46,7 +46,7 @@ class ExploreVC: UIViewController {
     }
     
     private func getRandomQuote(semaphore: DispatchSemaphore) {
-        QuoteManager.getRandomQuote { [weak self] result in
+        QuoteManager.getRandomQuote(maxLength: Int(PublicConstants.screenHeight * 0.088)) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let quoteVM):
@@ -70,7 +70,7 @@ class ExploreVC: UIViewController {
     
     private func getRandomQuote() {
         print(#function)
-        QuoteManager.getRandomQuote { [weak self] result in
+        QuoteManager.getRandomQuote(maxLength: Int(PublicConstants.screenHeight * 0.088)) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let quoteVM):

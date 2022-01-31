@@ -14,13 +14,13 @@ struct QuoteEndpoints {
     static var authors: URL? {
         URL(string: "https://quotable.io/authors?sortBy=quoteCount&order=desc")
     }
-    
-    static var randomQuote: URL? {
-        URL(string: "https://api.quotable.io/random?maxLength=50")
-    }
-    
+
     static var getRandomImageURL: URL? {
         URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&category=nature")
+    }
+    
+    static func randomQuote(maxLength: Int) -> URL? {
+        URL(string: "https://api.quotable.io/random?maxLength=\(maxLength)")
     }
     
     static func getAuthorImageURL(authorName: String) -> URL? {
