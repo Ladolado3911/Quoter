@@ -12,10 +12,10 @@ class AuthorsContentView: UIView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Select Quoter"
+        label.text = "Favorites"
         label.textColor = .black
         label.textAlignment = .center
-        label.font = UIFont(name: "Arial Rounded MT Bold", size: 18)
+        label.font = UIFont(name: "Arial Rounded MT Bold", size: 23)
         return label
     }()
     
@@ -66,14 +66,17 @@ class AuthorsContentView: UIView {
         titleLabel.snp.makeConstraints { make in
             make.left.right.equalTo(self)
             make.top.equalTo(self).inset(PublicConstants.screenHeight * 0.0246)
+            make.bottom.equalTo(collectionView.snp.top)
+            //make.height.equalTo(<#T##other: ConstraintRelatableTarget##ConstraintRelatableTarget#>)
         }
         collectionView.snp.makeConstraints { make in
             make.left.right.equalTo(self)
-            make.bottom.equalTo(setQuoteButton.snp.top).inset(-20)
-            make.top.equalTo(titleLabel.snp.bottom).inset(-PublicConstants.screenHeight * 0.03)
+            make.bottom.equalTo(setQuoteButton.snp.top).inset(-PublicConstants.screenHeight * 0.02)
+           // make.top.equalTo(titleLabel.snp.bottom)//.inset(-PublicConstants.screenHeight * 0.03)
+            //make.height.equalTo(PublicConstants.screenHeight * 0.1919)
         }
         setQuoteButton.snp.makeConstraints { make in
-            make.bottom.equalTo(blackBackgroundView.snp.top).inset(-20)
+            make.bottom.equalTo(blackBackgroundView.snp.top).inset(-PublicConstants.screenHeight * 0.03521126)
             make.centerX.equalTo(self)
             make.width.equalTo(PublicConstants.screenWidth * 0.625)
         }

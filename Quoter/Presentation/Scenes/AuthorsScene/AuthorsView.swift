@@ -12,7 +12,7 @@ class AuthorsView: UIView {
     
     lazy var mainImageView: UIImageView = {
         let width = PublicConstants.screenWidth
-        let height = PublicConstants.screenHeight * 0.732
+        let height = PublicConstants.screenHeight * 0.6
         let x: CGFloat = 0
         let y: CGFloat = 0
         let frame = CGRect(x: x, y: y, width: width, height: height)
@@ -44,7 +44,7 @@ class AuthorsView: UIView {
     let quoterNameLabel: UILabel = {
         let label = UILabel()
         label.text = "A. A. Milne"
-        label.font = UIFont(name: "Arial Rounded MT Bold", size: 40)
+        label.font = UIFont(name: "Arial Rounded MT Bold", size: 30)
         label.textAlignment = .center
         label.textColor = .white
         return label
