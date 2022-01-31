@@ -28,8 +28,26 @@ class CoreDataManager {
             arr.forEach { core in
                 context.delete(core)
             }
+            try context.save()
             print(try context.fetch(requestQuotes))
             print(try context.fetch(requestAuthors))
+        }
+        catch {
+            print(error)
+        }
+    }
+    
+    static func deleteQuote(quoteVM: QuoteVM) {
+        guard let context = context else { return }
+        let requestQuotes = NSFetchRequest<QuoteCore>(entityName: "QuoteCore")
+        do {
+            let quotes = try context.fetch(requestQuotes)
+            for quote in quotes {
+                if quote.content == quoteVM.content {
+                    context.delete(quote)
+                }
+            }
+            try context.save()
         }
         catch {
             print(error)
@@ -76,7 +94,7 @@ class CoreDataManager {
         }
     }
     
-    static func getAuthor(authorName: String) -> NSManagedObject? {
+    static func getAuthor(authorName: String) -> AuthorCore? {
         guard let context = context else { return nil }
         
         let requestAuthors = NSFetchRequest<AuthorCore>(entityName: "AuthorCore")
@@ -85,7 +103,7 @@ class CoreDataManager {
             let authors = try context.fetch(requestAuthors)
             for authorCore in authors {
                 if authorCore.name == authorName {
-                    return authorCore
+                    return authorCore as? AuthorCore
                 }
             }
             return nil
@@ -113,7 +131,7 @@ class CoreDataManager {
             // get author and add this quote to that author
             if let authorObject = CoreDataManager.getAuthor(authorName: quoteVM.author) {
                 quote.content = quoteVM.content
-                authorObject.q
+                authorObject.addToRelationship(quote)
                 do {
                     try context.save()
                 }
@@ -124,29 +142,22 @@ class CoreDataManager {
         }
         else if !isAuthorInCore && isQuoteInCore {
             print("AUTHOR IS NOT IN CORE AND QUOTE IS IN CORE. DELETE RUBBISH QUOTE FROM CORE")
+            CoreDataManager.deleteQuote(quoteVM: quoteVM)
         }
         else {
             print("THERE IS NOTHING LIKE THIS IN CORE. NO AUTHOR AND NO QUOTE. ADD BOTH")
             let author = AuthorCore(context: context)
+            let quote = QuoteCore(context: context)
             author.name = quoteVM.author
             author.image = authorImageData
+            quote.content = quoteVM.content
+            author.addToRelationship(quote)
+            do {
+                try context.save()
+            }
+            catch {
+                print(error)
+            }
         }
-        
-
-        
-//        model2.firstName = model.givenName
-//        model2.lastName = model.familyName
-//        model2.mobile = model.phoneNumbers.first?.value.stringValue
-        
-
-//        do {
-//            try context.save()
-//        }
-//        catch {
-//            print(error)
-//        }
     }
-    
-    
-    
 }
