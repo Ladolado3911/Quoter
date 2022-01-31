@@ -47,6 +47,7 @@ class CoreDataManager {
                     print("faulty")
                     context.delete(author)
                 }
+            
             }
             try context.save()
         }
@@ -230,7 +231,7 @@ class CoreDataManager {
             author.name = quoteVM.author
             author.image = authorImageData
             quote.content = quoteVM.content
-            author.addToRelationship(quote)
+            //author.addToRelationship(quote)
             quote.relationship = author
             do {
                 try context.save()
