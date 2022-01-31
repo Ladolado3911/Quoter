@@ -70,6 +70,12 @@ class QuoteVC: UIViewController {
     }
     
     @objc func didTapOnIdea(sender: UITapGestureRecognizer) {
+        guard let quoteVM = quoteVM else {
+            return
+        }
+        guard let image = quoteView.mainImageView.image else {
+            return
+        }
         switch quoteView.ideaImageView.state {
         case .on:
             quoteView.ideaImageView.state = .off
@@ -79,8 +85,7 @@ class QuoteVC: UIViewController {
         case .off:
             quoteView.ideaImageView.state = .on
             // add specified quote to core data
-            
-            
+            CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: image.pngData())
         }
     }
 }

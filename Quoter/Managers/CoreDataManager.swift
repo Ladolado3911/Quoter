@@ -54,6 +54,23 @@ class CoreDataManager {
         }
     }
     
+    static func deleteAuthor(authorName: String) {
+        guard let context = context else { return }
+        let requestAuthors = NSFetchRequest<AuthorCore>(entityName: "AuthorCore")
+        do {
+            let authors = try context.fetch(requestAuthors)
+            for author in authors {
+                if author.name == authorName {
+                    context.delete(author)
+                }
+            }
+            try context.save()
+        }
+        catch {
+            print(error)
+        }
+    }
+    
     static func isAuthorInCoreData(authorName: String) -> Bool {
         guard let context = context else { return false }
         
@@ -114,7 +131,28 @@ class CoreDataManager {
         }
     }
     
-    static func addQuote(quoteVM: QuoteVM, authorImageData: Data) {
+    static func getQuote(quoteVM: QuoteVM) -> QuoteCore? {
+        guard let context = context else { return nil }
+        
+        let requestQuotes = NSFetchRequest<QuoteCore>(entityName: "QuoteCore")
+        
+        do {
+            let quotes = try context.fetch(requestQuotes)
+            for quoteCore in quotes {
+                if quoteCore.content == quoteVM.content {
+                    return quoteCore as? QuoteCore
+                }
+            }
+            return nil
+        }
+        catch {
+            print(error)
+            return nil
+        }
+
+    }
+    
+    static func addPair(quoteVM: QuoteVM, authorImageData: Data?) {
         guard let context = context else { return }
 
         let quote = QuoteCore(context: context)
@@ -158,6 +196,42 @@ class CoreDataManager {
             catch {
                 print(error)
             }
+        }
+    }
+    
+    static func removePair(quoteVM: QuoteVM) {
+        
+        guard let context = context else { return }
+        
+        let isAuthorInCore: Bool = CoreDataManager.isAuthorInCoreData(authorName: quoteVM.author)
+        let isQuoteInCore: Bool = CoreDataManager.isQuoteInCoreData(quoteVM: quoteVM)
+        
+        if isAuthorInCore && isQuoteInCore {
+            print("REMOVE QUOTE. REMOVE AUTHOR IF IT IS EMPTY")
+            if let author = CoreDataManager.getAuthor(authorName: quoteVM.author),
+               let nsset = author.relationship,
+               let quote = CoreDataManager.getQuote(quoteVM: quoteVM) {
+                if nsset.count == 0 {
+                    context.delete(author)
+                }
+                context.delete(quote)
+                do {
+                    try context.save()
+                }
+                catch {
+                    print(error)
+                }
+            }
+        }
+        else if isAuthorInCore && !isQuoteInCore {
+            print("THERE IS ERROR. IDEA IS ON, AUTHOR IS IN CORE AND QUOTE IS NOT IN CORE")
+
+        }
+        else if !isAuthorInCore && isQuoteInCore {
+            print("SUPER ERROR. IDEA IS ON, AUTHOR IS NOT IN CORE AND QUOTE IS IN CORE. REMOVE RUBBISH QUOTE")
+        }
+        else {
+            print("THIS IS ERROR. IDEA IS ON AND NOTHING IS IN CORE")
         }
     }
 }
