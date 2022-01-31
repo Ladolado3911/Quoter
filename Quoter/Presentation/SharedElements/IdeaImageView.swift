@@ -30,5 +30,6 @@ class IdeaImageView: UIImageView {
     override func layoutSubviews() {
         super.layoutSubviews()
         image = UIImage(named: "IdeaOff")
+        isUserInteractionEnabled = true
     }
 }

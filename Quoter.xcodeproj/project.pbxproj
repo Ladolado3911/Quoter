@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24A0D38727A7ED84002286F6 /* CoreDataModel.xcdatamodeld */; };
+		24A0D38B27A7F099002286F6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A0D38A27A7F099002286F6 /* CoreDataManager.swift */; };
 		24AD7D62279A9DA300BFC1BF /* QuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */; };
 		24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3DD27985FEE009DB491 /* ExploreVC.swift */; };
 		24BEA3E02798601A009DB491 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3DF2798601A009DB491 /* QuoteView.swift */; };
@@ -54,6 +56,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24A0D38827A7ED84002286F6 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		24A0D38A27A7F099002286F6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteModel.swift; sourceTree = "<group>"; };
 		24BEA3DD27985FEE009DB491 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		24BEA3DF2798601A009DB491 /* QuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 		24CB9FE527930C1700E9D49F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				24A0D38727A7ED84002286F6 /* CoreDataModel.xcdatamodeld */,
 				24CB9FE727930C1700E9D49F /* AuthorModel.swift */,
 				24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */,
 				24DF187127A554AE00D93F8D /* RandomImageModel.swift */,
@@ -144,8 +149,9 @@
 		24CB9FEA27930C2700E9D49F /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				24CB9FEB27930C2700E9D49F /* NetworkManager.swift */,
 				24CB9FEC27930C2700E9D49F /* QuoteManager.swift */,
+				24CB9FEB27930C2700E9D49F /* NetworkManager.swift */,
+				24A0D38A27A7F099002286F6 /* CoreDataManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -400,9 +406,11 @@
 				24AD7D62279A9DA300BFC1BF /* QuoteModel.swift in Sources */,
 				24BEA3E02798601A009DB491 /* QuoteView.swift in Sources */,
 				24BEA3E427986C08009DB491 /* QuoteVC.swift in Sources */,
+				24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */,
 				24D1815027A6D7F600F79C91 /* IdeaImageView.swift in Sources */,
 				24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */,
 				24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */,
+				24A0D38B27A7F099002286F6 /* CoreDataManager.swift in Sources */,
 				24F51F10279EA378003057F7 /* TabbarView.swift in Sources */,
 				24CB9FED27930C2700E9D49F /* NetworkManager.swift in Sources */,
 				24DF187227A554AE00D93F8D /* RandomImageModel.swift in Sources */,
@@ -650,6 +658,19 @@
 			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		24A0D38727A7ED84002286F6 /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				24A0D38827A7ED84002286F6 /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 24A0D38827A7ED84002286F6 /* CoreDataModel.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 24D1286727903ECD00AD7F3D /* Project object */;
 }

@@ -21,6 +21,12 @@ class QuoteVC: UIViewController {
         return quoteView
     }()
     
+    lazy var tapOnIdeaGesture: UITapGestureRecognizer = {
+        let tapOnGesture = UITapGestureRecognizer(target: self,
+                                                  action: #selector(didTapOnIdea(sender:)))
+        return tapOnGesture
+    }()
+    
     override func loadView() {
         super.loadView()
         view = quoteView
@@ -32,12 +38,18 @@ class QuoteVC: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //print(quoteView.ideaImageView.gestureRecognizers)
+    }
+    
     private func configWithVM() {
         guard let quoteVM = quoteVM else {
             return
         }
         quoteView.quoteTextView.text = quoteVM.content
         quoteView.authorLabel.text = quoteVM.author
+        quoteView.ideaImageView.addGestureRecognizer(tapOnIdeaGesture)
         QuoteManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.author)) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -54,5 +66,20 @@ class QuoteVC: UIViewController {
     
     private func convertAuthorName(name: String) -> String {
         name.replacingOccurrences(of: " ", with: "_")
+    }
+    
+    @objc func didTapOnIdea(sender: UITapGestureRecognizer) {
+        switch quoteView.ideaImageView.state {
+        case .on:
+            quoteView.ideaImageView.state = .off
+            // remove specified quote from core data
+            
+            
+        case .off:
+            quoteView.ideaImageView.state = .on
+            // add specified quote to core data
+            
+            
+        }
     }
 }
