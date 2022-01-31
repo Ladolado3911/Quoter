@@ -41,6 +41,7 @@ class QuoteVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //print(quoteView.ideaImageView.gestureRecognizers)
+        //CoreDataManager.clearQuotesAndAuthors()
     }
     
     private func configWithVM() {
