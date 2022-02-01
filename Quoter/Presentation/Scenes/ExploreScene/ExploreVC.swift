@@ -56,6 +56,7 @@ class ExploreVC: UIViewController {
                 self.quoteControllers.append(vc)
                 self.configPageVC()
                 (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
+                print("getRandomQuoteSemaphore finished")
                 semaphore.signal()
 //                self.pageVC.dismiss(animated: false) {
 //                    //self.configPageVC()
@@ -80,6 +81,8 @@ class ExploreVC: UIViewController {
                 self.quoteControllers.append(vc)
                 //self.configPageVC()
                 (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
+                print("getRandomQuote finished")
+                //self.quoteControllers[self.currentPage - 1].view.isUserInteractionEnabled = true
 //                self.pageVC.dismiss(animated: false) {
 //                    self.present(self.pageVC, animated: false) {
 //                        //semaphore.signal()
@@ -130,17 +133,18 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
                 }
             }
             if currentX > prevX {
-                print("turn page to left")
+                //print("turn page to left")
                 currentPage -= 1
             }
             else {
-                print("turn page to right")
+                //quoteControllers[currentPage].view.isUserInteractionEnabled = false
+                //print("turn page to right")
+                getRandomQuote()
                 currentPage += 1
             }
-//
-            if currentIndex + 2 == quoteControllers.count && currentX < prevX {
-                getRandomQuote()
-            }
+//            if currentIndex + 2 == quoteControllers.count && currentX < prevX {
+//                getRandomQuote()
+//            }
         }
     }
     

@@ -49,7 +49,6 @@ class QuoteManager: NetworkManager {
     }
     
     static func getAuthorImageURLUsingSlug(slug: String, completion: @escaping (Result<(URL, ImageType), Error>) -> Void) {
-        print(slug)
         var newSlug: String = ""
         if slug == "Buddha" {
             newSlug = "Gautama_Buddha"
@@ -79,7 +78,6 @@ class QuoteManager: NetworkManager {
         }
         
         if let url = QuoteEndpoints.getAuthorImageURL(authorName: newSlug) {
-            print(url)
             getData(url: url, model: Resource(model: Response.self)) { result in
                 switch result {
                 case .success(let response):
@@ -120,11 +118,9 @@ class QuoteManager: NetworkManager {
     
     static func getRandomImage(completion: @escaping (Result<URL, Error>) -> Void) {
         guard let imageUrl = QuoteEndpoints.getRandomImageURL else { return }
-        
         getData(url: imageUrl, model: Resource(model: ImageResponse.self)) { result in
             switch result {
             case .success(let imageResponse):
-                
                 if let hits = imageResponse.hits,
                    let randomElement = hits.randomElement(),
                    let resultUrlString = randomElement.largeImageURL,
