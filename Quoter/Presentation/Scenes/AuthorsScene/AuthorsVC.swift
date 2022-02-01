@@ -107,7 +107,7 @@ class AuthorsVC: UIViewController {
             .map { vms in
                 vms.map({ $0.state }).contains(.on) ? true : false
             }
-            .assign(to: \.isUserInteractionEnabled,
+            .assign(to: \.isButtonEnabled,
                     on: authorsView.authorsContentView.setQuoteButton)
             .store(in: &cancellables)
     }

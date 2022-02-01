@@ -43,13 +43,13 @@ class AuthorsContentView: UIView {
         return collectionView
     }()
     
-    var setQuoteButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setTitle("See Quotes", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .black
-        button.titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 18)
-        button.layer.cornerRadius = 10
+    var setQuoteButton: SetQuoteButton = {
+        let button = SetQuoteButton(type: .custom)
+//        button.setTitle("See Quotes", for: .normal)
+//        button.setTitleColor(.white, for: .normal)
+//        button.backgroundColor = .black
+//        button.titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 18)
+//        button.layer.cornerRadius = 10
         return button
     }()
     
@@ -105,4 +105,47 @@ class AuthorsContentView: UIView {
 //            make.left.right.top.bottom.equalTo(collectionView)
 //        }
     }
+}
+
+class SetQuoteButton: UIButton {
+    
+    var isButtonEnabled: Bool = false {
+        didSet {
+            if isButtonEnabled != oldValue {
+                if isButtonEnabled {
+                    enableButton()
+                }
+                else {
+                    disableButton()
+                }
+            }
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setTitle("See Quotes", for: .normal)
+        titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 18)
+        layer.cornerRadius = 10
+        
+        if isButtonEnabled {
+            enableButton()
+        }
+        else {
+            disableButton()
+        }
+    }
+    
+    private func enableButton() {
+        backgroundColor = .black
+        setTitleColor(.white, for: .normal)
+        isUserInteractionEnabled = true
+    }
+    
+    private func disableButton() {
+        backgroundColor = .gray
+        setTitleColor(.black, for: .normal)
+        isUserInteractionEnabled = false
+    }
+
 }
