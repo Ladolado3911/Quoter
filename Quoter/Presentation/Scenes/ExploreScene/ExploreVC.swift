@@ -56,7 +56,7 @@ class ExploreVC: UIViewController {
                 self.quoteControllers.append(vc)
                 self.configPageVC()
                 (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
-                print("getRandomQuoteSemaphore finished")
+                //print("getRandomQuoteSemaphore finished")
                 semaphore.signal()
 //                self.pageVC.dismiss(animated: false) {
 //                    //self.configPageVC()
@@ -71,7 +71,7 @@ class ExploreVC: UIViewController {
     }
     
     private func getRandomQuote() {
-        print(#function)
+        //print(#function)
         QuoteManager.getRandomQuote(maxLength: Int(PublicConstants.screenHeight * 0.088)) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -81,7 +81,7 @@ class ExploreVC: UIViewController {
                 self.quoteControllers.append(vc)
                 //self.configPageVC()
                 (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
-                print("getRandomQuote finished")
+                //print("getRandomQuote finished")
                 //self.quoteControllers[self.currentPage - 1].view.isUserInteractionEnabled = true
 //                self.pageVC.dismiss(animated: false) {
 //                    self.present(self.pageVC, animated: false) {
