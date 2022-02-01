@@ -48,8 +48,13 @@ class AuthorsVC: UIViewController {
         super.viewDidLoad()
         configCollectionView()
         configButton()
-        populateData()
+//        populateData()
         addListeners()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        populateData()
     }
     
     private func populateData() {
@@ -66,6 +71,7 @@ class AuthorsVC: UIViewController {
 //        }
         if let authors = CoreDataManager.getAuthors() {
             let vms = authors.map { AuthorCoreVM(rootAuthor: $0) }
+            print(vms.map { $0.name })
             data3 = vms
             data3Subject.send(data3)
             authorsView.authorsContentView.collectionView.reloadData()
@@ -89,9 +95,8 @@ class AuthorsVC: UIViewController {
                 !vms.isEmpty
             }
             .assign(to: \.isHidden,
-                    on: authorsView.authorsContentView.infoLabel)
+                    on: authorsView.authorsContentView.warningLabel)
             .store(in: &cancellables)
-        
     }
 
     private func configButton() {

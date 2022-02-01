@@ -265,13 +265,28 @@ class CoreDataManager {
             do {
                 //var savedQuote: QuoteCore?
                 let quotes = try context.fetch(requestQuotes)
-                //let authors = try context.fetch(requestAuthors)
-                for quote in quotes {
-                    if quote.content == quoteVM.content {
-                        //savedQuote = quote
-                        context.delete(quote)
+                let authors = try context.fetch(requestAuthors)
+//                for quote in quotes {
+//                    if quote.content == quoteVM.content {
+//                        //savedQuote = quote
+//                        context.delete(quote)
+//                    }
+//                }
+                for author in authors {
+                    //print(author.relationship?.allObjects.count)
+                    if author.name == quoteVM.author {
+                        if let set = author.relationship,
+                           let objects = set.allObjects as? [QuoteCore] {
+                            for quote in objects {
+                                if quote.content == quoteVM.content {
+                                    author.removeFromRelationship(quote)
+                                    context.delete(quote)
+                                }
+                            }
+                        }
                     }
                 }
+                CoreDataManager.clearWhereverNeeded()
 //                guard let savedQuote = savedQuote else {
 //                    return
 //                }

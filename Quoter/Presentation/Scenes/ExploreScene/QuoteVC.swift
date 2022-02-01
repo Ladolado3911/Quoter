@@ -57,8 +57,6 @@ class QuoteVC: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let url):
-                print(url.absoluteString)
-                
                 self.quoteView.mainImageView.kf.setImage(with: url)
             case .failure(let error):
                 print(error)
