@@ -19,6 +19,20 @@ class AuthorsContentView: UIView {
         return label
     }()
     
+    lazy var infoLabel: UILabel = {
+        let width = collectionView.bounds.width
+        let height = collectionView.bounds.height
+        let x = collectionView.bounds.width / 2 - (width / 2)
+        let y = bounds.height / 2 - (height / 2)
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        
+        let infoLabel = UILabel(frame: frame)
+        infoLabel.text = "No authors here. Go to explore"
+        infoLabel.textAlignment = .center
+        infoLabel.textColor = .black
+        return infoLabel
+    }()
+    
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -34,7 +48,6 @@ class AuthorsContentView: UIView {
         button.backgroundColor = .black
         button.titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 18)
         button.layer.cornerRadius = 10
-
         return button
     }()
     
@@ -60,6 +73,7 @@ class AuthorsContentView: UIView {
         addSubview(collectionView)
         addSubview(setQuoteButton)
         addSubview(blackBackgroundView)
+        addSubview(infoLabel)
     }
     
     private func buildConstraints() {
@@ -84,5 +98,9 @@ class AuthorsContentView: UIView {
             make.left.right.bottom.equalTo(self)
             make.height.equalTo(PublicConstants.screenHeight * 0.1338)
         }
+//        infoLabel.snp.makeConstraints { make in
+//            make.center.equalTo(collectionView.snp.center)
+//            make.left.right.top.bottom.equalTo(collectionView)
+//        }
     }
 }

@@ -84,6 +84,14 @@ class AuthorsVC: UIViewController {
             .assign(to: \.text!, on: authorsView.quoterNameLabel)
             .store(in: &cancellables)
         
+        data3Subject
+            .map { vms in
+                !vms.isEmpty
+            }
+            .assign(to: \.isHidden,
+                    on: authorsView.authorsContentView.infoLabel)
+            .store(in: &cancellables)
+        
     }
 
     private func configButton() {
