@@ -53,15 +53,21 @@ class AuthorsVC: UIViewController {
     }
     
     private func populateData() {
-        QuoteManager.getAuthors { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let authors):
-                self.data3 = authors
-                self.data3Subject.send(self.data3)
-                self.authorsView.authorsContentView.collectionView.reloadData()
-            case .failure(let error):
-                print(error)
+//        QuoteManager.getAuthors { [weak self] result in
+//            guard let self = self else { return }
+//            switch result {
+//            case .success(let authors):
+//                self.data3 = authors
+//                self.data3Subject.send(self.data3)
+//                self.authorsView.authorsContentView.collectionView.reloadData()
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+        if let authors = CoreDataManager.getAuthors() {
+            var authorsVM: [AuthorVM] = []
+            for author in authors {
+                let vm = AuthorVM(
             }
         }
     }

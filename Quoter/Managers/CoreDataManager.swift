@@ -21,8 +21,8 @@ class CoreDataManager {
         let requestAuthors = NSFetchRequest<AuthorCore>(entityName: "AuthorCore")
         
         do {
-            print(try context.fetch(requestQuotes))
-            print(try context.fetch(requestAuthors))
+            print(try context.fetch(requestQuotes) as? [QuoteCore])
+            print(try context.fetch(requestAuthors) as? [AuthorCore])
         }
         catch {
             print(error)
@@ -31,23 +31,14 @@ class CoreDataManager {
     
     static func clearWhereverNeeded() {
         guard let context = context else { return }
-        let requestQuotes = NSFetchRequest<QuoteCore>(entityName: "QuoteCore")
         let requestAuthors = NSFetchRequest<AuthorCore>(entityName: "AuthorCore")
-        
+        requestAuthors.returnsObjectsAsFaults = false
         do {
-            let quotes = try context.fetch(requestQuotes)
             let authors = try context.fetch(requestAuthors)
-            for quote in quotes {
-                if quote.content == nil {
-                    context.delete(quote)
-                }
-            }
             for author in authors {
-                if author.isFault {
-                    print("faulty")
+                if author.relationship?.allObjects.count == 0 {
                     context.delete(author)
                 }
-            
             }
             try context.save()
         }
@@ -166,6 +157,24 @@ class CoreDataManager {
                 }
             }
             return nil
+        }
+        catch {
+            print(error)
+            return nil
+        }
+    }
+    
+    static func getAuthors() -> [AuthorCore]? {
+        guard let context = context else { return nil }
+        let authorsRequest = NSFetchRequest<AuthorCore>(entityName: "AuthorCore")
+        do {
+            let authors = try context.fetch(authorsRequest)
+            if let casted = authors as? [AuthorCore] {
+                return casted
+            }
+            else {
+                return nil
+            }
         }
         catch {
             print(error)
