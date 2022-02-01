@@ -35,7 +35,7 @@ class ExploreVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setUpInitialDataForPageController()
-        configPageVC()
+        //configPageVC()
     }
     
     private func setUpInitialDataForPageController() {
@@ -92,13 +92,13 @@ class ExploreVC: UIViewController {
 
     private func configPageVC() {
         guard let first = quoteControllers.first else { return }
-
         pageVC.modalTransitionStyle = .crossDissolve
         pageVC.modalPresentationStyle = .fullScreen
         pageVC.setViewControllers([first],
                                   direction: .forward,
                                   animated: false,
                                   completion: nil)
+
     }
 }
 
