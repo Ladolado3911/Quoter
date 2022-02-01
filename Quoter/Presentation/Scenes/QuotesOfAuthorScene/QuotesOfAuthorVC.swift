@@ -9,6 +9,16 @@ import UIKit
 
 class QuotesOfAuthorVC: UIViewController {
     
+    let quotesOfAuthorView: QuotesOfAuthorView = {
+        let quotesOfAuthorView = QuotesOfAuthorView()
+        return quotesOfAuthorView
+    }()
+    
+    override func loadView() {
+        super.loadView()
+        view = quotesOfAuthorView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -186,7 +186,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         }
         data3Subject.send(data3)
         
-        there are bugs here in collection view
+        //there are bugs here in collection view
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
