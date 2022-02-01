@@ -14,23 +14,23 @@ enum UnwrapError: Error {
 }
 
 class QuoteManager: NetworkManager {
-    static func getAuthors(completion: @escaping (Result<[AuthorVM], Error>) -> Void) {
-        getData(url: QuoteEndpoints.authors!, model: Resource(model: Authors.self)) { result in
-            switch result {
-            case .success(let authors):
-                //print(authors)
-                guard let unwrappedAuthors = authors.results else {
-                    completion(.failure(UnwrapError.unwrapError))
-                    return
-                }
-                let convertedAuthors = unwrappedAuthors.map { AuthorVM(rootAuthor: $0) }
-                completion(.success(convertedAuthors))
-            case .failure(let error):
-                print(error)
-                completion(.failure(error))
-            }
-        }
-    }
+//    static func getAuthors(completion: @escaping (Result<[AuthorVM], Error>) -> Void) {
+//        getData(url: QuoteEndpoints.authors!, model: Resource(model: Authors.self)) { result in
+//            switch result {
+//            case .success(let authors):
+//                //print(authors)
+//                guard let unwrappedAuthors = authors.results else {
+//                    completion(.failure(UnwrapError.unwrapError))
+//                    return
+//                }
+//                let convertedAuthors = unwrappedAuthors.map { AuthorVM(rootAuthor: $0) }
+//                completion(.success(convertedAuthors))
+//            case .failure(let error):
+//                print(error)
+//                completion(.failure(error))
+//            }
+//        }
+//    }
     
     static func getRandomQuote(maxLength: Int, completion: @escaping (Result<QuoteVM, Error>) -> Void) {
         getData(url: QuoteEndpoints.randomQuote(maxLength: maxLength)!, model: Resource(model: Quote.self)) { result in

@@ -36,35 +36,46 @@ struct Thumbnail: Codable {
     var source: String?
 }
 
-class AuthorVM {
+
+class AuthorCoreVM {
     
     var state: CellState = .off
     var isChanging: Bool? = false
     
-    let rootAuthor: Author
+    let rootAuthor: AuthorCore
     
-    init(rootAuthor: Author) {
+    init(rootAuthor: AuthorCore) {
         self.rootAuthor = rootAuthor
     }
     
-    var link: String {
-        rootAuthor.link ?? "No Link"
-    }
-    
-    var bio: String {
-        rootAuthor.bio ?? "No Bio"
-    }
-    
-    var description: String {
-        rootAuthor.description ?? "No Description"
-    }
-    
-    var id: String {
-        rootAuthor._id ?? "No Id"
-    }
-    
+//    var link: String {
+//        rootAuthor.link ?? "No Link"
+//    }
+//
+//    var bio: String {
+//        rootAuthor.bio ?? "No Bio"
+//    }
+//
+//    var description: String {
+//        rootAuthor.description ?? "No Description"
+//    }
+//
+//    var id: String {
+//        rootAuthor._id ?? "No Id"
+//    }
+//
     var name: String {
         rootAuthor.name ?? "No Name"
+    }
+    
+    var image: UIImage {
+        if let imageData = rootAuthor.image,
+           let image = UIImage(data: imageData) {
+            return image
+        }
+        else {
+            return UIImage(named: "unknown")!
+        }
     }
     
     func turnOn() {

@@ -11,9 +11,9 @@ import Kingfisher
 
 class AuthorsVC: UIViewController {
 
-    var data3: [AuthorVM] = []
+    var data3: [AuthorCoreVM] = []
     
-    lazy var data3Subject = CurrentValueSubject<[AuthorVM], Never>(data3)
+    lazy var data3Subject = CurrentValueSubject<[AuthorCoreVM], Never>(data3)
     let mainImageSubject = CurrentValueSubject<UIImage, Never>(UIImage(named: "book")!)
     let mainTitle = CurrentValueSubject<String, Never>("Select Author")
     
@@ -65,10 +65,10 @@ class AuthorsVC: UIViewController {
 //            }
 //        }
         if let authors = CoreDataManager.getAuthors() {
-            var authorsVM: [AuthorVM] = []
-            for author in authors {
-                let vm = AuthorVM(
-            }
+            let vms = authors.map { AuthorCoreVM(rootAuthor: $0) }
+            data3 = vms
+            data3Subject.send(data3)
+            authorsView.authorsContentView.collectionView.reloadData()
         }
     }
     
