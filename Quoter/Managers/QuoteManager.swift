@@ -13,6 +13,11 @@ enum UnwrapError: Error {
     case unwrapError
 }
 
+enum ImageType {
+    case nature
+    case author
+}
+
 class QuoteManager: NetworkManager {
 //    static func getAuthors(completion: @escaping (Result<[AuthorVM], Error>) -> Void) {
 //        getData(url: QuoteEndpoints.authors!, model: Resource(model: Authors.self)) { result in
@@ -43,7 +48,7 @@ class QuoteManager: NetworkManager {
         }
     }
     
-    static func getAuthorImageURLUsingSlug(slug: String, completion: @escaping (Result<URL, Error>) -> Void) {
+    static func getAuthorImageURLUsingSlug(slug: String, completion: @escaping (Result<(URL, ImageType), Error>) -> Void) {
         print(slug)
         var newSlug: String = ""
         if slug == "Buddha" {
@@ -53,7 +58,7 @@ class QuoteManager: NetworkManager {
             getRandomImage { result in
                 switch result {
                 case .success(let url):
-                    completion(.success(url))
+                    completion(.success((url, .nature)))
                 case .failure(let error):
                     completion(.failure(error))
                 }
@@ -63,7 +68,7 @@ class QuoteManager: NetworkManager {
             getRandomImage { result in
                 switch result {
                 case .success(let url):
-                    completion(.success(url))
+                    completion(.success((url, .nature)))
                 case .failure(let error):
                     completion(.failure(error))
                 }
@@ -84,13 +89,13 @@ class QuoteManager: NetworkManager {
                        let thumbnail = first.thumbnail,
                        let source = thumbnail.source,
                        let url = URL(string: source) {
-                        completion(.success(url))
+                        completion(.success((url, .author)))
                     }
                     else {
                         getRandomImage { result in
                             switch result {
                             case .success(let url):
-                                completion(.success(url))
+                                completion(.success((url, .author)))
                             case .failure(let error):
                                 completion(.failure(error))
                             }
@@ -105,7 +110,7 @@ class QuoteManager: NetworkManager {
             getRandomImage { result in
                 switch result {
                 case .success(let url):
-                    completion(.success(url))
+                    completion(.success((url, .nature)))
                 case .failure(let error):
                     completion(.failure(error))
                 }

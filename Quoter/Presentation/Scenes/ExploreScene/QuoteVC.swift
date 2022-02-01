@@ -21,6 +21,8 @@ class QuoteVC: UIViewController {
         return quoteView
     }()
     
+    var imageType: ImageType?
+    
     lazy var tapOnIdeaGesture: UITapGestureRecognizer = {
         let tapOnGesture = UITapGestureRecognizer(target: self,
                                                   action: #selector(didTapOnIdea(sender:)))
@@ -56,8 +58,9 @@ class QuoteVC: UIViewController {
         QuoteManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.author)) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let url):
-                self.quoteView.mainImageView.kf.setImage(with: url)
+            case .success(let tuple):
+                self.quoteView.mainImageView.kf.setImage(with: tuple.0)
+                self.imageType = tuple.1
             case .failure(let error):
                 print(error)
             }
@@ -76,6 +79,9 @@ class QuoteVC: UIViewController {
         guard let image = quoteView.mainImageView.image else {
             return
         }
+        guard let imageType = imageType else {
+            return
+        }
         switch quoteView.ideaImageView.state {
         case .on:
             quoteView.ideaImageView.state = .off
@@ -85,7 +91,12 @@ class QuoteVC: UIViewController {
         case .off:
             quoteView.ideaImageView.state = .on
             // add specified quote to core data
-            CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: image.pngData())
+            if imageType == .nature {
+                CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: UIImage(named: "unknown")!.pngData())
+            }
+            else {
+                CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: image.pngData())
+            }
         }
         CoreDataManager.printCoreDataItems()
     }
