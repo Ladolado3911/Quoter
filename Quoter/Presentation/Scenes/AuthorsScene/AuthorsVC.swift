@@ -13,6 +13,8 @@ class AuthorsVC: UIViewController {
 
     var data3: [AuthorCoreVM] = []
     
+    var data3Before: [AuthorCoreVM] = []
+    
     lazy var data3Subject = CurrentValueSubject<[AuthorCoreVM], Never>(data3)
     let mainImageSubject = CurrentValueSubject<UIImage, Never>(UIImage(named: "book")!)
     let mainTitle = CurrentValueSubject<String, Never>("Select Author")
@@ -56,7 +58,7 @@ class AuthorsVC: UIViewController {
         super.viewDidAppear(animated)
         populateData()
     }
-    
+
     private func populateData() {
 //        QuoteManager.getAuthors { [weak self] result in
 //            guard let self = self else { return }
@@ -183,6 +185,8 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             mainTitle.send(name)
         }
         data3Subject.send(data3)
+        
+        there are bugs here in collection view
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

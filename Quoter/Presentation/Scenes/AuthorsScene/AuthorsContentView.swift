@@ -118,6 +118,7 @@ class SetQuoteButton: UIButton {
                 else {
                     disableButton()
                 }
+                //layoutSubviews()
             }
         }
     }
@@ -128,12 +129,12 @@ class SetQuoteButton: UIButton {
         titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 18)
         layer.cornerRadius = 10
         
-        if isButtonEnabled {
-            enableButton()
-        }
-        else {
-            disableButton()
-        }
+//        if isButtonEnabled {
+//            enableButton()
+//        }
+//        else {
+//            disableButton()
+//        }
     }
     
     private func enableButton() {

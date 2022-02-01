@@ -37,7 +37,11 @@ struct Thumbnail: Codable {
 }
 
 
-class AuthorCoreVM {
+class AuthorCoreVM: Equatable {
+    
+    static func == (lhs: AuthorCoreVM, rhs: AuthorCoreVM) -> Bool {
+        lhs.name == rhs.name && lhs.image == rhs.image
+    }
     
     var state: CellState = .off
     var isChanging: Bool? = false
