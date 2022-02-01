@@ -10,6 +10,7 @@ import UIKit
 class ExploreVC: UIViewController {
     
     var quoteControllers: [QuoteVC] = []
+    var currentPage: Int = 0
     var currentIndex: Int = 0
     var currentX: CGFloat = 0
     var prevX: CGFloat = -1
@@ -20,16 +21,16 @@ class ExploreVC: UIViewController {
                                           options: nil)
         pageVC.dataSource = self
         pageVC.delegate = self
-          
         return pageVC
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(#function)
         UIApplication.shared.statusBarStyle = .lightContent
 //        configPageVC()
 //        setUpInitialDataForPageController()
-        configPageVC()
+        //configPageVC()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -91,15 +92,16 @@ class ExploreVC: UIViewController {
     }
 
     private func configPageVC() {
-        guard let first = quoteControllers.first else { return }
+        let current = quoteControllers[currentPage]
         pageVC.modalTransitionStyle = .crossDissolve
         pageVC.modalPresentationStyle = .fullScreen
-        pageVC.setViewControllers([first],
+        pageVC.setViewControllers([current],
                                   direction: .forward,
                                   animated: false,
                                   completion: nil)
-
     }
+    
+    
 }
 
 extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
@@ -127,12 +129,14 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
                     currentX = recog.location(in: pageViewController.view).x
                 }
             }
-//            if currentX > prevX {
-//                print("turn page to left")
-//            }
-//            else {
-//                print("turn page to right")
-//            }
+            if currentX > prevX {
+                print("turn page to left")
+                currentPage -= 1
+            }
+            else {
+                print("turn page to right")
+                currentPage += 1
+            }
 //
             if currentIndex + 2 == quoteControllers.count && currentX < prevX {
                 getRandomQuote()

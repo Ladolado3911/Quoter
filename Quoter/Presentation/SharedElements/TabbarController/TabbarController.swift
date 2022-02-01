@@ -77,7 +77,7 @@ class TabbarController: UIViewController {
             removeChildController(controller: arr[tabbarView.currentItemIndex].controller)
             addChildController(controller: arr[senderView.indexInTabbar].controller)
             tabbarView.currentItemIndex = senderView.indexInTabbar
-            (arr[senderView.indexInTabbar].controller as? ExploreVC)?.configFromSamePage()
+            //(arr[senderView.indexInTabbar].controller as? ExploreVC)?.configFromSamePage()
         }
     }
 }
