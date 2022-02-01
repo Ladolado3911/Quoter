@@ -20,15 +20,18 @@ class AuthorsContentView: UIView {
     }()
     
     lazy var warningLabel: UILabel = {
-        let width = collectionView.bounds.width
-        let height = collectionView.bounds.height
-        let x = collectionView.bounds.width / 2 - (width / 2)
-        let y = bounds.height / 2 - (height / 2)
+        let width: CGFloat = PublicConstants.screenWidth * 0.8
+        let height: CGFloat = 100
+        let x = PublicConstants.screenWidth / 2 - (width / 2)
+        let y: CGFloat = ((PublicConstants.screenHeight * 0.23) / 2) - (height / 2)
         let frame = CGRect(x: x, y: y, width: width, height: height)
         let infoLabel = UILabel(frame: frame)
         infoLabel.text = "No favorite authors. Go to explore"
         infoLabel.textAlignment = .center
-        infoLabel.textColor = .black
+        infoLabel.numberOfLines = 2
+        infoLabel.textColor = .gray
+        infoLabel.backgroundColor = .white
+        infoLabel.font = UIFont(name: "Arial", size: 20)
         return infoLabel
     }()
     
@@ -70,8 +73,7 @@ class AuthorsContentView: UIView {
     private func buildSubviews() {
         addSubview(titleLabel)
         addSubview(collectionView)
-        addSubview(warningLabel)
-        bringSubviewToFront(warningLabel)
+        collectionView.addSubview(warningLabel)
         addSubview(setQuoteButton)
         addSubview(blackBackgroundView)
     }
