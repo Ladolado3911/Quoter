@@ -95,7 +95,7 @@ class QuoteManager: NetworkManager {
                         getRandomImage { result in
                             switch result {
                             case .success(let url):
-                                completion(.success((url, .author)))
+                                completion(.success((url, .nature)))
                             case .failure(let error):
                                 completion(.failure(error))
                             }

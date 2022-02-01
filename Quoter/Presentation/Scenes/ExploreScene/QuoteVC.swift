@@ -91,6 +91,7 @@ class QuoteVC: UIViewController {
         case .off:
             quoteView.ideaImageView.state = .on
             // add specified quote to core data
+            
             if imageType == .nature {
                 CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: UIImage(named: "unknown")!.pngData())
             }
