@@ -14,6 +14,8 @@ class QuotesOfAuthorVC: UIViewController {
         return quotesOfAuthorView
     }()
     
+    
+    
     override func loadView() {
         super.loadView()
         view = quotesOfAuthorView

@@ -71,18 +71,20 @@ class QuoteView: UIView {
         darkView.snp.makeConstraints { make in
             make.left.right.top.bottom.equalTo(self)
         }
-        quoteTextView.snp.makeConstraints { make in
-            make.left.right.equalTo(self).inset(20)
-            make.center.equalTo(self)
-        }
-        authorLabel.snp.makeConstraints { make in
-            make.left.right.equalTo(self)
-            make.top.equalTo(quoteTextView.snp.bottom).inset(-40)
-        }
         ideaImageView.snp.makeConstraints { make in
             make.left.equalTo(self).inset(20)
             make.width.height.equalTo(PublicConstants.screenHeight * 0.0968)
             make.top.equalTo(self).inset(PublicConstants.screenHeight * 0.11267)
+        }
+        quoteTextView.snp.makeConstraints { make in
+            make.left.right.equalTo(self).inset(20)
+            //make.centerY.equalTo(self)
+            make.bottom.equalTo(authorLabel.snp.top).inset(-PublicConstants.screenHeight * 0.0774)
+        }
+        authorLabel.snp.makeConstraints { make in
+            make.left.right.equalTo(self)
+            //make.top.equalTo(quoteTextView.snp.bottom).inset(-40)
+            make.bottom.equalTo(self).inset(PublicConstants.screenHeight * 0.176)
         }
     }
 }
