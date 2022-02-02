@@ -25,7 +25,6 @@ class QuotesOfAuthorView: UIView {
     let closeButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "close"), for: .normal)
-        button.contentMode = .scaleAspectFill
         return button
     }()
     
@@ -52,6 +51,18 @@ class QuotesOfAuthorView: UIView {
         return quoteTextView
     }()
     
+    let nextButton: SwitchButton = {
+        let nextButton = SwitchButton(type: .custom)
+        nextButton.setTitle("Next Quote", for: .normal)
+        return nextButton
+    }()
+    
+    let prevButton: SwitchButton = {
+        let prevButton = SwitchButton(type: .custom)
+        prevButton.setTitle("Previous Quote", for: .normal)
+        return prevButton
+    }()
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = .black
@@ -65,6 +76,8 @@ class QuotesOfAuthorView: UIView {
         addSubview(closeButton)
         addSubview(titleOfAuthor)
         addSubview(quoteTextView)
+        addSubview(nextButton)
+        addSubview(prevButton)
     }
     
     private func buildConstraints() {
@@ -88,5 +101,29 @@ class QuotesOfAuthorView: UIView {
             //make.centerY.equalTo(self)
             make.bottom.equalTo(self).inset(PublicConstants.screenHeight * 0.2)
         }
+        nextButton.snp.makeConstraints { make in
+            make.right.equalTo(self).inset(PublicConstants.screenWidth * 0.03125)
+            make.bottom.equalTo(prevButton)
+            make.height.equalTo(prevButton)
+            make.width.equalTo(PublicConstants.screenWidth * 0.3718)
+        }
+        prevButton.snp.makeConstraints { make in
+            make.left.equalTo(self).inset(PublicConstants.screenWidth * 0.03125)
+            make.bottom.equalTo(self).inset(PublicConstants.screenHeight * 0.05105)
+            make.width.equalTo(PublicConstants.screenWidth * 0.4937)
+            make.height.equalTo(PublicConstants.screenHeight * 0.0528)
+        }
+    }
+}
+
+class SwitchButton: UIButton {
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = frame.height / 3
+        backgroundColor = .white
+        setTitleColor(.black, for: .normal)
+        titleLabel?.textAlignment = .center
+        titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 18)
     }
 }

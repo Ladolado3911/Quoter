@@ -173,7 +173,6 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         let name = data3[indexPath.item].name
         switch itemState {
         case .on:
-            //print("turn off")
             data3[indexPath.item].turnOff(isChanging: true)
             mainImageSubject.send(UIImage(named: "book")!)
             mainTitle.send("Select Author")
@@ -182,7 +181,6 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             for vm in 0...filtered.count {
                 if data3[vm].state == .on {
                     selectedAuthor = data3[indexPath.item]
-                    //print("side turn off")
                     data3[vm].turnOff(isChanging: true)
                     data3[indexPath.item].turnOn()
                     data3Subject.send(data3)
@@ -196,10 +194,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             mainImageSubject.send(image)
             mainTitle.send(name)
         }
-        //print(indexPath.item)
         data3Subject.send(data3)
-        
-        //there are bugs here in collection view
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
