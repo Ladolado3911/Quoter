@@ -18,6 +18,9 @@
 		24C12BCA27AAACCC0069684D /* BookImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C12BC927AAACCC0069684D /* BookImageView.swift */; };
 		24C12BCC27AAAFCF0069684D /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C12BCB27AAAFCF0069684D /* UIViewController+Extension.swift */; };
 		24C12BCE27AAB0230069684D /* ModalAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C12BCD27AAB0230069684D /* ModalAlertView.swift */; };
+		24C12BD127AABB800069684D /* ModalAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C12BD027AABB800069684D /* ModalAlertVC.swift */; };
+		24C12BD427AABC8F0069684D /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C12BD327AABC8F0069684D /* ModalView.swift */; };
+		24C12BD627AABE1E0069684D /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C12BD527AABE1E0069684D /* UIView+Extension.swift */; };
 		24CB9FE427930C0B00E9D49F /* QuoteEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FE227930C0B00E9D49F /* QuoteEndpoints.swift */; };
 		24CB9FE927930C1700E9D49F /* AuthorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FE727930C1700E9D49F /* AuthorModel.swift */; };
 		24CB9FED27930C2700E9D49F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FEB27930C2700E9D49F /* NetworkManager.swift */; };
@@ -72,6 +75,9 @@
 		24C12BC927AAACCC0069684D /* BookImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookImageView.swift; sourceTree = "<group>"; };
 		24C12BCB27AAAFCF0069684D /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		24C12BCD27AAB0230069684D /* ModalAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertView.swift; sourceTree = "<group>"; };
+		24C12BD027AABB800069684D /* ModalAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertVC.swift; sourceTree = "<group>"; };
+		24C12BD327AABC8F0069684D /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
+		24C12BD527AABE1E0069684D /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		24CB9FE227930C0B00E9D49F /* QuoteEndpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteEndpoints.swift; sourceTree = "<group>"; };
 		24CB9FE727930C1700E9D49F /* AuthorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorModel.swift; sourceTree = "<group>"; };
 		24CB9FEB27930C2700E9D49F /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -151,9 +157,18 @@
 			children = (
 				24D1814F27A6D7F600F79C91 /* IdeaImageView.swift */,
 				24C12BC927AAACCC0069684D /* BookImageView.swift */,
-				24C12BCD27AAB0230069684D /* ModalAlertView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		24C12BD227AABB8D0069684D /* ModalAlertScene */ = {
+			isa = PBXGroup;
+			children = (
+				24C12BD027AABB800069684D /* ModalAlertVC.swift */,
+				24C12BCD27AAB0230069684D /* ModalAlertView.swift */,
+				24C12BD327AABC8F0069684D /* ModalView.swift */,
+			);
+			path = ModalAlertScene;
 			sourceTree = "<group>";
 		};
 		24CB9FE027930C0B00E9D49F /* Endpoints */ = {
@@ -241,6 +256,7 @@
 		24D1288A27903FEC00AD7F3D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				24C12BD227AABB8D0069684D /* ModalAlertScene */,
 				24BEA3DC27985FDA009DB491 /* ExploreScene */,
 				24D1288B27903FF500AD7F3D /* AuthorsScene */,
 				248FC0D427A9541500069FFF /* QuotesOfAuthorScene */,
@@ -272,6 +288,7 @@
 		24D128952790490400AD7F3D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				24C12BD527AABE1E0069684D /* UIView+Extension.swift */,
 				24D128962790491500AD7F3D /* UIColor+Extension.swift */,
 				24C12BCB27AAAFCF0069684D /* UIViewController+Extension.swift */,
 			);
@@ -423,6 +440,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24C12BD627AABE1E0069684D /* UIView+Extension.swift in Sources */,
 				248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */,
 				24F51F2F279EEB12003057F7 /* TabbarItemView.swift in Sources */,
 				24D128972790491500AD7F3D /* UIColor+Extension.swift in Sources */,
@@ -439,7 +457,9 @@
 				24D1288827903FB100AD7F3D /* AuthorsView.swift in Sources */,
 				24AD7D62279A9DA300BFC1BF /* QuoteModel.swift in Sources */,
 				24BEA3E02798601A009DB491 /* QuoteView.swift in Sources */,
+				24C12BD127AABB800069684D /* ModalAlertVC.swift in Sources */,
 				24BEA3E427986C08009DB491 /* QuoteVC.swift in Sources */,
+				24C12BD427AABC8F0069684D /* ModalView.swift in Sources */,
 				24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */,
 				24D1815027A6D7F600F79C91 /* IdeaImageView.swift in Sources */,
 				24C12BCE27AAB0230069684D /* ModalAlertView.swift in Sources */,

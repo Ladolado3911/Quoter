@@ -109,6 +109,9 @@ class QuoteVC: UIViewController {
     }
     
     @objc func didTapOnBook(sender: UITapGestureRecognizer) {
-        print("book")
+        let modalAlertVC = ModalAlertVC()
+        modalAlertVC.modalTransitionStyle = .crossDissolve
+        modalAlertVC.modalPresentationStyle = .custom
+        present(modalAlertVC, animated: false)
     }
 }
