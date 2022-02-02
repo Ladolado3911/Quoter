@@ -72,6 +72,16 @@ class AuthorCoreVM: Equatable {
         rootAuthor.name ?? "No Name"
     }
     
+    var quotes: [QuoteCore] {
+        if let relationship = rootAuthor.relationship,
+           let quoteArr = relationship.allObjects as? [QuoteCore] {
+            return quoteArr
+        }
+        else {
+            return []
+        }
+    }
+    
     var image: UIImage {
         if let imageData = rootAuthor.image,
            let image = UIImage(data: imageData) {

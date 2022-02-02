@@ -12,6 +12,7 @@ import Kingfisher
 class AuthorsVC: UIViewController {
 
     var data3: [AuthorCoreVM] = []
+    var selectedAuthor: AuthorCoreVM?
     
     var data3Before: [AuthorCoreVM] = []
     
@@ -125,6 +126,10 @@ class AuthorsVC: UIViewController {
         let vc = QuotesOfAuthorVC()
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overCurrentContext
+        guard let selectedAuthor = selectedAuthor else {
+            return
+        }
+        vc.author = selectedAuthor
         present(vc, animated: true)
     }
 }
@@ -176,6 +181,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             let filtered = data3.filter { $0 !== data3[indexPath.item] }
             for vm in 0...filtered.count {
                 if data3[vm].state == .on {
+                    selectedAuthor = data3[indexPath.item]
                     //print("side turn off")
                     data3[vm].turnOff(isChanging: true)
                     data3[indexPath.item].turnOn()
@@ -185,10 +191,12 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
                     return
                 }
             }
+            selectedAuthor = data3[indexPath.item]
             data3[indexPath.item].turnOn()
             mainImageSubject.send(image)
             mainTitle.send(name)
         }
+        //print(indexPath.item)
         data3Subject.send(data3)
         
         //there are bugs here in collection view
