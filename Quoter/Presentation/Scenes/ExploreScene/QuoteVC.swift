@@ -29,6 +29,12 @@ class QuoteVC: UIViewController {
         return tapOnGesture
     }()
     
+    lazy var tapOnBookGesture: UITapGestureRecognizer = {
+        let tapOnGesture = UITapGestureRecognizer(target: self,
+                                                  action: #selector(didTapOnBook(sender:)))
+        return tapOnGesture
+    }()
+    
     override func loadView() {
         super.loadView()
         view = quoteView
@@ -54,6 +60,7 @@ class QuoteVC: UIViewController {
         quoteView.quoteTextView.text = quoteVM.content
         quoteView.authorLabel.text = quoteVM.author
         quoteView.ideaImageView.addGestureRecognizer(tapOnIdeaGesture)
+        quoteView.bookImageView.addGestureRecognizer(tapOnBookGesture)
         QuoteManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.author)) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -99,5 +106,9 @@ class QuoteVC: UIViewController {
             }
         }
         CoreDataManager.printCoreDataItems()
+    }
+    
+    @objc func didTapOnBook(sender: UITapGestureRecognizer) {
+        print("book")
     }
 }

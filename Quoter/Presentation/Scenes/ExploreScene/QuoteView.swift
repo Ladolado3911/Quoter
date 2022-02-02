@@ -27,6 +27,12 @@ class QuoteView: UIView {
         return ideaView
     }()
     
+    let bookImageView: BookImageView = {
+        let bookView = BookImageView()
+        bookView.contentMode = .scaleAspectFill
+        return bookView
+    }()
+    
     let quoteTextView: UILabel = {
         let quoteTextView = UILabel()
         let font = UIFont(name: "Kalam-Regular", size: 35)
@@ -62,6 +68,7 @@ class QuoteView: UIView {
         addSubview(quoteTextView)
         addSubview(authorLabel)
         addSubview(ideaImageView)
+        addSubview(bookImageView)
     }
     
     private func buildConstraints() {
@@ -75,6 +82,11 @@ class QuoteView: UIView {
             make.left.equalTo(self).inset(20)
             make.width.height.equalTo(PublicConstants.screenHeight * 0.0968)
             make.top.equalTo(self).inset(PublicConstants.screenHeight * 0.11267)
+        }
+        bookImageView.snp.makeConstraints { make in
+            make.left.equalTo(ideaImageView)
+            make.width.equalTo(ideaImageView)
+            make.top.equalTo(ideaImageView.snp.bottom).inset(-PublicConstants.screenHeight * 0.026408)
         }
         quoteTextView.snp.makeConstraints { make in
             make.left.right.equalTo(self).inset(20)

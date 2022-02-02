@@ -175,7 +175,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         case .on:
             data3[indexPath.item].turnOff(isChanging: true)
             mainImageSubject.send(UIImage(named: "book")!)
-            mainTitle.send("Select Author")
+            mainTitle.send("Select Person")
         case .off:
             let filtered = data3.filter { $0 !== data3[indexPath.item] }
             for vm in 0...filtered.count {
