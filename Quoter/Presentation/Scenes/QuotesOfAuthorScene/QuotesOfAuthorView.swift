@@ -99,7 +99,7 @@ class QuotesOfAuthorView: UIView {
         quoteTextView.snp.makeConstraints { make in
             make.left.right.equalTo(self).inset(20)
             //make.centerY.equalTo(self)
-            make.bottom.equalTo(self).inset(PublicConstants.screenHeight * 0.2)
+            make.bottom.equalTo(nextButton.snp.top).inset(-PublicConstants.screenHeight * 0.1)
         }
         nextButton.snp.makeConstraints { make in
             make.right.equalTo(self).inset(PublicConstants.screenWidth * 0.03125)
