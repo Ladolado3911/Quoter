@@ -142,7 +142,7 @@ class AuthorCell: UICollectionViewCell {
         
         switch vm.state {
         case .on:
-            print("up")
+            //print("up")
             UIView.animate(withDuration: 0.3) { [weak self] in
                 guard let self = self else { return }
                 self.transform = selectTransform
@@ -150,7 +150,7 @@ class AuthorCell: UICollectionViewCell {
             }
         case .off:
             if vm.isChanging! {
-                print("down")
+                //print("down")
                 UIView.animate(withDuration: 0.3) { [weak self] in
                     guard let self = self else { return }
                     self.transform = .identity
