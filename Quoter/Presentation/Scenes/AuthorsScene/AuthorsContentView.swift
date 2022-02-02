@@ -109,6 +109,8 @@ class AuthorsContentView: UIView {
 
 class SetQuoteButton: UIButton {
     
+    var isFirstLoad: Bool = true
+    
     var isButtonEnabled: Bool = false {
         didSet {
             if isButtonEnabled != oldValue {
@@ -129,12 +131,10 @@ class SetQuoteButton: UIButton {
         titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 18)
         layer.cornerRadius = 10
         
-//        if isButtonEnabled {
-//            enableButton()
-//        }
-//        else {
-//            disableButton()
-//        }
+        if isFirstLoad {
+            disableButton()
+            isFirstLoad = false
+        }
     }
     
     private func enableButton() {

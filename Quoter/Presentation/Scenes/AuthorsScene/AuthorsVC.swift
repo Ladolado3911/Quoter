@@ -122,7 +122,10 @@ class AuthorsVC: UIViewController {
     }
     
     @objc func onSeeQuoteButton(sender: UIButton) {
-        print("on See Quote Button")
+        let vc = QuotesOfAuthorVC()
+        vc.modalTransitionStyle = .crossDissolve
+        vc.modalPresentationStyle = .overCurrentContext
+        present(vc, animated: true)
     }
 }
 

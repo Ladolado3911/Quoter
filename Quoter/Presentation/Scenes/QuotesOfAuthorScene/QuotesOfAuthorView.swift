@@ -22,8 +22,16 @@ class QuotesOfAuthorView: UIView {
         return darkView
     }()
     
+    let closeButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "close"), for: .normal)
+        button.contentMode = .scaleAspectFill
+        return button
+    }()
+    
     override func layoutSubviews() {
         super.layoutSubviews()
+        backgroundColor = .black
         buildSubviews()
         buildConstraints()
     }
@@ -31,6 +39,7 @@ class QuotesOfAuthorView: UIView {
     private func buildSubviews() {
         addSubview(mainImageView)
         addSubview(darkView)
+        addSubview(closeButton)
     }
     
     private func buildConstraints() {
@@ -39,6 +48,11 @@ class QuotesOfAuthorView: UIView {
         }
         darkView.snp.makeConstraints { make in
             make.left.right.bottom.top.equalTo(mainImageView)
+        }
+        closeButton.snp.makeConstraints { make in
+            make.left.equalTo(self).inset(20)
+            make.width.height.equalTo(PublicConstants.screenHeight * 0.0968)
+            make.top.equalTo(self).inset(PublicConstants.screenHeight * 0.11267)
         }
     }
 }

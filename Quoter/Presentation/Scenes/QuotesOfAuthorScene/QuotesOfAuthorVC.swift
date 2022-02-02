@@ -23,11 +23,21 @@ class QuotesOfAuthorVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configCloseButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+    }
+    
+    private func configCloseButton() {
+        quotesOfAuthorView.closeButton.addTarget(self,
+                                                 action: #selector(onCloseButton(sender:)),
+                                                 for: .touchUpInside)
+    }
+    
+    @objc func onCloseButton(sender: UIButton) {
+        dismiss(animated: true)
     }
 }
