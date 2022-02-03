@@ -74,6 +74,7 @@ class QuotesOfAuthorVC: UIViewController {
         switch state {
         case .network:
             print("123")
+            
         case .coreData:
             guard let author = author else {
                 return
@@ -88,7 +89,7 @@ class QuotesOfAuthorVC: UIViewController {
     private func updateQuote() {
         switch state {
         case .network:
-            print("123")
+            quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].content
         case .coreData:
             quotesOfAuthorView.quoteTextView.text = quotesArr[currentQuoteIndex].content
         }
@@ -99,16 +100,32 @@ class QuotesOfAuthorVC: UIViewController {
     }
     
     @objc func onNext(sender: UIButton) {
-        if currentQuoteIndex + 1 >= quotesArr.count {
-            return
+        switch state {
+        case .network:
+            if currentQuoteIndex + 1 >= networkQuotesArr.count {
+                return
+            }
+            currentQuoteIndex += 1
+        case .coreData:
+            if currentQuoteIndex + 1 >= quotesArr.count {
+                return
+            }
+            currentQuoteIndex += 1
         }
-        currentQuoteIndex += 1
     }
     
     @objc func onPrev(sender: UIButton) {
-        if currentQuoteIndex - 1 < 0 {
-            return
+        switch state {
+        case .network:
+            if currentQuoteIndex - 1 < 0 {
+                return
+            }
+            currentQuoteIndex -= 1
+        case .coreData:
+            if currentQuoteIndex - 1 < 0 {
+                return
+            }
+            currentQuoteIndex -= 1
         }
-        currentQuoteIndex -= 1
     }
 }
