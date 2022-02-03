@@ -12,6 +12,8 @@ class ModalAlertVC: UIViewController {
     var authorName: String?
     var authorSlug: String?
     
+    var presentingClosure: (([AuthorQuoteVM]) -> Void)?
+    
     let modalAlertView: ModalAlertView = {
         let modalAlertView = ModalAlertView()
         return modalAlertView
@@ -38,7 +40,9 @@ class ModalAlertVC: UIViewController {
                 case .success(let quotes):
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         self.dismiss(animated: true) {
-                            print(quotes.map { $0.content })
+                            if let presentingClosure = self.presentingClosure {
+                                presentingClosure(quotes)
+                            }
                         }
                     }
                 case .failure(let error):

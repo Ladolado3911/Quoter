@@ -23,6 +23,14 @@ class QuoteVC: UIViewController {
     
     var imageType: ImageType?
     
+    lazy var presentQuotesOfAuthorClosure: ([AuthorQuoteVM]) -> Void = { [weak self] quoteVMs in
+        guard let self = self else { return }
+        let destVC = QuotesOfAuthorVC()
+        destVC.networkQuotesArr = quoteVMs
+        destVC.state = .network
+        self.present(destVC, animated: true)
+    }
+    
     lazy var tapOnIdeaGesture: UITapGestureRecognizer = {
         let tapOnGesture = UITapGestureRecognizer(target: self,
                                                   action: #selector(didTapOnIdea(sender:)))
@@ -114,6 +122,7 @@ class QuoteVC: UIViewController {
         modalAlertVC.modalPresentationStyle = .custom
         modalAlertVC.authorName = quoteVM?.author
         modalAlertVC.authorSlug = quoteVM?.authorSlug
+        modalAlertVC.presentingClosure = presentQuotesOfAuthorClosure
         present(modalAlertVC, animated: false)
     }
 }

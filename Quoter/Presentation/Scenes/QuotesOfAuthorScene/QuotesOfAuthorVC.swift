@@ -7,8 +7,14 @@
 
 import UIKit
 
+enum QuotesOfAuthorVCState {
+    case network
+    case coreData
+}
+
 class QuotesOfAuthorVC: UIViewController {
     
+    var state: QuotesOfAuthorVCState = .coreData
     var author: AuthorCoreVM?
     var currentQuoteIndex: Int = 0 {
         didSet {
@@ -16,6 +22,8 @@ class QuotesOfAuthorVC: UIViewController {
         }
     }
     var quotesArr: [QuoteCore] = []
+    
+    var networkQuotesArr: [AuthorQuoteVM] = []
     
     let quotesOfAuthorView: QuotesOfAuthorView = {
         let quotesOfAuthorView = QuotesOfAuthorView()
@@ -63,17 +71,27 @@ class QuotesOfAuthorVC: UIViewController {
     }
     
     private func populateData() {
-        guard let author = author else {
-            return
+        switch state {
+        case .network:
+            print("123")
+        case .coreData:
+            guard let author = author else {
+                return
+            }
+            quotesOfAuthorView.titleOfAuthor.text = author.name
+            quotesOfAuthorView.mainImageView.image = author.image
+            quotesArr = author.quotes
+            quotesOfAuthorView.quoteTextView.text = quotesArr[currentQuoteIndex].content
         }
-        quotesOfAuthorView.titleOfAuthor.text = author.name
-        quotesOfAuthorView.mainImageView.image = author.image
-        quotesArr = author.quotes
-        quotesOfAuthorView.quoteTextView.text = quotesArr[currentQuoteIndex].content
     }
     
     private func updateQuote() {
-        quotesOfAuthorView.quoteTextView.text = quotesArr[currentQuoteIndex].content
+        switch state {
+        case .network:
+            print("123")
+        case .coreData:
+            quotesOfAuthorView.quoteTextView.text = quotesArr[currentQuoteIndex].content
+        }
     }
     
     @objc func onCloseButton(sender: UIButton) {
