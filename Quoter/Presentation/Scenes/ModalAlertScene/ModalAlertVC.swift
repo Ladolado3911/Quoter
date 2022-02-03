@@ -36,7 +36,7 @@ class ModalAlertVC: UIViewController {
                 guard let self = self else { return }
                 switch result {
                 case .success(let quotes):
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         self.dismiss(animated: true) {
                             print(quotes.map { $0.content })
                         }

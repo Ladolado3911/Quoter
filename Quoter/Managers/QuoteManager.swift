@@ -161,7 +161,7 @@ class QuoteManager: NetworkManager {
             case .success(let response):
                 if let results = response.results,
                    let pageCount = response.totalPages {
-                    if page >= pageCount {
+                    if page > pageCount {
                         print(pageCount)
                         completion(.failure(CustomError.pageCountMismatchError))
                     }
