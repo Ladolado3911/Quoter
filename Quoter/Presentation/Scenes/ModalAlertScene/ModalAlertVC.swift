@@ -25,12 +25,7 @@ class ModalAlertVC: UIViewController {
         super.loadView()
         view = modalAlertView
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //modalAlertView.buildView()
-    }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let semaphore = DispatchSemaphore(value: 1)

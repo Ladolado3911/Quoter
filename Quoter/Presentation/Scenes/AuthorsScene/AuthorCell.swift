@@ -91,41 +91,6 @@ class AuthorCell: UICollectionViewCell {
         backgroundColor = .white
     }
     
-//    private func setImage(vm: AuthorCoreVM) {
-//        let name = self.getNameFromUrl(urlString: vm.link)
-//        let url = QuoteEndpoints.getAuthorImageURL(authorName: name)!
-//        NetworkManager.getData(url: url,
-//                               model: Resource(model: Response.self)) { result in
-//            switch result {
-//            case .success(let response):
-//                if let thumbnail = response.query?.pages?.first!.thumbnail {
-//                    let urlString = thumbnail.source
-//                    let url = URL(string: urlString!)!
-//                    DispatchQueue.main.async {
-//                        self.imageView.kf.setImage(with: url)
-//                        self.backgroundColor = .white
-////                        if let combineSubject = self.combineSubject {
-////                            let resource = ImageResource(downloadURL: url)
-////                            KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
-////                                switch result {
-////                                case .success(let value):
-////                                    combineSubject(value.image)
-////                                case .failure(let error):
-////                                    print("Error: \(error)")
-////                                }
-////                            }
-////                        }
-//                    }
-//                }
-//                else {
-//                    self.imageView.image = UIImage(named: "unknown")
-//                }
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-    
     private func getNameFromUrl(urlString: String) -> String {
         let fullName = urlString.split(separator: "/").last!
         return String(fullName)

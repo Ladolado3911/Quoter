@@ -200,7 +200,6 @@ class CoreDataManager {
             print(error)
             return nil
         }
-
     }
     
     static func addPair(quoteVM: QuoteVM, authorImageData: Data?) {
@@ -212,7 +211,6 @@ class CoreDataManager {
         let isQuoteInCore: Bool = CoreDataManager.isQuoteInCoreData(quoteVM: quoteVM)
         
         if isAuthorInCore && isQuoteInCore {
-//            quote.content = quoteVM.content
             print("CAN NOT ADD QUOTE, IT ALREADY EXISTS IN CORE DATA")
         }
         else if isAuthorInCore && !isQuoteInCore {
@@ -263,17 +261,9 @@ class CoreDataManager {
             let requestQuotes = NSFetchRequest<QuoteCore>(entityName: "QuoteCore")
             let requestAuthors = NSFetchRequest<AuthorCore>(entityName: "AuthorCore")
             do {
-                //var savedQuote: QuoteCore?
                 let quotes = try context.fetch(requestQuotes)
                 let authors = try context.fetch(requestAuthors)
-//                for quote in quotes {
-//                    if quote.content == quoteVM.content {
-//                        //savedQuote = quote
-//                        context.delete(quote)
-//                    }
-//                }
                 for author in authors {
-                    //print(author.relationship?.allObjects.count)
                     if author.name == quoteVM.author {
                         if let set = author.relationship,
                            let objects = set.allObjects as? [QuoteCore] {
@@ -287,14 +277,6 @@ class CoreDataManager {
                     }
                 }
                 CoreDataManager.clearWhereverNeeded()
-//                guard let savedQuote = savedQuote else {
-//                    return
-//                }
-//                for author in authors {
-//                    if author.name == quoteVM.author {
-//                        author.removeFromRelationship(savedQuote)
-//                    }
-//                }
                 try context.save()
             }
             catch {

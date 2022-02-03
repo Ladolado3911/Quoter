@@ -20,24 +20,7 @@ enum ImageType {
 }
 
 class QuoteManager: NetworkManager {
-//    static func getAuthors(completion: @escaping (Result<[AuthorVM], Error>) -> Void) {
-//        getData(url: QuoteEndpoints.authors!, model: Resource(model: Authors.self)) { result in
-//            switch result {
-//            case .success(let authors):
-//                //print(authors)
-//                guard let unwrappedAuthors = authors.results else {
-//                    completion(.failure(UnwrapError.unwrapError))
-//                    return
-//                }
-//                let convertedAuthors = unwrappedAuthors.map { AuthorVM(rootAuthor: $0) }
-//                completion(.success(convertedAuthors))
-//            case .failure(let error):
-//                print(error)
-//                completion(.failure(error))
-//            }
-//        }
-//    }
-    
+
     static func getRandomQuote(maxLength: Int, completion: @escaping (Result<QuoteVM, Error>) -> Void) {
         getData(url: QuoteEndpoints.randomQuote(maxLength: maxLength)!, model: Resource(model: Quote.self)) { result in
             switch result {
@@ -136,23 +119,7 @@ class QuoteManager: NetworkManager {
             }
         }
     }
-    
-//    static func getQuotesOfAuthor(authorSlug: String, completion: @escaping (Result<[AuthorQuoteVM], Error>) -> Void) {
-//        guard let url = QuoteEndpoints.quotesOfAuthorURL(authorSlug: authorSlug) else { return }
-//        getData(url: url,
-//                model: Resource(model: AuthorQuotesResponse.self)) { result in
-//            switch result {
-//            case .success(let response):
-//                if let results = response.results {
-//                    let newQuotes = results.map { AuthorQuoteVM(rootAuthor: $0) }
-//                    completion(.success(newQuotes))
-//                }
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//        }
-//    }
-    
+
     static func getQuotesOfAuthor(authorSlug: String, page: Int, completion: @escaping (Result<[AuthorQuoteVM], Error>) -> Void) {
         guard let url = QuoteEndpoints.quotesOfAuthorURL(authorSlug: authorSlug, page: page) else { return }
         getData(url: url,

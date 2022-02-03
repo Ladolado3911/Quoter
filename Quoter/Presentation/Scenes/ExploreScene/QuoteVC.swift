@@ -79,16 +79,6 @@ class QuoteVC: UIViewController {
                 print(error)
             }
         }
-//        QuoteManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.author)) { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success(let tuple):
-//                self.quoteView.mainImageView.kf.setImage(with: tuple.0)
-//                self.imageType = tuple.1
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
         view.layoutIfNeeded()
     }
     

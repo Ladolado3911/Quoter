@@ -19,19 +19,6 @@ class AuthorsView: UIView {
         let imgView = UIImageView(frame: frame)
         imgView.image = UIImage(named: "milne")
         imgView.contentMode = .scaleAspectFill
-//
-//        let gradient = CAGradientLayer()
-//        gradient.frame = frame
-//        gradient.colors = [
-//            UIColor.black.withAlphaComponent(0.8).cgColor,
-//            UIColor.black.withAlphaComponent(0).cgColor,
-//            UIColor.black.withAlphaComponent(0.8).cgColor
-//        ]
-//        gradient.startPoint = CGPoint(x: 0.5, y: 0)
-//        gradient.endPoint = CGPoint(x: 0.5, y: 1)
-//        gradient.locations = [0, 0.5, 1]
-
-        //imgView.layer.addSublayer(gradient)
         return imgView
     }()
     

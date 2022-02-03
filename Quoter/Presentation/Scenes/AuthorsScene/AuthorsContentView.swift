@@ -45,11 +45,6 @@ class AuthorsContentView: UIView {
     
     var setQuoteButton: SetQuoteButton = {
         let button = SetQuoteButton(type: .custom)
-//        button.setTitle("See Quotes", for: .normal)
-//        button.setTitleColor(.white, for: .normal)
-//        button.backgroundColor = .black
-//        button.titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 18)
-//        button.layer.cornerRadius = 10
         return button
     }()
     
@@ -88,8 +83,6 @@ class AuthorsContentView: UIView {
         collectionView.snp.makeConstraints { make in
             make.left.right.equalTo(self)
             make.bottom.equalTo(setQuoteButton.snp.top).inset(-PublicConstants.screenHeight * 0.02)
-           // make.top.equalTo(titleLabel.snp.bottom)//.inset(-PublicConstants.screenHeight * 0.03)
-            //make.height.equalTo(PublicConstants.screenHeight * 0.1919)
         }
         setQuoteButton.snp.makeConstraints { make in
             make.bottom.equalTo(blackBackgroundView.snp.top).inset(-PublicConstants.screenHeight * 0.03521126)
@@ -100,10 +93,6 @@ class AuthorsContentView: UIView {
             make.left.right.bottom.equalTo(self)
             make.height.equalTo(PublicConstants.screenHeight * 0.1338)
         }
-//        infoLabel.snp.makeConstraints { make in
-//            make.center.equalTo(collectionView.snp.center)
-//            make.left.right.top.bottom.equalTo(collectionView)
-//        }
     }
 }
 
