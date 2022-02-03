@@ -34,14 +34,14 @@ class ModalAlertView: UIView {
         addSubview(modalView)
     }
     
-    func buildView() {
+    func buildView(authorName: String) {
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let self = self else { return }
             self.modalView.frame = self.modalFinalFrame
         } completion: { didFinish in
             if didFinish {
                 print("didFinish")
-                self.modalView.startAnimating()
+                self.modalView.startAnimating(authorName: authorName)
             }
         }
     }

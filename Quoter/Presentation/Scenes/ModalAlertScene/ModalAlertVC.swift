@@ -9,6 +9,8 @@ import UIKit
 
 class ModalAlertVC: UIViewController {
     
+    var authorName: String?
+    
     let modalAlertView: ModalAlertView = {
         let modalAlertView = ModalAlertView()
         return modalAlertView
@@ -26,6 +28,8 @@ class ModalAlertVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        modalAlertView.buildView()
+        if let authorName = authorName {
+            modalAlertView.buildView(authorName: authorName)
+        }
     }
 }
