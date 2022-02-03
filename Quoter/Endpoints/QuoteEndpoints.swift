@@ -15,8 +15,9 @@ struct QuoteEndpoints {
         URL(string: "https://quotable.io/authors?sortBy=quoteCount&order=desc")
     }
 
-    static var getRandomImageURL: URL? {
-        URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&category=nature")
+    static func getRandomImageURL() -> URL? {
+        let page = Int.random(in: 1...11)
+        return URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&category=nature&page=\(page)")
     }
     
     static func quotesOfAuthorURL(authorSlug: String) -> URL? {

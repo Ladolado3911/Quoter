@@ -118,7 +118,7 @@ class QuoteManager: NetworkManager {
     }
     
     static func getRandomImage(completion: @escaping (Result<URL, Error>) -> Void) {
-        guard let imageUrl = QuoteEndpoints.getRandomImageURL else { return }
+        guard let imageUrl = QuoteEndpoints.getRandomImageURL() else { return }
         getData(url: imageUrl, model: Resource(model: ImageResponse.self)) { result in
             switch result {
             case .success(let imageResponse):

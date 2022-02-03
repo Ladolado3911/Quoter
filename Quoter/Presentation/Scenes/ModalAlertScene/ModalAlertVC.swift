@@ -54,7 +54,7 @@ class ModalAlertVC: UIViewController {
                 switch result {
                 case .success(let quotes):
                     semaphore.wait()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
                         self.dismiss(animated: true) {
                             if let presentingClosure = self.presentingClosure,
                                let imageUrl = self.authorImageURL {
