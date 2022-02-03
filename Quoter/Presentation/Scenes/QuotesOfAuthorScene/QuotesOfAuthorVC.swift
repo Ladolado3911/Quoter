@@ -24,6 +24,7 @@ class QuotesOfAuthorVC: UIViewController {
     var quotesArr: [QuoteCore] = []
     
     var networkQuotesArr: [AuthorQuoteVM] = []
+    var authorImage: UIImage?
     
     let quotesOfAuthorView: QuotesOfAuthorView = {
         let quotesOfAuthorView = QuotesOfAuthorView()
@@ -73,8 +74,11 @@ class QuotesOfAuthorVC: UIViewController {
     private func populateData() {
         switch state {
         case .network:
-            print("123")
-            
+            guard let authorImage = authorImage else {
+                return
+            }
+            quotesOfAuthorView.mainImageView.image = authorImage
+            quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].content
         case .coreData:
             guard let author = author else {
                 return

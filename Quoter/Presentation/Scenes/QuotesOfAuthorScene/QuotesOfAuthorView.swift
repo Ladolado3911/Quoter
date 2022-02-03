@@ -39,7 +39,7 @@ class QuotesOfAuthorView: UIView {
     
     let quoteTextView: UILabel = {
         let quoteTextView = UILabel()
-        let font = UIFont(name: "Kalam-Regular", size: 35)
+        let font = UIFont(name: "Kalam-Regular", size: 30)
         //font?.lineHeight = 30
 //        quoteTextView.isEditable = false
 //        quoteTextView.isSelectable = false
@@ -99,7 +99,7 @@ class QuotesOfAuthorView: UIView {
         quoteTextView.snp.makeConstraints { make in
             make.left.right.equalTo(self).inset(20)
             //make.centerY.equalTo(self)
-            make.bottom.equalTo(nextButton.snp.top).inset(-PublicConstants.screenHeight * 0.1)
+            make.bottom.equalTo(nextButton.snp.top).inset(-PublicConstants.screenHeight * 0.2)
         }
         nextButton.snp.makeConstraints { make in
             make.right.equalTo(self).inset(PublicConstants.screenWidth * 0.03125)

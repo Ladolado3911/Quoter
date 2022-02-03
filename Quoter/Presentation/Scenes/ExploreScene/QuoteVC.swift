@@ -23,11 +23,12 @@ class QuoteVC: UIViewController {
     
     var imageType: ImageType?
     
-    lazy var presentQuotesOfAuthorClosure: ([AuthorQuoteVM]) -> Void = { [weak self] quoteVMs in
+    lazy var presentQuotesOfAuthorClosure: (([AuthorQuoteVM], UIImage?)) -> Void = { [weak self] quoteVMs in
         guard let self = self else { return }
         let destVC = QuotesOfAuthorVC()
-        destVC.networkQuotesArr = quoteVMs
+        destVC.networkQuotesArr = quoteVMs.0
         destVC.state = .network
+        destVC.authorImage = self.quoteView.mainImageView.image
         self.present(destVC, animated: true)
     }
     
