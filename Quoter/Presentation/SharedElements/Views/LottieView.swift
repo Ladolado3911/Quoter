@@ -16,16 +16,7 @@ class LottieView: UIView {
                               frame: CGRect = .zero,
                               loopMode: LottieLoopMode = .loop,
                               contentMode: UIView.ContentMode = .scaleAspectFit) {
-        
-//        let size = bounds.width * 0.5
-//        let x = bounds.width / 2 - (size / 2)
-//        let y = bounds.height / 2 - (size / 2)
-//
-//        let frame2 = CGRect(x: x,
-//                           y: y,
-//                           width: size,
-//                           height: size)
-        
+
         lottieAnimation = AnimationView(name: animation.rawValue)
         lottieAnimation.frame = frame
         lottieAnimation.contentMode = contentMode

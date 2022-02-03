@@ -21,6 +21,11 @@ class ModalAlertVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //modalAlertView.buildView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        modalAlertView.buildView()
     }
 }
