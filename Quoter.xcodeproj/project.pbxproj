@@ -41,6 +41,10 @@
 		24D1815027A6D7F600F79C91 /* IdeaImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1814F27A6D7F600F79C91 /* IdeaImageView.swift */; };
 		24D264F62791777500614218 /* AuthorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D264F52791777500614218 /* AuthorCell.swift */; };
 		24D264F82791940F00614218 /* AuthorCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D264F72791940F00614218 /* AuthorCellVM.swift */; };
+		24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 24DEBF4527ABB1D400C40B29 /* Lottie */; };
+		24DEBF4927ABB2AB00C40B29 /* cubeLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 24DEBF4827ABB2AB00C40B29 /* cubeLoading.json */; };
+		24DEBF4B27ABB55500C40B29 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DEBF4A27ABB55500C40B29 /* LottieView.swift */; };
+		24DEBF4D27ABB5BB00C40B29 /* LottieAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DEBF4C27ABB5BB00C40B29 /* LottieAnimations.swift */; };
 		24DF187227A554AE00D93F8D /* RandomImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DF187127A554AE00D93F8D /* RandomImageModel.swift */; };
 		24F51F09279E85ED003057F7 /* Kalam-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F05279E85ED003057F7 /* Kalam-Regular.ttf */; };
 		24F51F0A279E85ED003057F7 /* Kalam-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F06279E85ED003057F7 /* Kalam-Light.ttf */; };
@@ -98,6 +102,9 @@
 		24D1814F27A6D7F600F79C91 /* IdeaImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaImageView.swift; sourceTree = "<group>"; };
 		24D264F52791777500614218 /* AuthorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCell.swift; sourceTree = "<group>"; };
 		24D264F72791940F00614218 /* AuthorCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCellVM.swift; sourceTree = "<group>"; };
+		24DEBF4827ABB2AB00C40B29 /* cubeLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cubeLoading.json; sourceTree = "<group>"; };
+		24DEBF4A27ABB55500C40B29 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		24DEBF4C27ABB5BB00C40B29 /* LottieAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieAnimations.swift; sourceTree = "<group>"; };
 		24DF187127A554AE00D93F8D /* RandomImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomImageModel.swift; sourceTree = "<group>"; };
 		24F51F05279E85ED003057F7 /* Kalam-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kalam-Regular.ttf"; sourceTree = "<group>"; };
 		24F51F06279E85ED003057F7 /* Kalam-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kalam-Light.ttf"; sourceTree = "<group>"; };
@@ -127,6 +134,7 @@
 			files = (
 				24D1289F2790AB4900AD7F3D /* Kingfisher in Frameworks */,
 				24D1289C2790887A00AD7F3D /* SnapKit in Frameworks */,
+				24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,8 +153,8 @@
 		24BEA3DC27985FDA009DB491 /* ExploreScene */ = {
 			isa = PBXGroup;
 			children = (
-				24BEA3DD27985FEE009DB491 /* ExploreVC.swift */,
 				24BEA3E327986C08009DB491 /* QuoteVC.swift */,
+				24BEA3DD27985FEE009DB491 /* ExploreVC.swift */,
 				24BEA3DF2798601A009DB491 /* QuoteView.swift */,
 			);
 			path = ExploreScene;
@@ -155,6 +163,7 @@
 		24C12BCF27AAB02C0069684D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				24DEBF4A27ABB55500C40B29 /* LottieView.swift */,
 				24D1814F27A6D7F600F79C91 /* IdeaImageView.swift */,
 				24C12BC927AAACCC0069684D /* BookImageView.swift */,
 			);
@@ -164,9 +173,9 @@
 		24C12BD227AABB8D0069684D /* ModalAlertScene */ = {
 			isa = PBXGroup;
 			children = (
+				24C12BD327AABC8F0069684D /* ModalView.swift */,
 				24C12BD027AABB800069684D /* ModalAlertVC.swift */,
 				24C12BCD27AAB0230069684D /* ModalAlertView.swift */,
-				24C12BD327AABC8F0069684D /* ModalView.swift */,
 			);
 			path = ModalAlertScene;
 			sourceTree = "<group>";
@@ -227,6 +236,7 @@
 				24CB9FEA27930C2700E9D49F /* Managers */,
 				24CB9FE027930C0B00E9D49F /* Endpoints */,
 				24D128952790490400AD7F3D /* Extensions */,
+				24DEBF4727ABB1E800C40B29 /* LottieJsons */,
 				24D1288927903FE000AD7F3D /* Presentation */,
 				24D1287B27903ECE00AD7F3D /* Assets.xcassets */,
 				24D1287D27903ECE00AD7F3D /* LaunchScreen.storyboard */,
@@ -295,6 +305,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		24DEBF4727ABB1E800C40B29 /* LottieJsons */ = {
+			isa = PBXGroup;
+			children = (
+				24DEBF4827ABB2AB00C40B29 /* cubeLoading.json */,
+				24DEBF4C27ABB5BB00C40B29 /* LottieAnimations.swift */,
+			);
+			path = LottieJsons;
+			sourceTree = "<group>";
+		};
 		24F51F04279E85ED003057F7 /* Kalam */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,8 +337,8 @@
 		24F51F0E279EA360003057F7 /* TabbarController */ = {
 			isa = PBXGroup;
 			children = (
-				24F51F2E279EEB12003057F7 /* TabbarItemView.swift */,
 				24F51F0F279EA378003057F7 /* TabbarView.swift */,
+				24F51F2E279EEB12003057F7 /* TabbarItemView.swift */,
 				24D0B25027A055C00050D3B4 /* TabbarController.swift */,
 			);
 			path = TabbarController;
@@ -364,6 +383,7 @@
 			packageProductDependencies = (
 				24D1289B2790887A00AD7F3D /* SnapKit */,
 				24D1289E2790AB4900AD7F3D /* Kingfisher */,
+				24DEBF4527ABB1D400C40B29 /* Lottie */,
 			);
 			productName = Quoter;
 			productReference = 24D1286F27903ECD00AD7F3D /* Quoter.app */;
@@ -396,6 +416,7 @@
 			packageReferences = (
 				24D1289A2790887A00AD7F3D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				24D1289D2790AB4900AD7F3D /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				24DEBF4427ABB1D400C40B29 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 24D1287027903ECD00AD7F3D /* Products */;
 			projectDirPath = "";
@@ -421,6 +442,7 @@
 				24F51F21279EB7CE003057F7 /* Roboto-Medium.ttf in Resources */,
 				24F51F2C279EB7CE003057F7 /* Roboto-Thin.ttf in Resources */,
 				24F51F2A279EB7CE003057F7 /* Roboto-BlackItalic.ttf in Resources */,
+				24DEBF4927ABB2AB00C40B29 /* cubeLoading.json in Resources */,
 				24F51F0A279E85ED003057F7 /* Kalam-Light.ttf in Resources */,
 				24F51F26279EB7CE003057F7 /* Roboto-BoldItalic.ttf in Resources */,
 				24D1287C27903ECE00AD7F3D /* Assets.xcassets in Resources */,
@@ -441,10 +463,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				24C12BD627AABE1E0069684D /* UIView+Extension.swift in Sources */,
+				24DEBF4B27ABB55500C40B29 /* LottieView.swift in Sources */,
 				248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */,
 				24F51F2F279EEB12003057F7 /* TabbarItemView.swift in Sources */,
 				24D128972790491500AD7F3D /* UIColor+Extension.swift in Sources */,
 				24D1287727903ECD00AD7F3D /* AuthorsVC.swift in Sources */,
+				24DEBF4D27ABB5BB00C40B29 /* LottieAnimations.swift in Sources */,
 				24C12BCC27AAAFCF0069684D /* UIViewController+Extension.swift in Sources */,
 				24D128A12790AD0500AD7F3D /* AuthorsContentView.swift in Sources */,
 				24D264F82791940F00614218 /* AuthorCellVM.swift in Sources */,
@@ -700,6 +724,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		24DEBF4427ABB1D400C40B29 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LottieFiles/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -712,6 +744,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 24D1289D2790AB4900AD7F3D /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		24DEBF4527ABB1D400C40B29 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 24DEBF4427ABB1D400C40B29 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 
