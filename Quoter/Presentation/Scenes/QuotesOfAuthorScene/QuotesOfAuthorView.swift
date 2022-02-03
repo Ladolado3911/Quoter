@@ -47,7 +47,7 @@ class QuotesOfAuthorView: UIView {
         quoteTextView.textColor = .white
         quoteTextView.font = font
         quoteTextView.textAlignment = .center
-        quoteTextView.numberOfLines = 4
+        quoteTextView.numberOfLines = 6
         return quoteTextView
     }()
     

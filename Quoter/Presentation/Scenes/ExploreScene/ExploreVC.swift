@@ -14,6 +14,8 @@ class ExploreVC: UIViewController {
     var currentIndex: Int = 0
     var currentX: CGFloat = 0
     var prevX: CGFloat = -1
+    
+    var tempQuoteVM: QuoteVM?
  
     lazy var pageVC: UIPageViewController = {
         let pageVC = UIPageViewController(transitionStyle: .pageCurl,
@@ -55,6 +57,7 @@ class ExploreVC: UIViewController {
                 vc.quoteVM = quoteVM
                 self.quoteControllers.append(vc)
                 self.configPageVC()
+                self.tempQuoteVM = quoteVM
                 (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
                 //print("getRandomQuoteSemaphore finished")
                 semaphore.signal()
@@ -79,6 +82,7 @@ class ExploreVC: UIViewController {
                 let vc = QuoteVC()
                 vc.quoteVM = quoteVM
                 self.quoteControllers.append(vc)
+                self.tempQuoteVM = quoteVM
                 //self.configPageVC()
                 (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
                 //print("getRandomQuote finished")

@@ -29,6 +29,7 @@ class QuoteVC: UIViewController {
         destVC.networkQuotesArr = quoteVMs.0
         destVC.state = .network
         destVC.authorImageURL = quoteVMs.1
+        destVC.authorName = self.quoteVM?.author
         self.present(destVC, animated: true)
     }
     
@@ -59,7 +60,7 @@ class QuoteVC: UIViewController {
         //print(quoteView.ideaImageView.gestureRecognizers)
         //CoreDataManager.clearQuotesAndAuthors()
         //print(CoreDataManager.getQuote(quoteVM: quoteVM!)?.content)
-        CoreDataManager.printCoreDataItems()
+        //CoreDataManager.printCoreDataItems()
     }
     
     private func configWithVM() {
@@ -90,30 +91,71 @@ class QuoteVC: UIViewController {
         guard let quoteVM = quoteVM else {
             return
         }
-        guard let image = quoteView.mainImageView.image else {
-            return
-        }
-        guard let imageType = imageType else {
-            return
-        }
-        switch quoteView.ideaImageView.state {
-        case .on:
-            quoteView.ideaImageView.state = .off
-            // remove specified quote from core data
-            CoreDataManager.removePair(quoteVM: quoteVM)
-            
-        case .off:
-            quoteView.ideaImageView.state = .on
-            // add specified quote to core data
-            
-            if imageType == .nature {
-                CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: UIImage(named: "unknown")!.pngData())
+        
+        var authorImage: UIImage?
+
+//        guard let image = quoteView.mainImageView.image else {
+//            return
+//        }
+//        guard let imageType = imageType else {
+//            return
+//        }
+        QuoteManager.getAuthorImageURLUsingSlug(slug: quoteVM.authorSlug) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let tuple):
+                do {
+                    let data = try Data(contentsOf: tuple.0)
+                    if let image = UIImage(data: data) {
+                        switch self.quoteView.ideaImageView.state {
+                        case .on:
+                            self.quoteView.ideaImageView.state = .off
+                            // remove specified quote from core data
+                            CoreDataManager.removePair(quoteVM: quoteVM)
+                            
+                        case .off:
+                            self.quoteView.ideaImageView.state = .on
+                            // add specified quote to core data
+                            
+                            if self.imageType == .nature {
+                                CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: UIImage(named: "unknown")!.pngData())
+                            }
+                            else {
+                                CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: image.pngData())
+                            }
+                        }
+                    }
+                    else {
+                        print("Could not unwrap")
+                    }
+                }
+                catch {
+                    print(error)
+                }
+            case .failure(let error):
+                print(error)
             }
-            else {
-                CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: image.pngData())
-            }
         }
-        CoreDataManager.printCoreDataItems()
+
+        
+//        switch quoteView.ideaImageView.state {
+//        case .on:
+//            quoteView.ideaImageView.state = .off
+//            // remove specified quote from core data
+//            CoreDataManager.removePair(quoteVM: quoteVM)
+//
+//        case .off:
+//            quoteView.ideaImageView.state = .on
+//            // add specified quote to core data
+//
+//            if imageType == .nature {
+//                CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: UIImage(named: "unknown")!.pngData())
+//            }
+//            else {
+//                CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: authorImage!.pngData())
+//            }
+//        }
+        //CoreDataManager.printCoreDataItems()
     }
     
     @objc func didTapOnBook(sender: UITapGestureRecognizer) {

@@ -64,11 +64,13 @@ class QuoteManager: NetworkManager {
         if let url = QuoteEndpoints.getAuthorImageURL(authorName: newSlug) {
             getData(url: url, model: Resource(model: Response.self)) { result in
                 switch result {
+                    
                 case .success(let response):
                     if let query = response.query,
                        let pages = query.pages,
                        let first = pages.first,
                        let thumbnail = first.thumbnail,
+                       bug is here can not unwrap something when clicking on idea image
                        let source = thumbnail.source,
                        let url = URL(string: source) {
                         completion(.success((url, .author)))
