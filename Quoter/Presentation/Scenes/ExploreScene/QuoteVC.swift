@@ -23,12 +23,12 @@ class QuoteVC: UIViewController {
     
     var imageType: ImageType?
     
-    lazy var presentQuotesOfAuthorClosure: (([AuthorQuoteVM], UIImage?)) -> Void = { [weak self] quoteVMs in
+    lazy var presentQuotesOfAuthorClosure: (([AuthorQuoteVM], URL?)) -> Void = { [weak self] quoteVMs in
         guard let self = self else { return }
         let destVC = QuotesOfAuthorVC()
         destVC.networkQuotesArr = quoteVMs.0
         destVC.state = .network
-        destVC.authorImage = self.quoteView.mainImageView.image
+        destVC.authorImageURL = quoteVMs.1
         self.present(destVC, animated: true)
     }
     
@@ -70,16 +70,25 @@ class QuoteVC: UIViewController {
         quoteView.authorLabel.text = quoteVM.author
         quoteView.ideaImageView.addGestureRecognizer(tapOnIdeaGesture)
         quoteView.bookImageView.addGestureRecognizer(tapOnBookGesture)
-        QuoteManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.author)) { [weak self] result in
+        QuoteManager.getRandomImage { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let tuple):
-                self.quoteView.mainImageView.kf.setImage(with: tuple.0)
-                self.imageType = tuple.1
+            case .success(let url):
+                self.quoteView.mainImageView.kf.setImage(with: url)
             case .failure(let error):
                 print(error)
             }
         }
+//        QuoteManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.author)) { [weak self] result in
+//            guard let self = self else { return }
+//            switch result {
+//            case .success(let tuple):
+//                self.quoteView.mainImageView.kf.setImage(with: tuple.0)
+//                self.imageType = tuple.1
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
         view.layoutIfNeeded()
     }
     
@@ -124,6 +133,7 @@ class QuoteVC: UIViewController {
         modalAlertVC.authorName = quoteVM?.author
         modalAlertVC.authorSlug = quoteVM?.authorSlug
         modalAlertVC.presentingClosure = presentQuotesOfAuthorClosure
+        modalAlertVC.quoteVM = quoteVM
         present(modalAlertVC, animated: false)
     }
 }
