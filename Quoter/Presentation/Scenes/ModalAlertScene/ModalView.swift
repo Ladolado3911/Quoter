@@ -10,8 +10,8 @@ import UIKit
 class ModalView: LottieView {
     
     lazy var finalAnimationRect: CGRect = {
-        let width = PublicConstants.screenWidth * 0.674311
-        let height = PublicConstants.screenHeight * 0.428571
+        let width = bounds.width * 0.674311
+        let height = bounds.height * 0.428571
         let x = bounds.width / 2 - (width / 2)
         let y = bounds.height / 2 - (height / 2)
         let animationFrame = CGRect(x: x, y: y, width: width, height: height)
@@ -32,6 +32,20 @@ class ModalView: LottieView {
         return mainTitleLabel
     }()
     
+    lazy var loadingLabel: UILabel = {
+        let width = bounds.width * 0.95
+        let height = bounds.height * 0.1
+        let x = bounds.width / 2 - (width / 2)
+        let y = finalAnimationRect.maxY + 15
+        let loadingFrame = CGRect(x: x, y: y, width: width, height: height)
+        let loadingLabel = UILabel(frame: loadingFrame)
+        loadingLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 15)
+        loadingLabel.text = "Loading Quotes..."
+        loadingLabel.textColor = .black
+        loadingLabel.textAlignment = .center
+        return loadingLabel
+    }()
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = .white
@@ -41,11 +55,11 @@ class ModalView: LottieView {
     func startAnimating(authorName: String) {
         mainTitleLabel.text = authorName
         addSubview(mainTitleLabel)
-        
+        addSubview(loadingLabel)
         createAndStartLottieAnimation(animation: .cubeLoading,
                                       animationSpeed: 0.7,
                                       frame: finalAnimationRect,
                                       loopMode: .loop,
-                                      contentMode: .scaleAspectFit)
+                                      contentMode: .scaleAspectFill)
     }
 }
