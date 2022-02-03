@@ -19,6 +19,10 @@ struct QuoteEndpoints {
         URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&category=nature")
     }
     
+    static func quotesOfAuthorURL(authorSlug: String) -> URL? {
+        URL(string: "https://quotable.io/quotes?author=\(authorSlug)&page=1")
+    }
+    
     static func randomQuote(maxLength: Int) -> URL? {
         URL(string: "https://api.quotable.io/random?maxLength=\(maxLength)")
     }

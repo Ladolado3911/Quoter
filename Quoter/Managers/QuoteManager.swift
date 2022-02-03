@@ -135,6 +135,22 @@ class QuoteManager: NetworkManager {
             }
         }
     }
+    
+    static func getQuotesOfAuthor(authorSlug: String, completion: @escaping (Result<[AuthorQuoteVM], Error>) -> Void) {
+        guard let url = QuoteEndpoints.quotesOfAuthorURL(authorSlug: authorSlug) else { return }
+        getData(url: url,
+                model: Resource(model: AuthorQuotesResponse.self)) { result in
+            switch result {
+            case .success(let response):
+                if let results = response.results {
+                    let newQuotes = results.map { AuthorQuoteVM(rootAuthor: $0) }
+                    completion(.success(newQuotes))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
 
 

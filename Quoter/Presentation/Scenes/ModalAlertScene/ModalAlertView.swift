@@ -27,7 +27,6 @@ class ModalAlertView: UIView {
         super.layoutSubviews()
         backgroundColor = .black.withAlphaComponent(0.72)
         buildSubviews()
-        //buildView()
     }
     
     private func buildSubviews() {
@@ -40,7 +39,6 @@ class ModalAlertView: UIView {
             self.modalView.frame = self.modalFinalFrame
         } completion: { didFinish in
             if didFinish {
-                print("didFinish")
                 self.modalView.startAnimating(authorName: authorName)
             }
         }

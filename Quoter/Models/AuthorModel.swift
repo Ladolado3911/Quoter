@@ -37,6 +37,29 @@ struct Thumbnail: Codable {
 }
 
 
+
+struct AuthorQuotesResponse: Codable {
+    var results: [AuthorQuote]?
+}
+
+struct AuthorQuote: Codable {
+    var content: String?
+}
+
+class AuthorQuoteVM {
+    let rootAuthor: AuthorQuote
+    
+    init(rootAuthor: AuthorQuote) {
+        self.rootAuthor = rootAuthor
+    }
+    
+    var content: String {
+        self.rootAuthor.content ?? "No Content"
+    }
+    
+}
+
+
 class AuthorCoreVM: Equatable {
     
     static func == (lhs: AuthorCoreVM, rhs: AuthorCoreVM) -> Bool {
