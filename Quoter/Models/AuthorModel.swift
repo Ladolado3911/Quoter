@@ -39,6 +39,7 @@ struct Thumbnail: Codable {
 
 
 struct AuthorQuotesResponse: Codable {
+    var totalPages: Int?
     var results: [AuthorQuote]?
 }
 

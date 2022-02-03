@@ -113,6 +113,7 @@ class QuoteVC: UIViewController {
         modalAlertVC.modalTransitionStyle = .crossDissolve
         modalAlertVC.modalPresentationStyle = .custom
         modalAlertVC.authorName = quoteVM?.author
+        modalAlertVC.authorSlug = quoteVM?.authorSlug
         present(modalAlertVC, animated: false)
     }
 }

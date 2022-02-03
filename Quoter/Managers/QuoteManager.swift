@@ -9,8 +9,9 @@ import UIKit
 
 let exceptions = ["Buddha"]
 
-enum UnwrapError: Error {
+enum CustomError: Error {
     case unwrapError
+    case pageCountMismatchError
 }
 
 enum ImageType {
@@ -128,7 +129,7 @@ class QuoteManager: NetworkManager {
                     completion(.success(resultUrl))
                 }
                 else {
-                    completion(.failure(UnwrapError.unwrapError))
+                    completion(.failure(CustomError.unwrapError))
                 }
             case .failure(let error):
                 completion(.failure(error))
@@ -136,15 +137,38 @@ class QuoteManager: NetworkManager {
         }
     }
     
-    static func getQuotesOfAuthor(authorSlug: String, completion: @escaping (Result<[AuthorQuoteVM], Error>) -> Void) {
-        guard let url = QuoteEndpoints.quotesOfAuthorURL(authorSlug: authorSlug) else { return }
+//    static func getQuotesOfAuthor(authorSlug: String, completion: @escaping (Result<[AuthorQuoteVM], Error>) -> Void) {
+//        guard let url = QuoteEndpoints.quotesOfAuthorURL(authorSlug: authorSlug) else { return }
+//        getData(url: url,
+//                model: Resource(model: AuthorQuotesResponse.self)) { result in
+//            switch result {
+//            case .success(let response):
+//                if let results = response.results {
+//                    let newQuotes = results.map { AuthorQuoteVM(rootAuthor: $0) }
+//                    completion(.success(newQuotes))
+//                }
+//            case .failure(let error):
+//                completion(.failure(error))
+//            }
+//        }
+//    }
+    
+    static func getQuotesOfAuthor(authorSlug: String, page: Int, completion: @escaping (Result<[AuthorQuoteVM], Error>) -> Void) {
+        guard let url = QuoteEndpoints.quotesOfAuthorURL(authorSlug: authorSlug, page: page) else { return }
         getData(url: url,
                 model: Resource(model: AuthorQuotesResponse.self)) { result in
             switch result {
             case .success(let response):
-                if let results = response.results {
-                    let newQuotes = results.map { AuthorQuoteVM(rootAuthor: $0) }
-                    completion(.success(newQuotes))
+                if let results = response.results,
+                   let pageCount = response.totalPages {
+                    if page >= pageCount {
+                        print(pageCount)
+                        completion(.failure(CustomError.pageCountMismatchError))
+                    }
+                    else {
+                        let newQuotes = results.map { AuthorQuoteVM(rootAuthor: $0) }
+                        completion(.success(newQuotes))
+                    }
                 }
             case .failure(let error):
                 completion(.failure(error))

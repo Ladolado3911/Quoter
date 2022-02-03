@@ -23,6 +23,10 @@ struct QuoteEndpoints {
         URL(string: "https://quotable.io/quotes?author=\(authorSlug)&page=1")
     }
     
+    static func quotesOfAuthorURL(authorSlug: String, page: Int) -> URL? {
+        URL(string: "https://quotable.io/quotes?author=\(authorSlug)&page=\(page)")
+    }
+    
     static func randomQuote(maxLength: Int) -> URL? {
         URL(string: "https://api.quotable.io/random?maxLength=\(maxLength)")
     }
