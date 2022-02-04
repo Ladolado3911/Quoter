@@ -42,6 +42,7 @@ class ExploreVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        print(currentPage)
         setUpInitialDataForPageController()
         //configPageVC()
     }
@@ -52,13 +53,11 @@ class ExploreVC: UIViewController {
 //        getRandomQuote(semaphore: semaphore)
         let group = DispatchGroup()
         group.enter()
-        loadImages() { [weak self] in
-            guard let self = self else { return }
+        loadImages() { 
             group.leave()
         }
         group.enter()
-        loadQuotes() { [weak self] in
-            guard let self = self else { return }
+        loadQuotes() {
             group.leave()
         }
         group.notify(queue: .main) { [weak self] in

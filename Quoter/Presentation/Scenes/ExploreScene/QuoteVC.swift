@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import AVFoundation
 
 class QuoteVC: UIViewController {
     
@@ -53,7 +54,8 @@ class QuoteVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //print("did load")
+  
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,6 +64,22 @@ class QuoteVC: UIViewController {
         //CoreDataManager.clearQuotesAndAuthors()
         //print(CoreDataManager.getQuote(quoteVM: quoteVM!)?.content)
         //CoreDataManager.printCoreDataItems()
+        if let quoteVM = quoteVM {
+            let author = CoreDataManager.getAuthor(authorName: quoteVM.author)
+            if let author = author,
+               let quotesSet = author.relationship,
+               let quotesArr = quotesSet.allObjects as? [QuoteCore] {
+                for quote in quotesArr {
+                    if quoteVM.content == quote.content && quoteView.ideaImageView.state == .off {
+                        quoteView.ideaImageView.state = .on
+                    }
+                }
+            }
+        }
+        let str = "\(quoteVM?.content ?? "No Content")."
+        str.speak()
+        //"is this ok?".speak()
+        
     }
     
     private func configWithVM() {
@@ -71,7 +89,6 @@ class QuoteVC: UIViewController {
         guard let mainImageURl = mainImageURL else {
             return
         }
-        
         quoteView.quoteTextView.text = quoteVM.content
         quoteView.authorLabel.text = quoteVM.author
         quoteView.ideaImageView.addGestureRecognizer(tapOnIdeaGesture)
@@ -97,15 +114,6 @@ class QuoteVC: UIViewController {
         guard let quoteVM = quoteVM else {
             return
         }
-        
-        var authorImage: UIImage?
-
-//        guard let image = quoteView.mainImageView.image else {
-//            return
-//        }
-//        guard let imageType = imageType else {
-//            return
-//        }
         QuoteManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.author)) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -142,26 +150,6 @@ class QuoteVC: UIViewController {
                 print(error)
             }
         }
-
-        
-//        switch quoteView.ideaImageView.state {
-//        case .on:
-//            quoteView.ideaImageView.state = .off
-//            // remove specified quote from core data
-//            CoreDataManager.removePair(quoteVM: quoteVM)
-//
-//        case .off:
-//            quoteView.ideaImageView.state = .on
-//            // add specified quote to core data
-//
-//            if imageType == .nature {
-//                CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: UIImage(named: "unknown")!.pngData())
-//            }
-//            else {
-//                CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: authorImage!.pngData())
-//            }
-//        }
-        //CoreDataManager.printCoreDataItems()
     }
     
     @objc func didTapOnBook(sender: UITapGestureRecognizer) {

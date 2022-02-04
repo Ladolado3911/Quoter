@@ -238,8 +238,8 @@ class CoreDataManager {
             author.name = quoteVM.author
             author.image = authorImageData
             quote.content = quoteVM.content
-            //author.addToRelationship(quote)
-            quote.relationship = author
+            author.addToRelationship(quote)
+            //quote.relationship = author
             do {
                 try context.save()
             }
