@@ -70,7 +70,7 @@ class QuoteManager: NetworkManager {
                        let pages = query.pages,
                        let first = pages.first,
                        let thumbnail = first.thumbnail,
-                       bug is here can not unwrap something when clicking on idea image
+                       //bug is here can not unwrap something when clicking on idea image
                        let source = thumbnail.source,
                        let url = URL(string: source) {
                         completion(.success((url, .author)))

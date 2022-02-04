@@ -100,7 +100,7 @@ class QuoteVC: UIViewController {
 //        guard let imageType = imageType else {
 //            return
 //        }
-        QuoteManager.getAuthorImageURLUsingSlug(slug: quoteVM.authorSlug) { [weak self] result in
+        QuoteManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.author)) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let tuple):
