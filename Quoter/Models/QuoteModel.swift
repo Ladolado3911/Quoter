@@ -29,3 +29,31 @@ struct QuoteVM {
         rootQuote.author ?? "No Author Name"
     }
 }
+
+struct QuoteBatchResponse: Codable {
+    var totalPages: Int?
+    var results: [Quote]?
+}
+
+//struct QuoteFromBatch: Codable {
+//    var author: String?
+//    var content: String?
+//    var authorSlug: String?
+//}
+//
+//struct QuoteFromBatchVM {
+//
+//    let rootQuote: QuoteFromBatch
+//
+//    var author: String {
+//        rootQuote.author ?? "No Author"
+//    }
+//
+//    var content: String {
+//        rootQuote.content ?? "No Content"
+//    }
+//
+//    var authorSlug: String {
+//        rootQuote.authorSlug ?? "No Author Slug"
+//    }
+//}

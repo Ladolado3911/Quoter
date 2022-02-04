@@ -10,12 +10,17 @@ import UIKit
 class ExploreVC: UIViewController {
     
     var quoteControllers: [QuoteVC] = []
+    var loadedVMs: [QuoteVM] = []
+    var loadedImageURLs: [URL?] = []
     var currentPage: Int = 0
     var currentIndex: Int = 0
     var currentX: CGFloat = 0
     var prevX: CGFloat = -1
     
     var tempQuoteVM: QuoteVM?
+    
+    var currentNetworkPage: Int = 0
+    var totalNetworkPages: Int = 0
  
     lazy var pageVC: UIPageViewController = {
         let pageVC = UIPageViewController(transitionStyle: .pageCurl,
@@ -42,60 +47,76 @@ class ExploreVC: UIViewController {
     }
     
     private func setUpInitialDataForPageController() {
-        let semaphore = DispatchSemaphore(value: 1)
-        getRandomQuote(semaphore: semaphore)
-        semaphore.wait()
-        getRandomQuote(semaphore: semaphore)
+//        getRandomQuote(semaphore: semaphore)
+//        semaphore.wait()
+//        getRandomQuote(semaphore: semaphore)
+        let group = DispatchGroup()
+        group.enter()
+        loadImages() { [weak self] in
+            guard let self = self else { return }
+            group.leave()
+        }
+        group.enter()
+        loadQuotes() { [weak self] in
+            guard let self = self else { return }
+            group.leave()
+        }
+        group.notify(queue: .main) { [weak self] in
+            guard let self = self else { return }
+            self.showInitialQuote()
+        }
     }
     
-    private func getRandomQuote(semaphore: DispatchSemaphore) {
-        QuoteManager.getRandomQuote(maxLength: Int(PublicConstants.screenHeight * 0.088)) { [weak self] result in
+    private func loadImages(completion: @escaping () -> Void) {
+        QuoteManager.load150ImageURLs(page: Int.random(in: 1...3)) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let quoteVM):
-                let vc = QuoteVC()
-                vc.quoteVM = quoteVM
-                self.quoteControllers.append(vc)
-                self.configPageVC()
-                self.tempQuoteVM = quoteVM
-                (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
-                //print("getRandomQuoteSemaphore finished")
-                semaphore.signal()
-//                self.pageVC.dismiss(animated: false) {
-//                    //self.configPageVC()
-////                    self.present(self.pageVC, animated: false) {
-////                        semaphore.signal()
-////                    }
-//                }
+            case .success(let urls):
+                let shuffled = urls.shuffled()
+                self.loadedImageURLs.append(contentsOf: shuffled)
+                completion()
             case .failure(let error):
                 print(error)
             }
         }
     }
     
-    private func getRandomQuote() {
-        //print(#function)
-        QuoteManager.getRandomQuote(maxLength: Int(PublicConstants.screenHeight * 0.088)) { [weak self] result in
+    private func loadQuotes(completion: @escaping () -> Void) {
+        QuoteManager.load150Quotes(page: Int.random(in: 1...5),
+                                   maxLength: Int(PublicConstants.screenHeight * 0.088)) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let quoteVM):
-                let vc = QuoteVC()
-                vc.quoteVM = quoteVM
-                self.quoteControllers.append(vc)
-                self.tempQuoteVM = quoteVM
-                //self.configPageVC()
-                (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
-                //print("getRandomQuote finished")
-                //self.quoteControllers[self.currentPage - 1].view.isUserInteractionEnabled = true
-//                self.pageVC.dismiss(animated: false) {
-//                    self.present(self.pageVC, animated: false) {
-//                        //semaphore.signal()
-//                    }
-//                }
+            case .success(let quotes):
+                let shuffled = quotes.shuffled()
+                self.loadedVMs.append(contentsOf: shuffled)
+                completion()
             case .failure(let error):
                 print(error)
             }
         }
+    }
+    
+    private func showInitialQuote() {
+        let vc1 = QuoteVC()
+        let vc2 = QuoteVC()
+        vc1.mainImageURL = loadedImageURLs[currentPage]
+        vc1.quoteVM = loadedVMs[currentPage]
+        vc2.mainImageURL = loadedImageURLs[currentPage + 1]
+        vc2.quoteVM = loadedVMs[currentPage + 1]
+        quoteControllers.append(vc1)
+        quoteControllers.append(vc2)
+        configPageVC()
+        tempQuoteVM = loadedVMs[currentPage]
+        (parent as? TabbarController)?.addChildController(controller: self.pageVC)
+    }
+    
+    private func showQuote() {
+        let vc = QuoteVC()
+        vc.mainImageURL = loadedImageURLs[currentPage]
+        vc.quoteVM = loadedVMs[currentPage]
+        quoteControllers.append(vc)
+        tempQuoteVM = loadedVMs[currentPage]
+        (parent as? TabbarController)?.addChildController(controller: self.pageVC)
     }
 
     private func configPageVC() {
@@ -141,9 +162,24 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
                 currentPage -= 1
             }
             else {
-                //quoteControllers[currentPage].view.isUserInteractionEnabled = false
-                //print("turn page to right")
-                getRandomQuote()
+                if currentPage % 150 == 0 && currentPage != 0 {
+                    print("limit reached")
+                    let group = DispatchGroup()
+                    group.enter()
+                    loadQuotes {
+                        group.leave()
+                    }
+                    group.enter()
+                    loadImages {
+                        group.leave()
+                    }
+                    group.notify(queue: .main) { [weak self] in
+                        self?.showQuote()
+                    }
+                }
+                else {
+                    showQuote()
+                }
                 currentPage += 1
             }
 //            if currentIndex + 2 == quoteControllers.count && currentX < prevX {
@@ -151,6 +187,7 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
 //            }
         }
     }
+
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         pageViewController.gestureRecognizers.forEach { recognizer in

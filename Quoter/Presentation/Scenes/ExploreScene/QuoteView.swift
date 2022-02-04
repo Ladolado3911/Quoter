@@ -17,7 +17,7 @@ class QuoteView: UIView {
     
     let darkView: UIView = {
         let darkView = UIView()
-        darkView.backgroundColor = .black.withAlphaComponent(0.7)
+        darkView.backgroundColor = .black.withAlphaComponent(0.6)
         return darkView
     }()
     

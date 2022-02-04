@@ -21,6 +21,7 @@ class QuoteVC: UIViewController {
         return quoteView
     }()
     
+    var mainImageURL: URL?
     var imageType: ImageType?
     
     lazy var presentQuotesOfAuthorClosure: (([AuthorQuoteVM], URL?)) -> Void = { [weak self] quoteVMs in
@@ -67,19 +68,24 @@ class QuoteVC: UIViewController {
         guard let quoteVM = quoteVM else {
             return
         }
+        guard let mainImageURl = mainImageURL else {
+            return
+        }
+        
         quoteView.quoteTextView.text = quoteVM.content
         quoteView.authorLabel.text = quoteVM.author
         quoteView.ideaImageView.addGestureRecognizer(tapOnIdeaGesture)
         quoteView.bookImageView.addGestureRecognizer(tapOnBookGesture)
-        QuoteManager.getRandomImage { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let url):
-                self.quoteView.mainImageView.kf.setImage(with: url)
-            case .failure(let error):
-                print(error)
-            }
-        }
+        quoteView.mainImageView.kf.setImage(with: mainImageURl)
+//        QuoteManager.getRandomImage { [weak self] result in
+//            guard let self = self else { return }
+//            switch result {
+//            case .success(let url):
+//                self.quoteView.mainImageView.kf.setImage(with: url)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
         view.layoutIfNeeded()
     }
     

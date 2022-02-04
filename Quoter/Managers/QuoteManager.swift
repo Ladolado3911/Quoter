@@ -20,6 +20,43 @@ enum ImageType {
 }
 
 class QuoteManager: NetworkManager {
+    
+    static func load150ImageURLs(page: Int, completion: @escaping (Result<[URL?], Error>) -> Void) {
+        guard let url = QuoteEndpoints.getRandomImageURL(page: page) else { return }
+        
+        getData(url: url, model: Resource(model: ImageResponse.self)) { result in
+            switch result {
+            case .success(let imageResponse):
+                if let results = imageResponse.hits {
+                    let converted = results.map { URL(string: $0.largeImageURL ?? "") }
+                    completion(.success(converted))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    static func load150Quotes(page: Int, maxLength: Int, completion: @escaping (Result<[QuoteVM], Error>) -> Void) {
+        
+        guard let url = QuoteEndpoints.get150QuotesURL(page: page, maxLength: maxLength) else { return }
+        
+        getData(url: url, model: Resource(model: QuoteBatchResponse.self)) { result in
+            switch result {
+            case .success(let response):
+                if let totalPages = response.totalPages,
+                   let results = response.results {
+                    if page > totalPages {
+                        completion(.failure(CustomError.pageCountMismatchError))
+                    }
+                    let convertedResults = results.map { QuoteVM(rootQuote: $0) }
+                    completion(.success(convertedResults))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 
     static func getRandomQuote(maxLength: Int, completion: @escaping (Result<QuoteVM, Error>) -> Void) {
         getData(url: QuoteEndpoints.randomQuote(maxLength: maxLength)!, model: Resource(model: Quote.self)) { result in
@@ -101,9 +138,9 @@ class QuoteManager: NetworkManager {
             }
         }
     }
-    
+
     static func getRandomImage(completion: @escaping (Result<URL, Error>) -> Void) {
-        guard let imageUrl = QuoteEndpoints.getRandomImageURL() else { return }
+        guard let imageUrl = QuoteEndpoints.getRandomImageURL(page: Int.random(in: 1...3)) else { return }
         getData(url: imageUrl, model: Resource(model: ImageResponse.self)) { result in
             switch result {
             case .success(let imageResponse):
