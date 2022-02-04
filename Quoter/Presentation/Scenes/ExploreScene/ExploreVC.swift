@@ -107,6 +107,7 @@ class ExploreVC: UIViewController {
         quoteControllers.append(vc2)
         configPageVC()
         tempQuoteVM = loadedVMs[currentPage]
+        currentPage += 2
         (parent as? TabbarController)?.addChildController(controller: self.pageVC)
     }
     
