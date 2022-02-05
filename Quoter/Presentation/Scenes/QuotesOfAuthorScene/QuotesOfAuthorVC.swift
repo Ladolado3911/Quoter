@@ -82,6 +82,12 @@ class QuotesOfAuthorVC: UIViewController {
             quotesOfAuthorView.titleOfAuthor.text = name
             quotesOfAuthorView.mainImageView.kf.setImage(with: authorImageURL)
             quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].content
+            
+            if networkQuotesArr.count > 1 {
+                print("more than 1 qoute network")
+                quotesOfAuthorView.nextButton.isButtonEnabled = true
+            }
+            
         case .coreData:
             guard let author = author else {
                 return
@@ -90,6 +96,11 @@ class QuotesOfAuthorVC: UIViewController {
             quotesOfAuthorView.mainImageView.image = author.image
             quotesArr = author.quotes
             quotesOfAuthorView.quoteTextView.text = quotesArr[currentQuoteIndex].content
+            
+            if quotesArr.count > 1 {
+                print("more than 1 qoute core")
+                quotesOfAuthorView.nextButton.isButtonEnabled = true
+            }
         }
     }
     
@@ -97,8 +108,27 @@ class QuotesOfAuthorVC: UIViewController {
         switch state {
         case .network:
             quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].content
+            quotesOfAuthorView.nextButton.isButtonEnabled = !(currentQuoteIndex == networkQuotesArr.count - 1)
+            if currentQuoteIndex == networkQuotesArr.count - 1 {
+                quotesOfAuthorView.nextButton.isButtonEnabled = false
+            }
+            if currentQuoteIndex > 0 {
+                quotesOfAuthorView.prevButton.isButtonEnabled = true
+            }
+            if currentQuoteIndex == 0 {
+                quotesOfAuthorView.prevButton.isButtonEnabled = false
+            }
         case .coreData:
             quotesOfAuthorView.quoteTextView.text = quotesArr[currentQuoteIndex].content
+            if currentQuoteIndex == quotesArr.count - 1 {
+                quotesOfAuthorView.nextButton.isButtonEnabled = false
+            }
+            if currentQuoteIndex > 0 {
+                quotesOfAuthorView.prevButton.isButtonEnabled = true
+            }
+            if currentQuoteIndex == 0 {
+                quotesOfAuthorView.prevButton.isButtonEnabled = false
+            }
         }
     }
     

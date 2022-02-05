@@ -28,6 +28,8 @@ class QuoteVC: UIViewController {
     lazy var presentQuotesOfAuthorClosure: (([AuthorQuoteVM], URL?)) -> Void = { [weak self] quoteVMs in
         guard let self = self else { return }
         let destVC = QuotesOfAuthorVC()
+        destVC.modalTransitionStyle = .coverVertical
+        destVC.modalPresentationStyle = .overCurrentContext
         destVC.networkQuotesArr = quoteVMs.0
         destVC.state = .network
         destVC.authorImageURL = quoteVMs.1
@@ -76,8 +78,8 @@ class QuoteVC: UIViewController {
                 }
             }
         }
-        let str = "\(quoteVM?.content ?? "No Content")."
-        str.speak()
+//        let str = "\(quoteVM?.content ?? "No Content")."
+//        str.speak()
         //"is this ok?".speak()
         
     }
