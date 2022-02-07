@@ -20,6 +20,10 @@ struct QuoteEndpoints {
         return URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&category=nature&page=\(page)&image_type=photo&&per_page=150")
     }
     
+    static func getRelevantPicturesURL(keyword: String) -> URL? {
+        URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&image_type=photo&&q=\(keyword)")
+    }
+    
     static func get150QuotesURL(page: Int, maxLength: Int) -> URL? {
         URL(string: "https://quotable.io/quotes?limit=150&page=\(page)&maxLength=\(maxLength)")
     }

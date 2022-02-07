@@ -28,6 +28,8 @@ class QuotesOfAuthorView: UIView {
         return button
     }()
     
+    
+    
     let titleOfAuthor: UILabel = {
         let title = UILabel()
         title.textColor = .white
