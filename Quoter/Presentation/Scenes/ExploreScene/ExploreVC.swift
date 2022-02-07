@@ -51,19 +51,19 @@ class ExploreVC: UIViewController {
 //        getRandomQuote(semaphore: semaphore)
 //        semaphore.wait()
 //        getRandomQuote(semaphore: semaphore)
-        let group = DispatchGroup()
-        group.enter()
-        loadImages() { 
-            group.leave()
+//        let group = DispatchGroup()
+//        group.enter()
+//        loadImages() {
+//            group.leave()
+//        }
+        //group.enter()
+        loadQuotes() { [weak self] in
+            self?.showInitialQuote()
         }
-        group.enter()
-        loadQuotes() {
-            group.leave()
-        }
-        group.notify(queue: .main) { [weak self] in
-            guard let self = self else { return }
-            self.showInitialQuote()
-        }
+//        group.notify(queue: .main) { [weak self] in
+//            guard let self = self else { return }
+//            self.showInitialQuote()
+//        }
     }
     
     private func loadImages(completion: @escaping () -> Void) {
@@ -98,9 +98,9 @@ class ExploreVC: UIViewController {
     private func showInitialQuote() {
         let vc1 = QuoteVC()
         let vc2 = QuoteVC()
-        vc1.mainImageURL = loadedImageURLs[currentPage]
+//        vc1.mainImageURL = loadedImageURLs[currentPage]
         vc1.quoteVM = loadedVMs[currentPage]
-        vc2.mainImageURL = loadedImageURLs[currentPage + 1]
+ //       vc2.mainImageURL = loadedImageURLs[currentPage + 1]
         vc2.quoteVM = loadedVMs[currentPage + 1]
         quoteControllers.append(vc1)
         quoteControllers.append(vc2)
@@ -112,7 +112,7 @@ class ExploreVC: UIViewController {
     
     private func showQuote() {
         let vc = QuoteVC()
-        vc.mainImageURL = loadedImageURLs[currentPage]
+        //vc.mainImageURL = loadedImageURLs[currentPage]
         vc.quoteVM = loadedVMs[currentPage]
         quoteControllers.append(vc)
         tempQuoteVM = loadedVMs[currentPage]
@@ -164,18 +164,19 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
             else {
                 if currentPage % 150 == 0 && currentPage != 0 {
                     print("limit reached")
-                    let group = DispatchGroup()
-                    group.enter()
-                    loadQuotes {
-                        group.leave()
-                    }
-                    group.enter()
-                    loadImages {
-                        group.leave()
-                    }
-                    group.notify(queue: .main) { [weak self] in
+                    //let group = DispatchGroup()
+                    //group.enter()
+                    loadQuotes { [weak self] in
+                        //group.leave()
                         self?.showQuote()
                     }
+//                    group.enter()
+//                    loadImages {
+//                        group.leave()
+//                    }
+//                    group.notify(queue: .main) { [weak self] in
+//                        self?.showQuote()
+//                    }
                 }
                 else {
                     showQuote()

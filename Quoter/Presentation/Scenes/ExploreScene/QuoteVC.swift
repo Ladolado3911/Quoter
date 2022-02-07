@@ -88,14 +88,14 @@ class QuoteVC: UIViewController {
         guard let quoteVM = quoteVM else {
             return
         }
-        guard let mainImageURl = mainImageURL else {
-            return
-        }
+//        guard let mainImageURl = mainImageURL else {
+//            return
+//        }
         quoteView.quoteTextView.text = quoteVM.content
         quoteView.authorLabel.text = quoteVM.author
         quoteView.ideaImageView.addGestureRecognizer(tapOnIdeaGesture)
         quoteView.bookImageView.addGestureRecognizer(tapOnBookGesture)
-        quoteView.mainImageView.kf.setImage(with: mainImageURl)
+        //quoteView.mainImageView.kf.setImage(with: mainImageURl)
 //        QuoteManager.getRandomImage { [weak self] result in
 //            guard let self = self else { return }
 //            switch result {
@@ -105,8 +105,87 @@ class QuoteVC: UIViewController {
 //                print(error)
 //            }
 //        }
+        print(quoteVM.lastTag)
+        if quoteVM.lastTag == "famous-quotes" {
+            QuoteManager.getRandomImage { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let url):
+                    self.quoteView.mainImageView.kf.setImage(with: url)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        else {
+            QuoteManager.loadRelevantImageURL(keyword: quoteVM.lastTag) { [weak self] result in
+                switch result {
+                case .success(let url):
+                    self?.quoteView.mainImageView.kf.setImage(with: url)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        //findFirstNoun(sentence: quoteVM.content)
         view.layoutIfNeeded()
     }
+    
+    private func findFirstNoun(sentence: String) {
+        let exceptionsInWords = [
+            "where",
+            "who",
+        ]
+        let exceptionWords = [
+            "of",
+            "is",
+            "the",
+            "a",
+            "an",
+            "and",
+            "or",
+            "if",
+            "else",
+            "to",
+            "i",
+            "am",
+            "you",
+            "are",
+            "he",
+            "she",
+            "it",
+            "not",
+            "who",
+            "where",
+            "when",
+            "while",
+            "whoever",
+            "wherever",
+            "whenever",
+            "instead",
+            "for",
+            "it's",
+            "his",
+            "her",
+            "mine",
+            "yours",
+            "our",
+            "their",
+            "your",
+            
+            
+        ]
+        let words = sentence.split(separator: " ")
+        let firstWord = words.first { !exceptionWords.contains(String($0).lowercased()) }
+        
+        if let firstItem = firstWord {
+            print(firstItem)
+        }
+        else {
+            print("Zero array")
+        }
+    }
+
     
     private func convertAuthorName(name: String) -> String {
         name.replacingOccurrences(of: " ", with: "_")

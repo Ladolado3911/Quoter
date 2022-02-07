@@ -21,6 +21,23 @@ enum ImageType {
 
 class QuoteManager: NetworkManager {
     
+    static func loadRelevantImageURL(keyword: String, completion: @escaping (Result<URL, Error>) -> Void) {
+        guard let url = QuoteEndpoints.getRelevantPicturesURL(keyword: keyword) else { return }
+        getData(url: url, model: Resource(model: ImageResponse.self)) { result in
+            switch result {
+            case .success(let response):
+                if let hits = response.hits,
+                   let randomItem = hits.randomElement(),
+                   let urlString = randomItem.largeImageURL,
+                   let resultUrl = URL(string: urlString) {
+                    completion(.success(resultUrl))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     static func load150ImageURLs(page: Int, completion: @escaping (Result<[URL?], Error>) -> Void) {
         guard let url = QuoteEndpoints.getRandomImageURL(page: page) else { return }
         

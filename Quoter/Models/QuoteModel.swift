@@ -8,6 +8,7 @@
 import UIKit
 
 struct Quote: Codable {
+    var tags: [String]?
     var content: String?
     var authorSlug: String?
     var author: String?
@@ -16,6 +17,16 @@ struct Quote: Codable {
 struct QuoteVM {
     
     let rootQuote: Quote
+    
+    var lastTag: String {
+        let arr = rootQuote.tags ?? []
+        if arr.isEmpty {
+            return ""
+        }
+        else {
+            return arr.last ?? ""
+        }
+    }
     
     var content: String {
         rootQuote.content ?? "No Content"

@@ -17,11 +17,11 @@ struct QuoteEndpoints {
 
     static func getRandomImageURL(page: Int) -> URL? {
         //let page = Int.random(in: 1...11)
-        return URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&category=nature&page=\(page)&image_type=photo&&per_page=150")
+        return URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&category=nature&q=landscape&page=\(page)&image_type=photo&&per_page=150&safesearch=true")
     }
     
     static func getRelevantPicturesURL(keyword: String) -> URL? {
-        URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&image_type=photo&&q=\(keyword)")
+        URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&limit=50&image_type=photo&&q=\(keyword)&safesearch=true")
     }
     
     static func get150QuotesURL(page: Int, maxLength: Int) -> URL? {
