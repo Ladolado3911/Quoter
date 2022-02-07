@@ -107,7 +107,7 @@ class QuoteVC: UIViewController {
 //        }
         print(quoteVM.lastTag)
         if quoteVM.lastTag == "famous-quotes" {
-            QuoteManager.getRandomImage { [weak self] result in
+            ImageManager.getRandomImage { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let url):
@@ -118,7 +118,7 @@ class QuoteVC: UIViewController {
             }
         }
         else {
-            QuoteManager.loadRelevantImageURL(keyword: quoteVM.lastTag) { [weak self] result in
+            ImageManager.loadRelevantImageURL(keyword: quoteVM.lastTag) { [weak self] result in
                 switch result {
                 case .success(let url):
                     self?.quoteView.mainImageView.kf.setImage(with: url)
@@ -127,65 +127,8 @@ class QuoteVC: UIViewController {
                 }
             }
         }
-        //findFirstNoun(sentence: quoteVM.content)
         view.layoutIfNeeded()
     }
-    
-    private func findFirstNoun(sentence: String) {
-        let exceptionsInWords = [
-            "where",
-            "who",
-        ]
-        let exceptionWords = [
-            "of",
-            "is",
-            "the",
-            "a",
-            "an",
-            "and",
-            "or",
-            "if",
-            "else",
-            "to",
-            "i",
-            "am",
-            "you",
-            "are",
-            "he",
-            "she",
-            "it",
-            "not",
-            "who",
-            "where",
-            "when",
-            "while",
-            "whoever",
-            "wherever",
-            "whenever",
-            "instead",
-            "for",
-            "it's",
-            "his",
-            "her",
-            "mine",
-            "yours",
-            "our",
-            "their",
-            "your",
-            
-            
-        ]
-        let words = sentence.split(separator: " ")
-        let firstWord = words.first { !exceptionWords.contains(String($0).lowercased()) }
-        
-        if let firstItem = firstWord {
-            print(firstItem)
-        }
-        else {
-            print("Zero array")
-        }
-    }
-
     
     private func convertAuthorName(name: String) -> String {
         name.replacingOccurrences(of: " ", with: "_")
@@ -195,7 +138,7 @@ class QuoteVC: UIViewController {
         guard let quoteVM = quoteVM else {
             return
         }
-        QuoteManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.author)) { [weak self] result in
+        ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.author)) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let tuple):

@@ -7,6 +7,18 @@
 
 import UIKit
 
+struct TagImageURLs {
+    var wisdom: [URL] = []
+    var friendship: [URL] = []
+    var inspirational: [URL] = []
+}
+
+enum Tags: String {
+    case wisdom
+    case friendship
+    case inspirational
+}
+
 class ExploreVC: UIViewController {
     
     var quoteControllers: [QuoteVC] = []
@@ -67,7 +79,7 @@ class ExploreVC: UIViewController {
     }
     
     private func loadImages(completion: @escaping () -> Void) {
-        QuoteManager.load150ImageURLs(page: Int.random(in: 1...3)) { [weak self] result in
+        ImageManager.load150ImageURLs(page: Int.random(in: 1...3)) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let urls):

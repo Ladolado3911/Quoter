@@ -33,7 +33,7 @@ class ModalAlertVC: UIViewController {
            let slug = authorSlug,
            let quoteVMM = quoteVM {
             modalAlertView.buildView(authorName: authorName)
-            QuoteManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVMM.author)) { [weak self] result in
+            ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVMM.author)) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let tuple):
