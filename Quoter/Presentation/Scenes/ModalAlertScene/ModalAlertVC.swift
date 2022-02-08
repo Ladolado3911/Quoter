@@ -30,8 +30,7 @@ class ModalAlertVC: UIViewController {
         super.viewDidAppear(animated)
         let semaphore = DispatchSemaphore(value: 1)
         if let authorName = authorName,
-           let quoteVMM = quoteVM,
-           let authorID = quoteVM?.authorID {
+           let quoteVMM = quoteVM {
             modalAlertView.buildView(authorName: authorName)
             ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVMM.authorName)) { [weak self] result in
                 guard let self = self else { return }
@@ -44,7 +43,7 @@ class ModalAlertVC: UIViewController {
                     semaphore.signal()
                 }
             }
-            DictumManager.getQuotesOfAuthor(authorID: authorID) { [weak self] result in
+            DictumManager.getQuotesOfAuthor(authorID: quoteVMM.authorID) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let quotes):

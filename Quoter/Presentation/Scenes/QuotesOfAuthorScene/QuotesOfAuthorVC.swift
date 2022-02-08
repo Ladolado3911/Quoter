@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 enum QuotesOfAuthorVCState {
     case network
@@ -79,8 +80,20 @@ class QuotesOfAuthorVC: UIViewController {
                   let name = authorName else {
                 return
             }
+//
+//            do {
+//                let data = try Data(contentsOf: authorImageURL)
+//                let image = UIImage(data: data)
+//                quotesOfAuthorView.mainImageView.image = image
+//
+//            }
+//            catch {
+//                print(error)
+//            }
+            
             quotesOfAuthorView.titleOfAuthor.text = name
             quotesOfAuthorView.mainImageView.kf.setImage(with: authorImageURL)
+            
             quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].text
             
             if networkQuotesArr.count > 1 {

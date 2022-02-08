@@ -95,6 +95,8 @@ class QuoteVC: UIViewController {
             return 
         }
         
+        
+        
         quoteView.quoteTextView.text = quoteVM.text
         quoteView.authorLabel.text = quoteVM.authorName
         quoteView.ideaImageView.addGestureRecognizer(tapOnIdeaGesture)
@@ -143,32 +145,34 @@ class QuoteVC: UIViewController {
     }
     
     @objc func didTapOnIdea(sender: UITapGestureRecognizer) {
-        guard let quoteVM = quoteVM else {
-            return
-        }
-        ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.authorName)) { [weak self] result in
+        
+//        guard let quoteVM = quoteVM else {
+//            return
+//        }
+        ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM!.authorName)) { [weak self] result in
+            
             guard let self = self else { return }
-            //print(#function)
             switch result {
             case .success(let tuple):
                 do {
                     let data = try Data(contentsOf: tuple.0)
                     if let image = UIImage(data: data) {
+                        
                         switch self.quoteView.ideaImageView.state {
                         case .on:
                             self.quoteView.ideaImageView.state = .off
                             // remove specified quote from core data
-                            CoreDataManager.removePair(quoteVM: quoteVM)
+                            CoreDataManager.removePair(quoteVM: self.quoteVM!)
                             
                         case .off:
                             self.quoteView.ideaImageView.state = .on
                             // add specified quote to core data
                             
                             if self.imageType == .nature {
-                                CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: UIImage(named: "unknown")!.pngData())
+                                CoreDataManager.addPair(quoteVM: self.quoteVM!, authorImageData: UIImage(named: "unknown")!.pngData())
                             }
                             else {
-                                CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: image.pngData())
+                                CoreDataManager.addPair(quoteVM: self.quoteVM!, authorImageData: image.pngData())
                             }
                         }
                     }
@@ -191,7 +195,7 @@ class QuoteVC: UIViewController {
         modalAlertVC.modalPresentationStyle = .custom
         modalAlertVC.authorName = quoteVM?.authorName
         // MARK: Here we risked to set authorname to slug
-        modalAlertVC.authorSlug = quoteVM?.authorName
+        //modalAlertVC.authorSlug = quoteVM?.authorName
         modalAlertVC.presentingClosure = presentQuotesOfAuthorClosure
         modalAlertVC.quoteVM = quoteVM
         present(modalAlertVC, animated: false)
