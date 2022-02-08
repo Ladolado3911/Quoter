@@ -67,7 +67,6 @@ class ImageManager: NetworkManager {
                     completion(.failure(error))
                 }
             }
-            //newSlug = slug
         }
         else if slug == "Napoleon_Bonaparte" {
             newSlug = "Napoleon"
@@ -75,11 +74,17 @@ class ImageManager: NetworkManager {
         else if slug == "Buddha" {
             newSlug = "Gautama_Buddha"
         }
+        else if slug == "Bernard_Shaw" {
+            newSlug = "George_Bernard_Shaw"
+        }
+//        else if slug == "Francois_de_La_Rochefoucauld" {
+//            newSlug = "François_de_La_Rochefoucauld"
+//        }
+        
         else {
             newSlug = slug
         }
         if let url = ImageEndpoints.getAuthorImageURL(authorName: newSlug) {
-            
             getData(url: url, model: Resource(model: Response.self)) { result in
                 switch result {
                 case .success(let response):
