@@ -9,11 +9,11 @@ import UIKit
 
 struct DictumEndponts {
     
-    static func get50Quotes(offset: Int) -> URL? {
-        return URL(string: "https://api.fisenko.net/v1/quotes/en?offset=\(offset)")
+    static var randomQuote: URL? {
+        URL(string: "https://api.fisenko.net/v1/quotes/en/random")
     }
     
-    static func getQuotesOfAuthor(offset: Int, authorID: String) -> URL? {
-        return URL(string: "https://api.fisenko.net/v1/authors/en/\(authorID)/quotes?query=&offset=\(offset)")
+    static func getQuotesOfAuthor(authorID: String) -> URL? {
+        return URL(string: "https://api.fisenko.net/v1/authors/en/\(authorID)/quotes")
     }
 }

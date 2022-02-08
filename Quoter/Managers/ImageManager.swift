@@ -59,14 +59,15 @@ class ImageManager: NetworkManager {
     static func getAuthorImageURLUsingSlug(slug: String, completion: @escaping (Result<(URL, ImageType), Error>) -> Void) {
         var newSlug: String = ""
         if ["Confucius", "Laozi"].contains(slug) {
-            getRandomImage { result in
-                switch result {
-                case .success(let url):
-                    completion(.success((url, .nature)))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
+//            getRandomImage { result in
+//                switch result {
+//                case .success(let url):
+//                    completion(.success((url, .nature)))
+//                case .failure(let error):
+//                    completion(.failure(error))
+//                }
+//            }
+            newSlug = slug
         }
         else if slug == "Buddha" {
             newSlug = "Gautama_Buddha"
@@ -87,14 +88,14 @@ class ImageManager: NetworkManager {
                         completion(.success((url, .author)))
                     }
                     else {
-                        getRandomImage { result in
-                            switch result {
-                            case .success(let url):
-                                completion(.success((url, .nature)))
-                            case .failure(let error):
-                                completion(.failure(error))
-                            }
-                        }
+//                        getRandomImage { result in
+//                            switch result {
+//                            case .success(let url):
+//                                completion(.success((url, .nature)))
+//                            case .failure(let error):
+//                                completion(.failure(error))
+//                            }
+//                        }
                     }
                 case .failure(let error):
                     completion(.failure(error))
@@ -102,34 +103,34 @@ class ImageManager: NetworkManager {
             }
         }
         else {
-            getRandomImage { result in
-                switch result {
-                case .success(let url):
-                    completion(.success((url, .nature)))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
+//            getRandomImage { result in
+//                switch result {
+//                case .success(let url):
+//                    completion(.success((url, .nature)))
+//                case .failure(let error):
+//                    completion(.failure(error))
+//                }
+//            }
         }
     }
 
-    static func getRandomImage(completion: @escaping (Result<URL, Error>) -> Void) {
-        guard let imageUrl = ImageEndpoints.getRandomImageURL(page: Int.random(in: 1...3)) else { return }
-        getData(url: imageUrl, model: Resource(model: ImageResponse.self)) { result in
-            switch result {
-            case .success(let imageResponse):
-                if let hits = imageResponse.hits,
-                   let randomElement = hits.randomElement(),
-                   let resultUrlString = randomElement.largeImageURL,
-                   let resultUrl = URL(string: resultUrlString) {
-                    completion(.success(resultUrl))
-                }
-                else {
-                    completion(.failure(CustomError.unwrapError))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
+//    static func getRandomImage(completion: @escaping (Result<URL, Error>) -> Void) {
+//        guard let imageUrl = ImageEndpoints.getRandomImageURL(page: Int.random(in: 1...3)) else { return }
+//        getData(url: imageUrl, model: Resource(model: ImageResponse.self)) { result in
+//            switch result {
+//            case .success(let imageResponse):
+//                if let hits = imageResponse.hits,
+//                   let randomElement = hits.randomElement(),
+//                   let resultUrlString = randomElement.largeImageURL,
+//                   let resultUrl = URL(string: resultUrlString) {
+//                    completion(.success(resultUrl))
+//                }
+//                else {
+//                    completion(.failure(CustomError.unwrapError))
+//                }
+//            case .failure(let error):
+//                completion(.failure(error))
+//            }
+//        }
+//    }
 }

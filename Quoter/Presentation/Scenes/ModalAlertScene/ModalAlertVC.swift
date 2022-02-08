@@ -11,10 +11,10 @@ class ModalAlertVC: UIViewController {
     
     var authorName: String?
     var authorSlug: String?
-    var quoteVM: QuoteVM?
+    var quoteVM: DictumQuoteVM?
     var authorImageURL: URL?
     
-    var presentingClosure: ((([AuthorQuoteVM], URL?)) -> Void)?
+    var presentingClosure: ((([DictumQuoteVM], URL?)) -> Void)?
     
     let modalAlertView: ModalAlertView = {
         let modalAlertView = ModalAlertView()
@@ -30,10 +30,10 @@ class ModalAlertVC: UIViewController {
         super.viewDidAppear(animated)
         let semaphore = DispatchSemaphore(value: 1)
         if let authorName = authorName,
-           let slug = authorSlug,
-           let quoteVMM = quoteVM {
+           let quoteVMM = quoteVM,
+           let authorID = quoteVM?.authorID {
             modalAlertView.buildView(authorName: authorName)
-            ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVMM.author)) { [weak self] result in
+            ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVMM.authorName)) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let tuple):
@@ -44,18 +44,18 @@ class ModalAlertVC: UIViewController {
                     semaphore.signal()
                 }
             }
-            QuoteManager.getQuotesOfAuthor(authorSlug: slug, page: 1) { [weak self] result in
+            DictumManager.getQuotesOfAuthor(authorID: authorID) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let quotes):
                     semaphore.wait()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
-                        self.dismiss(animated: true) {
+                        self.dismiss(animated: true, completion: {
                             if let presentingClosure = self.presentingClosure,
                                let imageUrl = self.authorImageURL {
                                 presentingClosure((quotes, imageUrl))
                             }
-                        }
+                        })
                     }
                 case .failure(let error):
                     print(error)

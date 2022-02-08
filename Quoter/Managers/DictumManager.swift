@@ -8,9 +8,22 @@
 import UIKit
 
 class DictumManager: NetworkManager {
+        
+    static func getRandomQuote(completion: @escaping (Result<DictumQuoteVM, Error>) -> Void) {
+        guard let url = DictumEndponts.randomQuote else { return }
+        getData(url: url, model: Resource(model: DictumQuoteModel.self)) { result in
+            switch result {
+            case .success(let randomQuote):
+                let convertedQuote = DictumQuoteVM(rootModel: randomQuote)
+                completion(.success(convertedQuote))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
     
-    static func get50Quotes(offset: Int, completion: @escaping (Result<[DictumQuoteVM], Error>) -> Void) {
-        guard let url = DictumEndponts.get50Quotes(offset: offset) else { return }
+    static func getQuotesOfAuthor(authorID: String, completion: @escaping (Result<[DictumQuoteVM], Error>) -> Void) {
+        guard let url = DictumEndponts.getQuotesOfAuthor(authorID: authorID) else { return }
         getData(url: url, model: Resource(model: [DictumQuoteModel].self)) { result in
             switch result {
             case .success(let quotes):
@@ -21,6 +34,4 @@ class DictumManager: NetworkManager {
             }
         }
     }
-    
-    
 }

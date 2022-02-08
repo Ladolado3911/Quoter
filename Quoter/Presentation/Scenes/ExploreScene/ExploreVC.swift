@@ -69,22 +69,27 @@ class ExploreVC: UIViewController {
     }
     
     private func setUpInitialDataForPageController() {
-        let group = DispatchGroup()
-        group.enter()
-        loadImages() {
-            group.leave()
-        }
-        group.enter()
-        loadQuotes() {
-            group.leave()
-        }
-        group.notify(queue: .main) { [weak self] in
+        
+        loadImages { [weak self] in
             guard let self = self else { return }
             self.showInitialQuote()
-            //print(self.loadedImageURLs.count)
-            //print(Set(self.loadedImageURLs).count)
-            
         }
+//        let group = DispatchGroup()
+//        group.enter()
+//        loadImages() {
+//            group.leave()
+//        }
+//        group.enter()
+//        loadQuotes() {
+//            group.leave()
+//        }
+//        group.notify(queue: .main) { [weak self] in
+//            guard let self = self else { return }
+//            self.showInitialQuote()
+//            //print(self.loadedImageURLs.count)
+//            //print(Set(self.loadedImageURLs).count)
+//
+//        }
     }
     
     private func loadImages(completion: @escaping () -> Void) {
@@ -118,29 +123,69 @@ class ExploreVC: UIViewController {
     private func showInitialQuote() {
         let vc1 = QuoteVC()
         let vc2 = QuoteVC()
-
-        vc1.mainImageURL = loadedImageURLs[currentPage]
-        vc1.quoteVM = loadedVMs[currentPage]
-        vc2.mainImageURL = loadedImageURLs[currentPage + 1]
-        vc2.quoteVM = loadedVMs[currentPage + 1]
         
-        quoteControllers.append(vc1)
-        quoteControllers.append(vc2)
-        configPageVC()
-        tempQuoteVM = loadedVMs[currentPage]
-        //currentPage += 2
-        (parent as? TabbarController)?.addChildController(controller: self.pageVC)
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        DictumManager.getRandomQuote { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let quoteVM):
+                vc1.mainImageURL = self.loadedImageURLs[self.currentPage]
+                vc1.quoteVM = quoteVM
+                dispatchGroup.leave()
+            case .failure(let error):
+                print(error)
+                dispatchGroup.leave()
+            }
+        }
+        dispatchGroup.enter()
+        DictumManager.getRandomQuote { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let quoteVM):
+                vc2.mainImageURL = self.loadedImageURLs[self.currentPage]
+                vc2.quoteVM = quoteVM
+                dispatchGroup.leave()
+            case .failure(let error):
+                print(error)
+                dispatchGroup.leave()
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            guard let self = self else { return }
+            self.quoteControllers.append(vc1)
+            self.quoteControllers.append(vc2)
+            self.configPageVC()
+            //tempQuoteVM = loadedVMs[currentPage]
+            //currentPage += 2
+            (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
+        }
+
+//        vc1.mainImageURL = loadedImageURLs[currentPage]
+//        vc1.quoteVM = loadedVMs[currentPage]
+//        vc2.mainImageURL = loadedImageURLs[currentPage + 1]
+//        vc2.quoteVM = loadedVMs[currentPage + 1]
+//
     }
     
     private func showQuote() {
         let vc = QuoteVC()
         print(currentPage)
-        vc.mainImageURL = loadedImageURLs[currentPage + 1]
-        vc.quoteVM = loadedVMs[currentPage + 1]
         
-        quoteControllers.append(vc)
-        tempQuoteVM = loadedVMs[currentPage + 1]
-        (parent as? TabbarController)?.addChildController(controller: self.pageVC)
+        DictumManager.getRandomQuote { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let quoteVM):
+                vc.mainImageURL = self.loadedImageURLs[self.currentPage]
+                vc.quoteVM = quoteVM
+                self.quoteControllers.append(vc)
+                //self.tempQuoteVM = loadedVMs[currentPage + 1]
+                (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     private func configPageVC() {
@@ -220,6 +265,7 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
                 prevX = recog.location(in: pageViewController.view).x
             }
             if let recog = recognizer as? UITapGestureRecognizer {
+                print("tapped")
                 let tappedX = recog.location(in: pageViewController.view).x
                 if tappedX < PublicConstants.screenWidth / 2 {
                     currentPage -= 1

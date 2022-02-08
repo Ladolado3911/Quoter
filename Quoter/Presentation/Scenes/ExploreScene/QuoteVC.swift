@@ -11,7 +11,7 @@ import AVFoundation
 
 class QuoteVC: UIViewController {
     
-    var quoteVM: QuoteVM? {
+    var quoteVM: DictumQuoteVM? {
         didSet {
             configWithVM()
         }
@@ -25,7 +25,7 @@ class QuoteVC: UIViewController {
     var mainImageURL: URL?
     var imageType: ImageType?
     
-    lazy var presentQuotesOfAuthorClosure: (([AuthorQuoteVM], URL?)) -> Void = { [weak self] quoteVMs in
+    lazy var presentQuotesOfAuthorClosure: (([DictumQuoteVM], URL?)) -> Void = { [weak self] quoteVMs in
         guard let self = self else { return }
         let destVC = QuotesOfAuthorVC()
         destVC.modalTransitionStyle = .coverVertical
@@ -33,7 +33,7 @@ class QuoteVC: UIViewController {
         destVC.networkQuotesArr = quoteVMs.0
         destVC.state = .network
         destVC.authorImageURL = quoteVMs.1
-        destVC.authorName = self.quoteVM?.author
+        destVC.authorName = self.quoteVM?.authorName
         self.present(destVC, animated: true)
     }
     
@@ -69,12 +69,12 @@ class QuoteVC: UIViewController {
 
         
         if let quoteVM = quoteVM {
-            let author = CoreDataManager.getAuthor(authorName: quoteVM.author)
+            let author = CoreDataManager.getAuthor(authorName: quoteVM.authorName)
             if let author = author,
                let quotesSet = author.relationship,
                let quotesArr = quotesSet.allObjects as? [QuoteCore] {
                 for quote in quotesArr {
-                    if quoteVM.content == quote.content && quoteView.ideaImageView.state == .off {
+                    if quoteVM.text == quote.content && quoteView.ideaImageView.state == .off {
                         quoteView.ideaImageView.state = .on
                     }
                 }
@@ -95,8 +95,8 @@ class QuoteVC: UIViewController {
             return 
         }
         
-        quoteView.quoteTextView.text = quoteVM.content
-        quoteView.authorLabel.text = quoteVM.author
+        quoteView.quoteTextView.text = quoteVM.text
+        quoteView.authorLabel.text = quoteVM.authorName
         quoteView.ideaImageView.addGestureRecognizer(tapOnIdeaGesture)
         quoteView.bookImageView.addGestureRecognizer(tapOnBookGesture)
         
@@ -146,8 +146,9 @@ class QuoteVC: UIViewController {
         guard let quoteVM = quoteVM else {
             return
         }
-        ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.author)) { [weak self] result in
+        ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM.authorName)) { [weak self] result in
             guard let self = self else { return }
+            //print(#function)
             switch result {
             case .success(let tuple):
                 do {
@@ -188,8 +189,9 @@ class QuoteVC: UIViewController {
         let modalAlertVC = ModalAlertVC()
         modalAlertVC.modalTransitionStyle = .crossDissolve
         modalAlertVC.modalPresentationStyle = .custom
-        modalAlertVC.authorName = quoteVM?.author
-        modalAlertVC.authorSlug = quoteVM?.authorSlug
+        modalAlertVC.authorName = quoteVM?.authorName
+        // MARK: Here we risked to set authorname to slug
+        modalAlertVC.authorSlug = quoteVM?.authorName
         modalAlertVC.presentingClosure = presentQuotesOfAuthorClosure
         modalAlertVC.quoteVM = quoteVM
         present(modalAlertVC, animated: false)
