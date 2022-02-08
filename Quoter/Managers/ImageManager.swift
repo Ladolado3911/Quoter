@@ -9,16 +9,31 @@ import UIKit
 
 class ImageManager: NetworkManager {
     
-    static func loadRelevantImageURL(keyword: String, completion: @escaping (Result<URL, Error>) -> Void) {
-        guard let url = QuoteEndpoints.getRelevantPicturesURL(keyword: keyword) else { return }
+//    static func loadRelevantImageURL(keyword: String, completion: @escaping (Result<URL, Error>) -> Void) {
+//        guard let url = QuoteEndpoints.getRelevantPicturesURL(keyword: keyword) else { return }
+//        getData(url: url, model: Resource(model: ImageResponse.self)) { result in
+//            switch result {
+//            case .success(let response):
+//                if let hits = response.hits,
+//                   let randomItem = hits.randomElement(),
+//                   let urlString = randomItem.largeImageURL,
+//                   let resultUrl = URL(string: urlString) {
+//                    completion(.success(resultUrl))
+//                }
+//            case .failure(let error):
+//                completion(.failure(error))
+//            }
+//        }
+//    }
+    
+    static func load50ImageURLs(tag: Tag, completion: @escaping (Result<[URL?], Error>) -> Void) {
+        guard let url = QuoteEndpoints.getRelevantPicturesURL(keyword: tag.rawValue) else { return }
         getData(url: url, model: Resource(model: ImageResponse.self)) { result in
             switch result {
-            case .success(let response):
-                if let hits = response.hits,
-                   let randomItem = hits.randomElement(),
-                   let urlString = randomItem.largeImageURL,
-                   let resultUrl = URL(string: urlString) {
-                    completion(.success(resultUrl))
+            case .success(let imageResponse):
+                if let results = imageResponse.hits {
+                    let converted = results.map { URL(string: $0.largeImageURL ?? "") }
+                    completion(.success(converted))
                 }
             case .failure(let error):
                 completion(.failure(error))
@@ -26,9 +41,8 @@ class ImageManager: NetworkManager {
         }
     }
     
-    static func load150ImageURLs(page: Int, completion: @escaping (Result<[URL?], Error>) -> Void) {
-        guard let url = QuoteEndpoints.getRandomImageURL(page: page) else { return }
-        
+    static func load50LandscapeURLs(completion: @escaping (Result<[URL?], Error>) -> Void) {
+        guard let url = QuoteEndpoints.get50NatureLandscapeURLs() else { return }
         getData(url: url, model: Resource(model: ImageResponse.self)) { result in
             switch result {
             case .success(let imageResponse):
@@ -99,7 +113,6 @@ class ImageManager: NetworkManager {
         }
     }
 
-    
     static func getRandomImage(completion: @escaping (Result<URL, Error>) -> Void) {
         guard let imageUrl = QuoteEndpoints.getRandomImageURL(page: Int.random(in: 1...3)) else { return }
         getData(url: imageUrl, model: Resource(model: ImageResponse.self)) { result in

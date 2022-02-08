@@ -8,15 +8,17 @@
 import UIKit
 
 struct TagImageURLs {
-    var wisdom: [URL] = []
-    var friendship: [URL] = []
-    var inspirational: [URL] = []
+    static var wisdom: [URL] = []
+    static var friendship: [URL] = []
+    static var inspirational: [URL] = []
+    static var famousQuotes: [URL] = []
 }
 
-enum Tags: String {
+enum Tag: String {
     case wisdom
     case friendship
     case inspirational
+    case famousQuotes = "famous-quotes"
 }
 
 class ExploreVC: UIViewController {
@@ -24,7 +26,9 @@ class ExploreVC: UIViewController {
     var quoteControllers: [QuoteVC] = []
     var loadedVMs: [QuoteVM] = []
     var loadedImageURLs: [URL?] = []
+
     var currentPage: Int = 0
+
     var currentIndex: Int = 0
     var currentX: CGFloat = 0
     var prevX: CGFloat = -1
@@ -45,7 +49,7 @@ class ExploreVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(#function)
+        //print(#function)
         UIApplication.shared.statusBarStyle = .lightContent
 //        configPageVC()
 //        setUpInitialDataForPageController()
@@ -54,41 +58,45 @@ class ExploreVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print(currentPage)
+        //print(currentPage)
         setUpInitialDataForPageController()
         //configPageVC()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //print(currentPage)
+    }
+    
     private func setUpInitialDataForPageController() {
-//        getRandomQuote(semaphore: semaphore)
-//        semaphore.wait()
-//        getRandomQuote(semaphore: semaphore)
-//        let group = DispatchGroup()
-//        group.enter()
-//        loadImages() {
-//            group.leave()
-//        }
-        //group.enter()
-        loadQuotes() { [weak self] in
-            self?.showInitialQuote()
+        let group = DispatchGroup()
+        group.enter()
+        loadImages() {
+            group.leave()
         }
-//        group.notify(queue: .main) { [weak self] in
-//            guard let self = self else { return }
-//            self.showInitialQuote()
-//        }
+        group.enter()
+        loadQuotes() {
+            group.leave()
+        }
+        group.notify(queue: .main) { [weak self] in
+            guard let self = self else { return }
+            self.showInitialQuote()
+            //print(self.loadedImageURLs.count)
+            //print(Set(self.loadedImageURLs).count)
+            
+        }
     }
     
     private func loadImages(completion: @escaping () -> Void) {
-        ImageManager.load150ImageURLs(page: Int.random(in: 1...3)) { [weak self] result in
-            guard let self = self else { return }
+        ImageManager.load50LandscapeURLs { [weak self] result in
             switch result {
             case .success(let urls):
-                let shuffled = urls.shuffled()
-                self.loadedImageURLs.append(contentsOf: shuffled)
-                completion()
+                let shuffled = urls.shuffled().compactMap { $0 }
+                self?.loadedImageURLs.append(contentsOf: shuffled)
             case .failure(let error):
                 print(error)
             }
+            completion()
         }
     }
     
@@ -110,28 +118,32 @@ class ExploreVC: UIViewController {
     private func showInitialQuote() {
         let vc1 = QuoteVC()
         let vc2 = QuoteVC()
-//        vc1.mainImageURL = loadedImageURLs[currentPage]
+
+        vc1.mainImageURL = loadedImageURLs[currentPage]
         vc1.quoteVM = loadedVMs[currentPage]
- //       vc2.mainImageURL = loadedImageURLs[currentPage + 1]
+        vc2.mainImageURL = loadedImageURLs[currentPage + 1]
         vc2.quoteVM = loadedVMs[currentPage + 1]
+        
         quoteControllers.append(vc1)
         quoteControllers.append(vc2)
         configPageVC()
         tempQuoteVM = loadedVMs[currentPage]
-        currentPage += 2
+        //currentPage += 2
         (parent as? TabbarController)?.addChildController(controller: self.pageVC)
     }
     
     private func showQuote() {
         let vc = QuoteVC()
-        //vc.mainImageURL = loadedImageURLs[currentPage]
+        vc.mainImageURL = loadedImageURLs[currentPage]
         vc.quoteVM = loadedVMs[currentPage]
+        
         quoteControllers.append(vc)
         tempQuoteVM = loadedVMs[currentPage]
         (parent as? TabbarController)?.addChildController(controller: self.pageVC)
     }
 
     private func configPageVC() {
+        print(currentPage)
         let current = quoteControllers[currentPage]
         pageVC.modalTransitionStyle = .crossDissolve
         pageVC.modalPresentationStyle = .fullScreen
@@ -139,9 +151,8 @@ class ExploreVC: UIViewController {
                                   direction: .forward,
                                   animated: false,
                                   completion: nil)
+        //currentPage += 2
     }
-    
-    
 }
 
 extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
@@ -171,33 +182,33 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
             }
             if currentX > prevX {
                 //print("turn page to left")
-                currentPage -= 1
+                //currentPage -= 1
             }
             else {
-                if currentPage % 150 == 0 && currentPage != 0 {
+                if currentPage % 50 == 0 && currentPage != 0 {
                     print("limit reached")
-                    //let group = DispatchGroup()
-                    //group.enter()
-                    loadQuotes { [weak self] in
-                        //group.leave()
+                    let group = DispatchGroup()
+                    group.enter()
+                    loadQuotes {
+                        group.leave()
+                    }
+                    group.enter()
+                    loadImages {
+                        group.leave()
+                    }
+                    group.notify(queue: .main) { [weak self] in
                         self?.showQuote()
                     }
-//                    group.enter()
-//                    loadImages {
-//                        group.leave()
-//                    }
-//                    group.notify(queue: .main) { [weak self] in
-//                        self?.showQuote()
-//                    }
                 }
                 else {
                     showQuote()
                 }
-                currentPage += 1
+                //currentPage += 1
             }
 //            if currentIndex + 2 == quoteControllers.count && currentX < prevX {
 //                getRandomQuote()
 //            }
+            //print(currentPage)
         }
     }
 
@@ -206,6 +217,15 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
         pageViewController.gestureRecognizers.forEach { recognizer in
             if let recog = recognizer as? UIPanGestureRecognizer {
                 prevX = recog.location(in: pageViewController.view).x
+            }
+            if let recog = recognizer as? UITapGestureRecognizer {
+                let tappedX = recog.location(in: pageViewController.view).x
+                if tappedX < PublicConstants.screenWidth / 2 {
+                    currentPage -= 1
+                }
+                else {
+                    currentPage += 1
+                }
             }
         }
     }

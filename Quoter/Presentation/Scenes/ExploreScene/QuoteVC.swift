@@ -66,6 +66,8 @@ class QuoteVC: UIViewController {
         //CoreDataManager.clearQuotesAndAuthors()
         //print(CoreDataManager.getQuote(quoteVM: quoteVM!)?.content)
         //CoreDataManager.printCoreDataItems()
+
+        
         if let quoteVM = quoteVM {
             let author = CoreDataManager.getAuthor(authorName: quoteVM.author)
             if let author = author,
@@ -88,14 +90,20 @@ class QuoteVC: UIViewController {
         guard let quoteVM = quoteVM else {
             return
         }
-//        guard let mainImageURl = mainImageURL else {
-//            return
-//        }
+        
+        guard let mainImageURl = mainImageURL else {
+            return 
+        }
+        
         quoteView.quoteTextView.text = quoteVM.content
         quoteView.authorLabel.text = quoteVM.author
         quoteView.ideaImageView.addGestureRecognizer(tapOnIdeaGesture)
         quoteView.bookImageView.addGestureRecognizer(tapOnBookGesture)
-        //quoteView.mainImageView.kf.setImage(with: mainImageURl)
+        
+        
+        
+        
+        quoteView.mainImageView.kf.setImage(with: mainImageURl)
 //        QuoteManager.getRandomImage { [weak self] result in
 //            guard let self = self else { return }
 //            switch result {
@@ -105,28 +113,28 @@ class QuoteVC: UIViewController {
 //                print(error)
 //            }
 //        }
-        print(quoteVM.lastTag)
-        if quoteVM.lastTag == "famous-quotes" {
-            ImageManager.getRandomImage { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let url):
-                    self.quoteView.mainImageView.kf.setImage(with: url)
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-        else {
-            ImageManager.loadRelevantImageURL(keyword: quoteVM.lastTag) { [weak self] result in
-                switch result {
-                case .success(let url):
-                    self?.quoteView.mainImageView.kf.setImage(with: url)
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
+        //print(quoteVM.lastTag)
+//        if quoteVM.lastTag == "famous-quotes" {
+//            ImageManager.getRandomImage { [weak self] result in
+//                guard let self = self else { return }
+//                switch result {
+//                case .success(let url):
+//                    self.quoteView.mainImageView.kf.setImage(with: url)
+//                case .failure(let error):
+//                    print(error)
+//                }
+//            }
+//        }
+//        else {
+//            ImageManager.loadRelevantImageURL(keyword: quoteVM.lastTag) { [weak self] result in
+//                switch result {
+//                case .success(let url):
+//                    self?.quoteView.mainImageView.kf.setImage(with: url)
+//                case .failure(let error):
+//                    print(error)
+//                }
+//            }
+//        }
         view.layoutIfNeeded()
     }
     

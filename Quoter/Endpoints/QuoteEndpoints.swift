@@ -21,7 +21,11 @@ struct QuoteEndpoints {
     }
     
     static func getRelevantPicturesURL(keyword: String) -> URL? {
-        URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&limit=50&image_type=photo&&q=\(keyword)&safesearch=true")
+        URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&per_page=50&image_type=photo&q=\(keyword)&safesearch=true")
+    }
+    
+    static func get50NatureLandscapeURLs() -> URL? {
+        URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&per_page=50&image_type=photo&q=landscape&safesearch=true")
     }
     
     static func get150QuotesURL(page: Int, maxLength: Int) -> URL? {
