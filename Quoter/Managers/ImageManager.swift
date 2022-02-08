@@ -27,7 +27,7 @@ class ImageManager: NetworkManager {
 //    }
     
     static func load50ImageURLs(tag: Tag, completion: @escaping (Result<[URL?], Error>) -> Void) {
-        guard let url = QuoteEndpoints.getRelevantPicturesURL(keyword: tag.rawValue) else { return }
+        guard let url = ImageEndpoints.getRelevantPicturesURL(keyword: tag.rawValue) else { return }
         getData(url: url, model: Resource(model: ImageResponse.self)) { result in
             switch result {
             case .success(let imageResponse):
@@ -42,7 +42,7 @@ class ImageManager: NetworkManager {
     }
     
     static func load50LandscapeURLs(completion: @escaping (Result<[URL?], Error>) -> Void) {
-        guard let url = QuoteEndpoints.get50NatureLandscapeURLs() else { return }
+        guard let url = ImageEndpoints.get50NatureLandscapeURLs() else { return }
         getData(url: url, model: Resource(model: ImageResponse.self)) { result in
             switch result {
             case .success(let imageResponse):
@@ -74,7 +74,7 @@ class ImageManager: NetworkManager {
         else {
             newSlug = slug
         }
-        if let url = QuoteEndpoints.getAuthorImageURL(authorName: newSlug) {
+        if let url = ImageEndpoints.getAuthorImageURL(authorName: newSlug) {
             getData(url: url, model: Resource(model: Response.self)) { result in
                 switch result {
                 case .success(let response):
@@ -114,7 +114,7 @@ class ImageManager: NetworkManager {
     }
 
     static func getRandomImage(completion: @escaping (Result<URL, Error>) -> Void) {
-        guard let imageUrl = QuoteEndpoints.getRandomImageURL(page: Int.random(in: 1...3)) else { return }
+        guard let imageUrl = ImageEndpoints.getRandomImageURL(page: Int.random(in: 1...3)) else { return }
         getData(url: imageUrl, model: Resource(model: ImageResponse.self)) { result in
             switch result {
             case .success(let imageResponse):

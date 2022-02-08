@@ -134,16 +134,17 @@ class ExploreVC: UIViewController {
     
     private func showQuote() {
         let vc = QuoteVC()
-        vc.mainImageURL = loadedImageURLs[currentPage]
-        vc.quoteVM = loadedVMs[currentPage]
+        print(currentPage)
+        vc.mainImageURL = loadedImageURLs[currentPage + 1]
+        vc.quoteVM = loadedVMs[currentPage + 1]
         
         quoteControllers.append(vc)
-        tempQuoteVM = loadedVMs[currentPage]
+        tempQuoteVM = loadedVMs[currentPage + 1]
         (parent as? TabbarController)?.addChildController(controller: self.pageVC)
     }
 
     private func configPageVC() {
-        print(currentPage)
+        //print(currentPage)
         let current = quoteControllers[currentPage]
         pageVC.modalTransitionStyle = .crossDissolve
         pageVC.modalPresentationStyle = .fullScreen
@@ -185,7 +186,7 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
                 //currentPage -= 1
             }
             else {
-                if currentPage % 50 == 0 && currentPage != 0 {
+                if currentPage % 49 == 0 && currentPage != 0 {
                     print("limit reached")
                     let group = DispatchGroup()
                     group.enter()

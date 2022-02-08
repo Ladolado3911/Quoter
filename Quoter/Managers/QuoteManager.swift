@@ -24,7 +24,7 @@ class QuoteManager: NetworkManager {
     
     static func load150Quotes(page: Int, maxLength: Int, completion: @escaping (Result<[QuoteVM], Error>) -> Void) {
         
-        guard let url = QuoteEndpoints.get150QuotesURL(page: page, maxLength: maxLength) else { return }
+        guard let url = QuotableEndpoints.get150QuotesURL(page: page, maxLength: maxLength) else { return }
         
         getData(url: url, model: Resource(model: QuoteBatchResponse.self)) { result in
             switch result {
@@ -44,7 +44,7 @@ class QuoteManager: NetworkManager {
     }
 
     static func getQuotesOfAuthor(authorSlug: String, page: Int, completion: @escaping (Result<[AuthorQuoteVM], Error>) -> Void) {
-        guard let url = QuoteEndpoints.quotesOfAuthorURL(authorSlug: authorSlug, page: page) else { return }
+        guard let url = QuotableEndpoints.quotesOfAuthorURL(authorSlug: authorSlug, page: page) else { return }
         getData(url: url,
                 model: Resource(model: AuthorQuotesResponse.self)) { result in
             switch result {

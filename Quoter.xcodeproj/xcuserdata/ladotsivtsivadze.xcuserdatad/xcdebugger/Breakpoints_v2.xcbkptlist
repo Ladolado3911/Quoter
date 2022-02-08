@@ -382,8 +382,8 @@
             filePath = "Quoter/Presentation/Scenes/ExploreScene/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "showQuote()"
             landmarkType = "7">
          </BreakpointContent>
@@ -478,8 +478,8 @@
             filePath = "Quoter/Presentation/Scenes/ExploreScene/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "pageViewController(_:didFinishAnimating:previousViewControllers:transitionCompleted:)"
             landmarkType = "7">
          </BreakpointContent>
