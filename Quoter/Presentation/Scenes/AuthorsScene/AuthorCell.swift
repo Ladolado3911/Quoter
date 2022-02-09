@@ -87,8 +87,15 @@ class AuthorCell: UICollectionViewCell {
     }
     
     private func setImage(vm: AuthorCoreVM) {
+        if vm.image.pngData() == UIImage(named: "unknown")?.pngData() {
+            imageView.contentMode = .scaleAspectFit
+        }
+        else {
+            imageView.contentMode = .scaleAspectFill
+        }
         imageView.image = vm.image
         backgroundColor = .white
+        
     }
     
     private func getNameFromUrl(urlString: String) -> String {

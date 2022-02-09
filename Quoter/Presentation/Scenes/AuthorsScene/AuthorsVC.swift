@@ -164,6 +164,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         case .on:
             data3[indexPath.item].turnOff(isChanging: true)
             mainImageSubject.send(UIImage(named: "book")!)
+            authorsView.mainImageView.contentMode = .scaleAspectFill
             mainTitle.send("Select Person")
         case .off:
             let filtered = data3.filter { $0 !== data3[indexPath.item] }
@@ -180,6 +181,12 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             }
             selectedAuthor = data3[indexPath.item]
             data3[indexPath.item].turnOn()
+            if image.pngData() == UIImage(named: "unknown")?.pngData() {
+                authorsView.mainImageView.contentMode = .scaleAspectFit
+            }
+            else {
+                authorsView.mainImageView.contentMode = .scaleAspectFill
+            }
             mainImageSubject.send(image)
             mainTitle.send(name)
         }

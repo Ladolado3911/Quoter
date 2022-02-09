@@ -36,7 +36,9 @@ class ModalAlertVC: UIViewController {
                 guard let self = self else { return }
                 switch result {
                 case .success(let tuple):
-                    self.authorImageURL = tuple.0
+                    if tuple.1 == .author {
+                        self.authorImageURL = tuple.0
+                    }
                     semaphore.signal()
                 case .failure(let error):
                     print(error)
@@ -53,6 +55,9 @@ class ModalAlertVC: UIViewController {
                             if let presentingClosure = self.presentingClosure,
                                let imageUrl = self.authorImageURL {
                                 presentingClosure((quotes, imageUrl))
+                            }
+                            else {
+                                self.presentingClosure!((quotes, nil))
                             }
                         })
                     }

@@ -67,7 +67,7 @@ class QuotesOfAuthorView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        backgroundColor = .black
+        backgroundColor = .white
         buildSubviews()
         buildConstraints()
     }

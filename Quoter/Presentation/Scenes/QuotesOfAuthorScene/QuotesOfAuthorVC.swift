@@ -76,9 +76,24 @@ class QuotesOfAuthorVC: UIViewController {
     private func populateData() {
         switch state {
         case .network:
-            guard let authorImageURL = authorImageURL,
-                  let name = authorName else {
-                return
+            guard let name = authorName else { return }
+//            guard let authorImageURL = authorImageURL,
+//                  let name = authorName else {
+//
+//
+//
+//
+//                return
+//            }
+            
+            if authorImageURL == nil {
+                quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFit
+                quotesOfAuthorView.mainImageView.image = UIImage(named: "unknown")
+                
+            }
+            else {
+                quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFill
+                quotesOfAuthorView.mainImageView.kf.setImage(with: authorImageURL)
             }
 //
 //            do {
@@ -92,7 +107,7 @@ class QuotesOfAuthorVC: UIViewController {
 //            }
             
             quotesOfAuthorView.titleOfAuthor.text = name
-            quotesOfAuthorView.mainImageView.kf.setImage(with: authorImageURL)
+            //quotesOfAuthorView.mainImageView.kf.setImage(with: authorImageURL)
             
             quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].text
             
@@ -105,6 +120,15 @@ class QuotesOfAuthorVC: UIViewController {
             guard let author = author else {
                 return
             }
+            
+            if author.image.pngData() == UIImage(named: "unknown")?.pngData() {
+                quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFit
+                
+            }
+            else {
+                quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFill
+            }
+            
             quotesOfAuthorView.titleOfAuthor.text = author.name
             quotesOfAuthorView.mainImageView.image = author.image
             quotesArr = author.quotes
