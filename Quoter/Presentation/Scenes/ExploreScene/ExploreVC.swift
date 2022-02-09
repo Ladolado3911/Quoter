@@ -79,6 +79,7 @@ class ExploreVC: UIViewController {
         
         loadImages { [weak self] in
             guard let self = self else { return }
+            
             self.showInitialQuote()
         }
 //        let group = DispatchGroup()
@@ -105,6 +106,7 @@ class ExploreVC: UIViewController {
             case .success(let urls):
                 let shuffled = urls.shuffled().compactMap { $0 }
                 self?.loadedImageURLs.append(contentsOf: shuffled)
+                
             case .failure(let error):
                 print(error)
             }
@@ -150,7 +152,7 @@ class ExploreVC: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let quoteVM):
-                vc2.mainImageURL = self.loadedImageURLs[self.currentPage]
+                vc2.mainImageURL = self.loadedImageURLs[self.currentPage + 1]
                 vc2.quoteVM = quoteVM
                 dispatchGroup.leave()
             case .failure(let error):
@@ -184,7 +186,7 @@ class ExploreVC: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let quoteVM):
-                vc.mainImageURL = self.loadedImageURLs[self.currentPage]
+                vc.mainImageURL = self.loadedImageURLs[self.currentPage + 1]
                 vc.quoteVM = quoteVM
                 self.quoteControllers.append(vc)
                 //self.tempQuoteVM = loadedVMs[currentPage + 1]
