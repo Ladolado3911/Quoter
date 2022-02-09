@@ -67,6 +67,7 @@ class ImageManager: NetworkManager {
                     completion(.failure(error))
                 }
             }
+            return
         }
         else if slug == "Napoleon_Bonaparte" {
             newSlug = "Napoleon"
