@@ -14,6 +14,10 @@ struct QuoteGardenEndpoints {
     }
     
     static func getQuotesOfAuthor(authorName: String) -> URL? {
-        URL(string: "https://quote-garden.herokuapp.com/api/v3/quotes?limit=500&author=\(authorName)")
+        URL(string: "https://quote-garden.herokuapp.com/api/v3/quotes?limit=500&author=\(convert(str: authorName))")
+    }
+    
+    static func convert(str: String) -> String {
+        return str.replacingOccurrences(of: " ", with: "%20")
     }
 }

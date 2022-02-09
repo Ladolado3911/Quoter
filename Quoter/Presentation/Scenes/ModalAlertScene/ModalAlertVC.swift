@@ -31,6 +31,7 @@ class ModalAlertVC: UIViewController {
         let semaphore = DispatchSemaphore(value: 1)
         if let authorName = authorName,
            let quoteVMM = quoteVM {
+            
             modalAlertView.buildView(authorName: authorName)
             ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVMM.authorName)) { [weak self] result in
                 guard let self = self else { return }

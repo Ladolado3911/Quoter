@@ -29,7 +29,9 @@ class QuoteGardenManager: NetworkManager {
     }
     
     static func getQuotesOfAuthor(authorName: String, completion: @escaping (Result<[QuoteGardenQuoteVM], Error>) -> Void) {
+        
         guard let url = QuoteGardenEndpoints.getQuotesOfAuthor(authorName: authorName) else { return }
+        
         getData(url: url, model: Resource(model: QuoteGardenResponse.self)) { result in
             switch result {
             case .success(let gardenResponse):
