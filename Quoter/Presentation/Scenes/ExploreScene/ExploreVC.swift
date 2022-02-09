@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum ScrollingDirection {
+    case left
+    case right
+}
+
 struct TagImageURLs {
     static var wisdom: [URL] = []
     static var friendship: [URL] = []
@@ -26,6 +31,8 @@ class ExploreVC: UIViewController {
     var quoteControllers: [QuoteVC] = []
     var loadedVMs: [QuoteVM] = []
     var loadedImageURLs: [URL?] = []
+    
+    var scrollingDirection: ScrollingDirection = .right
 
     var currentPage: Int = 0
 
@@ -226,6 +233,12 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
                     currentX = recog.location(in: pageViewController.view).x
                 }
             }
+            switch scrollingDirection {
+            case .left:
+                currentPage -= 1
+            case .right:
+                currentPage += 1
+            }
             if currentX > prevX {
                 //print("turn page to left")
                 //currentPage -= 1
@@ -268,10 +281,12 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
                 print("tapped")
                 let tappedX = recog.location(in: pageViewController.view).x
                 if tappedX < PublicConstants.screenWidth / 2 {
-                    currentPage -= 1
+                    //currentPage -= 1
+                    scrollingDirection = .left
                 }
                 else {
-                    currentPage += 1
+                    //currentPage += 1
+                    scrollingDirection = .right
                 }
             }
         }
