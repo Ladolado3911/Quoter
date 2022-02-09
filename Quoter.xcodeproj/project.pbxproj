@@ -42,6 +42,9 @@
 		24D1815027A6D7F600F79C91 /* IdeaImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1814F27A6D7F600F79C91 /* IdeaImageView.swift */; };
 		24D264F62791777500614218 /* AuthorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D264F52791777500614218 /* AuthorCell.swift */; };
 		24D264F82791940F00614218 /* AuthorCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D264F72791940F00614218 /* AuthorCellVM.swift */; };
+		24D4107B27B3FB4500B5C899 /* QuoteGardenEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107A27B3FB4500B5C899 /* QuoteGardenEndpoints.swift */; };
+		24D4107D27B3FD0200B5C899 /* QuoteGardenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107C27B3FD0200B5C899 /* QuoteGardenManager.swift */; };
+		24D4108027B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */; };
 		24D78DE927B27FB700E6B401 /* ImageEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D78DE827B27FB700E6B401 /* ImageEndpoints.swift */; };
 		24D78DEB27B280A400E6B401 /* DictumEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D78DEA27B280A400E6B401 /* DictumEndpoints.swift */; };
 		24D78DEE27B2925800E6B401 /* DictumQuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D78DED27B2925800E6B401 /* DictumQuoteModel.swift */; };
@@ -109,6 +112,9 @@
 		24D1814F27A6D7F600F79C91 /* IdeaImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaImageView.swift; sourceTree = "<group>"; };
 		24D264F52791777500614218 /* AuthorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCell.swift; sourceTree = "<group>"; };
 		24D264F72791940F00614218 /* AuthorCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCellVM.swift; sourceTree = "<group>"; };
+		24D4107A27B3FB4500B5C899 /* QuoteGardenEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenEndpoints.swift; sourceTree = "<group>"; };
+		24D4107C27B3FD0200B5C899 /* QuoteGardenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenManager.swift; sourceTree = "<group>"; };
+		24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenQuoteModel.swift; sourceTree = "<group>"; };
 		24D78DE827B27FB700E6B401 /* ImageEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEndpoints.swift; sourceTree = "<group>"; };
 		24D78DEA27B280A400E6B401 /* DictumEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictumEndpoints.swift; sourceTree = "<group>"; };
 		24D78DED27B2925800E6B401 /* DictumQuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictumQuoteModel.swift; sourceTree = "<group>"; };
@@ -198,6 +204,7 @@
 				24D78DEA27B280A400E6B401 /* DictumEndpoints.swift */,
 				24CB9FE227930C0B00E9D49F /* QuotableEndpoints.swift */,
 				24D78DE827B27FB700E6B401 /* ImageEndpoints.swift */,
+				24D4107A27B3FB4500B5C899 /* QuoteGardenEndpoints.swift */,
 			);
 			path = Endpoints;
 			sourceTree = "<group>";
@@ -205,6 +212,7 @@
 		24CB9FE527930C1700E9D49F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				24D4107E27B3FD9400B5C899 /* QuoteGardenModels */,
 				24D78DEC27B2923D00E6B401 /* DictumModels */,
 				24A0D38727A7ED84002286F6 /* CoreDataModel.xcdatamodeld */,
 				24CB9FE727930C1700E9D49F /* AuthorModel.swift */,
@@ -217,6 +225,7 @@
 		24CB9FEA27930C2700E9D49F /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				24D4107C27B3FD0200B5C899 /* QuoteGardenManager.swift */,
 				24D78DF027B292F700E6B401 /* DictumManager.swift */,
 				2489797C27B151EA00BD0B2E /* ImageManager.swift */,
 				24CB9FEC27930C2700E9D49F /* QuoteManager.swift */,
@@ -321,6 +330,14 @@
 				24C12BCB27AAAFCF0069684D /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		24D4107E27B3FD9400B5C899 /* QuoteGardenModels */ = {
+			isa = PBXGroup;
+			children = (
+				24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */,
+			);
+			path = QuoteGardenModels;
 			sourceTree = "<group>";
 		};
 		24D78DEC27B2923D00E6B401 /* DictumModels */ = {
@@ -496,6 +513,7 @@
 				24D1287727903ECD00AD7F3D /* AuthorsVC.swift in Sources */,
 				24DEBF4D27ABB5BB00C40B29 /* LottieAnimations.swift in Sources */,
 				24C12BCC27AAAFCF0069684D /* UIViewController+Extension.swift in Sources */,
+				24D4108027B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift in Sources */,
 				24D128A12790AD0500AD7F3D /* AuthorsContentView.swift in Sources */,
 				24D264F82791940F00614218 /* AuthorCellVM.swift in Sources */,
 				24D264F62791777500614218 /* AuthorCell.swift in Sources */,
@@ -518,6 +536,7 @@
 				24C12BCE27AAB0230069684D /* ModalAlertView.swift in Sources */,
 				24D78DEB27B280A400E6B401 /* DictumEndpoints.swift in Sources */,
 				24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */,
+				24D4107B27B3FB4500B5C899 /* QuoteGardenEndpoints.swift in Sources */,
 				24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */,
 				24A0D38B27A7F099002286F6 /* CoreDataManager.swift in Sources */,
 				24F2B26227AD5F6D0049C40C /* String+Extension.swift in Sources */,
@@ -525,6 +544,7 @@
 				24CB9FED27930C2700E9D49F /* NetworkManager.swift in Sources */,
 				24DF187227A554AE00D93F8D /* RandomImageModel.swift in Sources */,
 				24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */,
+				24D4107D27B3FD0200B5C899 /* QuoteGardenManager.swift in Sources */,
 				24D1289927904D0E00AD7F3D /* AppColors.swift in Sources */,
 				24D1287527903ECD00AD7F3D /* SceneDelegate.swift in Sources */,
 				24D78DEE27B2925800E6B401 /* DictumQuoteModel.swift in Sources */,

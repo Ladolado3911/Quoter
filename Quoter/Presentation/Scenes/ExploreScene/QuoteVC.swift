@@ -11,7 +11,7 @@ import AVFoundation
 
 class QuoteVC: UIViewController {
     
-    var quoteVM: DictumQuoteVM? {
+    var quoteVM: QuoteGardenQuoteVM? {
         didSet {
             configWithVM()
         }
@@ -25,7 +25,7 @@ class QuoteVC: UIViewController {
     var mainImageURL: URL?
     var imageType: ImageType?
     
-    lazy var presentQuotesOfAuthorClosure: (([DictumQuoteVM], URL?)) -> Void = { [weak self] quoteVMs in
+    lazy var presentQuotesOfAuthorClosure: (([QuoteGardenQuoteVM], URL?)) -> Void = { [weak self] quoteVMs in
         guard let self = self else { return }
         let destVC = QuotesOfAuthorVC()
         destVC.modalTransitionStyle = .coverVertical
@@ -74,7 +74,7 @@ class QuoteVC: UIViewController {
                let quotesSet = author.relationship,
                let quotesArr = quotesSet.allObjects as? [QuoteCore] {
                 for quote in quotesArr {
-                    if quoteVM.text == quote.content && quoteView.ideaImageView.state == .off {
+                    if quoteVM.content == quote.content && quoteView.ideaImageView.state == .off {
                         quoteView.ideaImageView.state = .on
                     }
                 }
@@ -97,7 +97,7 @@ class QuoteVC: UIViewController {
         
         
         
-        quoteView.quoteTextView.text = quoteVM.text
+        quoteView.quoteTextView.text = quoteVM.content
         quoteView.authorLabel.text = quoteVM.authorName
         quoteView.ideaImageView.addGestureRecognizer(tapOnIdeaGesture)
         quoteView.bookImageView.addGestureRecognizer(tapOnBookGesture)

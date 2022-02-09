@@ -70,13 +70,13 @@ class CoreDataManager {
         }
     }
     
-    static func deleteQuote(quoteVM: DictumQuoteVM) {
+    static func deleteQuote(quoteVM: QuoteGardenQuoteVM) {
         guard let context = context else { return }
         let requestQuotes = NSFetchRequest<QuoteCore>(entityName: "QuoteCore")
         do {
             let quotes = try context.fetch(requestQuotes)
             for quote in quotes {
-                if quote.content == quoteVM.text {
+                if quote.content == quoteVM.content {
                     context.delete(quote)
                 }
             }
@@ -124,7 +124,7 @@ class CoreDataManager {
         }
     }
     
-    static func isQuoteInCoreData(quoteVM: DictumQuoteVM) -> Bool {
+    static func isQuoteInCoreData(quoteVM: QuoteGardenQuoteVM) -> Bool {
         guard let context = context else { return false }
         
         let requestQuotes = NSFetchRequest<QuoteCore>(entityName: "QuoteCore")
@@ -132,7 +132,7 @@ class CoreDataManager {
         do {
             let quotes = try context.fetch(requestQuotes)
             for quoteCore in quotes {
-                if quoteCore.content == quoteVM.text {
+                if quoteCore.content == quoteVM.content {
                     return true
                 }
             }
@@ -182,7 +182,7 @@ class CoreDataManager {
         }
     }
     
-    static func getQuote(quoteVM: DictumQuoteVM) -> QuoteCore? {
+    static func getQuote(quoteVM: QuoteGardenQuoteVM) -> QuoteCore? {
         guard let context = context else { return nil }
         
         let requestQuotes = NSFetchRequest<QuoteCore>(entityName: "QuoteCore")
@@ -190,7 +190,7 @@ class CoreDataManager {
         do {
             let quotes = try context.fetch(requestQuotes)
             for quoteCore in quotes {
-                if quoteCore.content == quoteVM.text {
+                if quoteCore.content == quoteVM.content {
                     return quoteCore as? QuoteCore
                 }
             }
@@ -202,7 +202,7 @@ class CoreDataManager {
         }
     }
     
-    static func addPair(quoteVM: DictumQuoteVM, authorImageData: Data?) {
+    static func addPair(quoteVM: QuoteGardenQuoteVM, authorImageData: Data?) {
         guard let context = context else { return }
 
         let quote = QuoteCore(context: context)
@@ -217,7 +217,7 @@ class CoreDataManager {
             print("THERE IS AUTHOR IN CORE BUT NOT THIS QUOTE, ADD THIS QUOTE AS NEW QUOTE")
             // get author and add this quote to that author
             if let authorObject = CoreDataManager.getAuthor(authorName: quoteVM.authorName) {
-                quote.content = quoteVM.text
+                quote.content = quoteVM.content
                 authorObject.addToRelationship(quote)
                 //quote
                 do {
@@ -237,7 +237,7 @@ class CoreDataManager {
             let author = AuthorCore(context: context)
             author.name = quoteVM.authorName
             author.image = authorImageData
-            quote.content = quoteVM.text
+            quote.content = quoteVM.content
             author.addToRelationship(quote)
             //quote.relationship = author
             do {
@@ -249,7 +249,7 @@ class CoreDataManager {
         }
     }
     
-    static func removePair(quoteVM: DictumQuoteVM) {
+    static func removePair(quoteVM: QuoteGardenQuoteVM) {
         
         guard let context = context else { return }
         
@@ -268,7 +268,7 @@ class CoreDataManager {
                         if let set = author.relationship,
                            let objects = set.allObjects as? [QuoteCore] {
                             for quote in objects {
-                                if quote.content == quoteVM.text {
+                                if quote.content == quoteVM.content {
                                     author.removeFromRelationship(quote)
                                     context.delete(quote)
                                 }

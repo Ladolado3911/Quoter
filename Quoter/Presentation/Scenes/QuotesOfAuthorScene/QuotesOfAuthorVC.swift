@@ -24,7 +24,7 @@ class QuotesOfAuthorVC: UIViewController {
     }
     var quotesArr: [QuoteCore] = []
     
-    var networkQuotesArr: [DictumQuoteVM] = []
+    var networkQuotesArr: [QuoteGardenQuoteVM] = []
     var authorImageURL: URL?
     var authorName: String?
     
@@ -109,7 +109,7 @@ class QuotesOfAuthorVC: UIViewController {
             quotesOfAuthorView.titleOfAuthor.text = name
             //quotesOfAuthorView.mainImageView.kf.setImage(with: authorImageURL)
             
-            quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].text
+            quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].content
             
             if networkQuotesArr.count > 1 {
                 print("more than 1 qoute network")
@@ -144,7 +144,7 @@ class QuotesOfAuthorVC: UIViewController {
     private func updateQuote() {
         switch state {
         case .network:
-            quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].text
+            quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].content
             quotesOfAuthorView.nextButton.isButtonEnabled = !(currentQuoteIndex == networkQuotesArr.count - 1)
             if currentQuoteIndex == networkQuotesArr.count - 1 {
                 quotesOfAuthorView.nextButton.isButtonEnabled = false
