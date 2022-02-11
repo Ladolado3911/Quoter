@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		247D1FA827B68F34001CABF9 /* AuthorCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */; };
 		2489797D27B151EA00BD0B2E /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489797C27B151EA00BD0B2E /* ImageManager.swift */; };
 		248FC0D627A9544D00069FFF /* QuotesOfAuthorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FC0D527A9544D00069FFF /* QuotesOfAuthorVC.swift */; };
 		248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FC0D727A9548D00069FFF /* QuotesOfAuthorView.swift */; };
@@ -77,6 +78,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCellOverlayView.swift; sourceTree = "<group>"; };
 		2489797C27B151EA00BD0B2E /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		248FC0D527A9544D00069FFF /* QuotesOfAuthorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesOfAuthorVC.swift; sourceTree = "<group>"; };
 		248FC0D727A9548D00069FFF /* QuotesOfAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesOfAuthorView.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				24D128A02790AD0500AD7F3D /* AuthorsContentView.swift */,
 				24D264F52791777500614218 /* AuthorCell.swift */,
 				24D264F72791940F00614218 /* AuthorCellVM.swift */,
+				247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */,
 			);
 			path = AuthorsScene;
 			sourceTree = "<group>";
@@ -549,6 +552,7 @@
 				24D1287527903ECD00AD7F3D /* SceneDelegate.swift in Sources */,
 				24D78DEE27B2925800E6B401 /* DictumQuoteModel.swift in Sources */,
 				248FC0D627A9544D00069FFF /* QuotesOfAuthorVC.swift in Sources */,
+				247D1FA827B68F34001CABF9 /* AuthorCellOverlayView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

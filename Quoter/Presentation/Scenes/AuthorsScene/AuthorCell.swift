@@ -35,13 +35,11 @@ class AuthorCell: UICollectionViewCell {
     let redView: UIView = {
         let redView = UIView()
         redView.backgroundColor = .red
-        //redView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        //redView.layer.cornerRadius = 20
         return redView
     }()
     
-    let overlayView: UIView = {
-        let overlayView = UIView()
+    lazy var overlayView: AuthorCellOverlayView = {
+        let overlayView = AuthorCellOverlayView(frame: .zero, radius: imageView.layer.cornerRadius)
         overlayView.backgroundColor = .white
         return overlayView
     }()
@@ -90,12 +88,12 @@ class AuthorCell: UICollectionViewCell {
         redView.snp.makeConstraints { make in
             make.left.right.equalTo(self)
             make.top.equalTo(imageView.snp.bottom)
-            make.height.equalTo(self.bounds.height * 0.3)
+            make.height.equalTo(self.bounds.height * 0.2)
         }
         overlayView.snp.makeConstraints { make in
             make.left.right.equalTo(self)
             make.top.equalTo(imageView.snp.bottom)
-            make.height.equalTo(self.bounds.height * 0.3)
+            make.height.equalTo(self.bounds.height * 0.2)
         }
     }
     
@@ -106,8 +104,8 @@ class AuthorCell: UICollectionViewCell {
         let selectTransform = CGAffineTransform(translationX: 0,
                                                 y: -(20))
         
-        self.layer.shadowColor = UIColor(named: "ShadowColor")?.cgColor
-        self.layer.shadowOffset = CGSize(width: 0,
+        self.imageView.layer.shadowColor = UIColor(named: "ShadowColor")?.cgColor
+        self.imageView.layer.shadowOffset = CGSize(width: 0,
                                          height: 13)
 
         //imageView.image = vm.image
@@ -124,14 +122,6 @@ class AuthorCell: UICollectionViewCell {
         case .off:
             if isInitialSetup {
                 transform = .identity
-//                UIView.animate(withDuration: 0.3) { [weak self] in
-//                    guard let self = self else { return }
-//                    self.redView.snp.updateConstraints { make in
-//                        make.top.equalTo(self.snp.bottom)
-//                    }
-//
-//                    self.layoutIfNeeded()
-//                }
                 return
             }
         }
@@ -169,19 +159,9 @@ class AuthorCell: UICollectionViewCell {
             UIView.animate(withDuration: 0.3) { [weak self] in
                 guard let self = self else { return }
                 self.transform = selectTransform
-                self.layer.shadowOpacity = 1
+                self.imageView.layer.shadowOpacity = 1
+                self.redView.transform = CGAffineTransform(translationX: 0, y: -self.redView.bounds.height)
                 
-            } completion: { didFinish in
-                if didFinish {
-                    UIView.animate(withDuration: 0.3) { [weak self] in
-                        guard let self = self else { return }
-//                        self.redView.frame = CGRect(x: self.redView.frame.minX,
-//                                                    y: self.redView.frame.minY - self.redView.bounds.height,
-//                                                    width: self.redView.bounds.width,
-//                                                    height: self.redView.bounds.height)
-                        self.redView.transform = CGAffineTransform(translationX: 0, y: -self.redView.bounds.height)
-                    }
-                }
             }
         case .off:
             if vm.isChanging! {
@@ -189,19 +169,9 @@ class AuthorCell: UICollectionViewCell {
                 UIView.animate(withDuration: 0.3) { [weak self] in
                     guard let self = self else { return }
                     self.transform = .identity
-                    self.layer.shadowOpacity = 0
+                    self.imageView.layer.shadowOpacity = 0
+                    self.redView.transform = .identity
                     
-                } completion: { didFinish in
-                    if didFinish {
-                        UIView.animate(withDuration: 0.3) { [weak self] in
-                            guard let self = self else { return }
-//                            self.redView.frame = CGRect(x: self.redView.frame.minX,
-//                                                        y: self.redView.frame.minY + self.redView.bounds.height,
-//                                                        width: self.redView.bounds.width,
-//                                                        height: self.redView.bounds.height)
-                            self.redView.transform = .identity
-                        }
-                    }
                 }
                 vm.isChanging = false
             }
