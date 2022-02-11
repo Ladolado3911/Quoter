@@ -16,6 +16,8 @@ class AuthorsVC: UIViewController {
     
     var data3Before: [AuthorCoreVM] = []
     
+    let compareImage = UIImage(named: "unknown")?.pngData()
+    
     lazy var data3Subject = CurrentValueSubject<[AuthorCoreVM], Never>(data3)
     let mainImageSubject = CurrentValueSubject<UIImage, Never>(UIImage(named: "book")!)
     let mainTitle = CurrentValueSubject<String, Never>("Select Author")
@@ -58,15 +60,19 @@ class AuthorsVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         populateData()
+        
+        // need core data update function here instead of populateData(). It needs to be in did load
     }
 
     private func populateData() {
         if let authors = CoreDataManager.getAuthors() {
-            let vms = authors.map { AuthorCoreVM(rootAuthor: $0) }
-            for vm in 0..<vms.count {
-                if vms[vm].image.pngData() == UIImage(named: "unknown")?.pngData() {
-                    vms[vm].isDefaultPicture = true
+            var vms: [AuthorCoreVM] = []
+            for vm in 0..<authors.count {
+                let newVM = AuthorCoreVM(rootAuthor: authors[vm])
+                if newVM.image.pngData() == compareImage {
+                    newVM.isDefaultPicture = true
                 }
+                vms.append(newVM)
             }
 //            print(vms.map { $0.name })
             data3 = vms
