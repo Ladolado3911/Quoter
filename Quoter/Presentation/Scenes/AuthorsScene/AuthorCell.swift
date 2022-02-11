@@ -14,11 +14,15 @@ enum CellState {
     case off
 }
 
+//let compareImage: Data? = UIImage(named: "unknown")?.pngData()
+
 class AuthorCell: UICollectionViewCell {
     
     var authorCellVM: AuthorCoreVM?
     var collectionViewHeight: CGFloat?
     var combineSubject: ((UIImage) -> Void)?
+    
+    var deleteGesture: (() -> Void)?
     
     var indexPath: IndexPath?
     
@@ -49,9 +53,23 @@ class AuthorCell: UICollectionViewCell {
         deleteLabel.text = "Delete"
         deleteLabel.textAlignment = .center
         deleteLabel.textColor = .white
-        deleteLabel.backgroundColor = .clear
+        deleteLabel.backgroundColor = .red
         return deleteLabel
     }()
+    
+    lazy var onDeleteGestureRecognizer: UITapGestureRecognizer = {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onDelete(sender:)))
+        return tapGesture
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        redView.addGestureRecognizer(onDeleteGestureRecognizer)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -75,6 +93,7 @@ class AuthorCell: UICollectionViewCell {
         addSubview(redView)
         addSubview(overlayView)
         bringSubviewToFront(overlayView)
+//        redView.addGestureRecognizer(onDeleteGestureRecognizer)
     }
     
     private func buildConstraints() {
@@ -99,14 +118,14 @@ class AuthorCell: UICollectionViewCell {
     
     private func setupCell() {
         guard let vm = authorCellVM else { return }
-        guard let collectionViewHeight = collectionViewHeight else { return  }
+        guard collectionViewHeight != nil else { return  }
 
         let selectTransform = CGAffineTransform(translationX: 0,
                                                 y: -(20))
         
-        self.imageView.layer.shadowColor = UIColor(named: "ShadowColor")?.cgColor
-        self.imageView.layer.shadowOffset = CGSize(width: 0,
-                                         height: 13)
+//        self.imageView.layer.shadowColor = UIColor(named: "ShadowColor")?.cgColor
+//        self.imageView.layer.shadowOffset = CGSize(width: 0,
+//                                         height: 13)
 
         //imageView.image = vm.image
         
@@ -128,7 +147,7 @@ class AuthorCell: UICollectionViewCell {
     }
     
     private func setImage(vm: AuthorCoreVM) {
-        if vm.image.pngData() == UIImage(named: "unknown")?.pngData() {
+        if vm.isDefaultPicture {
             imageView.contentMode = .scaleAspectFit
         }
         else {
@@ -146,7 +165,7 @@ class AuthorCell: UICollectionViewCell {
     
     func switchCell() {
         guard let vm = authorCellVM else { return }
-        guard let collectionViewHeight = collectionViewHeight else { return  }
+        guard collectionViewHeight != nil else { return  }
 
         let selectTransform = CGAffineTransform(translationX: 0,
                                                 y: -(20))
@@ -159,7 +178,7 @@ class AuthorCell: UICollectionViewCell {
             UIView.animate(withDuration: 0.3) { [weak self] in
                 guard let self = self else { return }
                 self.transform = selectTransform
-                self.imageView.layer.shadowOpacity = 1
+                //self.imageView.layer.shadowOpacity = 1
                 self.redView.transform = CGAffineTransform(translationX: 0, y: -self.redView.bounds.height)
                 
             }
@@ -169,12 +188,16 @@ class AuthorCell: UICollectionViewCell {
                 UIView.animate(withDuration: 0.3) { [weak self] in
                     guard let self = self else { return }
                     self.transform = .identity
-                    self.imageView.layer.shadowOpacity = 0
+                    //self.imageView.layer.shadowOpacity = 0
                     self.redView.transform = .identity
                     
                 }
                 vm.isChanging = false
             }
         }
+    }
+    
+    @objc func onDelete(sender: UITapGestureRecognizer) {
+        print("delete author")
     }
 }

@@ -74,6 +74,9 @@ class TabbarController: UIViewController {
     @objc func onTap(sender: UITapGestureRecognizer) {
         if let senderView = sender.view as? TabbarItemView {
             let arr = tabbarView.tabbarItems
+//            children.forEach { vc in
+//                removeChildController(controller: vc)
+//            }
             removeChildController(controller: arr[tabbarView.currentItemIndex].controller)
             addChildController(controller: arr[senderView.indexInTabbar].controller)
             tabbarView.currentItemIndex = senderView.indexInTabbar

@@ -55,15 +55,20 @@ class AuthorsVC: UIViewController {
         addListeners()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         populateData()
     }
 
     private func populateData() {
         if let authors = CoreDataManager.getAuthors() {
             let vms = authors.map { AuthorCoreVM(rootAuthor: $0) }
-            print(vms.map { $0.name })
+            for vm in 0..<vms.count {
+                if vms[vm].image.pngData() == UIImage(named: "unknown")?.pngData() {
+                    vms[vm].isDefaultPicture = true
+                }
+            }
+//            print(vms.map { $0.name })
             data3 = vms
             data3Subject.send(data3)
             authorsView.authorsContentView.collectionView.reloadData()
@@ -121,6 +126,10 @@ class AuthorsVC: UIViewController {
         vc.author = selectedAuthor
         present(vc, animated: true)
     }
+    
+    private func onDeleteView() {
+        print("delete author")
+    }
 }
 
 extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -174,6 +183,12 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
                     selectedAuthor = data3[indexPath.item]
                     data3[vm].turnOff(isChanging: true)
                     data3[indexPath.item].turnOn()
+                    if data3[indexPath.item].isDefaultPicture {
+                        authorsView.mainImageView.contentMode = .scaleAspectFit
+                    }
+                    else {
+                        authorsView.mainImageView.contentMode = .scaleAspectFill
+                    }
                     data3Subject.send(data3)
                     mainImageSubject.send(image)
                     mainTitle.send(name)
@@ -182,7 +197,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             }
             selectedAuthor = data3[indexPath.item]
             data3[indexPath.item].turnOn()
-            if image.pngData() == UIImage(named: "unknown")?.pngData() {
+            if data3[indexPath.item].isDefaultPicture {
                 authorsView.mainImageView.contentMode = .scaleAspectFit
             }
             else {

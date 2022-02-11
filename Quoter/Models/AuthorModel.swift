@@ -69,6 +69,7 @@ class AuthorCoreVM: Equatable {
     
     var state: CellState = .off
     var isChanging: Bool? = false
+    var isDefaultPicture: Bool = false
     
     let rootAuthor: AuthorCore
     
