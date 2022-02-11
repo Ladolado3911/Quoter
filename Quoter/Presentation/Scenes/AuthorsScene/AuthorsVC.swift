@@ -133,6 +133,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         cell?.authorCellVM = data3[indexPath.item]
         cell?.collectionViewHeight = collectionView.bounds.height
         cell?.combineSubject = sendMainImagetoSubject
+        cell?.indexPath = indexPath
         return cell!
     }
     
