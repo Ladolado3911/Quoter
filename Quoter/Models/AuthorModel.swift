@@ -8,6 +8,8 @@
 import UIKit
 import Kingfisher
 
+let defaultImage: UIImage = UIImage(named: "unknown")!
+
 struct Authors: Codable {
     var results: [Author]?
 }
@@ -71,6 +73,8 @@ class AuthorCoreVM: Equatable {
     var isChanging: Bool? = false
     var isDefaultPicture: Bool = false
     
+    //var imageContain: UIImage?
+    
     let rootAuthor: AuthorCore
     
     init(rootAuthor: AuthorCore) {
@@ -107,15 +111,15 @@ class AuthorCoreVM: Equatable {
         }
     }
     
-    var image: UIImage {
+    lazy var image: UIImage = {
         if let imageData = rootAuthor.image,
            let image = UIImage(data: imageData) {
             return image
         }
         else {
-            return UIImage(named: "unknown")!
+            return defaultImage
         }
-    }
+    }()
     
     func turnOn() {
         state = .on
@@ -125,5 +129,9 @@ class AuthorCoreVM: Equatable {
         self.state = .off
         self.isChanging = isChanging
     }
+    
+//    func configImage() {
+//        self.imageContain = image
+//    }
 }
 

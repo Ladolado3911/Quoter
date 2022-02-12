@@ -57,8 +57,8 @@ class AuthorsVC: UIViewController {
         addListeners()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         populateData()
         
         // need core data update function here instead of populateData(). It needs to be in did load

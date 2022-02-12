@@ -57,6 +57,9 @@ class AuthorCell: UICollectionViewCell {
         return deleteLabel
     }()
     
+    let selectTransform = CGAffineTransform(translationX: 0,
+                                            y: -(20))
+    
     lazy var onDeleteGestureRecognizer: UITapGestureRecognizer = {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onDelete(sender:)))
         return tapGesture
@@ -65,10 +68,16 @@ class AuthorCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         redView.addGestureRecognizer(onDeleteGestureRecognizer)
+//        layer.cornerRadius = 20
+//        clipsToBounds = true
+//        layer.masksToBounds = false
+//        buildSubviews()
+//        buildConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+        
     }
     
     override func layoutSubviews() {
@@ -92,7 +101,7 @@ class AuthorCell: UICollectionViewCell {
         redView.addSubview(deleteLabel)
         addSubview(redView)
         addSubview(overlayView)
-        bringSubviewToFront(overlayView)
+        //bringSubviewToFront(overlayView)
 //        redView.addGestureRecognizer(onDeleteGestureRecognizer)
     }
     
@@ -120,15 +129,6 @@ class AuthorCell: UICollectionViewCell {
         guard let vm = authorCellVM else { return }
         guard collectionViewHeight != nil else { return  }
 
-        let selectTransform = CGAffineTransform(translationX: 0,
-                                                y: -(20))
-        
-//        self.imageView.layer.shadowColor = UIColor(named: "ShadowColor")?.cgColor
-//        self.imageView.layer.shadowOffset = CGSize(width: 0,
-//                                         height: 13)
-
-        //imageView.image = vm.image
-        
         setImage(vm: vm)
 
         switch vm.state {
@@ -149,11 +149,26 @@ class AuthorCell: UICollectionViewCell {
     private func setImage(vm: AuthorCoreVM) {
         if vm.isDefaultPicture {
             imageView.contentMode = .scaleAspectFit
+            imageView.image = defaultImage
         }
         else {
             imageView.contentMode = .scaleAspectFill
+            
+            CoreDataManager.getAuthorImageAsync(author: vm) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let imageData):
+                    if let imageData = imageData {
+                        self.imageView.image = UIImage(data: imageData)
+                    }
+                    else {
+                        print("could not unwrap image data")
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
         }
-        imageView.image = vm.image
         backgroundColor = .white
         
     }
@@ -167,9 +182,6 @@ class AuthorCell: UICollectionViewCell {
         guard let vm = authorCellVM else { return }
         guard collectionViewHeight != nil else { return  }
 
-        let selectTransform = CGAffineTransform(translationX: 0,
-                                                y: -(20))
-
         setImage(vm: vm)
         
         switch vm.state {
@@ -177,7 +189,7 @@ class AuthorCell: UICollectionViewCell {
             //print("up")
             UIView.animate(withDuration: 0.3) { [weak self] in
                 guard let self = self else { return }
-                self.transform = selectTransform
+                self.transform = self.selectTransform
                 //self.imageView.layer.shadowOpacity = 1
                 self.redView.transform = CGAffineTransform(translationX: 0, y: -self.redView.bounds.height)
                 

@@ -182,6 +182,22 @@ class CoreDataManager {
         }
     }
     
+    static func getAuthorImageAsync(author: AuthorCoreVM, completion: @escaping (Result<Data?, Error>) -> Void) {
+        guard let context = context else { return }
+        let request = NSFetchRequest<AuthorCore>(entityName: "AuthorCore")
+        let asyncRequest = NSAsynchronousFetchRequest(fetchRequest: request) { result in
+            let imageData = result.finalResult?.first { $0.name == author.name }?.image ?? UIImage(named: "unknown")?.pngData()
+            completion(.success(imageData))
+        }
+        do {
+            let asyncResult = try context.execute(asyncRequest)
+            //print(asyncResult)
+        }
+        catch {
+            completion(.failure(error))
+        }
+    }
+    
     static func getQuote(quoteVM: QuoteGardenQuoteVM) -> QuoteCore? {
         guard let context = context else { return nil }
         
