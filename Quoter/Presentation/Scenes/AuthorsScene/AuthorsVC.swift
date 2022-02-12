@@ -9,6 +9,8 @@ import UIKit
 import Combine
 import Kingfisher
 
+let collectionViewUpdateSubject = PassthroughSubject<(() -> Void), Never>()
+
 class AuthorsVC: UIViewController {
 
     var data3: [AuthorCoreVM] = []
@@ -53,15 +55,8 @@ class AuthorsVC: UIViewController {
         super.viewDidLoad()
         configCollectionView()
         configButton()
-//        populateData()
-        addListeners()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         populateData()
-        
-        // need core data update function here instead of populateData(). It needs to be in did load
+        addListeners()
     }
 
     private func populateData() {
@@ -99,6 +94,13 @@ class AuthorsVC: UIViewController {
             }
             .assign(to: \.isHidden,
                     on: authorsView.authorsContentView.warningLabel)
+            .store(in: &cancellables)
+        
+        collectionViewUpdateSubject
+            .sink { [weak self] value in
+                guard let self = self else { return }
+                self.populateData()
+            }
             .store(in: &cancellables)
     }
 

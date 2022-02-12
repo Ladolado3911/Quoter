@@ -163,6 +163,7 @@ class QuoteVC: UIViewController {
                             self.quoteView.ideaImageView.state = .off
                             // remove specified quote from core data
                             CoreDataManager.removePair(quoteVM: self.quoteVM!)
+                            collectionViewUpdateSubject.send {}
                             
                         case .off:
                             self.quoteView.ideaImageView.state = .on
@@ -174,6 +175,7 @@ class QuoteVC: UIViewController {
                             else {
                                 CoreDataManager.addPair(quoteVM: self.quoteVM!, authorImageData: image.pngData())
                             }
+                            collectionViewUpdateSubject.send {}
                         }
                     }
                     else {

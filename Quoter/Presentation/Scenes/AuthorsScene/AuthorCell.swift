@@ -39,6 +39,7 @@ class AuthorCell: UICollectionViewCell {
     let redView: UIView = {
         let redView = UIView()
         redView.backgroundColor = .red
+        redView.layer.cornerRadius = 10
         return redView
     }()
     
@@ -53,7 +54,7 @@ class AuthorCell: UICollectionViewCell {
         deleteLabel.text = "Delete"
         deleteLabel.textAlignment = .center
         deleteLabel.textColor = .white
-        deleteLabel.backgroundColor = .red
+        deleteLabel.backgroundColor = .clear
         return deleteLabel
     }()
     
@@ -147,6 +148,9 @@ class AuthorCell: UICollectionViewCell {
     }
     
     private func setImage(vm: AuthorCoreVM) {
+        if imageView.image != nil {
+            return
+        }
         if vm.isDefaultPicture {
             imageView.contentMode = .scaleAspectFit
             imageView.image = defaultImage
