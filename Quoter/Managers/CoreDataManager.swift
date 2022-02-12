@@ -274,10 +274,10 @@ class CoreDataManager {
         
         if isAuthorInCore && isQuoteInCore {
             print("REMOVE QUOTE. REMOVE AUTHOR IF IT IS EMPTY")
-            let requestQuotes = NSFetchRequest<QuoteCore>(entityName: "QuoteCore")
+            //let requestQuotes = NSFetchRequest<QuoteCore>(entityName: "QuoteCore")
             let requestAuthors = NSFetchRequest<AuthorCore>(entityName: "AuthorCore")
             do {
-                let quotes = try context.fetch(requestQuotes)
+                //let quotes = try context.fetch(requestQuotes)
                 let authors = try context.fetch(requestAuthors)
                 for author in authors {
                     if author.name == quoteVM.authorName {
