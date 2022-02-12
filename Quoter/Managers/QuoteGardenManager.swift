@@ -7,6 +7,20 @@
 
 import UIKit
 
+
+let exceptions = ["Buddha"]
+
+enum CustomError: Error {
+    case unwrapError
+    case pageCountMismatchError
+    case needsRecursion
+}
+
+enum ImageType {
+    case nature
+    case author
+}
+
 class QuoteGardenManager: NetworkManager {
     
     static func get50Quotes(completion: @escaping (Result<[QuoteGardenQuoteVM], Error>) -> Void) {
