@@ -24,6 +24,7 @@ class LottieView: UIView {
         lottieAnimation.animationSpeed = animationSpeed
         addSubview(lottieAnimation)
         lottieAnimation.play()
+        //print(lottieAnimation.isAnimationPlaying)
     }
     
     func stopLottieAnimation() {

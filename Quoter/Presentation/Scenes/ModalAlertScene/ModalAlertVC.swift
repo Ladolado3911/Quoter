@@ -31,7 +31,6 @@ class ModalAlertVC: UIViewController {
         let semaphore = DispatchSemaphore(value: 1)
         if let authorName = authorName,
            let quoteVMM = quoteVM {
-            
             modalAlertView.buildView(authorName: authorName)
             ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVMM.authorName)) { [weak self] result in
                 guard let self = self else { return }
@@ -46,26 +45,6 @@ class ModalAlertVC: UIViewController {
                     semaphore.signal()
                 }
             }
-//            DictumManager.getQuotesOfAuthor(authorID: quoteVMM.authorID) { [weak self] result in
-//                guard let self = self else { return }
-//                switch result {
-//                case .success(let quotes):
-//                    semaphore.wait()
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
-//                        self.dismiss(animated: true, completion: {
-//                            if let presentingClosure = self.presentingClosure,
-//                               let imageUrl = self.authorImageURL {
-//                                presentingClosure((quotes, imageUrl))
-//                            }
-//                            else {
-//                                self.presentingClosure!((quotes, nil))
-//                            }
-//                        })
-//                    }
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            }
             QuoteGardenManager.getQuotesOfAuthor(authorName: quoteVMM.authorName) { [weak self] result in
                 guard let self = self else { return }
                 switch result {

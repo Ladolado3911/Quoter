@@ -44,6 +44,18 @@ class ExploreVC: UIViewController {
     
     var currentNetworkPage: Int = 0
     var totalNetworkPages: Int = 0
+    
+    let spinnerView: UIActivityIndicatorView = {
+        let size: CGFloat = 100
+        let x = PublicConstants.screenWidth / 2 - (size / 2)
+        let y = PublicConstants.screenHeight / 2 - (size / 2)
+        let frame = CGRect(x: x, y: y, width: size, height: size)
+        let spinnerView = UIActivityIndicatorView(frame: frame)
+        spinnerView.isHidden = true
+        spinnerView.style = .large
+        spinnerView.color = .red
+        return spinnerView
+    }()
  
     lazy var pageVC: UIPageViewController = {
         let pageVC = UIPageViewController(transitionStyle: .pageCurl,
@@ -58,6 +70,7 @@ class ExploreVC: UIViewController {
         super.viewDidLoad()
         //print(#function)
         UIApplication.shared.statusBarStyle = .lightContent
+        view.addSubview(spinnerView)
 //        configPageVC()
 //        setUpInitialDataForPageController()
         //configPageVC()
@@ -76,12 +89,8 @@ class ExploreVC: UIViewController {
     }
     
     private func setUpInitialDataForPageController() {
-        
-//        loadImages { [weak self] in
-//            guard let self = self else { return }
-//
-//            self.showInitialQuote()
-//        }
+        spinnerView.isHidden = false
+        spinnerView.startAnimating()
         let group = DispatchGroup()
         group.enter()
         loadImages() {
@@ -94,9 +103,8 @@ class ExploreVC: UIViewController {
         group.notify(queue: .main) { [weak self] in
             guard let self = self else { return }
             self.showInitialQuote()
-            //print(self.loadedImageURLs.count)
-            //print(Set(self.loadedImageURLs).count)
-
+            self.spinnerView.stopAnimating()
+            self.spinnerView.isHidden = true
         }
     }
     
@@ -115,19 +123,6 @@ class ExploreVC: UIViewController {
     }
     
     private func loadQuotes(completion: @escaping () -> Void) {
-//        QuoteManager.load150Quotes(page: Int.random(in: 1...5),
-//                                   maxLength: Int(PublicConstants.screenHeight * 0.088)) { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success(let quotes):
-//                let shuffled = quotes.shuffled()
-//                self.loadedVMs.append(contentsOf: shuffled)
-//                completion()
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-        
         QuoteGardenManager.get50Quotes { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -143,45 +138,6 @@ class ExploreVC: UIViewController {
     private func showInitialQuote() {
         let vc1 = QuoteVC()
         let vc2 = QuoteVC()
-        
-//        let dispatchGroup = DispatchGroup()
-//        dispatchGroup.enter()
-//        DictumManager.getRandomQuote { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success(let quoteVM):
-//                vc1.mainImageURL = self.loadedImageURLs[self.currentPage]
-//                vc1.quoteVM = quoteVM
-//                dispatchGroup.leave()
-//            case .failure(let error):
-//                print(error)
-//                dispatchGroup.leave()
-//            }
-//        }
-//        dispatchGroup.enter()
-//        DictumManager.getRandomQuote { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success(let quoteVM):
-//                vc2.mainImageURL = self.loadedImageURLs[self.currentPage + 1]
-//                vc2.quoteVM = quoteVM
-//                dispatchGroup.leave()
-//            case .failure(let error):
-//                print(error)
-//                dispatchGroup.leave()
-//            }
-//        }
-//
-//        dispatchGroup.notify(queue: .main) { [weak self] in
-//            guard let self = self else { return }
-//            self.quoteControllers.append(vc1)
-//            self.quoteControllers.append(vc2)
-//            self.configPageVC()
-//            //tempQuoteVM = loadedVMs[currentPage]
-//            //currentPage += 2
-//            (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
-//        }
-
         vc1.mainImageURL = loadedImageURLs[currentPage]
         vc1.quoteVM = loadedVMs[currentPage]
         vc2.mainImageURL = loadedImageURLs[currentPage + 1]
@@ -190,26 +146,11 @@ class ExploreVC: UIViewController {
         quoteControllers.append(vc2)
         configPageVC()
         (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
-//
     }
     
     private func showQuote() {
         let vc = QuoteVC()
         print(currentPage)
-        
-//        DictumManager.getRandomQuote { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success(let quoteVM):
-//                vc.mainImageURL = self.loadedImageURLs[self.currentPage + 1]
-//                vc.quoteVM = quoteVM
-//                self.quoteControllers.append(vc)
-//                //self.tempQuoteVM = loadedVMs[currentPage + 1]
-//                (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
         vc.mainImageURL = loadedImageURLs[currentPage + 1]
         vc.quoteVM = loadedVMs[currentPage + 1]
         quoteControllers.append(vc)

@@ -49,6 +49,8 @@ class QuoteVC: UIViewController {
         return tapOnGesture
     }()
     
+    var isFirstAppear: Bool = true
+    
     override func loadView() {
         super.loadView()
         view = quoteView
@@ -58,6 +60,16 @@ class QuoteVC: UIViewController {
         super.viewDidLoad()
         //print("did load")
   
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if isFirstAppear {
+            isFirstAppear = false
+        }
+        else {
+            quoteView.startAnimating()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -86,6 +98,12 @@ class QuoteVC: UIViewController {
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        quoteView.stopAnimating()
+    }
+    
+    
     private func configWithVM() {
         guard let quoteVM = quoteVM else {
             return
@@ -94,49 +112,23 @@ class QuoteVC: UIViewController {
         guard let mainImageURl = mainImageURL else {
             return 
         }
-        
-        
-        
-        quoteView.quoteTextView.text = quoteVM.content
-        quoteView.authorLabel.text = quoteVM.authorName
+
         quoteView.ideaImageView.addGestureRecognizer(tapOnIdeaGesture)
         quoteView.bookImageView.addGestureRecognizer(tapOnBookGesture)
         
         
+        //quoteView.spinnerView.isHidden = false
+        //quoteView.spinnerView.startAnimating()
+        quoteView.startAnimating()
         
-        
-        quoteView.mainImageView.kf.setImage(with: mainImageURl)
-//        QuoteManager.getRandomImage { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success(let url):
-//                self.quoteView.mainImageView.kf.setImage(with: url)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-        //print(quoteVM.lastTag)
-//        if quoteVM.lastTag == "famous-quotes" {
-//            ImageManager.getRandomImage { [weak self] result in
-//                guard let self = self else { return }
-//                switch result {
-//                case .success(let url):
-//                    self.quoteView.mainImageView.kf.setImage(with: url)
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            }
-//        }
-//        else {
-//            ImageManager.loadRelevantImageURL(keyword: quoteVM.lastTag) { [weak self] result in
-//                switch result {
-//                case .success(let url):
-//                    self?.quoteView.mainImageView.kf.setImage(with: url)
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            }
-//        }
+        quoteView.mainImageView.kf.setImage(with: mainImageURl) { [weak self] _ in
+            guard let self = self else { return }
+//            self.quoteView.spinnerView.stopAnimating()
+//            self.quoteView.spinnerView.isHidden = true
+            self.quoteView.stopAnimating()
+            self.quoteView.quoteTextView.text = quoteVM.content
+            self.quoteView.authorLabel.text = quoteVM.authorName
+        }
         view.layoutIfNeeded()
     }
     
@@ -145,12 +137,7 @@ class QuoteVC: UIViewController {
     }
     
     @objc func didTapOnIdea(sender: UITapGestureRecognizer) {
-        
-//        guard let quoteVM = quoteVM else {
-//            return
-//        }
         ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVM!.authorName)) { [weak self] result in
-            
             guard let self = self else { return }
             switch result {
             case .success(let tuple):
@@ -196,8 +183,6 @@ class QuoteVC: UIViewController {
         modalAlertVC.modalTransitionStyle = .crossDissolve
         modalAlertVC.modalPresentationStyle = .custom
         modalAlertVC.authorName = quoteVM?.authorName
-        // MARK: Here we risked to set authorname to slug
-        //modalAlertVC.authorSlug = quoteVM?.authorName
         modalAlertVC.presentingClosure = presentQuotesOfAuthorClosure
         modalAlertVC.quoteVM = quoteVM
         present(modalAlertVC, animated: false)

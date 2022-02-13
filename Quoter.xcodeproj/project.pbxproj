@@ -41,6 +41,8 @@
 		24D1815027A6D7F600F79C91 /* IdeaImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1814F27A6D7F600F79C91 /* IdeaImageView.swift */; };
 		24D264F62791777500614218 /* AuthorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D264F52791777500614218 /* AuthorCell.swift */; };
 		24D264F82791940F00614218 /* AuthorCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D264F72791940F00614218 /* AuthorCellVM.swift */; };
+		24D33E3927B93A4100E4C668 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 24D33E3827B93A4100E4C668 /* loading.json */; };
+		24D33E3B27B93FA100E4C668 /* circleLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 24D33E3A27B93FA100E4C668 /* circleLoading.json */; };
 		24D4107B27B3FB4500B5C899 /* QuoteGardenEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107A27B3FB4500B5C899 /* QuoteGardenEndpoints.swift */; };
 		24D4107D27B3FD0200B5C899 /* QuoteGardenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107C27B3FD0200B5C899 /* QuoteGardenManager.swift */; };
 		24D4108027B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */; };
@@ -107,6 +109,8 @@
 		24D1814F27A6D7F600F79C91 /* IdeaImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeaImageView.swift; sourceTree = "<group>"; };
 		24D264F52791777500614218 /* AuthorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCell.swift; sourceTree = "<group>"; };
 		24D264F72791940F00614218 /* AuthorCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCellVM.swift; sourceTree = "<group>"; };
+		24D33E3827B93A4100E4C668 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		24D33E3A27B93FA100E4C668 /* circleLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = circleLoading.json; sourceTree = "<group>"; };
 		24D4107A27B3FB4500B5C899 /* QuoteGardenEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenEndpoints.swift; sourceTree = "<group>"; };
 		24D4107C27B3FD0200B5C899 /* QuoteGardenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenManager.swift; sourceTree = "<group>"; };
 		24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenQuoteModel.swift; sourceTree = "<group>"; };
@@ -323,6 +327,8 @@
 		24DEBF4727ABB1E800C40B29 /* LottieJsons */ = {
 			isa = PBXGroup;
 			children = (
+				24D33E3A27B93FA100E4C668 /* circleLoading.json */,
+				24D33E3827B93A4100E4C668 /* loading.json */,
 				24DEBF4827ABB2AB00C40B29 /* cubeLoading.json */,
 				24DEBF4C27ABB5BB00C40B29 /* LottieAnimations.swift */,
 			);
@@ -452,6 +458,7 @@
 				24D1287F27903ECE00AD7F3D /* LaunchScreen.storyboard in Resources */,
 				24F51F29279EB7CE003057F7 /* LICENSE.txt in Resources */,
 				24F51F25279EB7CE003057F7 /* Roboto-ThinItalic.ttf in Resources */,
+				24D33E3B27B93FA100E4C668 /* circleLoading.json in Resources */,
 				24F51F27279EB7CE003057F7 /* Roboto-LightItalic.ttf in Resources */,
 				24F51F2B279EB7CE003057F7 /* Roboto-Bold.ttf in Resources */,
 				24F51F21279EB7CE003057F7 /* Roboto-Medium.ttf in Resources */,
@@ -459,6 +466,7 @@
 				24F51F2A279EB7CE003057F7 /* Roboto-BlackItalic.ttf in Resources */,
 				24DEBF4927ABB2AB00C40B29 /* cubeLoading.json in Resources */,
 				24F51F0A279E85ED003057F7 /* Kalam-Light.ttf in Resources */,
+				24D33E3927B93A4100E4C668 /* loading.json in Resources */,
 				24F51F26279EB7CE003057F7 /* Roboto-BoldItalic.ttf in Resources */,
 				24D1287C27903ECE00AD7F3D /* Assets.xcassets in Resources */,
 				24F51F24279EB7CE003057F7 /* Roboto-MediumItalic.ttf in Resources */,

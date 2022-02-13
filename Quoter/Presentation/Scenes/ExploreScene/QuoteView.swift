@@ -7,7 +7,7 @@
 
 import UIKit
 
-class QuoteView: UIView {
+class QuoteView: LottieView {
     
     let mainImageView: UIImageView = {
         let imgView = UIImageView()
@@ -56,6 +56,26 @@ class QuoteView: UIView {
         return authorLabel
     }()
     
+    let spinnerView: UIActivityIndicatorView = {
+        let size: CGFloat = 100
+        let x = PublicConstants.screenWidth / 2 - (size / 2)
+        let y = PublicConstants.screenHeight / 2 - (size / 2)
+        let frame = CGRect(x: x, y: y, width: size, height: size)
+        let spinnerView = UIActivityIndicatorView(frame: frame)
+        spinnerView.isHidden = true
+        spinnerView.style = .large
+        spinnerView.color = .red
+        return spinnerView
+    }()
+    
+    let animationFrame: CGRect = {
+        let size = PublicConstants.screenWidth / 2
+        let x = PublicConstants.screenWidth / 2 - (size / 2)
+        let y = PublicConstants.screenHeight / 2 - (size / 2)
+        let frame = CGRect(x: x, y: y, width: size, height: size)
+        return frame
+    }()
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         buildSubviews()
@@ -69,6 +89,19 @@ class QuoteView: UIView {
         addSubview(authorLabel)
         addSubview(ideaImageView)
         addSubview(bookImageView)
+        addSubview(spinnerView)
+    }
+    
+    func startAnimating() {
+        createAndStartLottieAnimation(animation: .circleLoading,
+                                      animationSpeed: 1,
+                                      frame: animationFrame,
+                                      loopMode: .loop,
+                                      contentMode: .scaleAspectFit)
+    }
+    
+    func stopAnimating() {
+        stopLottieAnimation()
     }
     
     private func buildConstraints() {
@@ -98,5 +131,9 @@ class QuoteView: UIView {
             //make.top.equalTo(quoteTextView.snp.bottom).inset(-40)
             make.bottom.equalTo(self).inset(PublicConstants.screenHeight * 0.176)
         }
+//        spinnerView.snp.makeConstraints { make in
+//            make.center.equalTo(self)
+//            make.width.height.equalTo(100)
+//        }
     }
 }

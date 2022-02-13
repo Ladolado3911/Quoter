@@ -9,4 +9,6 @@ import UIKit
 
 enum LottieAnimation: String {
     case cubeLoading = "cubeLoading"
+    case loading = "loading"
+    case circleLoading = "circleLoading"
 }
