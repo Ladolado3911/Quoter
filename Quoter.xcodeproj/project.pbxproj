@@ -43,6 +43,7 @@
 		24D264F82791940F00614218 /* AuthorCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D264F72791940F00614218 /* AuthorCellVM.swift */; };
 		24D33E3927B93A4100E4C668 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 24D33E3827B93A4100E4C668 /* loading.json */; };
 		24D33E3B27B93FA100E4C668 /* circleLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 24D33E3A27B93FA100E4C668 /* circleLoading.json */; };
+		24D33E3D27B9683000E4C668 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D33E3C27B9683000E4C668 /* NetworkMonitor.swift */; };
 		24D4107B27B3FB4500B5C899 /* QuoteGardenEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107A27B3FB4500B5C899 /* QuoteGardenEndpoints.swift */; };
 		24D4107D27B3FD0200B5C899 /* QuoteGardenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107C27B3FD0200B5C899 /* QuoteGardenManager.swift */; };
 		24D4108027B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */; };
@@ -111,6 +112,7 @@
 		24D264F72791940F00614218 /* AuthorCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCellVM.swift; sourceTree = "<group>"; };
 		24D33E3827B93A4100E4C668 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		24D33E3A27B93FA100E4C668 /* circleLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = circleLoading.json; sourceTree = "<group>"; };
+		24D33E3C27B9683000E4C668 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		24D4107A27B3FB4500B5C899 /* QuoteGardenEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenEndpoints.swift; sourceTree = "<group>"; };
 		24D4107C27B3FD0200B5C899 /* QuoteGardenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenManager.swift; sourceTree = "<group>"; };
 		24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenQuoteModel.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 		24D1288C2790400100AD7F3D /* SharedElements */ = {
 			isa = PBXGroup;
 			children = (
+				24D33E3C27B9683000E4C668 /* NetworkMonitor.swift */,
 				24C12BCF27AAB02C0069684D /* Views */,
 				24F51F0E279EA360003057F7 /* TabbarController */,
 			);
@@ -524,6 +527,7 @@
 				24D1289927904D0E00AD7F3D /* AppColors.swift in Sources */,
 				24D1287527903ECD00AD7F3D /* SceneDelegate.swift in Sources */,
 				248FC0D627A9544D00069FFF /* QuotesOfAuthorVC.swift in Sources */,
+				24D33E3D27B9683000E4C668 /* NetworkMonitor.swift in Sources */,
 				247D1FA827B68F34001CABF9 /* AuthorCellOverlayView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

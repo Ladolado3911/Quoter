@@ -77,6 +77,11 @@ class ExploreVC: UIViewController {
         //configPageVC()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NetworkMonitor.shared.startMonitoring()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //print(currentPage)
@@ -86,10 +91,19 @@ class ExploreVC: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        NetworkMonitor.shared.stopMonitoring()
         //print(currentPage)
     }
     
     private func setUpInitialDataForPageController() {
+        
+        if !NetworkMonitor.shared.isConnected {
+            print("No Connection")
+        }
+        else {
+            print("connected")
+        }
+        
         if let lottieView = view as? LottieView {
             lottieView.createAndStartLottieAnimation(animation: .circleLoading,
                                                      animationSpeed: 1,
