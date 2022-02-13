@@ -55,21 +55,9 @@ class QuoteView: LottieView {
         authorLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 18)
         return authorLabel
     }()
-    
-    let spinnerView: UIActivityIndicatorView = {
-        let size: CGFloat = 100
-        let x = PublicConstants.screenWidth / 2 - (size / 2)
-        let y = PublicConstants.screenHeight / 2 - (size / 2)
-        let frame = CGRect(x: x, y: y, width: size, height: size)
-        let spinnerView = UIActivityIndicatorView(frame: frame)
-        spinnerView.isHidden = true
-        spinnerView.style = .large
-        spinnerView.color = .red
-        return spinnerView
-    }()
-    
+
     let animationFrame: CGRect = {
-        let size = PublicConstants.screenWidth / 2
+        let size = PublicConstants.screenWidth / 3
         let x = PublicConstants.screenWidth / 2 - (size / 2)
         let y = PublicConstants.screenHeight / 2 - (size / 2)
         let frame = CGRect(x: x, y: y, width: size, height: size)
@@ -89,10 +77,10 @@ class QuoteView: LottieView {
         addSubview(authorLabel)
         addSubview(ideaImageView)
         addSubview(bookImageView)
-        addSubview(spinnerView)
     }
     
     func startAnimating() {
+        darkView.isHidden = true
         createAndStartLottieAnimation(animation: .circleLoading,
                                       animationSpeed: 1,
                                       frame: animationFrame,
@@ -101,6 +89,7 @@ class QuoteView: LottieView {
     }
     
     func stopAnimating() {
+        darkView.isHidden = false
         stopLottieAnimation()
     }
     

@@ -68,7 +68,10 @@ class QuoteVC: UIViewController {
             isFirstAppear = false
         }
         else {
-            quoteView.startAnimating()
+            if quoteView.lottieAnimation.isAnimationPlaying {
+                quoteView.stopAnimating()
+                quoteView.startAnimating()
+            }
         }
     }
     
@@ -98,9 +101,14 @@ class QuoteVC: UIViewController {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        quoteView.stopAnimating()
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        quoteView.stopAnimating()
+        quoteView.darkView.isHidden = false
     }
     
     
@@ -119,6 +127,9 @@ class QuoteVC: UIViewController {
         
         //quoteView.spinnerView.isHidden = false
         //quoteView.spinnerView.startAnimating()
+        
+        
+        
         quoteView.startAnimating()
         
         quoteView.mainImageView.kf.setImage(with: mainImageURl) { [weak self] _ in

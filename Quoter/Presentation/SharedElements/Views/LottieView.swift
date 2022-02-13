@@ -23,6 +23,7 @@ class LottieView: UIView {
         lottieAnimation.loopMode = loopMode
         lottieAnimation.animationSpeed = animationSpeed
         addSubview(lottieAnimation)
+        //bringSubviewToFront(lottieAnimation)
         lottieAnimation.play()
         //print(lottieAnimation.isAnimationPlaying)
     }

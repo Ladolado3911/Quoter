@@ -26,6 +26,7 @@ enum Tag: String {
     case famousQuotes = "famous-quotes"
 }
 
+
 class ExploreVC: UIViewController {
     
     var quoteControllers: [QuoteVC] = []
@@ -44,19 +45,7 @@ class ExploreVC: UIViewController {
     
     var currentNetworkPage: Int = 0
     var totalNetworkPages: Int = 0
-    
-    let spinnerView: UIActivityIndicatorView = {
-        let size: CGFloat = 100
-        let x = PublicConstants.screenWidth / 2 - (size / 2)
-        let y = PublicConstants.screenHeight / 2 - (size / 2)
-        let frame = CGRect(x: x, y: y, width: size, height: size)
-        let spinnerView = UIActivityIndicatorView(frame: frame)
-        spinnerView.isHidden = true
-        spinnerView.style = .large
-        spinnerView.color = .red
-        return spinnerView
-    }()
- 
+
     lazy var pageVC: UIPageViewController = {
         let pageVC = UIPageViewController(transitionStyle: .pageCurl,
                                           navigationOrientation: .horizontal,
@@ -66,11 +55,23 @@ class ExploreVC: UIViewController {
         return pageVC
     }()
     
+    let animationFrame: CGRect = {
+        let size = PublicConstants.screenWidth / 3
+        let x = PublicConstants.screenWidth / 2 - (size / 2)
+        let y = PublicConstants.screenHeight / 2 - (size / 2)
+        let frame = CGRect(x: x, y: y, width: size, height: size)
+        return frame
+    }()
+    
+    override func loadView() {
+        super.loadView()
+        view = LottieView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //print(#function)
         UIApplication.shared.statusBarStyle = .lightContent
-        view.addSubview(spinnerView)
 //        configPageVC()
 //        setUpInitialDataForPageController()
         //configPageVC()
@@ -89,8 +90,14 @@ class ExploreVC: UIViewController {
     }
     
     private func setUpInitialDataForPageController() {
-        spinnerView.isHidden = false
-        spinnerView.startAnimating()
+        if let lottieView = view as? LottieView {
+            lottieView.createAndStartLottieAnimation(animation: .circleLoading,
+                                                     animationSpeed: 1,
+                                                     frame: animationFrame,
+                                                     loopMode: .loop,
+                                                     contentMode: .scaleAspectFit)
+        }
+        
         let group = DispatchGroup()
         group.enter()
         loadImages() {
@@ -103,8 +110,9 @@ class ExploreVC: UIViewController {
         group.notify(queue: .main) { [weak self] in
             guard let self = self else { return }
             self.showInitialQuote()
-            self.spinnerView.stopAnimating()
-            self.spinnerView.isHidden = true
+            if let lottieView = self.view as? LottieView {
+                lottieView.stopLottieAnimation()
+            }
         }
     }
     
