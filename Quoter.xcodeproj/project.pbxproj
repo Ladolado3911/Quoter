@@ -45,7 +45,6 @@
 		24D4107D27B3FD0200B5C899 /* QuoteGardenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107C27B3FD0200B5C899 /* QuoteGardenManager.swift */; };
 		24D4108027B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */; };
 		24D78DE927B27FB700E6B401 /* ImageEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D78DE827B27FB700E6B401 /* ImageEndpoints.swift */; };
-		24D78DEE27B2925800E6B401 /* DictumQuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D78DED27B2925800E6B401 /* DictumQuoteModel.swift */; };
 		24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 24DEBF4527ABB1D400C40B29 /* Lottie */; };
 		24DEBF4927ABB2AB00C40B29 /* cubeLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 24DEBF4827ABB2AB00C40B29 /* cubeLoading.json */; };
 		24DEBF4B27ABB55500C40B29 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DEBF4A27ABB55500C40B29 /* LottieView.swift */; };
@@ -112,7 +111,6 @@
 		24D4107C27B3FD0200B5C899 /* QuoteGardenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenManager.swift; sourceTree = "<group>"; };
 		24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenQuoteModel.swift; sourceTree = "<group>"; };
 		24D78DE827B27FB700E6B401 /* ImageEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEndpoints.swift; sourceTree = "<group>"; };
-		24D78DED27B2925800E6B401 /* DictumQuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictumQuoteModel.swift; sourceTree = "<group>"; };
 		24DEBF4827ABB2AB00C40B29 /* cubeLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cubeLoading.json; sourceTree = "<group>"; };
 		24DEBF4A27ABB55500C40B29 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		24DEBF4C27ABB5BB00C40B29 /* LottieAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieAnimations.swift; sourceTree = "<group>"; };
@@ -204,12 +202,11 @@
 		24CB9FE527930C1700E9D49F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				24D4107E27B3FD9400B5C899 /* QuoteGardenModels */,
-				24D78DEC27B2923D00E6B401 /* DictumModels */,
 				24A0D38727A7ED84002286F6 /* CoreDataModel.xcdatamodeld */,
 				24CB9FE727930C1700E9D49F /* AuthorModel.swift */,
 				24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */,
 				24DF187127A554AE00D93F8D /* RandomImageModel.swift */,
+				24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,22 +318,6 @@
 				24C12BCB27AAAFCF0069684D /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		24D4107E27B3FD9400B5C899 /* QuoteGardenModels */ = {
-			isa = PBXGroup;
-			children = (
-				24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */,
-			);
-			path = QuoteGardenModels;
-			sourceTree = "<group>";
-		};
-		24D78DEC27B2923D00E6B401 /* DictumModels */ = {
-			isa = PBXGroup;
-			children = (
-				24D78DED27B2925800E6B401 /* DictumQuoteModel.swift */,
-			);
-			path = DictumModels;
 			sourceTree = "<group>";
 		};
 		24DEBF4727ABB1E800C40B29 /* LottieJsons */ = {
@@ -534,7 +515,6 @@
 				24D4107D27B3FD0200B5C899 /* QuoteGardenManager.swift in Sources */,
 				24D1289927904D0E00AD7F3D /* AppColors.swift in Sources */,
 				24D1287527903ECD00AD7F3D /* SceneDelegate.swift in Sources */,
-				24D78DEE27B2925800E6B401 /* DictumQuoteModel.swift in Sources */,
 				248FC0D627A9544D00069FFF /* QuotesOfAuthorVC.swift in Sources */,
 				247D1FA827B68F34001CABF9 /* AuthorCellOverlayView.swift in Sources */,
 			);
