@@ -31,7 +31,12 @@ class QuoteGardenManager: NetworkManager {
                 if let data = gardenResponse.data,
                    let item = data.first {
                     let convertedItem = QuoteGardenQuoteVM(rootModel: item)
-                    completion(.success(convertedItem))
+                    if convertedItem.content.count >= 30 {
+                        getRandomQuote(completion: completion)
+                    }
+                    else {
+                        completion(.success(convertedItem))
+                    }
                 }
                 else {
                     completion(.failure(CustomError.unwrapError))
