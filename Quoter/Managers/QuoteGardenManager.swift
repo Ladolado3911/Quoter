@@ -23,6 +23,25 @@ enum ImageType {
 
 class QuoteGardenManager: NetworkManager {
     
+    static func getRandomQuote(completion: @escaping (Result<QuoteGardenQuoteVM, Error>) -> Void) {
+        guard let url = QuoteGardenEndpoints.getRandomQuoteURL() else { return }
+        getData(url: url, model: Resource(model: QuoteGardenResponse.self)) { result in
+            switch result {
+            case .success(let gardenResponse):
+                if let data = gardenResponse.data,
+                   let item = data.first {
+                    let convertedItem = QuoteGardenQuoteVM(rootModel: item)
+                    completion(.success(convertedItem))
+                }
+                else {
+                    completion(.failure(CustomError.unwrapError))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     static func get50Quotes(completion: @escaping (Result<[QuoteGardenQuoteVM], Error>) -> Void) {
         guard let url = QuoteGardenEndpoints.get50QuotesURL() else { return }
         getData(url: url, model: Resource(model: QuoteGardenResponse.self)) { result in

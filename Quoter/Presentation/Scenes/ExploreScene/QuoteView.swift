@@ -83,8 +83,10 @@ class QuoteView: LottieView {
     }
     
     private func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {
-        let lowerBound: CGFloat = 20
-        let higherBound: CGFloat = 50
+        let lowerBound: CGFloat = PublicConstants.screenHeight * 0.02159827213822894
+        let higherBound: CGFloat = PublicConstants.screenHeight * 0.05399568034557235
+//        print(20 / PublicConstants.screenHeight)
+//        print(50 / PublicConstants.screenHeight)
         let boundRange = higherBound - lowerBound
         let testResult = lowerBound + ((1 / (stringCount / 35)) * boundRange)
         return testResult
@@ -124,7 +126,8 @@ class QuoteView: LottieView {
         quoteTextView.snp.makeConstraints { make in
             make.left.right.equalTo(self).inset(20)
             //make.centerY.equalTo(self)
-            make.bottom.equalTo(authorLabel.snp.top).inset(-PublicConstants.screenHeight * 0.0774)
+            make.center.equalTo(self)
+            //make.bottom.equalTo(authorLabel.snp.top).inset(-PublicConstants.screenHeight * 0.0700)
             make.height.equalTo(300)
         }
         authorLabel.snp.makeConstraints { make in
