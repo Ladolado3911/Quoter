@@ -104,7 +104,6 @@ class ExploreVC: MonitoredVC {
             }
             .store(in: &cancellables)
         
-        
         NetworkMonitor.shared.startMonitoring { [weak self] path in
             if NetworkMonitor.shared.isFirstCheck {
                 self?.connectionStatusSubject.send((path.status != .unsatisfied, true))
@@ -225,7 +224,6 @@ class ExploreVC: MonitoredVC {
     
     private func showQuote() {
         let vc = QuoteVC()
-        print(currentPage)
         vc.mainImageURL = loadedImageURLs[currentPage + 1]
         vc.quoteVM = loadedVMs[currentPage + 1]
         quoteControllers.append(vc)
@@ -233,7 +231,6 @@ class ExploreVC: MonitoredVC {
     }
 
     private func configPageVC() {
-        //print(currentPage)
         let current = quoteControllers[currentPage]
         pageVC.modalTransitionStyle = .crossDissolve
         pageVC.modalPresentationStyle = .fullScreen

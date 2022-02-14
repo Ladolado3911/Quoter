@@ -43,7 +43,7 @@ class QuoteView: LottieView {
         quoteTextView.textColor = .white
         quoteTextView.font = font
         quoteTextView.textAlignment = .center
-        quoteTextView.numberOfLines = 4
+        //quoteTextView.numberOfLines = 8
         return quoteTextView
     }()
     
@@ -68,6 +68,9 @@ class QuoteView: LottieView {
         super.layoutSubviews()
         buildSubviews()
         buildConstraints()
+        quoteTextView.numberOfLines = 15
+        let fontSize = getFontSizeForQuote(stringCount: CGFloat(quoteTextView.text?.count ?? 0))
+        quoteTextView.font = quoteTextView.font?.withSize(fontSize)
     }
     
     private func buildSubviews() {
@@ -77,6 +80,14 @@ class QuoteView: LottieView {
         addSubview(authorLabel)
         addSubview(ideaImageView)
         addSubview(bookImageView)
+    }
+    
+    private func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {
+        let lowerBound: CGFloat = 20
+        let higherBound: CGFloat = 50
+        let boundRange = higherBound - lowerBound
+        let testResult = lowerBound + ((1 / (stringCount / 35)) * boundRange)
+        return testResult
     }
     
     func startAnimating() {
@@ -114,6 +125,7 @@ class QuoteView: LottieView {
             make.left.right.equalTo(self).inset(20)
             //make.centerY.equalTo(self)
             make.bottom.equalTo(authorLabel.snp.top).inset(-PublicConstants.screenHeight * 0.0774)
+            make.height.equalTo(300)
         }
         authorLabel.snp.makeConstraints { make in
             make.left.right.equalTo(self)
