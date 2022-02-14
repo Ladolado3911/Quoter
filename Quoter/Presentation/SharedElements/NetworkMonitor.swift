@@ -14,6 +14,7 @@ final class NetworkMonitor {
     
     private let queue = DispatchQueue.global()
     private let monitor: NWPathMonitor
+    public var isFirstCheck: Bool = true
     
     public private(set) var isConnected: Bool = false
     
@@ -22,10 +23,18 @@ final class NetworkMonitor {
         monitor = NWPathMonitor()
     }
     
-    public func startMonitoring() {
+    public func startMonitoring(completion: @escaping (NWPath) -> Void) {
         monitor.start(queue: queue)
         monitor.pathUpdateHandler = { [weak self] path in
-            self?.isConnected = path.status != .unsatisfied
+            guard let self = self else { return }
+            if self.isFirstCheck {
+                self.isConnected = path.status != .unsatisfied
+            }
+            else {
+                self.isConnected = path.status == .unsatisfied
+            }
+            completion(path)
+
         }
     }
     

@@ -24,6 +24,7 @@ class QuoteVC: UIViewController {
     
     var mainImageURL: URL?
     var imageType: ImageType?
+    var isVCLoaded: Bool = false
     
     lazy var presentQuotesOfAuthorClosure: (([QuoteGardenQuoteVM], URL?)) -> Void = { [weak self] quoteVMs in
         guard let self = self else { return }
@@ -127,9 +128,7 @@ class QuoteVC: UIViewController {
         
         //quoteView.spinnerView.isHidden = false
         //quoteView.spinnerView.startAnimating()
-        
-        
-        
+
         quoteView.startAnimating()
         
         quoteView.mainImageView.kf.setImage(with: mainImageURl) { [weak self] _ in

@@ -27,7 +27,7 @@ enum Tag: String {
 }
 
 
-class ExploreVC: UIViewController {
+class ExploreVC: MonitoredVC {
     
     var quoteControllers: [QuoteVC] = []
     var loadedVMs: [QuoteGardenQuoteVM] = []
@@ -72,6 +72,44 @@ class ExploreVC: UIViewController {
         super.viewDidLoad()
         //print(#function)
         UIApplication.shared.statusBarStyle = .lightContent
+        connectionStatusSubject
+            .sink { [weak self] (isConnected, isFirstLaunch) in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    if isConnected {
+                        print("connected")
+                        if let lottieView = self.view as? LottieView {
+                            if lottieView.lottieAnimation != nil {
+                                lottieView.stopLottieAnimation()
+                            }
+                        }
+                        if isFirstLaunch {
+                            self.setUpInitialDataForPageController()
+                        }
+                        else {
+                            self.configPageVC()
+                            (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
+                        }
+                    }
+                    else {
+                        print("not connected")
+                        self.startWifiAnimation()
+                    }
+                }
+            }
+            .store(in: &cancellables)
+        
+        
+        NetworkMonitor.shared.startMonitoring { [weak self] path in
+            if NetworkMonitor.shared.isFirstCheck {
+                self?.connectionStatusSubject.send((path.status != .unsatisfied, true))
+                NetworkMonitor.shared.isFirstCheck = false
+            }
+            else {
+                self?.connectionStatusSubject.send((path.status == .unsatisfied, true))
+            }
+        }
+        
 //        configPageVC()
 //        setUpInitialDataForPageController()
         //configPageVC()
@@ -79,39 +117,49 @@ class ExploreVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NetworkMonitor.shared.startMonitoring()
+        if let lottieView = view as? LottieView {
+            if lottieView.lottieAnimation != nil {
+                lottieView.stopLottieAnimation()
+                connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //print(currentPage)
-        setUpInitialDataForPageController()
-        //configPageVC()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NetworkMonitor.shared.stopMonitoring()
-        //print(currentPage)
+        if let lottieView = view as? LottieView {
+            if lottieView.lottieAnimation != nil {
+                lottieView.stopLottieAnimation()
+            }
+        }
+    }
+    
+    private func startWifiAnimation() {
+        if let lottieView = view as? LottieView {
+            lottieView.createAndStartLottieAnimation(animation: .wifiOff,
+                                                     animationSpeed: 2,
+                                                     frame: animationFrame,
+                                                     loopMode: .autoReverse,
+                                                     contentMode: .scaleAspectFit)
+        
+        }
     }
     
     private func setUpInitialDataForPageController() {
-        
-        if !NetworkMonitor.shared.isConnected {
-            print("No Connection")
-        }
-        else {
-            print("connected")
-        }
-        
         if let lottieView = view as? LottieView {
+            if lottieView.lottieAnimation != nil {
+                lottieView.stopLottieAnimation()
+            }
             lottieView.createAndStartLottieAnimation(animation: .circleLoading,
                                                      animationSpeed: 1,
                                                      frame: animationFrame,
                                                      loopMode: .loop,
                                                      contentMode: .scaleAspectFit)
         }
-        
         let group = DispatchGroup()
         group.enter()
         loadImages() {
