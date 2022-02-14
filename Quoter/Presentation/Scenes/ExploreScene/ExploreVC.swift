@@ -26,7 +26,6 @@ enum Tag: String {
     case famousQuotes = "famous-quotes"
 }
 
-
 class ExploreVC: MonitoredVC {
     
     var quoteControllers: [QuoteVC] = []
@@ -93,6 +92,12 @@ class ExploreVC: MonitoredVC {
                     }
                     else {
                         print("not connected")
+                        if let lottieView = self.view as? LottieView {
+                            if lottieView.lottieAnimation != nil {
+                                lottieView.stopLottieAnimation()
+                            }
+                        }
+                        (self.parent as? TabbarController)?.removeChildController(controller: self.pageVC)
                         self.startWifiAnimation()
                     }
                 }
@@ -106,7 +111,7 @@ class ExploreVC: MonitoredVC {
                 NetworkMonitor.shared.isFirstCheck = false
             }
             else {
-                self?.connectionStatusSubject.send((path.status == .unsatisfied, true))
+                self?.connectionStatusSubject.send((path.status == .unsatisfied, false))
             }
         }
         
