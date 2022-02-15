@@ -34,6 +34,8 @@ class QuotesOfAuthorVC: UIViewController {
     
     var quoteVM: QuoteGardenQuoteVM?
     
+    var authorsVCreloadDataClosure: (() -> Void)?
+    
     let quotesOfAuthorView: QuotesOfAuthorView = {
         let quotesOfAuthorView = QuotesOfAuthorView()
         return quotesOfAuthorView
@@ -152,6 +154,7 @@ class QuotesOfAuthorVC: UIViewController {
             quotesOfAuthorView.ideaButton.isSelected = CoreDataManager.isQuoteInCoreData(quoteVM: networkQuotesArr[currentQuoteIndex])
         case .coreData:
             quotesOfAuthorView.quoteTextView.text = quotesArr[currentQuoteIndex].content
+            quotesOfAuthorView.nextButton.isButtonEnabled = !(currentQuoteIndex == networkQuotesArr.count - 1)
             if currentQuoteIndex == quotesArr.count - 1 {
                 quotesOfAuthorView.nextButton.isButtonEnabled = false
             }
@@ -173,7 +176,6 @@ class QuotesOfAuthorVC: UIViewController {
             return
         }
         let quoteVMM = networkQuotesArr[currentQuoteIndex]
-        print(quoteVMM.content)
         ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: authorName)) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -215,9 +217,34 @@ class QuotesOfAuthorVC: UIViewController {
             return
         }
         let quoteVm = QuoteGardenQuoteVM(rootModel: QuoteGardenQuoteModel(quoteText: quotesArr[currentQuoteIndex].content, quoteAuthor: author.name))
-//        CoreDataManager.removePair(quoteVM: quoteVm) { [weak self] in
-//            self?.updateQuote()
-//        }
+        CoreDataManager.removePair(quoteVM: quoteVm) { [weak self] in
+            guard let self = self else { return }
+            
+            if self.quotesArr.count == 1 {
+                if let authorsVCreloadDataClosure = self.authorsVCreloadDataClosure {
+                    self.dismiss(animated: true) {
+                        authorsVCreloadDataClosure()
+                    }
+                }
+                else {
+                    self.dismiss(animated: true)
+                }
+                return
+            }
+            
+            if self.currentQuoteIndex == self.quotesArr.count - 1 {
+                self.quotesArr.removeLast()
+                self.currentQuoteIndex -= 1
+            }
+            else if self.currentQuoteIndex == 0 {
+                self.quotesArr.removeFirst()
+                self.updateQuote()
+            }
+            else {
+                self.quotesArr.remove(at: self.currentQuoteIndex)
+                self.currentQuoteIndex -= 1
+            }
+        }
     }
     
     @objc func onCloseButton(sender: UIButton) {

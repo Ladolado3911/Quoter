@@ -15,6 +15,7 @@ class AuthorsVC: UIViewController {
 
     var data3: [AuthorCoreVM] = []
     var selectedAuthor: AuthorCoreVM?
+    var selectedIndexPath: IndexPath?
     
     var data3Before: [AuthorCoreVM] = []
     
@@ -132,6 +133,12 @@ class AuthorsVC: UIViewController {
             return
         }
         vc.author = selectedAuthor
+        vc.authorsVCreloadDataClosure = { [weak self] in
+            if let selectedIndexPath = self?.selectedIndexPath {
+                self?.data3.remove(at: selectedIndexPath.item)
+                self?.authorsView.authorsContentView.collectionView.reloadData()
+            }
+        }
         present(vc, animated: true)
     }
     
@@ -203,6 +210,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
                     return
                 }
             }
+            selectedIndexPath = indexPath
             selectedAuthor = data3[indexPath.item]
             data3[indexPath.item].turnOn()
             if data3[indexPath.item].isDefaultPicture {
