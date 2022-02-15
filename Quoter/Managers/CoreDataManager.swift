@@ -328,4 +328,52 @@ class CoreDataManager {
             print("THIS IS ERROR. IDEA IS ON AND NOTHING IS IN CORE")
         }
     }
+    
+    static func removePair(quoteVM: QuoteGardenQuoteVM, completion: @escaping () -> Void) {
+        
+        guard let context = context else { return }
+        
+        let isAuthorInCore: Bool = CoreDataManager.isAuthorInCoreData(authorName: quoteVM.authorName)
+        let isQuoteInCore: Bool = CoreDataManager.isQuoteInCoreData(quoteVM: quoteVM)
+        
+        if isAuthorInCore && isQuoteInCore {
+            print("REMOVE QUOTE. REMOVE AUTHOR IF IT IS EMPTY")
+            //let requestQuotes = NSFetchRequest<QuoteCore>(entityName: "QuoteCore")
+            let requestAuthors = NSFetchRequest<AuthorCore>(entityName: "AuthorCore")
+            do {
+                //let quotes = try context.fetch(requestQuotes)
+                let authors = try context.fetch(requestAuthors)
+                for author in authors {
+                    if author.name == quoteVM.authorName {
+                        if let set = author.relationship,
+                           let objects = set.allObjects as? [QuoteCore] {
+                            for quote in objects {
+                                if quote.content == quoteVM.content {
+                                    author.removeFromRelationship(quote)
+                                    context.delete(quote)
+                                }
+                            }
+                        }
+                    }
+                }
+                CoreDataManager.clearWhereverNeeded()
+                try context.save()
+            }
+            catch {
+                print(error)
+            }
+        }
+        else if isAuthorInCore && !isQuoteInCore {
+            print("THERE IS ERROR. IDEA IS ON, AUTHOR IS IN CORE AND QUOTE IS NOT IN CORE")
+
+        }
+        else if !isAuthorInCore && isQuoteInCore {
+            print("SUPER ERROR. IDEA IS ON, AUTHOR IS NOT IN CORE AND QUOTE IS IN CORE. REMOVE RUBBISH QUOTE")
+            CoreDataManager.deleteQuote(quoteVM: quoteVM)
+        }
+        else {
+            print("THIS IS ERROR. IDEA IS ON AND NOTHING IS IN CORE")
+        }
+        completion()
+    }
 }

@@ -8,6 +8,12 @@
 import UIKit
 import SnapKit
 
+
+enum State {
+    case on
+    case off
+}
+
 struct TabbarItem {
     var itemView: TabbarItemView
     var controller: UIViewController

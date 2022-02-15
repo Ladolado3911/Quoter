@@ -86,6 +86,7 @@ class ExploreVC: MonitoredVC {
                             self.setUpInitialDataForPageController()
                         }
                         else {
+                            
                             self.configPageVC()
                             (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
                         }
@@ -107,7 +108,7 @@ class ExploreVC: MonitoredVC {
         NetworkMonitor.shared.startMonitoring { [weak self] path in
             if NetworkMonitor.shared.isFirstCheck {
                 self?.connectionStatusSubject.send((path.status != .unsatisfied, true))
-                NetworkMonitor.shared.isFirstCheck = false
+//                NetworkMonitor.shared.isFirstCheck = false
             }
             else {
                 self?.connectionStatusSubject.send((path.status == .unsatisfied, false))
@@ -131,6 +132,7 @@ class ExploreVC: MonitoredVC {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        //print(loadedImageURLs.count)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -179,6 +181,7 @@ class ExploreVC: MonitoredVC {
             if let lottieView = self.view as? LottieView {
                 lottieView.stopLottieAnimation()
             }
+            NetworkMonitor.shared.isFirstCheck = false
         }
     }
     

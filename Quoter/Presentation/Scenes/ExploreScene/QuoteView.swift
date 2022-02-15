@@ -20,13 +20,7 @@ class QuoteView: LottieView {
         darkView.backgroundColor = .black.withAlphaComponent(0.6)
         return darkView
     }()
-    
-    let ideaImageView: IdeaImageView = {
-        let ideaView = IdeaImageView()
-        ideaView.contentMode = .scaleAspectFill
-        return ideaView
-    }()
-    
+
     let bookImageView: BookImageView = {
         let bookView = BookImageView()
         bookView.contentMode = .scaleAspectFill
@@ -78,15 +72,12 @@ class QuoteView: LottieView {
         addSubview(darkView)
         addSubview(quoteTextView)
         addSubview(authorLabel)
-        addSubview(ideaImageView)
         addSubview(bookImageView)
     }
     
     private func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {
         let lowerBound: CGFloat = PublicConstants.screenHeight * 0.02159827213822894
         let higherBound: CGFloat = PublicConstants.screenHeight * 0.05399568034557235
-//        print(20 / PublicConstants.screenHeight)
-//        print(50 / PublicConstants.screenHeight)
         let boundRange = higherBound - lowerBound
         let testResult = lowerBound + ((1 / (stringCount / 35)) * boundRange)
         return testResult
@@ -113,33 +104,19 @@ class QuoteView: LottieView {
         darkView.snp.makeConstraints { make in
             make.left.right.top.bottom.equalTo(self)
         }
-        ideaImageView.snp.makeConstraints { make in
+        bookImageView.snp.makeConstraints { make in
             make.left.equalTo(self).inset(20)
             make.width.height.equalTo(PublicConstants.screenHeight * 0.0968)
             make.top.equalTo(self).inset(PublicConstants.screenHeight * 0.11267)
         }
-        bookImageView.snp.makeConstraints { make in
-            make.left.equalTo(ideaImageView)
-            make.width.equalTo(ideaImageView)
-            make.top.equalTo(ideaImageView.snp.bottom).inset(-PublicConstants.screenHeight * 0.026408)
-        }
         quoteTextView.snp.makeConstraints { make in
             make.left.right.equalTo(self).inset(20)
-            //make.centerY.equalTo(self)
-            //make.centerX.equalTo(self)
             make.centerY.equalTo(self)
-            //make.bottom.equalTo(authorLabel.snp.top).inset(-PublicConstants.screenHeight * 0.011)
-            //make.bottom.equalTo(authorLabel.snp.top).inset(-PublicConstants.screenHeight * 0.0700)
             make.height.equalTo(300)
         }
         authorLabel.snp.makeConstraints { make in
             make.left.right.equalTo(self)
-            //make.top.equalTo(quoteTextView.snp.bottom).inset(-40)
             make.bottom.equalTo(self).inset(PublicConstants.screenHeight * 0.19)
         }
-//        spinnerView.snp.makeConstraints { make in
-//            make.center.equalTo(self)
-//            make.width.height.equalTo(100)
-//        }
     }
 }

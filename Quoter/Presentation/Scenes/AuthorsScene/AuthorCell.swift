@@ -39,7 +39,6 @@ class AuthorCell: UICollectionViewCell {
     let redView: UIView = {
         let redView = UIView()
         redView.backgroundColor = .red
-        redView.layer.cornerRadius = 10
         return redView
     }()
     

@@ -148,6 +148,8 @@ class QuotesOfAuthorVC: UIViewController {
             if currentQuoteIndex == 0 {
                 quotesOfAuthorView.prevButton.isButtonEnabled = false
             }
+            //print(networkQuotesArr[currentQuoteIndex].content)
+            quotesOfAuthorView.ideaButton.isSelected = CoreDataManager.isQuoteInCoreData(quoteVM: networkQuotesArr[currentQuoteIndex])
         case .coreData:
             quotesOfAuthorView.quoteTextView.text = quotesArr[currentQuoteIndex].content
             if currentQuoteIndex == quotesArr.count - 1 {
@@ -170,9 +172,8 @@ class QuotesOfAuthorVC: UIViewController {
         guard let authorName = authorName else {
             return
         }
-        guard let quoteVM = quoteVM else {
-            return
-        }
+        let quoteVMM = networkQuotesArr[currentQuoteIndex]
+        print(quoteVMM.content)
         ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: authorName)) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -182,16 +183,16 @@ class QuotesOfAuthorVC: UIViewController {
                     if let image = UIImage(data: data) {
                         if self.quotesOfAuthorView.ideaButton.state == .selected {
                             self.quotesOfAuthorView.ideaButton.isSelected = false
-                            CoreDataManager.removePair(quoteVM: quoteVM)
+                            CoreDataManager.removePair(quoteVM: quoteVMM)
                             collectionViewUpdateSubject.send {}
                         }
                         else if self.quotesOfAuthorView.ideaButton.state == .normal {
                             self.quotesOfAuthorView.ideaButton.isSelected = true
                             if tuple.1 == .nature {
-                                CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: UIImage(named: "unknown")!.pngData())
+                                CoreDataManager.addPair(quoteVM: quoteVMM, authorImageData: UIImage(named: "unknown")!.pngData())
                             }
                             else {
-                                CoreDataManager.addPair(quoteVM: self.quoteVM!, authorImageData: image.pngData())
+                                CoreDataManager.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
                             }
                             collectionViewUpdateSubject.send {}
                         }
@@ -214,7 +215,9 @@ class QuotesOfAuthorVC: UIViewController {
             return
         }
         let quoteVm = QuoteGardenQuoteVM(rootModel: QuoteGardenQuoteModel(quoteText: quotesArr[currentQuoteIndex].content, quoteAuthor: author.name))
-        CoreDataManager.removePair(quoteVM: quoteVm)
+//        CoreDataManager.removePair(quoteVM: quoteVm) { [weak self] in
+//            self?.updateQuote()
+//        }
     }
     
     @objc func onCloseButton(sender: UIButton) {
