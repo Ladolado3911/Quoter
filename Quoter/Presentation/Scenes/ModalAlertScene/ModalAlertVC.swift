@@ -14,7 +14,7 @@ class ModalAlertVC: UIViewController {
     var quoteVM: QuoteGardenQuoteVM?
     var authorImageURL: URL?
     
-    var presentingClosure: ((([QuoteGardenQuoteVM], URL?)) -> Void)?
+    var presentingClosure: ((([QuoteGardenQuoteVM], URL?, QuoteGardenQuoteVM)) -> Void)?
     
     let modalAlertView: ModalAlertView = {
         let modalAlertView = ModalAlertView()
@@ -54,10 +54,10 @@ class ModalAlertVC: UIViewController {
                         self.dismiss(animated: true) {
                             if let presentingClosure = self.presentingClosure,
                                let imageUrl = self.authorImageURL {
-                                presentingClosure((quotes, imageUrl))
+                                presentingClosure((quotes, imageUrl, quoteVMM))
                             }
                             else {
-                                self.presentingClosure!((quotes, nil))
+                                self.presentingClosure!((quotes, nil, quoteVMM))
                             }
                         }
                     }

@@ -15,7 +15,11 @@ enum QuotesOfAuthorVCState {
 
 class QuotesOfAuthorVC: UIViewController {
     
-    var state: QuotesOfAuthorVCState = .coreData
+    var state: QuotesOfAuthorVCState = .coreData {
+        didSet {
+            quotesOfAuthorView.state = state
+        }
+    }
     var author: AuthorCoreVM?
     var currentQuoteIndex: Int = 0 {
         didSet {
@@ -27,6 +31,8 @@ class QuotesOfAuthorVC: UIViewController {
     var networkQuotesArr: [QuoteGardenQuoteVM] = []
     var authorImageURL: URL?
     var authorName: String?
+    
+    var quoteVM: QuoteGardenQuoteVM?
     
     let quotesOfAuthorView: QuotesOfAuthorView = {
         let quotesOfAuthorView = QuotesOfAuthorView()
@@ -46,13 +52,26 @@ class QuotesOfAuthorVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
     }
     
     private func configButtons() {
         configCloseButton()
         configNextButton()
         configPrevButton()
+        configIdeaButton()
+    }
+
+    private func configIdeaButton() {
+        switch state {
+        case .network:
+            quotesOfAuthorView.ideaButton.addTarget(self,
+                                                    action: #selector(onIdeaButton(sender:)),
+                                                    for: .touchUpInside)
+        case .coreData:
+            quotesOfAuthorView.ideaButton.addTarget(self,
+                                                    action: #selector(onDeleteButton(sender:)),
+                                                    for: .touchUpInside)
+        }
     }
     
     private func configCloseButton() {
@@ -77,15 +96,6 @@ class QuotesOfAuthorVC: UIViewController {
         switch state {
         case .network:
             guard let name = authorName else { return }
-//            guard let authorImageURL = authorImageURL,
-//                  let name = authorName else {
-//
-//
-//
-//
-//                return
-//            }
-            
             if authorImageURL == nil {
                 quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFit
                 quotesOfAuthorView.mainImageView.image = UIImage(named: "unknown")
@@ -95,20 +105,7 @@ class QuotesOfAuthorVC: UIViewController {
                 quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFill
                 quotesOfAuthorView.mainImageView.kf.setImage(with: authorImageURL)
             }
-//
-//            do {
-//                let data = try Data(contentsOf: authorImageURL)
-//                let image = UIImage(data: data)
-//                quotesOfAuthorView.mainImageView.image = image
-//
-//            }
-//            catch {
-//                print(error)
-//            }
-            
             quotesOfAuthorView.titleOfAuthor.text = name
-            //quotesOfAuthorView.mainImageView.kf.setImage(with: authorImageURL)
-            
             quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].content
             
             if networkQuotesArr.count > 1 {
@@ -120,20 +117,16 @@ class QuotesOfAuthorVC: UIViewController {
             guard let author = author else {
                 return
             }
-            
             if author.image.pngData() == UIImage(named: "unknown")?.pngData() {
                 quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFit
-                
             }
             else {
                 quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFill
             }
-            
             quotesOfAuthorView.titleOfAuthor.text = author.name
             quotesOfAuthorView.mainImageView.image = author.image
             quotesArr = author.quotes
             quotesOfAuthorView.quoteTextView.text = quotesArr[currentQuoteIndex].content
-            
             if quotesArr.count > 1 {
                 print("more than 1 qoute core")
                 quotesOfAuthorView.nextButton.isButtonEnabled = true
@@ -167,6 +160,61 @@ class QuotesOfAuthorVC: UIViewController {
                 quotesOfAuthorView.prevButton.isButtonEnabled = false
             }
         }
+    }
+    
+    private func convertAuthorName(name: String) -> String {
+        name.replacingOccurrences(of: " ", with: "_")
+    }
+    
+    @objc func onIdeaButton(sender: UIButton) {
+        guard let authorName = authorName else {
+            return
+        }
+        guard let quoteVM = quoteVM else {
+            return
+        }
+        ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: authorName)) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let tuple):
+                do {
+                    let data = try Data(contentsOf: tuple.0)
+                    if let image = UIImage(data: data) {
+                        if self.quotesOfAuthorView.ideaButton.state == .selected {
+                            self.quotesOfAuthorView.ideaButton.isSelected = false
+                            CoreDataManager.removePair(quoteVM: quoteVM)
+                            collectionViewUpdateSubject.send {}
+                        }
+                        else if self.quotesOfAuthorView.ideaButton.state == .normal {
+                            self.quotesOfAuthorView.ideaButton.isSelected = true
+                            if tuple.1 == .nature {
+                                CoreDataManager.addPair(quoteVM: quoteVM, authorImageData: UIImage(named: "unknown")!.pngData())
+                            }
+                            else {
+                                CoreDataManager.addPair(quoteVM: self.quoteVM!, authorImageData: image.pngData())
+                            }
+                            collectionViewUpdateSubject.send {}
+                        }
+                    }
+                    else {
+                        print("Could not unwrap")
+                    }
+                }
+                catch {
+                    print(error)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    @objc func onDeleteButton(sender: UIButton) {
+        guard let author = author else {
+            return
+        }
+        let quoteVm = QuoteGardenQuoteVM(rootModel: QuoteGardenQuoteModel(quoteText: quotesArr[currentQuoteIndex].content, quoteAuthor: author.name))
+        CoreDataManager.removePair(quoteVM: quoteVm)
     }
     
     @objc func onCloseButton(sender: UIButton) {

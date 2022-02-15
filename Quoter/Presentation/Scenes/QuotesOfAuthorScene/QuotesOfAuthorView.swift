@@ -10,6 +10,12 @@ import SnapKit
 
 class QuotesOfAuthorView: UIView {
     
+    var state: QuotesOfAuthorVCState = .coreData {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
     let mainImageView: UIImageView = {
         let mainImageView = UIImageView()
         mainImageView.contentMode = .scaleAspectFill
@@ -38,9 +44,19 @@ class QuotesOfAuthorView: UIView {
         return title
     }()
     
-    let ideaButton: UIButton = {
+    lazy var ideaButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "IdeaOff"), for: .normal)
+        switch state {
+        case .network:
+//            if !button.allTargets.isEmpty {
+//
+//            }
+            button.setImage(UIImage(named: "IdeaOff"), for: .normal)
+            button.setImage(UIImage(named: "IdeaOn"), for: .selected)
+        case .coreData:
+            button.setImage(UIImage(named: "Waste"), for: .normal)
+            
+        }
         return button
     }()
     

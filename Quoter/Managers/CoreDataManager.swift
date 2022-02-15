@@ -87,6 +87,23 @@ class CoreDataManager {
         }
     }
     
+    static func deleteQuote(content: String) {
+        guard let context = context else { return }
+        let requestQuotes = NSFetchRequest<QuoteCore>(entityName: "QuoteCore")
+        do {
+            let quotes = try context.fetch(requestQuotes)
+            for quote in quotes {
+                if quote.content == content {
+                    context.delete(quote)
+                }
+            }
+            try context.save()
+        }
+        catch {
+            print(error)
+        }
+    }
+    
     static func deleteAuthor(authorName: String) {
         guard let context = context else { return }
         let requestAuthors = NSFetchRequest<AuthorCore>(entityName: "AuthorCore")

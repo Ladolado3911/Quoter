@@ -26,7 +26,7 @@ class QuoteVC: UIViewController {
     var imageType: ImageType?
     var isVCLoaded: Bool = false
     
-    lazy var presentQuotesOfAuthorClosure: (([QuoteGardenQuoteVM], URL?)) -> Void = { [weak self] quoteVMs in
+    lazy var presentQuotesOfAuthorClosure: (([QuoteGardenQuoteVM], URL?, QuoteGardenQuoteVM)) -> Void = { [weak self] quoteVMs in
         guard let self = self else { return }
         let destVC = QuotesOfAuthorVC()
         destVC.modalTransitionStyle = .coverVertical
@@ -35,6 +35,7 @@ class QuoteVC: UIViewController {
         destVC.state = .network
         destVC.authorImageURL = quoteVMs.1
         destVC.authorName = self.quoteVM?.authorName
+        destVC.quoteVM = quoteVMs.2
         self.present(destVC, animated: true)
     }
     
@@ -154,7 +155,6 @@ class QuoteVC: UIViewController {
                 do {
                     let data = try Data(contentsOf: tuple.0)
                     if let image = UIImage(data: data) {
-                        
                         switch self.quoteView.ideaImageView.state {
                         case .on:
                             self.quoteView.ideaImageView.state = .off

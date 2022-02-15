@@ -17,7 +17,7 @@
             startingLineNumber = "183"
             endingLineNumber = "183"
             landmarkName = "collectionView(_:didSelectItemAt:)"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -97,7 +97,7 @@
             startingLineNumber = "178"
             endingLineNumber = "178"
             landmarkName = "collectionView(_:didSelectItemAt:)"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -129,7 +129,7 @@
             startingLineNumber = "207"
             endingLineNumber = "207"
             landmarkName = "collectionView(_:didSelectItemAt:)"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -238,8 +238,8 @@
             filePath = "Quoter/Presentation/Scenes/ExploreScene/QuoteVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "configWithVM()"
             landmarkType = "7">
          </BreakpointContent>
@@ -258,22 +258,6 @@
             endingLineNumber = "55"
             landmarkName = "unknown"
             landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8AD695BA-0939-4A33-9C9A-20E325964D26"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/QuotesOfAuthorScene/QuotesOfAuthorVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "populateData()"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -446,8 +430,8 @@
             filePath = "Quoter/Presentation/Scenes/ExploreScene/QuoteVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "configWithVM()"
             landmarkType = "7">
          </BreakpointContent>
@@ -535,22 +519,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "55EC76B9-73A0-4645-BFB4-BE5123A660CC"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/QuotesOfAuthorScene/QuotesOfAuthorVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "populateData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "8E603B68-4266-4F10-AC7F-8A81086E75EF"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -558,57 +526,9 @@
             filePath = "Quoter/Presentation/Scenes/QuotesOfAuthorScene/QuotesOfAuthorVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "populateData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AB34C1DA-942D-4C35-9FB9-0F82F50CC13D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/QuotesOfAuthorScene/QuotesOfAuthorVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "populateData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F6C84D7E-C2A5-4C87-9944-F27777CA766F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/QuotesOfAuthorScene/QuotesOfAuthorVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "populateData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A5DB573E-E74C-4BA5-9230-8BE1CE15C703"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/ExploreScene/QuoteVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "didTapOnIdea(sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -670,8 +590,8 @@
             filePath = "Quoter/Presentation/Scenes/QuotesOfAuthorScene/QuotesOfAuthorVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "populateData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -686,8 +606,8 @@
             filePath = "Quoter/Presentation/Scenes/QuotesOfAuthorScene/QuotesOfAuthorVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "populateData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -702,8 +622,8 @@
             filePath = "Quoter/Managers/CoreDataManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "269"
-            endingLineNumber = "269"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
             landmarkName = "removePair(quoteVM:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -833,7 +753,7 @@
             startingLineNumber = "209"
             endingLineNumber = "209"
             landmarkName = "collectionView(_:didSelectItemAt:)"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -862,8 +782,8 @@
             filePath = "Quoter/Presentation/Scenes/ExploreScene/QuoteVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
             landmarkName = "configWithVM()"
             landmarkType = "7">
          </BreakpointContent>
