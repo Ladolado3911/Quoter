@@ -278,11 +278,14 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
                 //currentPage -= 1
             }
             else {
-                if currentPage % 49 == 0 && currentPage != 0 {
+                // if currentPage % 49 == 0 && currentPage != 0
+                print(currentPage)
+                print(loadedVMs.count - 2)
+                if currentPage == loadedVMs.count - 2 && currentPage != 0 {
                     print("limit reached")
                     let group = DispatchGroup()
                     group.enter()
-                    loadQuotes {
+                    loadQuotes { 
                         group.leave()
                     }
                     group.enter()

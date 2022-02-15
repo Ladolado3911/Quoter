@@ -28,15 +28,20 @@ class QuotesOfAuthorView: UIView {
         return button
     }()
     
-    
-    
     let titleOfAuthor: UILabel = {
         let title = UILabel()
         title.textColor = .white
         title.backgroundColor = .clear
         title.font = UIFont(name: "Arial Rounded MT Bold", size: 24)
         title.textAlignment = .center
+        title.adjustsFontSizeToFitWidth = true
         return title
+    }()
+    
+    let ideaButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "IdeaOff"), for: .normal)
+        return button
     }()
     
     let quoteTextView: UILabel = {
@@ -77,9 +82,13 @@ class QuotesOfAuthorView: UIView {
         addSubview(darkView)
         addSubview(closeButton)
         addSubview(titleOfAuthor)
+        addSubview(ideaButton)
         addSubview(quoteTextView)
         addSubview(nextButton)
         addSubview(prevButton)
+        quoteTextView.numberOfLines = 15
+        let fontSize = getFontSizeForQuote(stringCount: CGFloat(quoteTextView.text?.count ?? 0))
+        quoteTextView.font = quoteTextView.font?.withSize(fontSize)
     }
     
     private func buildConstraints() {
@@ -92,16 +101,26 @@ class QuotesOfAuthorView: UIView {
         closeButton.snp.makeConstraints { make in
             make.left.equalTo(self).inset(20)
             make.width.height.equalTo(PublicConstants.screenHeight * 0.0968)
-            make.top.equalTo(self).inset(PublicConstants.screenHeight * 0.11267)
+            make.top.equalTo(self).inset(70)//.inset(PublicConstants.screenHeight * 0.11267)
         }
         titleOfAuthor.snp.makeConstraints { make in
-            make.left.right.equalTo(quoteTextView)
-            make.bottom.equalTo(quoteTextView.snp.top).inset(-PublicConstants.screenHeight * 0.054577)
+            make.left.equalTo(closeButton.snp.right).inset(-20)
+            make.right.equalTo(ideaButton.snp.left).inset(-20)
+            make.centerY.equalTo(closeButton)
+            //make.bottom.equalTo(quoteTextView.snp.top).inset(-20)//.inset(-PublicConstants.screenHeight * 0.054577)
+        }
+        ideaButton.snp.makeConstraints { make in
+//            make.left.equalTo(titleOfAuthor.snp.right).inset(-20)
+            make.right.equalTo(self).inset(20)
+            make.centerY.equalTo(closeButton)
+            make.width.height.equalTo(PublicConstants.screenHeight * 0.0968)
         }
         quoteTextView.snp.makeConstraints { make in
             make.left.right.equalTo(self).inset(20)
             //make.centerY.equalTo(self)
-            make.bottom.equalTo(nextButton.snp.top).inset(-PublicConstants.screenHeight * 0.2)
+            make.centerY.equalTo(self)
+            make.height.equalTo(600)
+            //make.bottom.equalTo(nextButton.snp.top).inset(-PublicConstants.screenHeight * 0.2)
         }
         nextButton.snp.makeConstraints { make in
             make.right.equalTo(self).inset(PublicConstants.screenWidth * 0.03125)
@@ -115,6 +134,14 @@ class QuotesOfAuthorView: UIView {
             make.width.equalTo(PublicConstants.screenWidth * 0.4937)
             make.height.equalTo(PublicConstants.screenHeight * 0.0528)
         }
+    }
+    
+    private func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {
+        let lowerBound: CGFloat = PublicConstants.screenHeight * 0.02159827213822894
+        let higherBound: CGFloat = PublicConstants.screenHeight * 0.05399568034557235
+        let boundRange = higherBound - lowerBound
+        let testResult = lowerBound + ((1 / (stringCount / 35)) * boundRange)
+        return testResult
     }
 }
 
