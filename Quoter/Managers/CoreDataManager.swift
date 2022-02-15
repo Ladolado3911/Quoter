@@ -107,10 +107,16 @@ class CoreDataManager {
     static func deleteAuthor(authorName: String) {
         guard let context = context else { return }
         let requestAuthors = NSFetchRequest<AuthorCore>(entityName: "AuthorCore")
+        requestAuthors.returnsObjectsAsFaults = false
         do {
             let authors = try context.fetch(requestAuthors)
             for author in authors {
                 if author.name == authorName {
+//                    author.relationship?.allObjects.forEach {
+//                        if let object = $0 as? NSManagedObject {
+//                            context.delete(object)
+//                        }
+//                    }
                     context.delete(author)
                 }
             }

@@ -57,6 +57,8 @@ class AuthorCell: UICollectionViewCell {
         return deleteLabel
     }()
     
+    var deleteClosure: (() -> Void)?
+    
     let selectTransform = CGAffineTransform(translationX: 0,
                                             y: -(20))
     
@@ -68,6 +70,7 @@ class AuthorCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         redView.addGestureRecognizer(onDeleteGestureRecognizer)
+        
 //        layer.cornerRadius = 20
 //        clipsToBounds = true
 //        layer.masksToBounds = false
@@ -213,6 +216,8 @@ class AuthorCell: UICollectionViewCell {
     }
     
     @objc func onDelete(sender: UITapGestureRecognizer) {
-        print("delete author")
+        if let deleteClosure = deleteClosure {
+            deleteClosure()
+        }
     }
 }

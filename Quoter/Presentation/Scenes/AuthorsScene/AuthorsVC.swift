@@ -143,7 +143,21 @@ class AuthorsVC: UIViewController {
     }
     
     private func onDeleteView() {
-        print("delete author")
+        if let selectedAuthor = selectedAuthor,
+           let selectedIndexPath = selectedIndexPath {
+            print(selectedAuthor.name)
+            CoreDataManager.deleteAuthor(authorName: selectedAuthor.name)
+            data3.remove(at: selectedIndexPath.item)
+            mainImageSubject.send(UIImage(named: "book")!)
+            authorsView.mainImageView.contentMode = .scaleAspectFill
+            mainTitle.send("Select Person")
+            
+            if !data3.isEmpty {
+                data3[selectedIndexPath.item].turnOff(isChanging: true)
+            }
+            data3Subject.send(data3)
+            authorsView.authorsContentView.collectionView.reloadData()
+        }
     }
 }
 
@@ -158,6 +172,9 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         cell?.collectionViewHeight = collectionView.bounds.height
         cell?.combineSubject = sendMainImagetoSubject
         cell?.indexPath = indexPath
+        cell?.deleteClosure = { [weak self] in
+            self?.onDeleteView()
+        }
         return cell!
     }
     
@@ -195,6 +212,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             let filtered = data3.filter { $0 !== data3[indexPath.item] }
             for vm in 0...filtered.count {
                 if data3[vm].state == .on {
+                    selectedIndexPath = indexPath
                     selectedAuthor = data3[indexPath.item]
                     data3[vm].turnOff(isChanging: true)
                     data3[indexPath.item].turnOn()
