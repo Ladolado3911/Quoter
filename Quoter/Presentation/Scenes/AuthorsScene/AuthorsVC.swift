@@ -134,10 +134,13 @@ class AuthorsVC: UIViewController {
         }
         vc.author = selectedAuthor
         vc.authorsVCreloadDataClosure = { [weak self] in
-            if let selectedIndexPath = self?.selectedIndexPath {
-                self?.data3.remove(at: selectedIndexPath.item)
-                self?.authorsView.authorsContentView.collectionView.reloadData()
-            }
+            guard let self = self else { return }
+            self.mainImageSubject.send(self.bookImage!)
+            self.authorsView.mainImageView.contentMode = .scaleAspectFill
+            self.mainTitle.send("Select Person")
+            self.data3Subject.send(self.data3)
+            CoreDataManager.deleteAuthor(authorName: selectedAuthor.name)
+            collectionViewUpdateSubject.send {}
         }
         present(vc, animated: true)
     }

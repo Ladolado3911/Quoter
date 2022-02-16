@@ -178,7 +178,6 @@ class AuthorCell: UICollectionViewCell {
             }
         }
         backgroundColor = .white
-        
     }
     
     private func getNameFromUrl(urlString: String) -> String {
