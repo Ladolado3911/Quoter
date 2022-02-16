@@ -20,7 +20,7 @@ class AuthorsVC: UIViewController {
     var data3Before: [AuthorCoreVM] = []
     
     let compareImage = UIImage(named: "unknown")?.pngData()
-    let bookImage = UIImage(named: "unknown")
+    let bookImage = UIImage(named: "book")
     
     lazy var data3Subject = CurrentValueSubject<[AuthorCoreVM], Never>(data3)
     let mainImageSubject = CurrentValueSubject<UIImage, Never>(UIImage(named: "book")!)
@@ -249,12 +249,13 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let cell = cell as? AuthorCell
         cell!.imageView.image = nil
-        cell!.backgroundColor = .white
+        //cell!.backgroundColor = .white
+        //print(#function)
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let cell = cell as? AuthorCell
         cell!.imageView.image = nil
-        cell!.backgroundColor = .white
+//        cell!.backgroundColor = .white
     }
 }
