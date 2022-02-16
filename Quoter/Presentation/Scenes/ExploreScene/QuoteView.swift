@@ -21,9 +21,9 @@ class QuoteView: LottieView {
         return darkView
     }()
 
-    let bookImageView: BookImageView = {
-        let bookView = BookImageView()
-        bookView.contentMode = .scaleAspectFill
+    let bookImageView: QuoteViewButton = {
+        let bookView = QuoteViewButton(title: "Quotes", icon: UIImage(named: "Reading")!)
+        //bookView.contentMode = .scaleAspectFill
         return bookView
     }()
     
@@ -106,7 +106,8 @@ class QuoteView: LottieView {
         }
         bookImageView.snp.makeConstraints { make in
             make.left.equalTo(self).inset(20)
-            make.width.height.equalTo(PublicConstants.screenHeight * 0.0968)
+//            make.height.equalTo(PublicConstants.screenHeight * 0.049295)
+//            make.width.equalTo(PublicConstants.screenWidth * 0.6)
             make.top.equalTo(self).inset(PublicConstants.screenHeight * 0.11267)
         }
         quoteTextView.snp.makeConstraints { make in

@@ -23,6 +23,8 @@
 		24C12BD127AABB800069684D /* ModalAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C12BD027AABB800069684D /* ModalAlertVC.swift */; };
 		24C12BD427AABC8F0069684D /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C12BD327AABC8F0069684D /* ModalView.swift */; };
 		24C12BD627AABE1E0069684D /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C12BD527AABE1E0069684D /* UIView+Extension.swift */; };
+		24C9A8E627BD20DD001C820F /* QuoteViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C9A8E527BD20DD001C820F /* QuoteViewButton.swift */; };
+		24C9A8E827BD2E25001C820F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C9A8E727BD2E25001C820F /* UIImage+Extension.swift */; };
 		24CB9FE927930C1700E9D49F /* AuthorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FE727930C1700E9D49F /* AuthorModel.swift */; };
 		24CB9FED27930C2700E9D49F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB9FEB27930C2700E9D49F /* NetworkManager.swift */; };
 		24D0B25127A055C00050D3B4 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0B25027A055C00050D3B4 /* TabbarController.swift */; };
@@ -92,6 +94,8 @@
 		24C12BD027AABB800069684D /* ModalAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertVC.swift; sourceTree = "<group>"; };
 		24C12BD327AABC8F0069684D /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		24C12BD527AABE1E0069684D /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		24C9A8E527BD20DD001C820F /* QuoteViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteViewButton.swift; sourceTree = "<group>"; };
+		24C9A8E727BD2E25001C820F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		24CB9FE727930C1700E9D49F /* AuthorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorModel.swift; sourceTree = "<group>"; };
 		24CB9FEB27930C2700E9D49F /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		24D0B25027A055C00050D3B4 /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 				24BEA3E327986C08009DB491 /* QuoteVC.swift */,
 				24BEA3DD27985FEE009DB491 /* ExploreVC.swift */,
 				24BEA3DF2798601A009DB491 /* QuoteView.swift */,
+				24C9A8E527BD20DD001C820F /* QuoteViewButton.swift */,
 			);
 			path = ExploreScene;
 			sourceTree = "<group>";
@@ -322,6 +327,7 @@
 				24C12BD527AABE1E0069684D /* UIView+Extension.swift */,
 				24D128962790491500AD7F3D /* UIColor+Extension.swift */,
 				24C12BCB27AAAFCF0069684D /* UIViewController+Extension.swift */,
+				24C9A8E727BD2E25001C820F /* UIImage+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -498,11 +504,13 @@
 				24D1287727903ECD00AD7F3D /* AuthorsVC.swift in Sources */,
 				24DEBF4D27ABB5BB00C40B29 /* LottieAnimations.swift in Sources */,
 				24C12BCC27AAAFCF0069684D /* UIViewController+Extension.swift in Sources */,
+				24C9A8E627BD20DD001C820F /* QuoteViewButton.swift in Sources */,
 				24D4108027B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift in Sources */,
 				24D128A12790AD0500AD7F3D /* AuthorsContentView.swift in Sources */,
 				24D264F82791940F00614218 /* AuthorCellVM.swift in Sources */,
 				24D264F62791777500614218 /* AuthorCell.swift in Sources */,
 				24D0B25127A055C00050D3B4 /* TabbarController.swift in Sources */,
+				24C9A8E827BD2E25001C820F /* UIImage+Extension.swift in Sources */,
 				24D78DE927B27FB700E6B401 /* ImageEndpoints.swift in Sources */,
 				24CB9FE927930C1700E9D49F /* AuthorModel.swift in Sources */,
 				24C12BCA27AAACCC0069684D /* BookImageView.swift in Sources */,

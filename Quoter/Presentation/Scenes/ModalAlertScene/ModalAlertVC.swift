@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 class ModalAlertVC: UIViewController {
     
@@ -36,7 +35,6 @@ class ModalAlertVC: UIViewController {
         if let authorName = authorName,
            let quoteVMM = quoteVM {
             modalAlertView.buildView(authorName: authorName)
-            
             group.enter()
             ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVMM.authorName)) { [weak self] result in
                 guard let self = self else { return }
