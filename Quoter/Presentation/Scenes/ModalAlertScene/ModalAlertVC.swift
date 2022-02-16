@@ -7,8 +7,6 @@
 
 import UIKit
 import Kingfisher
-import Alamofire
-import AlamofireImage
 
 class ModalAlertVC: UIViewController {
     
@@ -34,6 +32,7 @@ class ModalAlertVC: UIViewController {
         super.viewDidAppear(animated)
         //let semaphore = DispatchSemaphore(value: 1)
         let group = DispatchGroup()
+        let customQueue = DispatchQueue.global(qos: .background)
         if let authorName = authorName,
            let quoteVMM = quoteVM {
             modalAlertView.buildView(authorName: authorName)
@@ -45,14 +44,17 @@ class ModalAlertVC: UIViewController {
                 case .success(let tuple):
                     if tuple.1 == .author {
                         group.enter()
-                        AF.request(tuple.0).responseImage { response in
-                            if case .success(let image) = response.result {
-                                print("image downloaded: \(image)")
+                        customQueue.async {
+                            do {
+                                let imageData = try Data(contentsOf: tuple.0)
+                                let image = UIImage(data: imageData)
                                 DispatchQueue.main.async {
                                     self.authorImage = image
-                                    //semaphore.signal()
                                     group.leave()
                                 }
+                            }
+                            catch {
+                                print(error)
                             }
                         }
                     }
