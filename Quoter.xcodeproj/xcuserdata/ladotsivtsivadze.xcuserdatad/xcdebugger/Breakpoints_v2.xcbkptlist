@@ -254,8 +254,8 @@
             filePath = "Quoter/Presentation/Scenes/ExploreScene/QuoteVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
             landmarkName = "didTapOnBook(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -414,8 +414,8 @@
             filePath = "Quoter/Presentation/Scenes/QuotesOfAuthorScene/QuotesOfAuthorVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "populateData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -478,24 +478,8 @@
             filePath = "Quoter/Presentation/Scenes/QuotesOfAuthorScene/QuotesOfAuthorVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "populateData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "08E2BBDC-9E6F-47E2-9D20-40FC3355A17B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/QuotesOfAuthorScene/QuotesOfAuthorVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "populateData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -590,8 +574,8 @@
             filePath = "Quoter/Presentation/Scenes/ModalAlertScene/ModalAlertVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -750,8 +734,8 @@
             filePath = "Quoter/Presentation/Scenes/QuotesOfAuthorScene/QuotesOfAuthorVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "updateQuote()"
             landmarkType = "7">
          </BreakpointContent>
@@ -785,6 +769,22 @@
             startingLineNumber = "365"
             endingLineNumber = "365"
             landmarkName = "removePair(quoteVM:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "01E363E2-EFB2-4C5E-80D7-2319F8D8E8A1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quoter/Presentation/Scenes/ModalAlertScene/ModalAlertVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

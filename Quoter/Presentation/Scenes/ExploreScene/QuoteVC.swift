@@ -26,14 +26,15 @@ class QuoteVC: UIViewController {
     var imageType: ImageType?
     var isVCLoaded: Bool = false
     
-    lazy var presentQuotesOfAuthorClosure: (([QuoteGardenQuoteVM], URL?, QuoteGardenQuoteVM)) -> Void = { [weak self] quoteVMs in
+    lazy var presentQuotesOfAuthorClosure: (([QuoteGardenQuoteVM], UIImage?, QuoteGardenQuoteVM)) -> Void = { [weak self] quoteVMs in
         guard let self = self else { return }
         let destVC = QuotesOfAuthorVC()
         destVC.modalTransitionStyle = .coverVertical
         destVC.modalPresentationStyle = .overCurrentContext
         destVC.networkQuotesArr = quoteVMs.0
         destVC.state = .network
-        destVC.authorImageURL = quoteVMs.1
+        destVC.networkAuthorImage = quoteVMs.1
+       // destVC.authorImageURL = quoteVMs.1
         destVC.authorName = self.quoteVM?.authorName
         destVC.quoteVM = quoteVMs.2
         self.present(destVC, animated: true)

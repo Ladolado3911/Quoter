@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Kingfisher
+import Alamofire
+import AlamofireImage
 
 class ModalAlertVC: UIViewController {
     
@@ -13,8 +16,9 @@ class ModalAlertVC: UIViewController {
     var authorSlug: String?
     var quoteVM: QuoteGardenQuoteVM?
     var authorImageURL: URL?
+    var authorImage: UIImage?
     
-    var presentingClosure: ((([QuoteGardenQuoteVM], URL?, QuoteGardenQuoteVM)) -> Void)?
+    var presentingClosure: ((([QuoteGardenQuoteVM], UIImage?, QuoteGardenQuoteVM)) -> Void)?
     
     let modalAlertView: ModalAlertView = {
         let modalAlertView = ModalAlertView()
@@ -28,36 +32,56 @@ class ModalAlertVC: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let semaphore = DispatchSemaphore(value: 1)
+        //let semaphore = DispatchSemaphore(value: 1)
+        let group = DispatchGroup()
         if let authorName = authorName,
            let quoteVMM = quoteVM {
             modalAlertView.buildView(authorName: authorName)
+            
+            group.enter()
             ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: quoteVMM.authorName)) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let tuple):
                     if tuple.1 == .author {
-                        self.authorImageURL = tuple.0
+                        group.enter()
+                        AF.request(tuple.0).responseImage { response in
+                            if case .success(let image) = response.result {
+                                print("image downloaded: \(image)")
+                                DispatchQueue.main.async {
+                                    self.authorImage = image
+                                    //semaphore.signal()
+                                    group.leave()
+                                }
+                            }
+                        }
                     }
-                    semaphore.signal()
+//                    semaphore.signal()
+                    group.leave()
                 case .failure(let error):
                     print(error)
-                    semaphore.signal()
+                    //semaphore.signal()
+                    group.leave()
                 }
             }
+            group.enter()
             QuoteGardenManager.getQuotesOfAuthor(authorName: quoteVMM.authorName) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let quotes):
-                    semaphore.wait()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
-                        self.dismiss(animated: true) {
-                            if let presentingClosure = self.presentingClosure,
-                               let imageUrl = self.authorImageURL {
-                                presentingClosure((quotes, imageUrl, quoteVMM))
-                            }
-                            else {
-                                self.presentingClosure!((quotes, nil, quoteVMM))
+                    //semaphore.wait()
+                    group.leave()
+                    group.notify(queue: .main) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                            self.dismiss(animated: true) {
+                                if let presentingClosure = self.presentingClosure,
+                                   let authorImage = self.authorImage {
+                                   //let imageUrl = self.authorImageURL {
+                                    presentingClosure((quotes, authorImage, quoteVMM))
+                                }
+                                else {
+                                    self.presentingClosure!((quotes, nil, quoteVMM))
+                                }
                             }
                         }
                     }

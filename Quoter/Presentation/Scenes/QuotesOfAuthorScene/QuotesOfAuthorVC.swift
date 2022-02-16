@@ -30,6 +30,7 @@ class QuotesOfAuthorVC: UIViewController {
     
     var networkQuotesArr: [QuoteGardenQuoteVM] = []
     var authorImageURL: URL?
+    var networkAuthorImage: UIImage?
     var authorName: String?
     
     var quoteVM: QuoteGardenQuoteVM?
@@ -98,14 +99,15 @@ class QuotesOfAuthorVC: UIViewController {
         switch state {
         case .network:
             guard let name = authorName else { return }
-            if authorImageURL == nil {
+
+            if networkAuthorImage == nil {
                 quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFit
                 quotesOfAuthorView.mainImageView.image = UIImage(named: "unknown")
-                
             }
             else {
                 quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFill
-                quotesOfAuthorView.mainImageView.kf.setImage(with: authorImageURL)
+                //quotesOfAuthorView.mainImageView.kf.setImage(with: authorImageURL)
+                quotesOfAuthorView.mainImageView.image = networkAuthorImage
             }
             quotesOfAuthorView.titleOfAuthor.text = name
             quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].content
