@@ -217,9 +217,9 @@ class QuotesOfAuthorVC: UIViewController {
             return
         }
         let quoteVm = QuoteGardenQuoteVM(rootModel: QuoteGardenQuoteModel(quoteText: quotesArr[currentQuoteIndex].content, quoteAuthor: author.name))
+        
         CoreDataManager.removePair(quoteVM: quoteVm) { [weak self] in
             guard let self = self else { return }
-            
             if self.quotesArr.count == 1 {
                 if let authorsVCreloadDataClosure = self.authorsVCreloadDataClosure {
                     self.dismiss(animated: true) {

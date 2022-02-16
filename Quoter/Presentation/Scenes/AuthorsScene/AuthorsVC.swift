@@ -145,18 +145,23 @@ class AuthorsVC: UIViewController {
     private func onDeleteView() {
         if let selectedAuthor = selectedAuthor,
            let selectedIndexPath = selectedIndexPath {
-            print(selectedAuthor.name)
-            CoreDataManager.deleteAuthor(authorName: selectedAuthor.name)
-            data3.remove(at: selectedIndexPath.item)
-            mainImageSubject.send(UIImage(named: "book")!)
-            authorsView.mainImageView.contentMode = .scaleAspectFill
-            mainTitle.send("Select Person")
             
-            if !data3.isEmpty {
-                data3[selectedIndexPath.item].turnOff(isChanging: true)
+            presentPickModalAlert(title: "Alert",
+                                  text: "Are you sure you want to delete author? Every Quote will be deleted",
+                                  mainButtonText: "Delete",
+                                  mainButtonStyle: .destructive) { [weak self] in
+                guard let self = self else { return }
+                CoreDataManager.deleteAuthor(authorName: selectedAuthor.name)
+                self.data3.remove(at: selectedIndexPath.item)
+                self.mainImageSubject.send(UIImage(named: "book")!)
+                self.authorsView.mainImageView.contentMode = .scaleAspectFill
+                self.mainTitle.send("Select Person")
+                if !self.data3.isEmpty {
+                    self.data3[selectedIndexPath.item].turnOff(isChanging: true)
+                }
+                self.data3Subject.send(self.data3)
+                self.authorsView.authorsContentView.collectionView.reloadData()
             }
-            data3Subject.send(data3)
-            authorsView.authorsContentView.collectionView.reloadData()
         }
     }
 }
