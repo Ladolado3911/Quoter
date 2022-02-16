@@ -138,12 +138,14 @@ class AuthorCell: UICollectionViewCell {
         case .on:
             if isInitialSetup {
                 transform = selectTransform
+                self.redView.transform = CGAffineTransform(translationX: 0, y: -self.redView.bounds.height)
                 return
             }
             
         case .off:
             if isInitialSetup {
                 transform = .identity
+                self.redView.transform = .identity
                 return
             }
         }
@@ -211,6 +213,10 @@ class AuthorCell: UICollectionViewCell {
                     
                 }
                 vm.isChanging = false
+            }
+            else {
+                self.transform = .identity
+                self.redView.transform = .identity
             }
         }
     }

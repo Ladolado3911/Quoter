@@ -20,6 +20,7 @@ class AuthorsVC: UIViewController {
     var data3Before: [AuthorCoreVM] = []
     
     let compareImage = UIImage(named: "unknown")?.pngData()
+    let bookImage = UIImage(named: "unknown")
     
     lazy var data3Subject = CurrentValueSubject<[AuthorCoreVM], Never>(data3)
     let mainImageSubject = CurrentValueSubject<UIImage, Never>(UIImage(named: "book")!)
@@ -70,7 +71,6 @@ class AuthorsVC: UIViewController {
                 }
                 vms.append(newVM)
             }
-//            print(vms.map { $0.name })
             data3 = vms
             data3Subject.send(data3)
             authorsView.authorsContentView.collectionView.reloadData()
@@ -143,24 +143,18 @@ class AuthorsVC: UIViewController {
     }
     
     private func onDeleteView() {
-        if let selectedAuthor = selectedAuthor,
-           let selectedIndexPath = selectedIndexPath {
-            
-            presentPickModalAlert(title: "Alert",
-                                  text: "Are you sure you want to delete author? Every Quote will be deleted",
+        if let selectedAuthor = selectedAuthor{
+            presentPickModalAlert(title: "Delete Alert",
+                                  text: "Are you sure you want to delete author? All quotes will be deleted",
                                   mainButtonText: "Delete",
                                   mainButtonStyle: .destructive) { [weak self] in
                 guard let self = self else { return }
-                CoreDataManager.deleteAuthor(authorName: selectedAuthor.name)
-                self.data3.remove(at: selectedIndexPath.item)
-                self.mainImageSubject.send(UIImage(named: "book")!)
+                self.mainImageSubject.send(self.bookImage!)
                 self.authorsView.mainImageView.contentMode = .scaleAspectFill
                 self.mainTitle.send("Select Person")
-                if !self.data3.isEmpty {
-                    self.data3[selectedIndexPath.item].turnOff(isChanging: true)
-                }
                 self.data3Subject.send(self.data3)
-                self.authorsView.authorsContentView.collectionView.reloadData()
+                CoreDataManager.deleteAuthor(authorName: selectedAuthor.name)
+                collectionViewUpdateSubject.send {}
             }
         }
     }
@@ -173,6 +167,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AuthorCell", for: indexPath) as? AuthorCell
+        //data3[indexPath.item].turnOff(isChanging: false)
         cell?.authorCellVM = data3[indexPath.item]
         cell?.collectionViewHeight = collectionView.bounds.height
         cell?.combineSubject = sendMainImagetoSubject
