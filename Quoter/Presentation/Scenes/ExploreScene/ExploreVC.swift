@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 enum ScrollingDirection {
     case left
@@ -264,6 +265,7 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+//        Sound.pageFlip.play(extensionString: .mp3)
         if completed {
             pageViewController.gestureRecognizers.forEach { recognizer in
                 if let recog = recognizer as? UIPanGestureRecognizer {
@@ -272,8 +274,10 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
             }
             switch scrollingDirection {
             case .left:
+                print("left")
                 currentPage -= 1
             case .right:
+                print("right")
                 currentPage += 1
             }
             if currentX > prevX {
@@ -313,6 +317,7 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
 
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        Sound.pageFlip.play(extensionString: .mp3)
         pageViewController.gestureRecognizers.forEach { recognizer in
             if let recog = recognizer as? UIPanGestureRecognizer {
                 prevX = recog.location(in: pageViewController.view).x

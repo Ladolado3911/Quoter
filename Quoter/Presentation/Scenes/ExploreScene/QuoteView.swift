@@ -21,7 +21,7 @@ class QuoteView: LottieView {
         return darkView
     }()
 
-    let bookImageView: QuoteViewButton = {
+    let quoteViewButton: QuoteViewButton = {
         let bookView = QuoteViewButton(title: "Quotes", icon: UIImage(named: "Reading")!)
         //bookView.contentMode = .scaleAspectFill
         return bookView
@@ -72,7 +72,7 @@ class QuoteView: LottieView {
         addSubview(darkView)
         addSubview(quoteTextView)
         addSubview(authorLabel)
-        addSubview(bookImageView)
+        addSubview(quoteViewButton)
     }
     
     private func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {
@@ -104,7 +104,7 @@ class QuoteView: LottieView {
         darkView.snp.makeConstraints { make in
             make.left.right.top.bottom.equalTo(self)
         }
-        bookImageView.snp.makeConstraints { make in
+        quoteViewButton.snp.makeConstraints { make in
             make.left.equalTo(self).inset(20)
 //            make.height.equalTo(PublicConstants.screenHeight * 0.049295)
 //            make.width.equalTo(PublicConstants.screenWidth * 0.6)

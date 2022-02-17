@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import AVFAudio
 
 
 class TabbarController: UIViewController {
@@ -17,6 +18,17 @@ class TabbarController: UIViewController {
     var prevIndex: Int?
     
     var tabbarView: TabbarView = TabbarView()
+
+    let musicIconButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.contentMode = .scaleAspectFill
+        button.setImage(UIImage(named: "musicOff"), for: .normal)
+        button.setImage(UIImage(named: "musicOn"), for: .selected)
+        return button
+    }()
+    
+    var player: AVAudioPlayer?
+    
     var viewControllers: [UIViewController] {
         tabbarView.tabbarItems.map { $0.controller }
     }
@@ -29,11 +41,18 @@ class TabbarController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .clear
         view.addSubview(tabbarView)
+        view.addSubview(musicIconButton)
+        musicIconButton.addTarget(self, action: #selector(onMusicIcon(sender:)), for: .touchUpInside)
 
         tabbarView.snp.makeConstraints { make in
             make.left.right.equalTo(view).inset(20)
             make.bottom.equalTo(view).inset(20)
             make.height.equalTo(PublicConstants.screenHeight * 0.0739)
+        }
+        musicIconButton.snp.makeConstraints { make in
+            make.top.equalTo(view).inset(PublicConstants.screenHeight * 0.11267)
+            make.right.equalTo(view).inset(20)
+            make.width.height.equalTo(50)
         }
     }
     
@@ -59,6 +78,7 @@ class TabbarController: UIViewController {
         controller.view.frame = view.bounds
         controller.didMove(toParent: self)
         view.bringSubviewToFront(tabbarView)
+        view.bringSubviewToFront(musicIconButton)
     }
     
     func removeChildController(controller: UIViewController) {
@@ -81,6 +101,17 @@ class TabbarController: UIViewController {
             addChildController(controller: arr[senderView.indexInTabbar].controller)
             tabbarView.currentItemIndex = senderView.indexInTabbar
             //(arr[senderView.indexInTabbar].controller as? ExploreVC)?.configFromSamePage()
+        }
+    }
+    
+    @objc func onMusicIcon(sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        if let player = Sound.music1.player,
+           player.isPlaying {
+            player.stop()
+        }
+        else {
+            Sound.music1.play(extensionString: .mp3)
         }
     }
 }

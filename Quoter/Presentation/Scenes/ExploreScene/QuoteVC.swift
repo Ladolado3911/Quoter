@@ -111,7 +111,7 @@ class QuoteVC: UIViewController {
         guard let mainImageURl = mainImageURL else {
             return 
         }
-        quoteView.bookImageView.addGestureRecognizer(tapOnBookGesture)
+        quoteView.quoteViewButton.addGestureRecognizer(tapOnBookGesture)
         quoteView.startAnimating()
         quoteView.mainImageView.kf.setImage(with: mainImageURl) { [weak self] _ in
             guard let self = self else { return }

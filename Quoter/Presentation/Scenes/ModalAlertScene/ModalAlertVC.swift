@@ -25,6 +25,7 @@ class ModalAlertVC: UIViewController {
     override func loadView() {
         super.loadView()
         view = modalAlertView
+        Sound.pop.play(extensionString: .wav)
     }
 
     override func viewDidAppear(_ animated: Bool) {

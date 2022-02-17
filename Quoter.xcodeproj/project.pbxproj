@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		243B449A27BE29A800953AD3 /* pageFlip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 243B449927BE29A800953AD3 /* pageFlip.mp3 */; };
+		243B449C27BE29CC00953AD3 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243B449B27BE29CC00953AD3 /* Sound.swift */; };
+		243B449E27BE39EF00953AD3 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 243B449D27BE39EE00953AD3 /* pop.wav */; };
+		243B44A027BE3EF200953AD3 /* music1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 243B449F27BE3EF200953AD3 /* music1.mp3 */; };
 		247D1FA827B68F34001CABF9 /* AuthorCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */; };
 		2489797D27B151EA00BD0B2E /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489797C27B151EA00BD0B2E /* ImageManager.swift */; };
 		248FC0D627A9544D00069FFF /* QuotesOfAuthorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FC0D527A9544D00069FFF /* QuotesOfAuthorVC.swift */; };
@@ -78,6 +82,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		243B449927BE29A800953AD3 /* pageFlip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pageFlip.mp3; sourceTree = "<group>"; };
+		243B449B27BE29CC00953AD3 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
+		243B449D27BE39EE00953AD3 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
+		243B449F27BE3EF200953AD3 /* music1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music1.mp3; sourceTree = "<group>"; };
 		247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCellOverlayView.swift; sourceTree = "<group>"; };
 		2489797C27B151EA00BD0B2E /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		248FC0D527A9544D00069FFF /* QuotesOfAuthorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesOfAuthorVC.swift; sourceTree = "<group>"; };
@@ -161,6 +169,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		243B449627BE294C00953AD3 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				243B449F27BE3EF200953AD3 /* music1.mp3 */,
+				243B449927BE29A800953AD3 /* pageFlip.mp3 */,
+				243B449D27BE39EE00953AD3 /* pop.wav */,
+				243B449B27BE29CC00953AD3 /* Sound.swift */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		248FC0D427A9541500069FFF /* QuotesOfAuthorScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +274,7 @@
 				24D128A22790AE0E00AD7F3D /* PublicConstants.swift */,
 				24D1288627903F5900AD7F3D /* App */,
 				24F51F0D279EA27F003057F7 /* Fonts */,
+				243B449627BE294C00953AD3 /* Sounds */,
 				24CB9FE527930C1700E9D49F /* Models */,
 				24CB9FEA27930C2700E9D49F /* Managers */,
 				24CB9FE027930C0B00E9D49F /* Endpoints */,
@@ -462,6 +482,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				243B449A27BE29A800953AD3 /* pageFlip.mp3 in Resources */,
 				24F51F0C279E85ED003057F7 /* OFL.txt in Resources */,
 				24F51F09279E85ED003057F7 /* Kalam-Regular.ttf in Resources */,
 				24D1287F27903ECE00AD7F3D /* LaunchScreen.storyboard in Resources */,
@@ -481,8 +502,10 @@
 				24F51F24279EB7CE003057F7 /* Roboto-MediumItalic.ttf in Resources */,
 				24F51F2D279EB7CE003057F7 /* Roboto-Black.ttf in Resources */,
 				24F51F23279EB7CE003057F7 /* Roboto-Regular.ttf in Resources */,
+				243B44A027BE3EF200953AD3 /* music1.mp3 in Resources */,
 				24F51F28279EB7CE003057F7 /* Roboto-Italic.ttf in Resources */,
 				24F51F22279EB7CE003057F7 /* Roboto-Light.ttf in Resources */,
+				243B449E27BE39EF00953AD3 /* pop.wav in Resources */,
 				24F51F0B279E85ED003057F7 /* Kalam-Bold.ttf in Resources */,
 				24EBDBF127BA35D90059654B /* wifi-off.json in Resources */,
 			);
@@ -537,6 +560,7 @@
 				248FC0D627A9544D00069FFF /* QuotesOfAuthorVC.swift in Sources */,
 				24D33E3D27B9683000E4C668 /* NetworkMonitor.swift in Sources */,
 				247D1FA827B68F34001CABF9 /* AuthorCellOverlayView.swift in Sources */,
+				243B449C27BE29CC00953AD3 /* Sound.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
