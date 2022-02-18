@@ -122,7 +122,7 @@ class QuotesOfAuthorView: UIView {
         titleOfAuthor.snp.makeConstraints { make in
             make.left.equalTo(closeButton.snp.right).inset(-20)
             make.right.equalTo(ideaButton.snp.left).inset(-20)
-            make.centerY.equalTo(closeButton)
+            make.bottom.equalTo(quoteTextView.snp.top)
             //make.bottom.equalTo(quoteTextView.snp.top).inset(-20)//.inset(-PublicConstants.screenHeight * 0.054577)
         }
         ideaButton.snp.makeConstraints { make in
@@ -135,7 +135,7 @@ class QuotesOfAuthorView: UIView {
             make.left.right.equalTo(self).inset(20)
             //make.centerY.equalTo(self)
             make.centerY.equalTo(self)
-            make.height.equalTo(600)
+            make.height.equalTo(PublicConstants.screenHeight * 0.3521126)
             //make.bottom.equalTo(nextButton.snp.top).inset(-PublicConstants.screenHeight * 0.2)
         }
         nextButton.snp.makeConstraints { make in
