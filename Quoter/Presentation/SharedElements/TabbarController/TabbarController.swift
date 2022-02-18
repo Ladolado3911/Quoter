@@ -18,8 +18,7 @@ class TabbarController: UIViewController {
     
     var prevIndex: Int?
     
-    var testPlayer: AVPlayer?
-    
+
     var tabbarView: TabbarView = TabbarView()
 
     let musicIconButton: UIButton = {
@@ -30,7 +29,7 @@ class TabbarController: UIViewController {
         return button
     }()
     
-    var player: AVAudioPlayer?
+    var currentPlayer: AVAudioPlayer?
     
     var viewControllers: [UIViewController] {
         tabbarView.tabbarItems.map { $0.controller }
@@ -109,26 +108,27 @@ class TabbarController: UIViewController {
     
     @objc func onMusicIcon(sender: UIButton) {
         sender.isSelected = !sender.isSelected
-//        let arr = Sound.allCases.filter({ ![Sound.pageFlip, Sound.pop].contains($0) })
-//        let optionalMusic = arr.uniqueRandomElement()
-//        if let player = optionalMusic?.player,
+        let arr = Sound.allCases.filter({ $0.rawValue.contains("music") })
+        let optionalMusic = arr.uniqueRandomElement()
+        if let currentPlayer = currentPlayer,
+           currentPlayer.isPlaying {
+            currentPlayer.stop()
+        }
+        else {
+            optionalMusic?.play(extensionString: .mp3)
+            optionalMusic?.player?.delegate = self
+            currentPlayer = optionalMusic?.player
+        }
+
+        
+//        if let player = Sound.music1.player,
 //           player.isPlaying {
 //            player.stop()
 //        }
 //        else {
-//            optionalMusic?.play(extensionString: .mp3)
-//            optionalMusic?.player?.delegate = self
+//            Sound.music1.play(extensionString: .mp3)
+//            Sound.music1.player?.delegate = self
 //        }
-//
-        
-        if let player = Sound.music1.player,
-           player.isPlaying {
-            player.stop()
-        }
-        else {
-            Sound.music1.play(extensionString: .mp3)
-            Sound.music1.player?.delegate = self
-        }
     }
 }
 
@@ -138,7 +138,7 @@ extension TabbarController: AVAudioPlayerDelegate {
             print("play")
             // THIS IS TESTED AND IS WORKING
             
-            player.play()
+            //player.play()
         }
         
     }
