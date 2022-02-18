@@ -13,11 +13,12 @@ enum ExtensionString: String {
     case wav
 }
 
-enum Sound: String {
+enum Sound: String, CaseIterable {
     
     static var players: [Sound: AVAudioPlayer] = [:]
 
     case music1
+    case music2
     case pageFlip
     case pop
     

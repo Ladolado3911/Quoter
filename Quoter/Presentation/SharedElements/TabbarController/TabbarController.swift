@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import AVFAudio
+import AVFoundation
 
 
 class TabbarController: UIViewController {
@@ -16,6 +17,8 @@ class TabbarController: UIViewController {
     var cancellables: Set<AnyCancellable> = []
     
     var prevIndex: Int?
+    
+    var testPlayer: AVPlayer?
     
     var tabbarView: TabbarView = TabbarView()
 
@@ -106,13 +109,38 @@ class TabbarController: UIViewController {
     
     @objc func onMusicIcon(sender: UIButton) {
         sender.isSelected = !sender.isSelected
+//        let arr = Sound.allCases.filter({ ![Sound.pageFlip, Sound.pop].contains($0) })
+//        let optionalMusic = arr.uniqueRandomElement()
+//        if let player = optionalMusic?.player,
+//           player.isPlaying {
+//            player.stop()
+//        }
+//        else {
+//            optionalMusic?.play(extensionString: .mp3)
+//            optionalMusic?.player?.delegate = self
+//        }
+//
+        
         if let player = Sound.music1.player,
            player.isPlaying {
             player.stop()
         }
         else {
             Sound.music1.play(extensionString: .mp3)
+            Sound.music1.player?.delegate = self
         }
+    }
+}
+
+extension TabbarController: AVAudioPlayerDelegate {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if musicIconButton.isSelected && flag {
+            print("play")
+            // THIS IS TESTED AND IS WORKING
+            
+            player.play()
+        }
+        
     }
 }
 

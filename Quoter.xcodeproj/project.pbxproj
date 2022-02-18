@@ -10,7 +10,6 @@
 		243B449A27BE29A800953AD3 /* pageFlip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 243B449927BE29A800953AD3 /* pageFlip.mp3 */; };
 		243B449C27BE29CC00953AD3 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243B449B27BE29CC00953AD3 /* Sound.swift */; };
 		243B449E27BE39EF00953AD3 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 243B449D27BE39EE00953AD3 /* pop.wav */; };
-		243B44A027BE3EF200953AD3 /* music1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 243B449F27BE3EF200953AD3 /* music1.mp3 */; };
 		247D1FA827B68F34001CABF9 /* AuthorCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */; };
 		2489797D27B151EA00BD0B2E /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489797C27B151EA00BD0B2E /* ImageManager.swift */; };
 		248FC0D627A9544D00069FFF /* QuotesOfAuthorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FC0D527A9544D00069FFF /* QuotesOfAuthorVC.swift */; };
@@ -79,13 +78,15 @@
 		24F51F2C279EB7CE003057F7 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F1F279EB7CE003057F7 /* Roboto-Thin.ttf */; };
 		24F51F2D279EB7CE003057F7 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F20279EB7CE003057F7 /* Roboto-Black.ttf */; };
 		24F51F2F279EEB12003057F7 /* TabbarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F51F2E279EEB12003057F7 /* TabbarItemView.swift */; };
+		24F7F05927BFC6E5001FEA75 /* music1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24F7F05827BFC6E5001FEA75 /* music1.mp3 */; };
+		24F7F05B27BFC98E001FEA75 /* music2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24F7F05A27BFC98E001FEA75 /* music2.mp3 */; };
+		24F7F05D27BFCA0C001FEA75 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7F05C27BFCA0C001FEA75 /* Array+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		243B449927BE29A800953AD3 /* pageFlip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pageFlip.mp3; sourceTree = "<group>"; };
 		243B449B27BE29CC00953AD3 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		243B449D27BE39EE00953AD3 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
-		243B449F27BE3EF200953AD3 /* music1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music1.mp3; sourceTree = "<group>"; };
 		247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCellOverlayView.swift; sourceTree = "<group>"; };
 		2489797C27B151EA00BD0B2E /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		248FC0D527A9544D00069FFF /* QuotesOfAuthorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesOfAuthorVC.swift; sourceTree = "<group>"; };
@@ -153,6 +154,9 @@
 		24F51F1F279EB7CE003057F7 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		24F51F20279EB7CE003057F7 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		24F51F2E279EEB12003057F7 /* TabbarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarItemView.swift; sourceTree = "<group>"; };
+		24F7F05827BFC6E5001FEA75 /* music1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music1.mp3; sourceTree = "<group>"; };
+		24F7F05A27BFC98E001FEA75 /* music2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music2.mp3; sourceTree = "<group>"; };
+		24F7F05C27BFCA0C001FEA75 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,7 +176,8 @@
 		243B449627BE294C00953AD3 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				243B449F27BE3EF200953AD3 /* music1.mp3 */,
+				24F7F05A27BFC98E001FEA75 /* music2.mp3 */,
+				24F7F05827BFC6E5001FEA75 /* music1.mp3 */,
 				243B449927BE29A800953AD3 /* pageFlip.mp3 */,
 				243B449D27BE39EE00953AD3 /* pop.wav */,
 				243B449B27BE29CC00953AD3 /* Sound.swift */,
@@ -348,6 +353,7 @@
 				24D128962790491500AD7F3D /* UIColor+Extension.swift */,
 				24C12BCB27AAAFCF0069684D /* UIViewController+Extension.swift */,
 				24C9A8E727BD2E25001C820F /* UIImage+Extension.swift */,
+				24F7F05C27BFCA0C001FEA75 /* Array+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -486,6 +492,7 @@
 				24F51F0C279E85ED003057F7 /* OFL.txt in Resources */,
 				24F51F09279E85ED003057F7 /* Kalam-Regular.ttf in Resources */,
 				24D1287F27903ECE00AD7F3D /* LaunchScreen.storyboard in Resources */,
+				24F7F05927BFC6E5001FEA75 /* music1.mp3 in Resources */,
 				24F51F29279EB7CE003057F7 /* LICENSE.txt in Resources */,
 				24F51F25279EB7CE003057F7 /* Roboto-ThinItalic.ttf in Resources */,
 				24D33E3B27B93FA100E4C668 /* circleLoading.json in Resources */,
@@ -497,12 +504,12 @@
 				24DEBF4927ABB2AB00C40B29 /* cubeLoading.json in Resources */,
 				24F51F0A279E85ED003057F7 /* Kalam-Light.ttf in Resources */,
 				24D33E3927B93A4100E4C668 /* loading.json in Resources */,
+				24F7F05B27BFC98E001FEA75 /* music2.mp3 in Resources */,
 				24F51F26279EB7CE003057F7 /* Roboto-BoldItalic.ttf in Resources */,
 				24D1287C27903ECE00AD7F3D /* Assets.xcassets in Resources */,
 				24F51F24279EB7CE003057F7 /* Roboto-MediumItalic.ttf in Resources */,
 				24F51F2D279EB7CE003057F7 /* Roboto-Black.ttf in Resources */,
 				24F51F23279EB7CE003057F7 /* Roboto-Regular.ttf in Resources */,
-				243B44A027BE3EF200953AD3 /* music1.mp3 in Resources */,
 				24F51F28279EB7CE003057F7 /* Roboto-Italic.ttf in Resources */,
 				24F51F22279EB7CE003057F7 /* Roboto-Light.ttf in Resources */,
 				243B449E27BE39EF00953AD3 /* pop.wav in Resources */,
@@ -521,6 +528,7 @@
 				24EBDBEF27BA2BCE0059654B /* MonitoredVC.swift in Sources */,
 				24C12BD627AABE1E0069684D /* UIView+Extension.swift in Sources */,
 				24DEBF4B27ABB55500C40B29 /* LottieView.swift in Sources */,
+				24F7F05D27BFCA0C001FEA75 /* Array+Extension.swift in Sources */,
 				248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */,
 				24F51F2F279EEB12003057F7 /* TabbarItemView.swift in Sources */,
 				24D128972790491500AD7F3D /* UIColor+Extension.swift in Sources */,
