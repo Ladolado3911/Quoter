@@ -13,8 +13,6 @@ enum ScrollingDirection {
     case right
 }
 
-
-
 //struct TagImageURLs {
 //    static var wisdom: [URL] = []
 //    static var friendship: [URL] = []
@@ -52,6 +50,20 @@ class ExploreVC: MonitoredVC {
     
     var currentNetworkPage: Int = 0
     var totalNetworkPages: Int = 0
+    
+    lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+        collectionView.isPagingEnabled = true
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        collectionView.register(QuoteCell.self, forCellWithReuseIdentifier: "cell")
+        
+        return collectionView
+    }()
 
     lazy var pageVC: UIPageViewController = {
         let pageVC = UIPageViewController(transitionStyle: .pageCurl,
@@ -378,5 +390,29 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
                 }
             }
         }
+    }
+}
+
+extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        7
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        //cell.backgroundColor = colors.randomElement()
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        view.bounds.size
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        0
     }
 }

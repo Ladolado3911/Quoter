@@ -57,6 +57,7 @@
 		24DEBF4B27ABB55500C40B29 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DEBF4A27ABB55500C40B29 /* LottieView.swift */; };
 		24DEBF4D27ABB5BB00C40B29 /* LottieAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DEBF4C27ABB5BB00C40B29 /* LottieAnimations.swift */; };
 		24DF187227A554AE00D93F8D /* RandomImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DF187127A554AE00D93F8D /* RandomImageModel.swift */; };
+		24E4A8AF27C29480000BB7DB /* QuoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E4A8AE27C29480000BB7DB /* QuoteCell.swift */; };
 		24EBDBEF27BA2BCE0059654B /* MonitoredVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EBDBEE27BA2BCE0059654B /* MonitoredVC.swift */; };
 		24EBDBF127BA35D90059654B /* wifi-off.json in Resources */ = {isa = PBXBuildFile; fileRef = 24EBDBF027BA35D90059654B /* wifi-off.json */; };
 		24F51F09279E85ED003057F7 /* Kalam-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F05279E85ED003057F7 /* Kalam-Regular.ttf */; };
@@ -133,6 +134,7 @@
 		24DEBF4A27ABB55500C40B29 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		24DEBF4C27ABB5BB00C40B29 /* LottieAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieAnimations.swift; sourceTree = "<group>"; };
 		24DF187127A554AE00D93F8D /* RandomImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomImageModel.swift; sourceTree = "<group>"; };
+		24E4A8AE27C29480000BB7DB /* QuoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteCell.swift; sourceTree = "<group>"; };
 		24EBDBEE27BA2BCE0059654B /* MonitoredVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoredVC.swift; sourceTree = "<group>"; };
 		24EBDBF027BA35D90059654B /* wifi-off.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wifi-off.json"; sourceTree = "<group>"; };
 		24F51F05279E85ED003057F7 /* Kalam-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kalam-Regular.ttf"; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 		24BEA3DC27985FDA009DB491 /* ExploreScene */ = {
 			isa = PBXGroup;
 			children = (
+				24E4A8AE27C29480000BB7DB /* QuoteCell.swift */,
 				24BEA3E327986C08009DB491 /* QuoteVC.swift */,
 				24BEA3DD27985FEE009DB491 /* ExploreVC.swift */,
 				24BEA3DF2798601A009DB491 /* QuoteView.swift */,
@@ -555,6 +558,7 @@
 				24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */,
 				24C12BCE27AAB0230069684D /* ModalAlertView.swift in Sources */,
 				24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */,
+				24E4A8AF27C29480000BB7DB /* QuoteCell.swift in Sources */,
 				24D4107B27B3FB4500B5C899 /* QuoteGardenEndpoints.swift in Sources */,
 				24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */,
 				24A0D38B27A7F099002286F6 /* CoreDataManager.swift in Sources */,
