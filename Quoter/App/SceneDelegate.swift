@@ -50,6 +50,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func configureRootVC(with scene: UIWindowScene) {
         window = UIWindow(windowScene: scene)
+//        QuoteGardenManager.getGenres { result in
+//            switch result {
+//            case .success(let filterobjects):
+//                Filters.filterObjects.append(contentsOf: filterobjects)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
         CoreDataManager.clearWhereverNeeded()
         UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
         let tabbarController = TabbarController()

@@ -26,20 +26,20 @@ class ImageManager: NetworkManager {
 //        }
 //    }
     
-    static func load50ImageURLs(tag: Tag, completion: @escaping (Result<[URL?], Error>) -> Void) {
-        guard let url = ImageEndpoints.getRelevantPicturesURL(keyword: tag.rawValue) else { return }
-        getData(url: url, model: Resource(model: ImageResponse.self)) { result in
-            switch result {
-            case .success(let imageResponse):
-                if let results = imageResponse.hits {
-                    let converted = results.map { URL(string: $0.largeImageURL ?? "") }
-                    completion(.success(converted))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
+//    static func load50ImageURLs(tag: Tag, completion: @escaping (Result<[URL?], Error>) -> Void) {
+//        guard let url = ImageEndpoints.getRelevantPicturesURL(keyword: tag.rawValue) else { return }
+//        getData(url: url, model: Resource(model: ImageResponse.self)) { result in
+//            switch result {
+//            case .success(let imageResponse):
+//                if let results = imageResponse.hits {
+//                    let converted = results.map { URL(string: $0.largeImageURL ?? "") }
+//                    completion(.success(converted))
+//                }
+//            case .failure(let error):
+//                completion(.failure(error))
+//            }
+//        }
+//    }
     
     static func load50LandscapeURLs(completion: @escaping (Result<[URL?], Error>) -> Void) {
         guard let url = ImageEndpoints.get50NatureLandscapeURLs() else { return }

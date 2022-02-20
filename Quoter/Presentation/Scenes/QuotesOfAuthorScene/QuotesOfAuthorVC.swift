@@ -99,7 +99,6 @@ class QuotesOfAuthorVC: UIViewController {
         switch state {
         case .network:
             guard let name = authorName else { return }
-
             if networkAuthorImage == nil {
                 quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFit
                 quotesOfAuthorView.mainImageView.image = UIImage(named: "unknown")
@@ -111,7 +110,6 @@ class QuotesOfAuthorVC: UIViewController {
             }
             quotesOfAuthorView.titleOfAuthor.text = name
             quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].content
-            
             if networkQuotesArr.count > 1 {
                 print("more than 1 qoute network")
                 quotesOfAuthorView.nextButton.isButtonEnabled = true

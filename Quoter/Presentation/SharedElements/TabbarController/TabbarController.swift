@@ -18,6 +18,7 @@ class TabbarController: UIViewController {
     
     var prevIndex: Int?
     
+    let arr = Sound.allCases.filter({ $0.rawValue.contains("music") })
 
     var tabbarView: TabbarView = TabbarView()
 
@@ -44,6 +45,7 @@ class TabbarController: UIViewController {
         view.backgroundColor = .clear
         view.addSubview(tabbarView)
         view.addSubview(musicIconButton)
+        //currentPlayer?.delegate = self
         musicIconButton.addTarget(self, action: #selector(onMusicIcon(sender:)), for: .touchUpInside)
 
         tabbarView.snp.makeConstraints { make in
@@ -108,11 +110,11 @@ class TabbarController: UIViewController {
     
     @objc func onMusicIcon(sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        let arr = Sound.allCases.filter({ $0.rawValue.contains("music") })
+//        let arr = Sound.allCases.filter({ $0.rawValue.contains("music") })
         let optionalMusic = arr.uniqueRandomElement()
-        if let currentPlayer = currentPlayer,
-           currentPlayer.isPlaying {
-            currentPlayer.stop()
+        if let currentPlayer1 = currentPlayer {
+            currentPlayer = nil
+            currentPlayer1.stop()
         }
         else {
             optionalMusic?.play(extensionString: .mp3)
@@ -137,8 +139,12 @@ extension TabbarController: AVAudioPlayerDelegate {
         if musicIconButton.isSelected && flag {
             print("play")
             // THIS IS TESTED AND IS WORKING
-            
+            let optionalMusic = arr.uniqueRandomElement()
+            optionalMusic?.play(extensionString: .mp3)
+            optionalMusic?.player?.delegate = self
+            currentPlayer = optionalMusic?.player
             //player.play()
+            currentPlayer?.play()
         }
         
     }

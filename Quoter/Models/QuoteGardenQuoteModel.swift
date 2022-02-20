@@ -7,8 +7,17 @@
 
 import UIKit
 
+struct GenresResponse: Codable {
+    var data: [String]?
+}
+
 struct QuoteGardenResponse: Codable {
+    var pagination: Pagination?
     var data: [QuoteGardenQuoteModel]?
+}
+
+struct Pagination: Codable {
+    var totalPages: Int?
 }
 
 struct QuoteGardenQuoteModel: Codable {

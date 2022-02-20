@@ -21,14 +21,60 @@ enum ImageType {
     case author
 }
 
+final class Filters {
+    static var filtersDict: [String: ClosedRange<Int>] = [:]
+    
+    static func getRangeOf(genre: String) -> ClosedRange<Int> {
+        Filters.filtersDict[genre] ?? 1...1
+    }
+    
+    
+    
+    
+}
+
+class FilterObject {
+    let genre: String
+    var pageRange: ClosedRange<Int>?
+    
+    init(genre: String, pageRange: ClosedRange<Int>?) {
+        self.genre = genre
+        self.pageRange = pageRange
+    }
+}
+
 class QuoteGardenManager: NetworkManager {
     
-    static func get50Quotes(completion: @escaping (Result<[QuoteGardenQuoteVM], Error>) -> Void) {
-        guard let url = QuoteGardenEndpoints.get50QuotesURL() else { return }
+    static func getGenres(completion: @escaping (Result<[FilterObject], Error>) -> Void) {
+        guard let url = QuoteGardenEndpoints.getGenres() else { return }
+        getData(url: url, model: Resource(model: GenresResponse.self)) { result in
+            switch result {
+            case .success(let genresResponse):
+                if let genresData = genresResponse.data {
+                    let convertedGenres = genresData.map { FilterObject(genre: $0, pageRange: nil) }
+                    completion(.success(convertedGenres))
+                }
+                else {
+                    completion(.failure(CustomError.unwrapError))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    static func get50Quotes(genre: String, page: Int, completion: @escaping (Result<[QuoteGardenQuoteVM], Error>) -> Void) {
+        guard let url = QuoteGardenEndpoints.get50QuotesURL(genre: genre, page: page) else { return }
         getData(url: url, model: Resource(model: QuoteGardenResponse.self)) { result in
             switch result {
             case .success(let gardenResponse):
                 if let data = gardenResponse.data {
+                    if let pagination = gardenResponse.pagination,
+                       let totalPages = pagination.totalPages {
+//                        let indexInFilters = Filters.filterObjects.firstIndex { $0.genre == genre }
+//                        Filters.filterObjects[indexInFilters!].pageRange = 1...totalPages
+                        Filters.filtersDict[genre] = 1...totalPages
+                    }
                     let converted = data.map { QuoteGardenQuoteVM(rootModel: $0) }
                     let filtered = converted.filter { $0.content.count <= 120 }
                     let shuffled = filtered.shuffled()

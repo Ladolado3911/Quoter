@@ -13,19 +13,21 @@ enum ScrollingDirection {
     case right
 }
 
-struct TagImageURLs {
-    static var wisdom: [URL] = []
-    static var friendship: [URL] = []
-    static var inspirational: [URL] = []
-    static var famousQuotes: [URL] = []
-}
 
-enum Tag: String {
-    case wisdom
-    case friendship
-    case inspirational
-    case famousQuotes = "famous-quotes"
-}
+
+//struct TagImageURLs {
+//    static var wisdom: [URL] = []
+//    static var friendship: [URL] = []
+//    static var inspirational: [URL] = []
+//    static var famousQuotes: [URL] = []
+//}
+
+//enum Tag: String {
+//    case wisdom
+//    case friendship
+//    case inspirational
+//    case famousQuotes = "famous-quotes"
+//}
 
 class ExploreVC: MonitoredVC {
     
@@ -36,6 +38,11 @@ class ExploreVC: MonitoredVC {
     var scrollingDirection: ScrollingDirection = .right
 
     var currentPage: Int = 0
+    var currentGenre: String = "" {
+        didSet {
+            loadNewGenre(genre: currentGenre)
+        }
+    }
 
     var currentIndex: Int = 0
     var currentX: CGFloat = 0
@@ -156,6 +163,37 @@ class ExploreVC: MonitoredVC {
         }
     }
     
+    private func loadNewGenre(genre: String) {
+        quoteControllers = []
+        if let lottieView = view as? LottieView {
+            if lottieView.lottieAnimation != nil {
+                lottieView.stopLottieAnimation()
+            }
+            lottieView.createAndStartLottieAnimation(animation: .circleLoading,
+                                                     animationSpeed: 1,
+                                                     frame: animationFrame,
+                                                     loopMode: .loop,
+                                                     contentMode: .scaleAspectFit)
+        }
+        let group = DispatchGroup()
+        group.enter()
+        loadImages() {
+            group.leave()
+        }
+        group.enter()
+        loadQuotes(genre: genre, page: getRandomPageOf(genre: genre)) {
+            group.leave()
+        }
+        group.notify(queue: .main) { [weak self] in
+            guard let self = self else { return }
+            self.showInitialQuote()
+            if let lottieView = self.view as? LottieView {
+                lottieView.stopLottieAnimation()
+            }
+            //NetworkMonitor.shared.isFirstCheck = false
+        }
+    }
+    
     private func setUpInitialDataForPageController() {
         if let lottieView = view as? LottieView {
             if lottieView.lottieAnimation != nil {
@@ -173,7 +211,7 @@ class ExploreVC: MonitoredVC {
             group.leave()
         }
         group.enter()
-        loadQuotes() {
+        loadQuotes(genre: currentGenre, page: Int.random(in: 1...1400)) {
             group.leave()
         }
         group.notify(queue: .main) { [weak self] in
@@ -200,8 +238,8 @@ class ExploreVC: MonitoredVC {
         }
     }
     
-    private func loadQuotes(completion: @escaping () -> Void) {
-        QuoteGardenManager.get50Quotes { [weak self] result in
+    private func loadQuotes(genre: String, page: Int, completion: @escaping () -> Void) {
+        QuoteGardenManager.get50Quotes(genre: genre, page: page) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let quotes):
@@ -243,6 +281,11 @@ class ExploreVC: MonitoredVC {
                                   animated: false,
                                   completion: nil)
         //currentPage += 2
+    }
+    
+    private func getRandomPageOf(genre: String) -> Int {
+        let genre = Filters.filtersDict[genre]
+        return Int.random(in: genre ?? 1...1)
     }
 }
 
@@ -292,7 +335,7 @@ extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegat
                     print("limit reached")
                     let group = DispatchGroup()
                     group.enter()
-                    loadQuotes { 
+                    loadQuotes(genre: currentGenre, page: getRandomPageOf(genre: currentGenre)) {
                         group.leave()
                     }
                     group.enter()
