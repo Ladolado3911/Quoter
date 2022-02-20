@@ -63,6 +63,26 @@ class QuoteGardenManager: NetworkManager {
         }
     }
     
+    static func getRandomQuote(genre: String, completion: @escaping (Result<QuoteGardenQuoteVM, Error>) -> Void) {
+        guard let url = QuoteGardenEndpoints.getRandomQuoteURL(genre: genre) else { return }
+        getData(url: url, model: Resource(model: QuoteGardenResponse.self)) { result in
+            switch result {
+            case .success(let gardenResponse):
+                if let data = gardenResponse.data,
+                   let quote = data.first {
+                    let vm = QuoteGardenQuoteVM(rootModel: quote)
+                    completion(.success(vm))
+                }
+                else {
+                    completion(.failure(CustomError.unwrapError))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
     static func get50Quotes(genre: String, page: Int, completion: @escaping (Result<[QuoteGardenQuoteVM], Error>) -> Void) {
         guard let url = QuoteGardenEndpoints.get50QuotesURL(genre: genre, page: page) else { return }
         getData(url: url, model: Resource(model: QuoteGardenResponse.self)) { result in
@@ -76,8 +96,8 @@ class QuoteGardenManager: NetworkManager {
                         Filters.filtersDict[genre] = 1...totalPages
                     }
                     let converted = data.map { QuoteGardenQuoteVM(rootModel: $0) }
-                    let filtered = converted.filter { $0.content.count <= 120 }
-                    let shuffled = filtered.shuffled()
+                    //let filtered = converted.filter { $0.content.count <= 120 }
+                    let shuffled = converted.shuffled()
                     completion(.success(shuffled))
                 }
                 else {

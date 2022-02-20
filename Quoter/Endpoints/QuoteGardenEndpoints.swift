@@ -37,6 +37,10 @@ struct QuoteGardenEndpoints {
         URL(string: "https://quote-garden.herokuapp.com/api/v3/quotes/random")
     }
     
+    static func getRandomQuoteURL(genre: String) -> URL? {
+        URL(string: "https://quote-garden.herokuapp.com/api/v3/quotes/random?genre=\(genre)")
+    }
+    
     // this endpoint might need time to time maintenance
     static func get50QuotesURL(genre: String, page: Int) -> URL? {
         URL(string: "https://quote-garden.herokuapp.com/api/v3/quotes?limit=50&page=\(page)&genre=\(genre)")
