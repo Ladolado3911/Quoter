@@ -57,6 +57,7 @@ class ExploreVC: MonitoredVC {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
+        collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isPagingEnabled = true
         collectionView.dataSource = self
@@ -97,7 +98,9 @@ class ExploreVC: MonitoredVC {
                         }
                         if isFirstLaunch {
                             //self.setUpInitialDataForPageController()
-                            self.setUpInitialData()
+                            self.loadInitialData {
+                                
+                            }
                             self.view.addSubview(self.collectionView)
                             self.collectionView.snp.makeConstraints { make in
                                 make.left.right.top.bottom.equalTo(self.view)
@@ -138,14 +141,25 @@ class ExploreVC: MonitoredVC {
         //configPageVC()
     }
     
-    private func setUpInitialData() {
+    private func loadInitialData(completion: @escaping () -> Void) {
         loadImages { [weak self] in
             guard let self = self else { return }
             self.load10RandomQuotes {
-                for _ in 0..<self.loadedVMs.count {
-                    //self.loadedVMs[vmIndex].imageURL = self.loadedImageURLs[vmIndex]
-                    self.collectionView.reloadData()
-                }
+//                for _ in 0..<self.loadedVMs.count {
+//                    self.collectionView.reloadData()
+//                }
+                //self.collectionView.reloadData()
+                self.collectionView.insertItems(at: self.loadedVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) })
+            }
+        }
+    }
+    
+    private func loadNewData(completion: @escaping () -> Void) {
+        loadImages { [weak self] in
+            guard let self = self else { return }
+            self.load10RandomQuotes {
+                let indexPaths = self.loadedVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) }
+                self.collectionView.insertItems(at: Array(indexPaths[(self.currentPage + 5)...self.currentPage + 14]))
             }
         }
     }
@@ -293,5 +307,16 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
         //print(loadedVMs.map { $0.content })
+        if currentPage == self.loadedVMs.count - 5 {
+            presentPickModalAlert(title: "Alert", text: "Loading next quotes", mainButtonText: "Ok", mainButtonStyle: .default) {
+
+            }
+//            loadData {
+//
+//            }
+            loadNewData {
+                 this crashes when scrolling too fast
+            }
+        }
     }
 }
