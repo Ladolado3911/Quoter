@@ -28,4 +28,20 @@ extension UIViewController {
         alert.addAction(cancelAction)
         present(alert, animated: true)
     }
+    
+    func presentAlert(title: String,
+                               text: String,
+                               mainButtonText: String,
+                               mainButtonStyle: UIAlertAction.Style,
+                               mainButtonAction: @escaping () -> Void) {
+        
+        let alert = UIAlertController(title: title,
+                                      message: text,
+                                      preferredStyle: .alert)
+        let mainAction = UIAlertAction(title: mainButtonText, style: mainButtonStyle) { _ in
+            mainButtonAction()
+        }
+        alert.addAction(mainAction)
+        present(alert, animated: true)
+    }
 }

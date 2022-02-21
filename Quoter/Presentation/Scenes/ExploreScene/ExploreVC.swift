@@ -7,6 +7,8 @@
 
 import UIKit
 import SnapKit
+import AnimatedCollectionViewLayout
+import Combine
 
 enum ScrollingDirection {
     case left
@@ -35,12 +37,25 @@ class ExploreVC: MonitoredVC {
     var loadedImages: [UIImage?] = []
     
     var scrollingDirection: ScrollingDirection = .right
+    
+    var isLoadNewDataFunctionRunning: Bool = false {
+        didSet {
+//            if oldValue != isLoadNewDataFunctionRunning {
+//                collectionView.isUserInteractionEnabled = isLoadNewDataFunctionRunning
+//            }
+        }
+    }
 
     var currentPage: Int = 0 {
         didSet {
             print(currentPage)
         }
     }
+    
+    var capturedCurrentPage: Int = 0
+    
+    
+    
     var currentGenre: String = ""
 
     var currentIndex: Int = 0
@@ -52,9 +67,13 @@ class ExploreVC: MonitoredVC {
     var currentNetworkPage: Int = 0
     var totalNetworkPages: Int = 0
     
+    //var dismissClosure: (() -> Void)?
+    
     lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+        let layout = AnimatedCollectionViewLayout()
+        layout.animator = CrossFadeAttributesAnimator()
+        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
+        if let layout = collectionView.collectionViewLayout as? AnimatedCollectionViewLayout {
             layout.scrollDirection = .horizontal
         }
         collectionView.backgroundColor = .clear
@@ -145,10 +164,6 @@ class ExploreVC: MonitoredVC {
         loadImages { [weak self] in
             guard let self = self else { return }
             self.load10RandomQuotes {
-//                for _ in 0..<self.loadedVMs.count {
-//                    self.collectionView.reloadData()
-//                }
-                //self.collectionView.reloadData()
                 self.collectionView.insertItems(at: self.loadedVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) })
             }
         }
@@ -159,7 +174,13 @@ class ExploreVC: MonitoredVC {
             guard let self = self else { return }
             self.load10RandomQuotes {
                 let indexPaths = self.loadedVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) }
-                self.collectionView.insertItems(at: Array(indexPaths[(self.currentPage + 5)...self.currentPage + 14]))
+                self.collectionView.insertItems(at: Array(indexPaths[(self.capturedCurrentPage + 4)...self.capturedCurrentPage + 14]))
+                self.collectionView.isUserInteractionEnabled = true
+                self.isLoadNewDataFunctionRunning = false
+//                if let dismissClosure = dismissClosure {
+//
+//                }
+                self.dismiss(animated: false)
             }
         }
     }
@@ -308,15 +329,41 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
         //print(loadedVMs.map { $0.content })
         if currentPage == self.loadedVMs.count - 5 {
-            presentPickModalAlert(title: "Alert", text: "Loading next quotes", mainButtonText: "Ok", mainButtonStyle: .default) {
-
-            }
+//            presentPickModalAlert(title: "Alert", text: "Loading next quotes", mainButtonText: "Ok", mainButtonStyle: .default) {
+//
+//            }
 //            loadData {
 //
 //            }
-            loadNewData {
-                 this crashes when scrolling too fast
+            capturedCurrentPage = currentPage
+            if !isLoadNewDataFunctionRunning {
+                
+                isLoadNewDataFunctionRunning = true
+                loadNewData { [weak self] in
+                    guard let self = self else { return }
+    //                 this crashes when scrolling too fast
+//                    self.isLoadNewDataFunctionRunning = false
+                    //self.collectionView.isUserInteractionEnabled = true
+                }
             }
+            else {
+                
+            }
+        }
+        if currentPage == self.loadedVMs.count - 1 && isLoadNewDataFunctionRunning {
+            //collectionView.isUserInteractionEnabled = false
+            // show loading screen
+//            if let castedView = view as? LottieView {
+//                castedView.createAndStartLottieAnimation(animation: .circleLoading,
+//                                                         animationSpeed: 1,
+//                                                         frame: view.bounds,
+//                                                         loopMode: .loop,
+//                                                         contentMode: .scaleAspectFit)
+//            }
+            let loadingAlertVC = LoadingAlertVC()
+            loadingAlertVC.modalTransitionStyle = .crossDissolve
+            loadingAlertVC.modalPresentationStyle = .custom
+            present(loadingAlertVC, animated: false)
         }
     }
 }

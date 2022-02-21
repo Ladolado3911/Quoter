@@ -62,4 +62,15 @@ class ModalView: LottieView {
                                       loopMode: .loop,
                                       contentMode: .scaleAspectFill)
     }
+    
+    func startAnimating() {
+//        mainTitleLabel.text = authorName
+//        addSubview(mainTitleLabel)
+        addSubview(loadingLabel)
+        createAndStartLottieAnimation(animation: .cubeLoading,
+                                      animationSpeed: 0.7,
+                                      frame: finalAnimationRect,
+                                      loopMode: .loop,
+                                      contentMode: .scaleAspectFill)
+    }
 }

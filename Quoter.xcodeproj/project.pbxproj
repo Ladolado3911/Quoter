@@ -16,6 +16,8 @@
 		248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FC0D727A9548D00069FFF /* QuotesOfAuthorView.swift */; };
 		24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24A0D38727A7ED84002286F6 /* CoreDataModel.xcdatamodeld */; };
 		24A0D38B27A7F099002286F6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A0D38A27A7F099002286F6 /* CoreDataManager.swift */; };
+		24A8407527C3A0F400BCF304 /* AnimatedCollectionViewLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 24A8407427C3A0F400BCF304 /* AnimatedCollectionViewLayout */; };
+		24A8407727C3B92800BCF304 /* LoadingAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8407627C3B92800BCF304 /* LoadingAlertVC.swift */; };
 		24AD7D62279A9DA300BFC1BF /* QuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */; };
 		24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3DD27985FEE009DB491 /* ExploreVC.swift */; };
 		24BEA3E02798601A009DB491 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3DF2798601A009DB491 /* QuoteView.swift */; };
@@ -94,6 +96,7 @@
 		248FC0D727A9548D00069FFF /* QuotesOfAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesOfAuthorView.swift; sourceTree = "<group>"; };
 		24A0D38827A7ED84002286F6 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		24A0D38A27A7F099002286F6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		24A8407627C3B92800BCF304 /* LoadingAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAlertVC.swift; sourceTree = "<group>"; };
 		24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteModel.swift; sourceTree = "<group>"; };
 		24BEA3DD27985FEE009DB491 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		24BEA3DF2798601A009DB491 /* QuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
@@ -166,6 +169,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24A8407527C3A0F400BCF304 /* AnimatedCollectionViewLayout in Frameworks */,
 				24D1289F2790AB4900AD7F3D /* Kingfisher in Frameworks */,
 				24D1289C2790887A00AD7F3D /* SnapKit in Frameworks */,
 				24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */,
@@ -196,6 +200,14 @@
 			path = QuotesOfAuthorScene;
 			sourceTree = "<group>";
 		};
+		24A8407827C3BE3300BCF304 /* LoadingAlertScene */ = {
+			isa = PBXGroup;
+			children = (
+				24A8407627C3B92800BCF304 /* LoadingAlertVC.swift */,
+			);
+			path = LoadingAlertScene;
+			sourceTree = "<group>";
+		};
 		24BEA3DC27985FDA009DB491 /* ExploreScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +223,8 @@
 		24C12BCF27AAB02C0069684D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				24C12BCD27AAB0230069684D /* ModalAlertView.swift */,
+				24C12BD327AABC8F0069684D /* ModalView.swift */,
 				24DEBF4A27ABB55500C40B29 /* LottieView.swift */,
 				24C12BC927AAACCC0069684D /* BookImageView.swift */,
 			);
@@ -220,9 +234,7 @@
 		24C12BD227AABB8D0069684D /* ModalAlertScene */ = {
 			isa = PBXGroup;
 			children = (
-				24C12BD327AABC8F0069684D /* ModalView.swift */,
 				24C12BD027AABB800069684D /* ModalAlertVC.swift */,
-				24C12BCD27AAB0230069684D /* ModalAlertView.swift */,
 			);
 			path = ModalAlertScene;
 			sourceTree = "<group>";
@@ -317,6 +329,7 @@
 		24D1288A27903FEC00AD7F3D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				24A8407827C3BE3300BCF304 /* LoadingAlertScene */,
 				24C12BD227AABB8D0069684D /* ModalAlertScene */,
 				24BEA3DC27985FDA009DB491 /* ExploreScene */,
 				24D1288B27903FF500AD7F3D /* AuthorsScene */,
@@ -443,6 +456,7 @@
 				24D1289B2790887A00AD7F3D /* SnapKit */,
 				24D1289E2790AB4900AD7F3D /* Kingfisher */,
 				24DEBF4527ABB1D400C40B29 /* Lottie */,
+				24A8407427C3A0F400BCF304 /* AnimatedCollectionViewLayout */,
 			);
 			productName = Quoter;
 			productReference = 24D1286F27903ECD00AD7F3D /* Quoter.app */;
@@ -476,6 +490,7 @@
 				24D1289A2790887A00AD7F3D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				24D1289D2790AB4900AD7F3D /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				24DEBF4427ABB1D400C40B29 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				24A8407327C3A0F400BCF304 /* XCRemoteSwiftPackageReference "AnimatedCollectionViewLayout" */,
 			);
 			productRefGroup = 24D1287027903ECD00AD7F3D /* Products */;
 			projectDirPath = "";
@@ -568,6 +583,7 @@
 				24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */,
 				24D4107D27B3FD0200B5C899 /* QuoteGardenManager.swift in Sources */,
 				24D1289927904D0E00AD7F3D /* AppColors.swift in Sources */,
+				24A8407727C3B92800BCF304 /* LoadingAlertVC.swift in Sources */,
 				24D1287527903ECD00AD7F3D /* SceneDelegate.swift in Sources */,
 				248FC0D627A9544D00069FFF /* QuotesOfAuthorVC.swift in Sources */,
 				24D33E3D27B9683000E4C668 /* NetworkMonitor.swift in Sources */,
@@ -784,6 +800,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		24A8407327C3A0F400BCF304 /* XCRemoteSwiftPackageReference "AnimatedCollectionViewLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/KelvinJin/AnimatedCollectionViewLayout";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		24D1289A2790887A00AD7F3D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -811,6 +835,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		24A8407427C3A0F400BCF304 /* AnimatedCollectionViewLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 24A8407327C3A0F400BCF304 /* XCRemoteSwiftPackageReference "AnimatedCollectionViewLayout" */;
+			productName = AnimatedCollectionViewLayout;
+		};
 		24D1289B2790887A00AD7F3D /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 24D1289A2790887A00AD7F3D /* XCRemoteSwiftPackageReference "SnapKit" */;
