@@ -35,12 +35,12 @@ class ExploreVC: MonitoredVC {
     
     var scrollingDirection: ScrollingDirection = .right
 
-    var currentPage: Int = 0
-    var currentGenre: String = "" {
+    var currentPage: Int = 0 {
         didSet {
-            loadNewGenre(genre: currentGenre)
+            print(currentPage)
         }
     }
+    var currentGenre: String = ""
 
     var currentIndex: Int = 0
     var currentX: CGFloat = 0
@@ -56,6 +56,7 @@ class ExploreVC: MonitoredVC {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.isPagingEnabled = true
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -65,15 +66,6 @@ class ExploreVC: MonitoredVC {
         return collectionView
     }()
 
-    lazy var pageVC: UIPageViewController = {
-        let pageVC = UIPageViewController(transitionStyle: .pageCurl,
-                                          navigationOrientation: .horizontal,
-                                          options: nil)
-        pageVC.dataSource = self
-        pageVC.delegate = self
-        return pageVC
-    }()
-    
     let animationFrame: CGRect = {
         let size = PublicConstants.screenWidth / 3
         let x = PublicConstants.screenWidth / 2 - (size / 2)
@@ -103,12 +95,17 @@ class ExploreVC: MonitoredVC {
                             }
                         }
                         if isFirstLaunch {
-                            self.setUpInitialDataForPageController()
+                            //self.setUpInitialDataForPageController()
+                            self.setUpInitialData()
+                            self.view.addSubview(self.collectionView)
+                            self.collectionView.snp.makeConstraints { make in
+                                make.left.right.top.bottom.equalTo(self.view)
+                            }
                         }
                         else {
                             
-                            self.configPageVC()
-                            (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
+                            //self.configPageVC()
+                            //(self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
                         }
                     }
                     else {
@@ -118,7 +115,7 @@ class ExploreVC: MonitoredVC {
                                 lottieView.stopLottieAnimation()
                             }
                         }
-                        (self.parent as? TabbarController)?.removeChildController(controller: self.pageVC)
+                        //(self.parent as? TabbarController)?.removeChildController(controller: self.pageVC)
                         self.startWifiAnimation()
                     }
                 }
@@ -138,6 +135,37 @@ class ExploreVC: MonitoredVC {
 //        configPageVC()
 //        setUpInitialDataForPageController()
         //configPageVC()
+    }
+    
+    private func setUpInitialData() {
+        loadImages { [weak self] in
+            guard let self = self else { return }
+            self.load3RandomQuotes {
+                for vmIndex in 0..<self.loadedVMs.count {
+                    self.loadedVMs[vmIndex].imageURL = self.loadedImageURLs[vmIndex]
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
+    
+    private func load3RandomQuotes(completion: @escaping () -> Void) {
+        let group = DispatchGroup()
+        group.enter()
+        loadRandomQuote(genre: currentGenre) {
+            group.leave()
+        }
+        group.enter()
+        loadRandomQuote(genre: currentGenre) {
+            group.leave()
+        }
+        group.enter()
+        loadRandomQuote(genre: currentGenre) {
+            group.leave()
+        }
+        group.notify(queue: .main) {
+            completion()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -175,64 +203,16 @@ class ExploreVC: MonitoredVC {
         }
     }
     
-    private func loadNewGenre(genre: String) {
-        quoteControllers = []
-        if let lottieView = view as? LottieView {
-            if lottieView.lottieAnimation != nil {
-                lottieView.stopLottieAnimation()
-            }
-            lottieView.createAndStartLottieAnimation(animation: .circleLoading,
-                                                     animationSpeed: 1,
-                                                     frame: animationFrame,
-                                                     loopMode: .loop,
-                                                     contentMode: .scaleAspectFit)
-        }
-        let group = DispatchGroup()
-        group.enter()
-        loadImages() {
-            group.leave()
-        }
-        group.enter()
-        loadQuotes(genre: genre, page: getRandomPageOf(genre: genre)) {
-            group.leave()
-        }
-        group.notify(queue: .main) { [weak self] in
+    private func loadRandomQuote(genre: String, completion: @escaping () -> Void) {
+        QuoteGardenManager.getRandomQuote(genre: genre) { [weak self] result in
             guard let self = self else { return }
-            self.showInitialQuote()
-            if let lottieView = self.view as? LottieView {
-                lottieView.stopLottieAnimation()
+            switch result {
+            case .success(let quote):
+                self.loadedVMs.append(quote)
+                completion()
+            case .failure(let error):
+                print(error)
             }
-            //NetworkMonitor.shared.isFirstCheck = false
-        }
-    }
-    
-    private func setUpInitialDataForPageController() {
-        if let lottieView = view as? LottieView {
-            if lottieView.lottieAnimation != nil {
-                lottieView.stopLottieAnimation()
-            }
-            lottieView.createAndStartLottieAnimation(animation: .circleLoading,
-                                                     animationSpeed: 1,
-                                                     frame: animationFrame,
-                                                     loopMode: .loop,
-                                                     contentMode: .scaleAspectFit)
-        }
-        let group = DispatchGroup()
-        group.enter()
-        loadImages() {
-            group.leave()
-        }
-        group.enter()
-        loadQuotes(genre: currentGenre, page: Int.random(in: 1...1400)) {
-            group.leave()
-        }
-        group.notify(queue: .main) { [weak self] in
-            guard let self = self else { return }
-            self.showInitialQuote()
-            if let lottieView = self.view as? LottieView {
-                lottieView.stopLottieAnimation()
-            }
-            NetworkMonitor.shared.isFirstCheck = false
         }
     }
     
@@ -249,159 +229,19 @@ class ExploreVC: MonitoredVC {
             completion()
         }
     }
-    
-    private func loadQuotes(genre: String, page: Int, completion: @escaping () -> Void) {
-        QuoteGardenManager.get50Quotes(genre: genre, page: page) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let quotes):
-                self.loadedVMs.append(contentsOf: quotes)
-                completion()
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    private func showInitialQuote() {
-        let vc1 = QuoteVC()
-        let vc2 = QuoteVC()
-        vc1.mainImageURL = loadedImageURLs[currentPage]
-        vc1.quoteVM = loadedVMs[currentPage]
-        vc2.mainImageURL = loadedImageURLs[currentPage + 1]
-        vc2.quoteVM = loadedVMs[currentPage + 1]
-        quoteControllers.append(vc1)
-        quoteControllers.append(vc2)
-        configPageVC()
-        (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
-    }
-    
-    private func showQuote() {
-        let vc = QuoteVC()
-        vc.mainImageURL = loadedImageURLs[currentPage + 1]
-        vc.quoteVM = loadedVMs[currentPage + 1]
-        quoteControllers.append(vc)
-        (self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
-    }
-
-    private func configPageVC() {
-        let current = quoteControllers[currentPage]
-        pageVC.modalTransitionStyle = .crossDissolve
-        pageVC.modalPresentationStyle = .fullScreen
-        pageVC.setViewControllers([current],
-                                  direction: .forward,
-                                  animated: false,
-                                  completion: nil)
-        //currentPage += 2
-    }
-    
-    private func getRandomPageOf(genre: String) -> Int {
-        let genre = Filters.filtersDict[genre]
-        return Int.random(in: genre ?? 1...1)
-    }
-}
-
-extension ExploreVC: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = quoteControllers.firstIndex(of: viewController as! QuoteVC), index > 0 else { return nil }
-        currentIndex = index
-        let before = index - 1
-        return quoteControllers[before]
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let castedController = viewController as! QuoteVC
-        guard let index = quoteControllers.firstIndex(of: castedController), index < (quoteControllers.count - 1) else {
-            return nil
-        }
-        currentIndex = index
-        let after = index + 1
-        return quoteControllers[after]
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-//        Sound.pageFlip.play(extensionString: .mp3)
-        if completed {
-            pageViewController.gestureRecognizers.forEach { recognizer in
-                if let recog = recognizer as? UIPanGestureRecognizer {
-                    currentX = recog.location(in: pageViewController.view).x
-                }
-            }
-            switch scrollingDirection {
-            case .left:
-                print("left")
-                currentPage -= 1
-            case .right:
-                print("right")
-                currentPage += 1
-            }
-            if currentX > prevX {
-                //print("turn page to left")
-                //currentPage -= 1
-            }
-            else {
-                // if currentPage % 49 == 0 && currentPage != 0
-                print(currentPage)
-                print(loadedVMs.count - 2)
-                if currentPage == loadedVMs.count - 2 && currentPage != 0 {
-                    print("limit reached")
-                    let group = DispatchGroup()
-                    group.enter()
-                    loadQuotes(genre: currentGenre, page: getRandomPageOf(genre: currentGenre)) {
-                        group.leave()
-                    }
-                    group.enter()
-                    loadImages {
-                        group.leave()
-                    }
-                    group.notify(queue: .main) { [weak self] in
-                        self?.showQuote()
-                    }
-                }
-                else {
-                    showQuote()
-                }
-                //currentPage += 1
-            }
-//            if currentIndex + 2 == quoteControllers.count && currentX < prevX {
-//                getRandomQuote()
-//            }
-            //print(currentPage)
-        }
-    }
-
-    
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        Sound.pageFlip.play(extensionString: .mp3)
-        pageViewController.gestureRecognizers.forEach { recognizer in
-            if let recog = recognizer as? UIPanGestureRecognizer {
-                prevX = recog.location(in: pageViewController.view).x
-            }
-            if let recog = recognizer as? UITapGestureRecognizer {
-                print("tapped")
-                let tappedX = recog.location(in: pageViewController.view).x
-                if tappedX < PublicConstants.screenWidth / 2 {
-                    //currentPage -= 1
-                    scrollingDirection = .left
-                }
-                else {
-                    //currentPage += 1
-                    scrollingDirection = .right
-                }
-            }
-        }
-    }
 }
 
 extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        7
+        loadedVMs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? QuoteCell
+        cell?.quoteVM = loadedVMs[indexPath.item]
+        cell?.mainImageURL = loadedImageURLs[indexPath.item]
         //cell.backgroundColor = colors.randomElement()
-        return cell
+        return cell!
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -414,5 +254,27 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         0
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        let castedCell = cell as? QuoteCell
+//        castedCell?.quoteVM = loadedVMs[indexPath.item]
+//        castedCell?.mainImageURL = loadedImageURLs[indexPath.item]
+//    }
+    
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let width = scrollView.frame.width - (scrollView.contentInset.left * 2)
+//        let index = scrollView.contentOffset.x / width
+//        let roundedIndex = round(index)
+//        currentPage = Int(roundedIndex)
+//    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //print(collectionView.visibleCells.count)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+        //print(loadedVMs.map { $0.content })
     }
 }

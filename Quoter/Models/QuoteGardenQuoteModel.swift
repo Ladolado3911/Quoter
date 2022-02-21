@@ -37,4 +37,6 @@ struct QuoteGardenQuoteVM {
         rootModel.quoteAuthor ?? "No Author Name"
     }
     
+    var imageURL: URL?
+    
 }

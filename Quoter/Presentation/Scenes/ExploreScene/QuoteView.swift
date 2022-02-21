@@ -12,6 +12,7 @@ class QuoteView: LottieView {
     let mainImageView: UIImageView = {
         let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFill
+        imgView.clipsToBounds = true
         return imgView
     }()
     
