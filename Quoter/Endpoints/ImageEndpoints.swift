@@ -20,8 +20,8 @@ struct ImageEndpoints {
         URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&per_page=50&image_type=photo&q=\(keyword)&safesearch=true")
     }
     
-    static func get50NatureLandscapeURLs() -> URL? {
-        URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&per_page=50&image_type=photo&q=landscape&safesearch=true&page=\(Int.random(in: 1...9))")
+    static func get10NatureLandscapeURLs() -> URL? {
+        URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&per_page=10&image_type=photo&q=landscape&safesearch=true&page=\(Int.random(in: 1...9))")
     }
     
     static func getAuthorImageURL(authorName: String) -> URL? {

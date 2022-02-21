@@ -32,6 +32,7 @@ class ExploreVC: MonitoredVC {
     var quoteControllers: [QuoteVC] = []
     var loadedVMs: [QuoteGardenQuoteVM] = []
     var loadedImageURLs: [URL?] = []
+    var loadedImages: [UIImage?] = []
     
     var scrollingDirection: ScrollingDirection = .right
 
@@ -140,28 +141,22 @@ class ExploreVC: MonitoredVC {
     private func setUpInitialData() {
         loadImages { [weak self] in
             guard let self = self else { return }
-            self.load3RandomQuotes {
-                for vmIndex in 0..<self.loadedVMs.count {
-                    self.loadedVMs[vmIndex].imageURL = self.loadedImageURLs[vmIndex]
+            self.load10RandomQuotes {
+                for _ in 0..<self.loadedVMs.count {
+                    //self.loadedVMs[vmIndex].imageURL = self.loadedImageURLs[vmIndex]
                     self.collectionView.reloadData()
                 }
             }
         }
     }
     
-    private func load3RandomQuotes(completion: @escaping () -> Void) {
+    private func load10RandomQuotes(completion: @escaping () -> Void) {
         let group = DispatchGroup()
-        group.enter()
-        loadRandomQuote(genre: currentGenre) {
-            group.leave()
-        }
-        group.enter()
-        loadRandomQuote(genre: currentGenre) {
-            group.leave()
-        }
-        group.enter()
-        loadRandomQuote(genre: currentGenre) {
-            group.leave()
+        for _ in 0..<10 {
+            group.enter()
+            loadRandomQuote(genre: currentGenre) {
+                group.leave()
+            }
         }
         group.notify(queue: .main) {
             completion()
@@ -217,16 +212,37 @@ class ExploreVC: MonitoredVC {
     }
     
     private func loadImages(completion: @escaping () -> Void) {
-        ImageManager.load50LandscapeURLs { [weak self] result in
+        ImageManager.load10LandscapeURLs { [weak self] result in
             switch result {
             case .success(let urls):
                 let shuffled = urls.shuffled().compactMap { $0 }
-                self?.loadedImageURLs.append(contentsOf: shuffled)
+                let imageFetchingQueue = DispatchQueue.global(qos: .background)
+                let group = DispatchGroup()
+                for shuffledUrl in shuffled {
+                    group.enter()
+                    imageFetchingQueue.async {
+                        do {
+                            let data = try Data(contentsOf: shuffledUrl)
+                            DispatchQueue.main.async {
+                                let image = UIImage(data: data)
+                                self?.loadedImages.append(image)
+                                group.leave()
+                            }
+                        }
+                        catch {
+                            print(error)
+                        }
+                    }
+                }
+                group.notify(queue: .main) {
+                    completion()
+                }
+                //self?.loadedImageURLs.append(contentsOf: shuffled)
                 
             case .failure(let error):
                 print(error)
             }
-            completion()
+            //completion()
         }
     }
 }
@@ -239,7 +255,8 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? QuoteCell
         cell?.quoteVM = loadedVMs[indexPath.item]
-        cell?.mainImageURL = loadedImageURLs[indexPath.item]
+        cell?.mainImage = loadedImages[indexPath.item]
+        //cell?.mainImageURL = loadedImageURLs[indexPath.item]
         //cell.backgroundColor = colors.randomElement()
         return cell!
     }

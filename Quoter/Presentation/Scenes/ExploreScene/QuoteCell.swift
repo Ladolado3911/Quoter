@@ -22,6 +22,7 @@ class QuoteCell: UICollectionViewCell {
         }
     }
     var mainImageURL: URL?
+    var mainImage: UIImage?
     var imageType: ImageType?
     var isVCLoaded: Bool = false
     var isFirstAppear: Bool = true
@@ -48,20 +49,27 @@ class QuoteCell: UICollectionViewCell {
         guard let quoteVM = quoteVM else {
             return
         }
-        guard let mainImageURl = mainImageURL else {
+        guard let mainImage = mainImage else {
             return
         }
         
-        print(quoteVM.content)
+//        guard let mainImageURl = mainImageURL else {
+//            return
+//        }
+        
+        //print(quoteVM.content)
         
         //quoteView.quoteViewButton.addGestureRecognizer(tapOnBookGesture)
-        quoteView.startAnimating()
-        quoteView.mainImageView.kf.setImage(with: mainImageURl) { [weak self] _ in
-            guard let self = self else { return }
-            self.quoteView.stopAnimating()
-            self.quoteView.quoteTextView.text = quoteVM.content
-            self.quoteView.authorLabel.text = quoteVM.authorName
-        }
+        self.quoteView.mainImageView.image = mainImage
+        self.quoteView.quoteTextView.text = quoteVM.content
+        self.quoteView.authorLabel.text = quoteVM.authorName
+        //quoteView.startAnimating()
+//        quoteView.mainImageView.kf.setImage(with: mainImageURl) { [weak self] _ in
+//            guard let self = self else { return }
+//            self.quoteView.stopAnimating()
+//            self.quoteView.quoteTextView.text = quoteVM.content
+//            self.quoteView.authorLabel.text = quoteVM.authorName
+//        }
         quoteView.layoutIfNeeded()
     }
 

@@ -41,8 +41,8 @@ class ImageManager: NetworkManager {
 //        }
 //    }
     
-    static func load50LandscapeURLs(completion: @escaping (Result<[URL?], Error>) -> Void) {
-        guard let url = ImageEndpoints.get50NatureLandscapeURLs() else { return }
+    static func load10LandscapeURLs(completion: @escaping (Result<[URL?], Error>) -> Void) {
+        guard let url = ImageEndpoints.get10NatureLandscapeURLs() else { return }
         getData(url: url, model: Resource(model: ImageResponse.self)) { result in
             switch result {
             case .success(let imageResponse):
