@@ -38,12 +38,26 @@ class ExploreVC: MonitoredVC {
     
     var scrollingDirection: ScrollingDirection = .right
     
-    var isLoadNewDataFunctionRunning: Bool = false {
-        didSet {
-//            if oldValue != isLoadNewDataFunctionRunning {
-//                collectionView.isUserInteractionEnabled = isLoadNewDataFunctionRunning
-//            }
-        }
+    var isLoadNewDataFunctionRunning: Bool = false
+    
+    lazy var presentQuotesOfAuthorClosure: (([QuoteGardenQuoteVM], UIImage?, QuoteGardenQuoteVM)) -> Void = { [weak self] quoteVMs in
+        guard let self = self else { return }
+        let destVC = QuotesOfAuthorVC()
+        destVC.modalTransitionStyle = .coverVertical
+        destVC.modalPresentationStyle = .overCurrentContext
+        destVC.networkQuotesArr = quoteVMs.0
+        destVC.state = .network
+        destVC.networkAuthorImage = quoteVMs.1
+       // destVC.authorImageURL = quoteVMs.1
+        destVC.authorName = self.loadedVMs[self.currentPage].authorName
+        destVC.quoteVM = quoteVMs.2
+        self.present(destVC, animated: true)
+    }
+    
+    var tapOnBookGesture: UITapGestureRecognizer {
+        let tapOnGesture = UITapGestureRecognizer(target: self,
+                                                  action: #selector(didTapOnBook(sender:)))
+        return tapOnGesture
     }
 
     var currentPage: Int = 0 {
@@ -280,6 +294,21 @@ class ExploreVC: MonitoredVC {
             //completion()
         }
     }
+    
+    private func convertAuthorName(name: String) -> String {
+        name.replacingOccurrences(of: " ", with: "_")
+    }
+    
+    @objc func didTapOnBook(sender: UITapGestureRecognizer) {
+        let modalAlertVC = ModalAlertVC()
+        let quoteVM = loadedVMs[currentPage]
+        modalAlertVC.modalTransitionStyle = .crossDissolve
+        modalAlertVC.modalPresentationStyle = .custom
+        modalAlertVC.authorName = quoteVM.authorName
+        modalAlertVC.presentingClosure = presentQuotesOfAuthorClosure
+        modalAlertVC.quoteVM = quoteVM
+        present(modalAlertVC, animated: false)
+    }
 }
 
 extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -291,11 +320,12 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? QuoteCell
         cell?.quoteVM = loadedVMs[indexPath.item]
         cell?.mainImage = loadedImages[indexPath.item]
+        cell?.tapOnBookGesture = tapOnBookGesture
         //cell?.mainImageURL = loadedImageURLs[indexPath.item]
         //cell.backgroundColor = colors.randomElement()
         return cell!
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         view.bounds.size
     }
@@ -327,6 +357,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+        Sound.windTransition.play(extensionString: .wav)
         //print(loadedVMs.map { $0.content })
         if currentPage == self.loadedVMs.count - 5 {
 //            presentPickModalAlert(title: "Alert", text: "Loading next quotes", mainButtonText: "Ok", mainButtonStyle: .default) {
@@ -340,7 +371,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
                 
                 isLoadNewDataFunctionRunning = true
                 loadNewData { [weak self] in
-                    guard let self = self else { return }
+//                    guard let self = self else { return }
     //                 this crashes when scrolling too fast
 //                    self.isLoadNewDataFunctionRunning = false
                     //self.collectionView.isUserInteractionEnabled = true

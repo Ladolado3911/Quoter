@@ -21,6 +21,7 @@ enum Sound: String, CaseIterable {
     case music2
     case pageFlip
     case pop
+    case windTransition
     
     var player: AVAudioPlayer? {
         Sound.players[self]

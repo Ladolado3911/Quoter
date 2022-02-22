@@ -28,7 +28,7 @@ class QuoteView: LottieView {
         return bookView
     }()
     
-    let quoteTextView: UILabel = {
+    lazy var quoteTextView: UILabel = {
         let quoteTextView = UILabel()
         let font = UIFont(name: "Kalam-Regular", size: 35)
         //font?.lineHeight = 30
@@ -38,6 +38,10 @@ class QuoteView: LottieView {
         quoteTextView.textColor = .white
         quoteTextView.font = font
         quoteTextView.textAlignment = .center
+        
+        quoteTextView.numberOfLines = 15
+//        let fontSize = getFontSizeForQuote(stringCount: CGFloat(quoteTextView.text?.count ?? 0))
+//        quoteTextView.font = quoteTextView.font?.withSize(fontSize)
         //quoteTextView.numberOfLines = 8
         return quoteTextView
     }()
@@ -63,9 +67,9 @@ class QuoteView: LottieView {
         super.layoutSubviews()
         buildSubviews()
         buildConstraints()
-        quoteTextView.numberOfLines = 15
-        let fontSize = getFontSizeForQuote(stringCount: CGFloat(quoteTextView.text?.count ?? 0))
-        quoteTextView.font = quoteTextView.font?.withSize(fontSize)
+//        quoteTextView.numberOfLines = 15
+//        let fontSize = getFontSizeForQuote(stringCount: CGFloat(quoteTextView.text?.count ?? 0))
+//        quoteTextView.font = quoteTextView.font?.withSize(fontSize)
     }
     
     private func buildSubviews() {
@@ -76,13 +80,13 @@ class QuoteView: LottieView {
         addSubview(quoteViewButton)
     }
     
-    private func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {
-        let lowerBound: CGFloat = PublicConstants.screenHeight * 0.02159827213822894
-        let higherBound: CGFloat = PublicConstants.screenHeight * 0.05399568034557235
-        let boundRange = higherBound - lowerBound
-        let testResult = lowerBound + ((1 / (stringCount / 35)) * boundRange)
-        return testResult
-    }
+//    private func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {
+//        let lowerBound: CGFloat = PublicConstants.screenHeight * 0.02159827213822894
+//        let higherBound: CGFloat = PublicConstants.screenHeight * 0.05399568034557235
+//        let boundRange = higherBound - lowerBound
+//        let testResult = lowerBound + ((1 / (stringCount / 35)) * boundRange)
+//        return testResult
+//    }
     
     func startAnimating() {
         darkView.isHidden = true

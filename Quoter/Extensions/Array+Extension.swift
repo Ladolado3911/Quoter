@@ -13,7 +13,7 @@ extension Array where Element == Sound {
 
     func uniqueRandomElement() -> Sound? {
         var currentElement: Sound? = self.randomElement()
-        if randomElementStorage.count == Sound.allCases.filter { ![Sound.pop, Sound.pageFlip].contains($0) }.count {
+        if randomElementStorage.count == Sound.allCases.filter { $0.rawValue.contains("music") }.count {
             randomElementStorage.removeAll()
         }
         while randomElementStorage.contains(currentElement) {
