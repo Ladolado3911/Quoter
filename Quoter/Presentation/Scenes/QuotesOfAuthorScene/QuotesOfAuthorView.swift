@@ -48,9 +48,6 @@ class QuotesOfAuthorView: UIView {
         let button = UIButton(type: .custom)
         switch state {
         case .network:
-//            if !button.allTargets.isEmpty {
-//
-//            }
             button.setImage(UIImage(named: "IdeaOff"), for: .normal)
             button.setImage(UIImage(named: "IdeaOn"), for: .selected)
         case .coreData:
@@ -63,9 +60,6 @@ class QuotesOfAuthorView: UIView {
     let quoteTextView: UILabel = {
         let quoteTextView = UILabel()
         let font = UIFont(name: "Kalam-Regular", size: 30)
-        //font?.lineHeight = 30
-//        quoteTextView.isEditable = false
-//        quoteTextView.isSelectable = false
         quoteTextView.backgroundColor = .clear
         quoteTextView.textColor = .white
         quoteTextView.font = font
@@ -117,26 +111,22 @@ class QuotesOfAuthorView: UIView {
         closeButton.snp.makeConstraints { make in
             make.left.equalTo(self).inset(20)
             make.width.height.equalTo(PublicConstants.screenHeight * 0.0968)
-            make.top.equalTo(self).inset(70)//.inset(PublicConstants.screenHeight * 0.11267)
+            make.top.equalTo(self).inset(70)
         }
         titleOfAuthor.snp.makeConstraints { make in
             make.left.equalTo(closeButton.snp.right).inset(-20)
             make.right.equalTo(ideaButton.snp.left).inset(-20)
             make.bottom.equalTo(quoteTextView.snp.top)
-            //make.bottom.equalTo(quoteTextView.snp.top).inset(-20)//.inset(-PublicConstants.screenHeight * 0.054577)
         }
         ideaButton.snp.makeConstraints { make in
-//            make.left.equalTo(titleOfAuthor.snp.right).inset(-20)
             make.right.equalTo(self).inset(20)
             make.centerY.equalTo(closeButton)
             make.width.height.equalTo(PublicConstants.screenHeight * 0.0968)
         }
         quoteTextView.snp.makeConstraints { make in
             make.left.right.equalTo(self).inset(20)
-            //make.centerY.equalTo(self)
             make.centerY.equalTo(self)
             make.height.equalTo(PublicConstants.screenHeight * 0.3521126)
-            //make.bottom.equalTo(nextButton.snp.top).inset(-PublicConstants.screenHeight * 0.2)
         }
         nextButton.snp.makeConstraints { make in
             make.right.equalTo(self).inset(PublicConstants.screenWidth * 0.03125)
@@ -172,8 +162,6 @@ class SwitchButton: UIButton {
                 else {
                     disableButton()
                 }
-                //layoutIfNeeded()
-                //layoutSubviews()
             }
         }
     }
@@ -181,8 +169,6 @@ class SwitchButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = frame.height / 3
-        //backgroundColor = .white
-        //setTitleColor(.black, for: .normal)
         titleLabel?.textAlignment = .center
         titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 18)
         
@@ -192,10 +178,7 @@ class SwitchButton: UIButton {
         case false:
             disableButton()
         }
-        
-        
     }
-    
     
     private func enableButton() {
         backgroundColor = .white
