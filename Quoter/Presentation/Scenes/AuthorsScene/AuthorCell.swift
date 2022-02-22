@@ -14,8 +14,6 @@ enum CellState {
     case off
 }
 
-//let compareImage: Data? = UIImage(named: "unknown")?.pngData()
-
 class AuthorCell: UICollectionViewCell {
     
     var authorCellVM: AuthorCoreVM?
@@ -70,12 +68,6 @@ class AuthorCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         redView.addGestureRecognizer(onDeleteGestureRecognizer)
-        
-//        layer.cornerRadius = 20
-//        clipsToBounds = true
-//        layer.masksToBounds = false
-//        buildSubviews()
-//        buildConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -104,8 +96,6 @@ class AuthorCell: UICollectionViewCell {
         redView.addSubview(deleteLabel)
         addSubview(redView)
         addSubview(overlayView)
-        //bringSubviewToFront(overlayView)
-//        redView.addGestureRecognizer(onDeleteGestureRecognizer)
     }
     
     private func buildConstraints() {
@@ -193,21 +183,17 @@ class AuthorCell: UICollectionViewCell {
         
         switch vm.state {
         case .on:
-            //print("up")
             UIView.animate(withDuration: 0.3) { [weak self] in
                 guard let self = self else { return }
                 self.transform = self.selectTransform
-                //self.imageView.layer.shadowOpacity = 1
                 self.redView.transform = CGAffineTransform(translationX: 0, y: -self.redView.bounds.height)
                 
             }
         case .off:
             if vm.isChanging! {
-               // print("down")
                 UIView.animate(withDuration: 0.3) { [weak self] in
                     guard let self = self else { return }
                     self.transform = .identity
-                    //self.imageView.layer.shadowOpacity = 0
                     self.redView.transform = .identity
                     
                 }

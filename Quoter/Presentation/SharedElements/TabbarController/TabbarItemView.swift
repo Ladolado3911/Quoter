@@ -58,21 +58,18 @@ class TabbarItemView: UIView {
         itemNameLabel.font = font
         itemNameLabel.adjustsFontForContentSizeCategory = true
         itemNameLabel.adjustsFontSizeToFitWidth = true
-        //itemNameLabel.sizeToFit()
         return itemNameLabel
     }()
     
     var icon: UIImage? = nil {
         didSet {
             imageView.image = icon
-            //layoutIfNeeded()
         }
     }
     
     var itemName: String? = nil {
         didSet {
             itemNameLabel.text = itemName
-            //layoutIfNeeded()
         }
     }
     

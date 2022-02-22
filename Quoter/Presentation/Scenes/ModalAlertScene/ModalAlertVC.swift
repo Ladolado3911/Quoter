@@ -30,7 +30,6 @@ class ModalAlertVC: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //let semaphore = DispatchSemaphore(value: 1)
         let group = DispatchGroup()
         let customQueue = DispatchQueue.global(qos: .background)
         if let authorName = authorName,
@@ -57,11 +56,9 @@ class ModalAlertVC: UIViewController {
                             }
                         }
                     }
-//                    semaphore.signal()
                     group.leave()
                 case .failure(let error):
                     print(error)
-                    //semaphore.signal()
                     group.leave()
                 }
             }
@@ -70,14 +67,12 @@ class ModalAlertVC: UIViewController {
                 guard let self = self else { return }
                 switch result {
                 case .success(let quotes):
-                    //semaphore.wait()
                     group.leave()
                     group.notify(queue: .main) {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                             self.dismiss(animated: true) {
                                 if let presentingClosure = self.presentingClosure,
                                    let authorImage = self.authorImage {
-                                   //let imageUrl = self.authorImageURL {
                                     presentingClosure((quotes, authorImage, quoteVMM))
                                 }
                                 else {

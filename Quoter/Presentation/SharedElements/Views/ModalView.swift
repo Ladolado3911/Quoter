@@ -64,8 +64,6 @@ class ModalView: LottieView {
     }
     
     func startAnimating() {
-//        mainTitleLabel.text = authorName
-//        addSubview(mainTitleLabel)
         addSubview(loadingLabel)
         createAndStartLottieAnimation(animation: .cubeLoading,
                                       animationSpeed: 0.7,

@@ -22,7 +22,6 @@
 		24AD7D62279A9DA300BFC1BF /* QuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */; };
 		24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3DD27985FEE009DB491 /* ExploreVC.swift */; };
 		24BEA3E02798601A009DB491 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3DF2798601A009DB491 /* QuoteView.swift */; };
-		24BEA3E427986C08009DB491 /* QuoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3E327986C08009DB491 /* QuoteVC.swift */; };
 		24C12BCA27AAACCC0069684D /* BookImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C12BC927AAACCC0069684D /* BookImageView.swift */; };
 		24C12BCC27AAAFCF0069684D /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C12BCB27AAAFCF0069684D /* UIViewController+Extension.swift */; };
 		24C12BCE27AAB0230069684D /* ModalAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C12BCD27AAB0230069684D /* ModalAlertView.swift */; };
@@ -102,7 +101,6 @@
 		24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteModel.swift; sourceTree = "<group>"; };
 		24BEA3DD27985FEE009DB491 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		24BEA3DF2798601A009DB491 /* QuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
-		24BEA3E327986C08009DB491 /* QuoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteVC.swift; sourceTree = "<group>"; };
 		24C12BC927AAACCC0069684D /* BookImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookImageView.swift; sourceTree = "<group>"; };
 		24C12BCB27AAAFCF0069684D /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		24C12BCD27AAB0230069684D /* ModalAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertView.swift; sourceTree = "<group>"; };
@@ -215,7 +213,6 @@
 			isa = PBXGroup;
 			children = (
 				24E4A8AE27C29480000BB7DB /* QuoteCell.swift */,
-				24BEA3E327986C08009DB491 /* QuoteVC.swift */,
 				24BEA3DD27985FEE009DB491 /* ExploreVC.swift */,
 				24BEA3DF2798601A009DB491 /* QuoteView.swift */,
 				24C9A8E527BD20DD001C820F /* QuoteViewButton.swift */,
@@ -571,7 +568,6 @@
 				24AD7D62279A9DA300BFC1BF /* QuoteModel.swift in Sources */,
 				24BEA3E02798601A009DB491 /* QuoteView.swift in Sources */,
 				24C12BD127AABB800069684D /* ModalAlertVC.swift in Sources */,
-				24BEA3E427986C08009DB491 /* QuoteVC.swift in Sources */,
 				2489797D27B151EA00BD0B2E /* ImageManager.swift in Sources */,
 				24C12BD427AABC8F0069684D /* ModalView.swift in Sources */,
 				24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */,

@@ -112,11 +112,6 @@ class CoreDataManager {
             let authors = try context.fetch(requestAuthors)
             for author in authors {
                 if author.name == authorName {
-//                    author.relationship?.allObjects.forEach {
-//                        if let object = $0 as? NSManagedObject {
-//                            context.delete(object)
-//                        }
-//                    }
                     context.delete(author)
                 }
             }
@@ -214,7 +209,6 @@ class CoreDataManager {
         }
         do {
             let asyncResult = try context.execute(asyncRequest)
-            //print(asyncResult)
         }
         catch {
             completion(.failure(error))
@@ -297,10 +291,8 @@ class CoreDataManager {
         
         if isAuthorInCore && isQuoteInCore {
             print("REMOVE QUOTE. REMOVE AUTHOR IF IT IS EMPTY")
-            //let requestQuotes = NSFetchRequest<QuoteCore>(entityName: "QuoteCore")
             let requestAuthors = NSFetchRequest<AuthorCore>(entityName: "AuthorCore")
             do {
-                //let quotes = try context.fetch(requestQuotes)
                 let authors = try context.fetch(requestAuthors)
                 for author in authors {
                     if author.name == quoteVM.authorName {

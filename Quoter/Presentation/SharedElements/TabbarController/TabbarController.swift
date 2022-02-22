@@ -98,19 +98,14 @@ class TabbarController: UIViewController {
     @objc func onTap(sender: UITapGestureRecognizer) {
         if let senderView = sender.view as? TabbarItemView {
             let arr = tabbarView.tabbarItems
-//            children.forEach { vc in
-//                removeChildController(controller: vc)
-//            }
             removeChildController(controller: arr[tabbarView.currentItemIndex].controller)
             addChildController(controller: arr[senderView.indexInTabbar].controller)
             tabbarView.currentItemIndex = senderView.indexInTabbar
-            //(arr[senderView.indexInTabbar].controller as? ExploreVC)?.configFromSamePage()
         }
     }
     
     @objc func onMusicIcon(sender: UIButton) {
         sender.isSelected = !sender.isSelected
-//        let arr = Sound.allCases.filter({ $0.rawValue.contains("music") })
         let optionalMusic = arr.uniqueRandomElement()
         if let currentPlayer1 = currentPlayer {
             currentPlayer = nil
@@ -121,16 +116,6 @@ class TabbarController: UIViewController {
             optionalMusic?.player?.delegate = self
             currentPlayer = optionalMusic?.player
         }
-
-        
-//        if let player = Sound.music1.player,
-//           player.isPlaying {
-//            player.stop()
-//        }
-//        else {
-//            Sound.music1.play(extensionString: .mp3)
-//            Sound.music1.player?.delegate = self
-//        }
     }
 }
 
@@ -138,12 +123,10 @@ extension TabbarController: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if musicIconButton.isSelected && flag {
             print("play")
-            // THIS IS TESTED AND IS WORKING
             let optionalMusic = arr.uniqueRandomElement()
             optionalMusic?.play(extensionString: .mp3)
             optionalMusic?.player?.delegate = self
             currentPlayer = optionalMusic?.player
-            //player.play()
             currentPlayer?.play()
         }
         

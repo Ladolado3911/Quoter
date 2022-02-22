@@ -42,9 +42,9 @@ struct QuoteGardenEndpoints {
     }
     
     // this endpoint might need time to time maintenance
-    static func get50QuotesURL(genre: String, page: Int) -> URL? {
-        URL(string: "https://quote-garden.herokuapp.com/api/v3/quotes?limit=50&page=\(page)&genre=\(genre)")
-    }
+//    static func get50QuotesURL(genre: String, page: Int) -> URL? {
+//        URL(string: "https://quote-garden.herokuapp.com/api/v3/quotes?limit=50&page=\(page)&genre=\(genre)")
+//    }
     
     static func getQuotesOfAuthor(authorName: String) -> URL? {
         URL(string: "https://quote-garden.herokuapp.com/api/v3/quotes?limit=500&author=\(convert(str: authorName))")

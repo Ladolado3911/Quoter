@@ -8,39 +8,7 @@
 import UIKit
 
 class ImageManager: NetworkManager {
-    
-//    static func loadRelevantImageURL(keyword: String, completion: @escaping (Result<URL, Error>) -> Void) {
-//        guard let url = QuoteEndpoints.getRelevantPicturesURL(keyword: keyword) else { return }
-//        getData(url: url, model: Resource(model: ImageResponse.self)) { result in
-//            switch result {
-//            case .success(let response):
-//                if let hits = response.hits,
-//                   let randomItem = hits.randomElement(),
-//                   let urlString = randomItem.largeImageURL,
-//                   let resultUrl = URL(string: urlString) {
-//                    completion(.success(resultUrl))
-//                }
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//        }
-//    }
-    
-//    static func load50ImageURLs(tag: Tag, completion: @escaping (Result<[URL?], Error>) -> Void) {
-//        guard let url = ImageEndpoints.getRelevantPicturesURL(keyword: tag.rawValue) else { return }
-//        getData(url: url, model: Resource(model: ImageResponse.self)) { result in
-//            switch result {
-//            case .success(let imageResponse):
-//                if let results = imageResponse.hits {
-//                    let converted = results.map { URL(string: $0.largeImageURL ?? "") }
-//                    completion(.success(converted))
-//                }
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//        }
-//    }
-    
+
     static func load10LandscapeURLs(completion: @escaping (Result<[URL?], Error>) -> Void) {
         guard let url = ImageEndpoints.get10NatureLandscapeURLs() else { return }
         getData(url: url, model: Resource(model: ImageResponse.self)) { result in

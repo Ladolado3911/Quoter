@@ -30,8 +30,8 @@
             filePath = "Quoter/Presentation/Scenes/AuthorsScene/AuthorCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "switchCell()"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "Quoter/Presentation/Scenes/AuthorsScene/AuthorCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
             landmarkName = "switchCell()"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "Quoter/Presentation/Scenes/AuthorsScene/AuthorCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
             landmarkName = "setupCell()"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "Quoter/Presentation/Scenes/AuthorsScene/AuthorCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "setupCell()"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,8 +110,8 @@
             filePath = "Quoter/Presentation/Scenes/AuthorsScene/AuthorCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
             landmarkName = "switchCell()"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,8 +142,8 @@
             filePath = "Quoter/Presentation/Scenes/AuthorsScene/AuthorCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "layoutSubviews()"
             landmarkType = "7">
          </BreakpointContent>
@@ -190,8 +190,8 @@
             filePath = "Quoter/Presentation/SharedElements/TabbarController/TabbarItemView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "icon"
             landmarkType = "24">
          </BreakpointContent>
@@ -222,8 +222,8 @@
             filePath = "Quoter/Presentation/SharedElements/TabbarController/TabbarController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "onTap(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -318,8 +318,8 @@
             filePath = "Quoter/Managers/ImageManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "getAuthorImageURLUsingSlug(slug:completion:)"
             landmarkType = "7">
             <Locations>
@@ -382,25 +382,9 @@
             filePath = "Quoter/Managers/CoreDataManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "292"
-            endingLineNumber = "292"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
             landmarkName = "removePair(quoteVM:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CCC21B73-13C5-42CB-BD05-9C63B4B9DA55"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/ModalAlertScene/ModalAlertVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -462,8 +446,8 @@
             filePath = "Quoter/Models/AuthorModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "image"
             landmarkType = "24">
          </BreakpointContent>
@@ -478,8 +462,8 @@
             filePath = "Quoter/Presentation/Scenes/ExploreScene/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
             landmarkName = "loadView()"
             landmarkType = "7">
          </BreakpointContent>
@@ -510,26 +494,10 @@
             filePath = "Quoter/Presentation/Scenes/ExploreScene/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
-            landmarkName = "startWifiAnimation()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8789229F-9BEE-4BD0-8201-3ECBD9B8BF87"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/ExploreScene/ExploreVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
+            startingLineNumber = "229"
+            endingLineNumber = "229"
+            landmarkName = "ExploreVC"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -551,22 +519,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A1DD9124-483F-4FD6-A926-33F9BF364E5B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/ExploreScene/ExploreVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "3AFE3E2B-ECE4-4139-B991-4069B3E4E5FC"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -574,8 +526,8 @@
             filePath = "Quoter/Managers/CoreDataManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "365"
-            endingLineNumber = "365"
+            startingLineNumber = "357"
+            endingLineNumber = "357"
             landmarkName = "removePair(quoteVM:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -590,25 +542,9 @@
             filePath = "Quoter/Presentation/SharedElements/TabbarController/TabbarController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "audioPlayerDidFinishPlaying(_:successfully:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "17AD97B2-26CC-4D85-8886-7CD1FFD82D15"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/ExploreScene/QuoteCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "configWithVM()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -622,24 +558,8 @@
             filePath = "Quoter/Presentation/Scenes/ExploreScene/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "371"
-            endingLineNumber = "371"
-            landmarkName = "scrollViewDidEndDecelerating(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "730E5CFC-B8A9-4670-BD7C-F5F93ACA18B8"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/ExploreScene/ExploreVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "376"
-            endingLineNumber = "376"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
             landmarkName = "scrollViewDidEndDecelerating(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -654,25 +574,9 @@
             filePath = "Quoter/Presentation/Scenes/ExploreScene/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "loadNewData(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BED831DB-D2AC-453E-AADB-46AB237C46EC"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/ExploreScene/ExploreVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "368"
-            endingLineNumber = "368"
-            landmarkName = "scrollViewDidEndDecelerating(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -686,8 +590,8 @@
             filePath = "Quoter/Presentation/SharedElements/TabbarController/TabbarController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "onMusicIcon(sender:)"
             landmarkType = "7">
          </BreakpointContent>

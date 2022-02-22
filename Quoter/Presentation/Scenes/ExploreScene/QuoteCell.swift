@@ -36,6 +36,13 @@ class QuoteCell: UICollectionViewCell {
             make.left.right.top.bottom.equalTo(self)
         }
         configWithVM()
+        
+        //print(quoteView.ideaImageView.gestureRecognizers)
+        //CoreDataManager.clearQuotesAndAuthors()
+        //print(CoreDataManager.getQuote(quoteVM: quoteVM!)?.content)
+        //CoreDataManager.printCoreDataItems()
+        
+        
 //        if isFirstAppear {
 //            isFirstAppear = false
 //        }
@@ -65,14 +72,6 @@ class QuoteCell: UICollectionViewCell {
         guard let tapOnBookGesture = tapOnBookGesture else {
             return
         }
-
-        
-//        guard let mainImageURl = mainImageURL else {
-//            return
-//        }
-        
-        //print(quoteVM.content)
-        
         quoteView.quoteViewButton.addGestureRecognizer(tapOnBookGesture)
         self.quoteView.mainImageView.image = mainImage
         self.quoteView.quoteTextView.text = quoteVM.content
@@ -80,13 +79,6 @@ class QuoteCell: UICollectionViewCell {
         
         let fontSize = getFontSizeForQuote(stringCount: CGFloat(self.quoteView.quoteTextView.text?.count ?? 0))
         self.quoteView.quoteTextView.font = self.quoteView.quoteTextView.font?.withSize(fontSize)
-        //quoteView.startAnimating()
-//        quoteView.mainImageView.kf.setImage(with: mainImageURl) { [weak self] _ in
-//            guard let self = self else { return }
-//            self.quoteView.stopAnimating()
-//            self.quoteView.quoteTextView.text = quoteVM.content
-//            self.quoteView.authorLabel.text = quoteVM.authorName
-//        }
         //quoteView.layoutIfNeeded()
     }
 

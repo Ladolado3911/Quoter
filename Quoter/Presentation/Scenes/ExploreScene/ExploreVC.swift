@@ -31,7 +31,6 @@ enum ScrollingDirection {
 
 class ExploreVC: MonitoredVC {
     
-    var quoteControllers: [QuoteVC] = []
     var loadedVMs: [QuoteGardenQuoteVM] = []
     var loadedImageURLs: [URL?] = []
     var loadedImages: [UIImage?] = []
@@ -80,9 +79,7 @@ class ExploreVC: MonitoredVC {
     
     var currentNetworkPage: Int = 0
     var totalNetworkPages: Int = 0
-    
-    //var dismissClosure: (() -> Void)?
-    
+
     lazy var collectionView: UICollectionView = {
         let layout = AnimatedCollectionViewLayout()
         layout.animator = CrossFadeAttributesAnimator()
@@ -130,7 +127,6 @@ class ExploreVC: MonitoredVC {
                             }
                         }
                         if isFirstLaunch {
-                            //self.setUpInitialDataForPageController()
                             self.loadInitialData {
                                 
                             }
@@ -140,9 +136,6 @@ class ExploreVC: MonitoredVC {
                             }
                         }
                         else {
-                            
-                            //self.configPageVC()
-                            //(self.parent as? TabbarController)?.addChildController(controller: self.pageVC)
                         }
                     }
                     else {
@@ -152,7 +145,6 @@ class ExploreVC: MonitoredVC {
                                 lottieView.stopLottieAnimation()
                             }
                         }
-                        //(self.parent as? TabbarController)?.removeChildController(controller: self.pageVC)
                         self.startWifiAnimation()
                     }
                 }
@@ -221,12 +213,7 @@ class ExploreVC: MonitoredVC {
             }
         }
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        //print(loadedImageURLs.count)
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if let lottieView = view as? LottieView {
@@ -286,12 +273,9 @@ class ExploreVC: MonitoredVC {
                 group.notify(queue: .main) {
                     completion()
                 }
-                //self?.loadedImageURLs.append(contentsOf: shuffled)
-                
             case .failure(let error):
                 print(error)
             }
-            //completion()
         }
     }
     
@@ -321,8 +305,6 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         cell?.quoteVM = loadedVMs[indexPath.item]
         cell?.mainImage = loadedImages[indexPath.item]
         cell?.tapOnBookGesture = tapOnBookGesture
-        //cell?.mainImageURL = loadedImageURLs[indexPath.item]
-        //cell.backgroundColor = colors.randomElement()
         return cell!
     }
 
@@ -351,30 +333,17 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 //        currentPage = Int(roundedIndex)
 //    }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //print(collectionView.visibleCells.count)
-    }
-    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
         Sound.windTransition.play(extensionString: .wav)
         //print(loadedVMs.map { $0.content })
         if currentPage == self.loadedVMs.count - 5 {
-//            presentPickModalAlert(title: "Alert", text: "Loading next quotes", mainButtonText: "Ok", mainButtonStyle: .default) {
-//
-//            }
-//            loadData {
-//
-//            }
             capturedCurrentPage = currentPage
             if !isLoadNewDataFunctionRunning {
                 
                 isLoadNewDataFunctionRunning = true
-                loadNewData { [weak self] in
-//                    guard let self = self else { return }
-    //                 this crashes when scrolling too fast
-//                    self.isLoadNewDataFunctionRunning = false
-                    //self.collectionView.isUserInteractionEnabled = true
+                loadNewData {
+                    
                 }
             }
             else {
@@ -382,15 +351,6 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             }
         }
         if currentPage == self.loadedVMs.count - 1 && isLoadNewDataFunctionRunning {
-            //collectionView.isUserInteractionEnabled = false
-            // show loading screen
-//            if let castedView = view as? LottieView {
-//                castedView.createAndStartLottieAnimation(animation: .circleLoading,
-//                                                         animationSpeed: 1,
-//                                                         frame: view.bounds,
-//                                                         loopMode: .loop,
-//                                                         contentMode: .scaleAspectFit)
-//            }
             let loadingAlertVC = LoadingAlertVC()
             loadingAlertVC.modalTransitionStyle = .crossDissolve
             loadingAlertVC.modalPresentationStyle = .custom

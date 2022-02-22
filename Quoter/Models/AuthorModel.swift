@@ -80,23 +80,7 @@ class AuthorCoreVM: Equatable {
     init(rootAuthor: AuthorCore) {
         self.rootAuthor = rootAuthor
     }
-    
-//    var link: String {
-//        rootAuthor.link ?? "No Link"
-//    }
-//
-//    var bio: String {
-//        rootAuthor.bio ?? "No Bio"
-//    }
-//
-//    var description: String {
-//        rootAuthor.description ?? "No Description"
-//    }
-//
-//    var id: String {
-//        rootAuthor._id ?? "No Id"
-//    }
-//
+
     var name: String {
         rootAuthor.name ?? "No Name"
     }
@@ -129,9 +113,5 @@ class AuthorCoreVM: Equatable {
         self.state = .off
         self.isChanging = isChanging
     }
-    
-//    func configImage() {
-//        self.imageContain = image
-//    }
 }
 

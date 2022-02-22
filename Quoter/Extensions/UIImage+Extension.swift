@@ -10,9 +10,6 @@ import UIKit
 extension UIImage {
     
     func resizedImage(targetHeight: CGFloat) -> UIImage {
-        //let targetHeight = CGFloat(28)
-        //button.setImage(newImage, for: .normal)
-
         let size = self.size
 
         // Compute scaled, new size
