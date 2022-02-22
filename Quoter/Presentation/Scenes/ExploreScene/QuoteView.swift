@@ -22,10 +22,14 @@ class QuoteView: LottieView {
         return darkView
     }()
 
-    let quoteViewButton: QuoteViewButton = {
+    let quotesOfAuthorButton: QuoteViewButton = {
         let bookView = QuoteViewButton(title: "Quotes", icon: UIImage(named: "Reading")!)
-        //bookView.contentMode = .scaleAspectFill
         return bookView
+    }()
+    
+    let filtersButton: QuoteViewButton = {
+        let filterView = QuoteViewButton(title: "Filters", icon: UIImage(named: "filter")!)
+        return filterView
     }()
     
     lazy var quoteTextView: UILabel = {
@@ -38,11 +42,7 @@ class QuoteView: LottieView {
         quoteTextView.textColor = .white
         quoteTextView.font = font
         quoteTextView.textAlignment = .center
-        
         quoteTextView.numberOfLines = 15
-//        let fontSize = getFontSizeForQuote(stringCount: CGFloat(quoteTextView.text?.count ?? 0))
-//        quoteTextView.font = quoteTextView.font?.withSize(fontSize)
-        //quoteTextView.numberOfLines = 8
         return quoteTextView
     }()
     
@@ -67,9 +67,6 @@ class QuoteView: LottieView {
         super.layoutSubviews()
         buildSubviews()
         buildConstraints()
-//        quoteTextView.numberOfLines = 15
-//        let fontSize = getFontSizeForQuote(stringCount: CGFloat(quoteTextView.text?.count ?? 0))
-//        quoteTextView.font = quoteTextView.font?.withSize(fontSize)
     }
     
     private func buildSubviews() {
@@ -77,17 +74,10 @@ class QuoteView: LottieView {
         addSubview(darkView)
         addSubview(quoteTextView)
         addSubview(authorLabel)
-        addSubview(quoteViewButton)
+        addSubview(quotesOfAuthorButton)
+        addSubview(filtersButton)
     }
-    
-//    private func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {
-//        let lowerBound: CGFloat = PublicConstants.screenHeight * 0.02159827213822894
-//        let higherBound: CGFloat = PublicConstants.screenHeight * 0.05399568034557235
-//        let boundRange = higherBound - lowerBound
-//        let testResult = lowerBound + ((1 / (stringCount / 35)) * boundRange)
-//        return testResult
-//    }
-    
+
     func startAnimating() {
         darkView.isHidden = true
         createAndStartLottieAnimation(animation: .circleLoading,
@@ -109,11 +99,17 @@ class QuoteView: LottieView {
         darkView.snp.makeConstraints { make in
             make.left.right.top.bottom.equalTo(self)
         }
-        quoteViewButton.snp.makeConstraints { make in
+        quotesOfAuthorButton.snp.makeConstraints { make in
             make.left.equalTo(self).inset(20)
-//            make.height.equalTo(PublicConstants.screenHeight * 0.049295)
-//            make.width.equalTo(PublicConstants.screenWidth * 0.6)
+            make.width.equalTo(PublicConstants.screenHeight * 0.19)
+            make.height.equalTo(PublicConstants.screenHeight * 0.04)
             make.top.equalTo(self).inset(PublicConstants.screenHeight * 0.11267)
+        }
+        filtersButton.snp.makeConstraints { make in
+            make.left.equalTo(self).inset(20)
+            make.width.equalTo(quotesOfAuthorButton)
+            make.height.equalTo(quotesOfAuthorButton)
+            make.top.equalTo(quotesOfAuthorButton.snp.bottom).inset(-10)
         }
         quoteTextView.snp.makeConstraints { make in
             make.left.right.equalTo(self).inset(20)

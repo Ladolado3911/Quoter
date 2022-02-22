@@ -72,7 +72,7 @@ class QuoteCell: UICollectionViewCell {
         guard let tapOnBookGesture = tapOnBookGesture else {
             return
         }
-        quoteView.quoteViewButton.addGestureRecognizer(tapOnBookGesture)
+        quoteView.quotesOfAuthorButton.addGestureRecognizer(tapOnBookGesture)
         self.quoteView.mainImageView.image = mainImage
         self.quoteView.quoteTextView.text = quoteVM.content
         self.quoteView.authorLabel.text = quoteVM.authorName

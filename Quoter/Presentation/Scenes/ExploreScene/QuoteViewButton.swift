@@ -35,7 +35,7 @@ class QuoteViewButton: UIButton {
         super.layoutSubviews()
         
         backgroundColor = .clear
-        sizeToFit()
+        //sizeToFit()
 
         let blurEffect = UIBlurEffect(style: .init(rawValue: 101)!)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -48,7 +48,6 @@ class QuoteViewButton: UIButton {
         addSubview(blurEffectView)
         sendSubviewToBack(blurEffectView)
 
-        //backgroundColor = .black.
         layer.cornerRadius = 10
         layer.borderColor = UIColor.white.cgColor
         layer.borderWidth = 0.7

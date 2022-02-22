@@ -160,10 +160,6 @@ class ExploreVC: MonitoredVC {
                 self?.connectionStatusSubject.send((path.status == .unsatisfied, false))
             }
         }
-        
-//        configPageVC()
-//        setUpInitialDataForPageController()
-        //configPageVC()
     }
     
     private func loadInitialData(completion: @escaping () -> Void) {
@@ -183,9 +179,6 @@ class ExploreVC: MonitoredVC {
                 self.collectionView.insertItems(at: Array(indexPaths[(self.capturedCurrentPage + 4)...self.capturedCurrentPage + 14]))
                 self.collectionView.isUserInteractionEnabled = true
                 self.isLoadNewDataFunctionRunning = false
-//                if let dismissClosure = dismissClosure {
-//
-//                }
                 self.dismiss(animated: false)
             }
         }

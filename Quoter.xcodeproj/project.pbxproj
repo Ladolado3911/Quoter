@@ -11,6 +11,8 @@
 		243B449C27BE29CC00953AD3 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243B449B27BE29CC00953AD3 /* Sound.swift */; };
 		243B449E27BE39EF00953AD3 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 243B449D27BE39EE00953AD3 /* pop.wav */; };
 		2472F69727C4BE1600746242 /* windTransition.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2472F69627C4BE1600746242 /* windTransition.wav */; };
+		2472F69A27C4D30600746242 /* FilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2472F69927C4D30600746242 /* FilterVC.swift */; };
+		2472F69E27C4D98A00746242 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2472F69D27C4D98A00746242 /* TagCell.swift */; };
 		247D1FA827B68F34001CABF9 /* AuthorCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */; };
 		2489797D27B151EA00BD0B2E /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489797C27B151EA00BD0B2E /* ImageManager.swift */; };
 		248FC0D627A9544D00069FFF /* QuotesOfAuthorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FC0D527A9544D00069FFF /* QuotesOfAuthorVC.swift */; };
@@ -91,6 +93,8 @@
 		243B449B27BE29CC00953AD3 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		243B449D27BE39EE00953AD3 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
 		2472F69627C4BE1600746242 /* windTransition.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = windTransition.wav; sourceTree = "<group>"; };
+		2472F69927C4D30600746242 /* FilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterVC.swift; sourceTree = "<group>"; };
+		2472F69D27C4D98A00746242 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCellOverlayView.swift; sourceTree = "<group>"; };
 		2489797C27B151EA00BD0B2E /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		248FC0D527A9544D00069FFF /* QuotesOfAuthorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesOfAuthorVC.swift; sourceTree = "<group>"; };
@@ -190,6 +194,15 @@
 				243B449B27BE29CC00953AD3 /* Sound.swift */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		2472F69827C4D2EA00746242 /* FilterScene */ = {
+			isa = PBXGroup;
+			children = (
+				2472F69D27C4D98A00746242 /* TagCell.swift */,
+				2472F69927C4D30600746242 /* FilterVC.swift */,
+			);
+			path = FilterScene;
 			sourceTree = "<group>";
 		};
 		248FC0D427A9541500069FFF /* QuotesOfAuthorScene */ = {
@@ -331,6 +344,7 @@
 			children = (
 				24A8407827C3BE3300BCF304 /* LoadingAlertScene */,
 				24C12BD227AABB8D0069684D /* ModalAlertScene */,
+				2472F69827C4D2EA00746242 /* FilterScene */,
 				24BEA3DC27985FDA009DB491 /* ExploreScene */,
 				24D1288B27903FF500AD7F3D /* AuthorsScene */,
 				248FC0D427A9541500069FFF /* QuotesOfAuthorScene */,
@@ -546,6 +560,7 @@
 			files = (
 				24EBDBEF27BA2BCE0059654B /* MonitoredVC.swift in Sources */,
 				24C12BD627AABE1E0069684D /* UIView+Extension.swift in Sources */,
+				2472F69A27C4D30600746242 /* FilterVC.swift in Sources */,
 				24DEBF4B27ABB55500C40B29 /* LottieView.swift in Sources */,
 				24F7F05D27BFCA0C001FEA75 /* Array+Extension.swift in Sources */,
 				248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */,
@@ -563,6 +578,7 @@
 				24C9A8E827BD2E25001C820F /* UIImage+Extension.swift in Sources */,
 				24D78DE927B27FB700E6B401 /* ImageEndpoints.swift in Sources */,
 				24CB9FE927930C1700E9D49F /* AuthorModel.swift in Sources */,
+				2472F69E27C4D98A00746242 /* TagCell.swift in Sources */,
 				24C12BCA27AAACCC0069684D /* BookImageView.swift in Sources */,
 				24D1288827903FB100AD7F3D /* AuthorsView.swift in Sources */,
 				24AD7D62279A9DA300BFC1BF /* QuoteModel.swift in Sources */,
