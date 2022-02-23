@@ -26,7 +26,7 @@ class FilterVC: UIViewController {
     }()
 
     lazy var filterView: FilterView = {
-        let filterView = FilterView(frame: view.initialFrame)
+        let filterView = FilterView(frame: view.initialFrame, finalFrame: modalFinalFrame)
         return filterView
     }()
     
@@ -79,7 +79,7 @@ class FilterVC: UIViewController {
     private func buildView() {
         view.addSubview(darkView)
         view.addSubview(filterView)
-        UIView.animate(withDuration: 0.3) { [weak self] in
+        UIView.animate(withDuration: 0.4) { [weak self] in
             guard let self = self else { return }
             self.filterView.frame = self.modalFinalFrame
         } completion: { didFinish in
@@ -87,16 +87,17 @@ class FilterVC: UIViewController {
                 self.filterView.buildView()
             }
         }
-        //print(modalFinalFrame)
     }
     
     @objc func didTapOnBackground(sender: UITapGestureRecognizer) {
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            guard let self = self else { return }
-            self.filterView.frame = self.view.initialFrame
-        } completion: { didFinish in
-            if didFinish {
-                self.dismiss(animated: true)
+        self.filterView.demolishView {
+            UIView.animate(withDuration: 0.4) { [weak self] in
+                guard let self = self else { return }
+                self.filterView.frame = self.view.initialFrame
+            } completion: { didFinish in
+                if didFinish {
+                    self.dismiss(animated: true)
+                }
             }
         }
     }
