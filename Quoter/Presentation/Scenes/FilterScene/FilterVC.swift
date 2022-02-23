@@ -37,7 +37,7 @@ class FilterVC: UIViewController {
     }()
     
     lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
         }
@@ -47,6 +47,7 @@ class FilterVC: UIViewController {
         collectionView.delegate = self
         
         collectionView.backgroundColor = .darkGray
+        collectionView.alpha = 0
         
         collectionView.register(TagCell.self, forCellWithReuseIdentifier: "tagCell")
         return collectionView
@@ -55,8 +56,8 @@ class FilterVC: UIViewController {
     override func loadView() {
         super.loadView()
         Sound.pop.play(extensionString: .wav)
-        //view.backgroundColor = .black.withAlphaComponent(0.618)
         darkView.addGestureRecognizer(tapOnBackgroundGesture)
+        filterView.addSubview(collectionView)
         filterView.collectionView = collectionView
     }
     
@@ -81,6 +82,10 @@ class FilterVC: UIViewController {
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let self = self else { return }
             self.filterView.frame = self.modalFinalFrame
+        } completion: { didFinish in
+            if didFinish {
+                self.filterView.buildView()
+            }
         }
         //print(modalFinalFrame)
     }
