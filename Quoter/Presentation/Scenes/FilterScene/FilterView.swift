@@ -31,7 +31,7 @@ class FilterView: UIView {
             return nil
         }
         let width = parentFinalFrame.width * 0.95
-        let height = parentFinalFrame.height * 0.19523
+        let height = parentFinalFrame.height * 0.10
         let x = parentFinalFrame.width / 2 - (width / 2)
         let y: CGFloat = 15
         let titleFrame = CGRect(x: x, y: y, width: width, height: height)
@@ -82,6 +82,7 @@ class FilterView: UIView {
         filterButton.backgroundColor = .clear
         filterButton.layer.borderColor = UIColor.black.cgColor
         filterButton.setTitleColor(.black, for: .normal)
+        filterButton.setTitleColor(.white, for: .selected)
         filterButton.alpha = 0
         return filterButton
     }()
@@ -91,8 +92,6 @@ class FilterView: UIView {
         backgroundColor = .white
         layer.cornerRadius = 20
         buildSubviews()
-        //buildView()
-        //buildConstraints()
     }
     
     private func buildSubviews() {
@@ -104,14 +103,6 @@ class FilterView: UIView {
         guard let collectionView = collectionView else {
             return
         }
-//        collectionView.frame = .zero
-//        filterButton.frame = .zero
-//        mainTitleLabel.frame = .zero
-//        
-       // print(superview!.initialFrame)
-//        print(initialFrame)
-//        print(bounds.width / 2)
-//        print(bounds.height / 2)
         self.filterButton.alpha = 0
         self.mainTitleLabel.alpha = 0
         collectionView.alpha = 0
@@ -119,9 +110,6 @@ class FilterView: UIView {
 
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let self = self else { return }
-//            collectionView.frame = self.collectionViewFinalFrame!
-//            self.filterButton.frame = self.filterButtonFinalFrame!
-//            self.mainTitleLabel.frame = self.mainTitleFinalFrame!
             self.filterButton.alpha = 1
             self.mainTitleLabel.alpha = 1
             collectionView.alpha = 1
