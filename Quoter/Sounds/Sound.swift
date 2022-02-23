@@ -22,30 +22,11 @@ enum Sound: String, CaseIterable {
     case pageFlip
     case pop
     case windTransition
+    case windTransition2
     
     var player: AVAudioPlayer? {
         Sound.players[self]
     }
-    
-//    func play(extensionString: ExtensionString, url: AVAudioPlayer) {
-//        let url = Bundle.main.path(forResource: self.rawValue, ofType: extensionString.rawValue)
-//        do {
-//            try AVAudioSession.sharedInstance().setMode(.default)
-//            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
-//            guard let url = url else {
-//                return
-//            }
-//            player.url = URL(fileURLWithPath: url)
-//            Sound.players[self] = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: url))
-//            guard let player = Sound.players[self] else {
-//                return
-//            }
-//            player.play()
-//        }
-//        catch {
-//            print(error)
-//        }
-//    }
     
     func play(extensionString: ExtensionString) {
         let url = Bundle.main.path(forResource: self.rawValue, ofType: extensionString.rawValue)

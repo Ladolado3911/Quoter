@@ -19,6 +19,8 @@
 		248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FC0D727A9548D00069FFF /* QuotesOfAuthorView.swift */; };
 		24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24A0D38727A7ED84002286F6 /* CoreDataModel.xcdatamodeld */; };
 		24A0D38B27A7F099002286F6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A0D38A27A7F099002286F6 /* CoreDataManager.swift */; };
+		24A78ABE27C4F6730014A8C8 /* windTransition2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24A78ABD27C4F6730014A8C8 /* windTransition2.mp3 */; };
+		24A78AC027C5152F0014A8C8 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A78ABF27C5152F0014A8C8 /* FilterView.swift */; };
 		24A8407527C3A0F400BCF304 /* AnimatedCollectionViewLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 24A8407427C3A0F400BCF304 /* AnimatedCollectionViewLayout */; };
 		24A8407727C3B92800BCF304 /* LoadingAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8407627C3B92800BCF304 /* LoadingAlertVC.swift */; };
 		24AD7D62279A9DA300BFC1BF /* QuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */; };
@@ -101,6 +103,8 @@
 		248FC0D727A9548D00069FFF /* QuotesOfAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesOfAuthorView.swift; sourceTree = "<group>"; };
 		24A0D38827A7ED84002286F6 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		24A0D38A27A7F099002286F6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		24A78ABD27C4F6730014A8C8 /* windTransition2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = windTransition2.mp3; sourceTree = "<group>"; };
+		24A78ABF27C5152F0014A8C8 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		24A8407627C3B92800BCF304 /* LoadingAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAlertVC.swift; sourceTree = "<group>"; };
 		24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteModel.swift; sourceTree = "<group>"; };
 		24BEA3DD27985FEE009DB491 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 				2472F69627C4BE1600746242 /* windTransition.wav */,
 				243B449927BE29A800953AD3 /* pageFlip.mp3 */,
 				243B449D27BE39EE00953AD3 /* pop.wav */,
+				24A78ABD27C4F6730014A8C8 /* windTransition2.mp3 */,
 				243B449B27BE29CC00953AD3 /* Sound.swift */,
 			);
 			path = Sounds;
@@ -201,6 +206,7 @@
 			children = (
 				2472F69D27C4D98A00746242 /* TagCell.swift */,
 				2472F69927C4D30600746242 /* FilterVC.swift */,
+				24A78ABF27C5152F0014A8C8 /* FilterView.swift */,
 			);
 			path = FilterScene;
 			sourceTree = "<group>";
@@ -522,6 +528,7 @@
 			files = (
 				243B449A27BE29A800953AD3 /* pageFlip.mp3 in Resources */,
 				24F51F0C279E85ED003057F7 /* OFL.txt in Resources */,
+				24A78ABE27C4F6730014A8C8 /* windTransition2.mp3 in Resources */,
 				24F51F09279E85ED003057F7 /* Kalam-Regular.ttf in Resources */,
 				24D1287F27903ECE00AD7F3D /* LaunchScreen.storyboard in Resources */,
 				24F7F05927BFC6E5001FEA75 /* music1.mp3 in Resources */,
@@ -586,6 +593,7 @@
 				24C12BD127AABB800069684D /* ModalAlertVC.swift in Sources */,
 				2489797D27B151EA00BD0B2E /* ImageManager.swift in Sources */,
 				24C12BD427AABC8F0069684D /* ModalView.swift in Sources */,
+				24A78AC027C5152F0014A8C8 /* FilterView.swift in Sources */,
 				24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */,
 				24C12BCE27AAB0230069684D /* ModalAlertView.swift in Sources */,
 				24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */,

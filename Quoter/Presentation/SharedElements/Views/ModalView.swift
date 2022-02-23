@@ -9,12 +9,21 @@ import UIKit
 
 class ModalView: LottieView {
     
-    lazy var finalAnimationRect: CGRect = {
+    lazy var modalAlertAnimationFinalRect: CGRect = {
         let width = bounds.width * 0.674311
         let height = bounds.height * 0.428571
         let x = bounds.width / 2 - (width / 2)
         let y = bounds.height / 2 - (height / 2)
         let animationFrame = CGRect(x: x, y: y, width: width, height: height)
+        return animationFrame
+    }()
+    
+    lazy var loadingAlertAnimationRect: CGRect = {
+        let size = bounds.width * 0.9
+        //let height = bounds.height * 0.428571
+        let x = bounds.width / 2 - (size / 2)
+        let y: CGFloat = 30
+        let animationFrame = CGRect(x: x, y: y, width: size, height: size)
         return animationFrame
     }()
 
@@ -36,7 +45,7 @@ class ModalView: LottieView {
         let width = bounds.width * 0.95
         let height = bounds.height * 0.1
         let x = bounds.width / 2 - (width / 2)
-        let y = finalAnimationRect.maxY + 15
+        let y = modalAlertAnimationFinalRect.maxY + 15
         let loadingFrame = CGRect(x: x, y: y, width: width, height: height)
         let loadingLabel = UILabel(frame: loadingFrame)
         loadingLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 15)
@@ -58,7 +67,7 @@ class ModalView: LottieView {
         addSubview(loadingLabel)
         createAndStartLottieAnimation(animation: .cubeLoading,
                                       animationSpeed: 0.7,
-                                      frame: finalAnimationRect,
+                                      frame: modalAlertAnimationFinalRect,
                                       loopMode: .loop,
                                       contentMode: .scaleAspectFill)
     }
@@ -67,7 +76,7 @@ class ModalView: LottieView {
         addSubview(loadingLabel)
         createAndStartLottieAnimation(animation: .cubeLoading,
                                       animationSpeed: 0.7,
-                                      frame: finalAnimationRect,
+                                      frame: loadingAlertAnimationRect,
                                       loopMode: .loop,
                                       contentMode: .scaleAspectFill)
     }

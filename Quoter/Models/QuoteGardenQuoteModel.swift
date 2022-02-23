@@ -20,13 +20,13 @@ struct Pagination: Codable {
     var totalPages: Int?
 }
 
-struct QuoteGardenQuoteModel: Codable {
+struct QuoteGardenQuoteModel: Codable, Hashable {
     var quoteText: String?
     var quoteAuthor: String?
 }
 
 struct QuoteGardenQuoteVM {
-    
+
     let rootModel: QuoteGardenQuoteModel
     
     var content: String {

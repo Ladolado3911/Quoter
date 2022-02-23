@@ -58,6 +58,12 @@ class ExploreVC: MonitoredVC {
                                                   action: #selector(didTapOnBook(sender:)))
         return tapOnGesture
     }
+    
+    var tapOnFilterGesture: UITapGestureRecognizer {
+        let tapOnGesture = UITapGestureRecognizer(target: self,
+                                                  action: #selector(didTapOnFilter(sender:)))
+        return tapOnGesture
+    }
 
     var currentPage: Int = 0 {
         didSet {
@@ -286,6 +292,13 @@ class ExploreVC: MonitoredVC {
         modalAlertVC.quoteVM = quoteVM
         present(modalAlertVC, animated: false)
     }
+    
+    @objc func didTapOnFilter(sender: UITapGestureRecognizer) {
+        let filterVC = FilterVC()
+        filterVC.modalTransitionStyle = .crossDissolve
+        filterVC.modalPresentationStyle = .custom
+        present(filterVC, animated: true)
+    }
 }
 
 extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -298,6 +311,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         cell?.quoteVM = loadedVMs[indexPath.item]
         cell?.mainImage = loadedImages[indexPath.item]
         cell?.tapOnBookGesture = tapOnBookGesture
+        cell?.tapOnFilterGesture = tapOnFilterGesture
         return cell!
     }
 
@@ -326,14 +340,15 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 //        currentPage = Int(roundedIndex)
 //    }
     
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        Sound.windTransition2.play(extensionString: .mp3)
+    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        Sound.windTransition.play(extensionString: .wav)
-        //print(loadedVMs.map { $0.content })
         if currentPage == self.loadedVMs.count - 5 {
             capturedCurrentPage = currentPage
             if !isLoadNewDataFunctionRunning {
-                
                 isLoadNewDataFunctionRunning = true
                 loadNewData {
                     

@@ -117,8 +117,10 @@ class QuoteGardenManager: NetworkManager {
             switch result {
             case .success(let gardenResponse):
                 if let data = gardenResponse.data {
-                    let converted = data.map { QuoteGardenQuoteVM(rootModel: $0) }
-                    let shuffled = converted.shuffled()
+                    let unified = Array(Set(data))
+                    let converted = unified.map { QuoteGardenQuoteVM(rootModel: $0) }
+                    let filtered = converted.filter { $0.authorName == authorName }
+                    let shuffled = filtered.shuffled()
                     completion(.success(shuffled))
                 }
                 else {
