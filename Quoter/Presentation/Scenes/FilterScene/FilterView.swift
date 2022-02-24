@@ -7,10 +7,11 @@
 
 import UIKit
 import SnapKit
+import TTGTags
 
 class FilterView: UIView {
     
-    var collectionView: UICollectionView?
+    var collectionView: TTGTextTagCollectionView?
     var parentFinalFrame: CGRect?
     
     override init(frame: CGRect) {
