@@ -118,9 +118,11 @@ class FilterVC: UIViewController {
                 guard let self = self else { return }
                 if self.collectionView.allSelectedTags().count >= 1 {
                     self.filterView.filterButton.isEnabled = true
+                    self.filterView.deselectButton.isHidden = false
                 }
                 else {
                     self.filterView.filterButton.isEnabled = false
+                    self.filterView.deselectButton.isHidden = true
                 }
             }
             .store(in: &cancellables)
@@ -192,6 +194,9 @@ class FilterVC: UIViewController {
                 self.filterView.filterButton.addTarget(self,
                                                        action: #selector(self.didTapOnFilter(sender:)),
                                                        for: .touchUpInside)
+                self.filterView.deselectButton.addTarget(self,
+                                                         action: #selector(self.didTapOnDeselect(sender:)),
+                                                         for: .touchUpInside)
             }
         }
     }
@@ -219,12 +224,20 @@ class FilterVC: UIViewController {
         }
     }
     
-    @objc func didTapOnBackground(sender: UITapGestureRecognizer) {
+    @objc func didTapOnBackground(sender: UIButton) {
         demolish()
     }
     
-    @objc func didTapOnFilter(sender: UITapGestureRecognizer) {
+    @objc func didTapOnFilter(sender: UIButton) {
         demolish()
+    }
+    
+    @objc func didTapOnDeselect(sender: UIButton) {
+        collectionView.allSelectedTags().forEach { tag in
+            tag.selected = false
+        }
+        collectionView.reload()
+        selectedCountSubject.send {}
     }
 }
 
@@ -234,8 +247,5 @@ extension FilterVC: TTGTextTagCollectionViewDelegate, UIScrollViewDelegate {
     
     func textTagCollectionView(_ textTagCollectionView: TTGTextTagCollectionView!, didTap tag: TTGTextTag!, at index: UInt) {
         selectedCountSubject.send {}
-        print("select")
-        print(collectionView.allSelectedTags().count)
     }
-    
 }

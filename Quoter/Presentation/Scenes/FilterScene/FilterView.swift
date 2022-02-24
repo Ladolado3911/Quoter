@@ -44,7 +44,7 @@ class FilterView: UIView {
         guard let parentFinalFrame = parentFinalFrame else {
             return nil
         }
-        let width = parentFinalFrame.width * 0.95
+        let width = parentFinalFrame.width * 0.6
         let height = parentFinalFrame.height * 0.10
         let x = parentFinalFrame.width / 2 - (width / 2)
         let y: CGFloat = 15
@@ -56,9 +56,9 @@ class FilterView: UIView {
         guard let parentFinalFrame = parentFinalFrame else {
             return nil
         }
-        let width = mainTitleFinalFrame!.width
+        let width = mainTitleFinalFrame!.width * 1.2
         let height = mainTitleFinalFrame!.height
-        let x = mainTitleFinalFrame!.minX
+        let x = bounds.width / 2 - (width / 2)
         let y = bounds.height - height - 20
         let frame = CGRect(x: x, y: y, width: width, height: height)
         return frame
@@ -68,12 +68,36 @@ class FilterView: UIView {
         guard let parentFinalFrame = parentFinalFrame else {
             return nil
         }
-        let width = mainTitleFinalFrame!.width
+        let width = mainTitleFinalFrame!.width * 1.5
         let height = (bounds.height - (mainTitleFinalFrame!.height + filterButtonFinalFrame!.height)) * 0.8
-        let x = mainTitleFinalFrame!.minX
+        let x = bounds.width / 2 - (width / 2)
         let y = mainTitleFinalFrame!.maxY + 20
         let frame = CGRect(x: x, y: y, width: width, height: height)
         return frame
+    }()
+    
+    lazy var deselectButtonFinalFrame: CGRect? = {
+        guard let parentFinalFrame = parentFinalFrame else {
+            return nil
+        }
+        let width = mainTitleFinalFrame!.width / 3
+        let height = mainTitleLabel.bounds.height
+        let x: CGFloat = 5
+        let y = mainTitleLabel.frame.minY
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        return frame
+    }()
+    
+    lazy var deselectButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.frame = deselectButtonFinalFrame!
+        button.isHidden = true
+        button.setImage(UIImage(named: "uncheck")?.resizedImage(targetHeight: 35), for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.alpha = 0
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textAlignment = .center
+        return button
     }()
     
     lazy var mainTitleLabel: UILabel = {
@@ -113,6 +137,7 @@ class FilterView: UIView {
     private func buildSubviews() {
         addSubview(mainTitleLabel)
         addSubview(filterButton)
+        addSubview(deselectButton)
     }
     
     func buildView() {
@@ -121,6 +146,7 @@ class FilterView: UIView {
         }
         self.filterButton.alpha = 0
         self.mainTitleLabel.alpha = 0
+        self.deselectButton.alpha = 0
         collectionView.alpha = 0
         collectionView.frame = collectionViewFinalFrame!
 
@@ -128,6 +154,7 @@ class FilterView: UIView {
             guard let self = self else { return }
             self.filterButton.alpha = 1
             self.mainTitleLabel.alpha = 1
+            self.deselectButton.alpha = 1
             collectionView.alpha = 1
         }
     }
