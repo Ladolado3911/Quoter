@@ -44,8 +44,9 @@ class FilterVC: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.alignment = .center
-        collectionView.verticalSpacing = 10
-        collectionView.horizontalSpacing = 15
+        collectionView.verticalSpacing = 30
+        collectionView.horizontalSpacing = 30
+        collectionView.enableTagSelection = true
         
         collectionView.alpha = 0
         
@@ -84,12 +85,25 @@ class FilterVC: UIViewController {
                 let convertedToTags = filterObjects.map { $0.genre }
                 var resultArr: [TTGTextTag] = []
                 for tag in convertedToTags {
+                    
                     let content = TTGTextTagStringContent(text: tag)
+                    content.textColor = .black
                     let style = TTGTextTagStyle()
+                    style.backgroundColor = .white
                     style.textAlignment = .center
-                    style.extraSpace = CGSize(width: 15, height: 15)
-                    let textTag = TTGTextTag(content: content, style: style)
-                    resultArr.append(textTag)
+                    style.extraSpace = CGSize(width: 10, height: 10)
+                    
+                    let selectedContent = TTGTextTagStringContent(text: tag)
+                    selectedContent.textColor = .white
+                    let selectedStyle = TTGTextTagStyle()
+                    selectedStyle.backgroundColor = .black
+                    selectedStyle.textAlignment = .center
+                    selectedStyle.extraSpace = CGSize(width: 10, height: 10)
+                    
+                    //let textTag = TTGTextTag(content: content, style: style)
+                    let selectedTextTag = TTGTextTag(content: content, style: style, selectedContent: selectedContent, selectedStyle: selectedStyle)
+                    
+                    resultArr.append(selectedTextTag)
                 }
                 self.collectionView.add(resultArr)
                 self.collectionView.reload()
