@@ -13,6 +13,8 @@ class FilterVC: UIViewController {
     
     private var cancellables: Set<AnyCancellable> = []
     let selectedCountSubject = PassthroughSubject<(() -> Void), Never>()
+    
+    var selectedTagStrings: [String] = []
 
 //    lazy var gradientView1: UIView = {
 //
@@ -213,6 +215,7 @@ class FilterVC: UIViewController {
                         self.filterView.filterButton.alpha = 0
                         self.filterView.mainTitleLabel.alpha = 0
                         self.filterView.collectionView?.alpha = 0
+                        self.filterView.deselectButton.alpha = 0
                     } completion: { didFinish in
                         if didFinish {
                             self.dismiss(animated: true)
@@ -238,6 +241,7 @@ class FilterVC: UIViewController {
         }
         collectionView.reload()
         selectedCountSubject.send {}
+        selectedTagStrings.removeAll()
     }
 }
 
@@ -247,5 +251,12 @@ extension FilterVC: TTGTextTagCollectionViewDelegate, UIScrollViewDelegate {
     
     func textTagCollectionView(_ textTagCollectionView: TTGTextTagCollectionView!, didTap tag: TTGTextTag!, at index: UInt) {
         selectedCountSubject.send {}
+        if tag.selected {
+            selectedTagStrings.append(tag.content.getAttributedString().string)
+        }
+        else {
+            selectedTagStrings.removeAll { $0 == tag.content.getAttributedString().string }
+        }
+        print(selectedTagStrings)
     }
 }
