@@ -7,11 +7,53 @@
 
 import UIKit
 import TTGTags
+import GradientView
 
 class FilterVC: UIViewController {
     
     var tags: [String] = []
     var tagLabels: [UILabel] = []
+    
+    lazy var gradientView1: UIView = {
+        
+        let width = collectionView.bounds.width
+        let height = collectionView.bounds.height * 0.05
+        let x: CGFloat = 0
+        let y: CGFloat = 0
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        
+        let gradient = CAGradientLayer()
+        gradient.colors = [UIColor.gray.cgColor]
+        gradient.startPoint = CGPoint(x: 0.5, y: 0)
+        gradient.endPoint = CGPoint(x: 0.5, y: 1)
+        //gradient.loca
+        
+       
+        let gradientView = UIView(frame: frame)
+        gradientView.layer.addSublayer(gradient)
+        //gradientView.backgroundColor = .clear
+        
+        //gradientView.locations = [0.8, 1]
+        return gradientView
+        
+    }()
+    
+    lazy var gradientView2: GradientView = {
+        
+        let width = collectionView.bounds.width
+        let height = collectionView.bounds.height * 0.05
+        let x: CGFloat = 0
+        let y = collectionView.bounds.height * 0.9
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+       
+        let gradientView = GradientView(frame: frame)
+        //gradientView.backgroundColor = .clear
+        gradientView.direction = .vertical
+        gradientView.colors = [.gray]
+        //gradientView.locations = [0.8, 1]
+        return gradientView
+        
+    }()
     
     lazy var tapOnBackgroundGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self,
@@ -105,6 +147,7 @@ class FilterVC: UIViewController {
                     
                     resultArr.append(selectedTextTag)
                 }
+                self.collectionView.selectionLimit = UInt(convertedToTags.count - 1)
                 self.collectionView.add(resultArr)
                 self.collectionView.reload()
             case .failure(let error):
@@ -126,6 +169,10 @@ class FilterVC: UIViewController {
         } completion: { didFinish in
             if didFinish {
                 self.filterView.buildView()
+                self.collectionView.addSubview(self.gradientView1)
+                self.collectionView.addSubview(self.gradientView2)
+                self.collectionView.bringSubviewToFront(self.gradientView1)
+                self.collectionView.bringSubviewToFront(self.gradientView2)
             }
         }
     }
