@@ -15,6 +15,8 @@ class FilterVC: UIViewController {
     let selectedCountSubject = PassthroughSubject<(() -> Void), Never>()
     
     var selectedTagStrings: [String] = []
+    
+    var dismissClosure: (([String]) -> Void)?
 
 //    lazy var gradientView1: UIView = {
 //
@@ -140,6 +142,17 @@ class FilterVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         populateTags()
+        //setSelected()
+    }
+    
+    private func setSelected() {
+        for tag in collectionView.allTags() {
+            if selectedTagStrings.contains(tag.content.getAttributedString().string) {
+                tag.selected = true
+            }
+        }
+        selectedCountSubject.send {}
+        collectionView.reload()
     }
     
     private func populateTags() {
@@ -172,7 +185,8 @@ class FilterVC: UIViewController {
                 }
                 self.collectionView.selectionLimit = UInt(convertedToTags.count - 1)
                 self.collectionView.add(resultArr)
-                self.collectionView.reload()
+                self.setSelected()
+                //self.collectionView.reload()
             case .failure(let error):
                 print(error)
             }
@@ -203,7 +217,7 @@ class FilterVC: UIViewController {
         }
     }
     
-    private func demolish() {
+    private func demolish(completion: @escaping () -> Void) {
         self.filterView.demolishView {
             UIView.animate(withDuration: 0.4) { [weak self] in
                 guard let self = self else { return }
@@ -218,21 +232,29 @@ class FilterVC: UIViewController {
                         self.filterView.deselectButton.alpha = 0
                     } completion: { didFinish in
                         if didFinish {
-                            self.dismiss(animated: true)
+                            completion()
+//                            self.dismiss(animated: true)
                         }
                     }
-
                 }
             }
         }
     }
     
     @objc func didTapOnBackground(sender: UIButton) {
-        demolish()
+        demolish { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
     }
     
     @objc func didTapOnFilter(sender: UIButton) {
-        demolish()
+        demolish { [weak self] in
+            guard let self = self else { return }
+            if let dismissClosure = self.dismissClosure {
+                dismissClosure(self.selectedTagStrings)
+            }
+        }
     }
     
     @objc func didTapOnDeselect(sender: UIButton) {
@@ -257,6 +279,5 @@ extension FilterVC: TTGTextTagCollectionViewDelegate, UIScrollViewDelegate {
         else {
             selectedTagStrings.removeAll { $0 == tag.content.getAttributedString().string }
         }
-        print(selectedTagStrings)
     }
 }

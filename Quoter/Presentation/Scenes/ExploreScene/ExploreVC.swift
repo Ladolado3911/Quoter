@@ -35,6 +35,8 @@ class ExploreVC: MonitoredVC {
     var loadedImageURLs: [URL?] = []
     var loadedImages: [UIImage?] = []
     
+    var selectedFilters: [String] = []
+    
     var scrollingDirection: ScrollingDirection = .right
     
     var isLoadNewDataFunctionRunning: Bool = false
@@ -168,6 +170,18 @@ class ExploreVC: MonitoredVC {
         }
     }
     
+    private func resetInitialData() {
+        loadedVMs = []
+        loadedImages = []
+        collectionView.reloadData()
+        loadImages { [weak self] in
+            guard let self = self else { return }
+            self.load10RandomQuotes {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
     private func loadInitialData(completion: @escaping () -> Void) {
         loadImages { [weak self] in
             guard let self = self else { return }
@@ -194,7 +208,7 @@ class ExploreVC: MonitoredVC {
         let group = DispatchGroup()
         for _ in 0..<10 {
             group.enter()
-            loadRandomQuote(genre: currentGenre) {
+            loadRandomQuote(genre: selectedFilters.randomElement() ?? "") {
                 group.leave()
             }
         }
@@ -211,6 +225,10 @@ class ExploreVC: MonitoredVC {
                 connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
             }
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -297,6 +315,18 @@ class ExploreVC: MonitoredVC {
         let filterVC = FilterVC()
         filterVC.modalTransitionStyle = .crossDissolve
         filterVC.modalPresentationStyle = .custom
+        filterVC.selectedTagStrings = selectedFilters
+        filterVC.dismissClosure = { [weak self] selectedFilters in
+            guard let self = self else { return }
+            self.selectedFilters = selectedFilters
+            self.resetInitialData()
+            // load new content
+//            self.loadInitialData {
+//
+//            }
+            
+            self.dismiss(animated: true)
+        }
         present(filterVC, animated: true)
     }
 }

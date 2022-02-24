@@ -95,8 +95,6 @@ class FilterView: UIView {
         button.setImage(UIImage(named: "uncheck")?.resizedImage(targetHeight: 35), for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.alpha = 0
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textAlignment = .center
         return button
     }()
     
@@ -167,6 +165,7 @@ class FilterView: UIView {
             guard let self = self else { return }
             self.filterButton.alpha = 0
             self.mainTitleLabel.alpha = 0
+            self.deselectButton.alpha = 0
             collectionView.alpha = 0
         } completion: { didFinish in
             if didFinish {
