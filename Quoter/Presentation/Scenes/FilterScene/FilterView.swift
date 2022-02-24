@@ -9,6 +9,19 @@ import UIKit
 import SnapKit
 import TTGTags
 
+class FilterButton: UIButton {
+    override var isEnabled: Bool {
+        didSet {
+            if isEnabled {
+                backgroundColor = .black
+            }
+            else {
+                backgroundColor = .white
+            }
+        }
+    }
+}
+
 class FilterView: UIView {
     
     var collectionView: TTGTextTagCollectionView?
@@ -74,16 +87,18 @@ class FilterView: UIView {
         return mainTitleLabel
     }()
     
-    lazy var filterButton: UIButton = {
-        let filterButton = UIButton(type: .custom)
+    lazy var filterButton: FilterButton = {
+        let filterButton = FilterButton(type: .custom)
         filterButton.frame = filterButtonFinalFrame!
         filterButton.setTitle("Filter", for: .normal)
         filterButton.layer.borderWidth = 1
         filterButton.layer.cornerRadius = 20
         filterButton.backgroundColor = .clear
         filterButton.layer.borderColor = UIColor.black.cgColor
-        filterButton.setTitleColor(.black, for: .normal)
-        filterButton.setTitleColor(.white, for: .selected)
+        filterButton.setTitleColor(.white, for: .normal)
+        //filterButton.view
+        filterButton.setTitleColor(.black, for: .disabled)
+        filterButton.isEnabled = false
         filterButton.alpha = 0
         return filterButton
     }()

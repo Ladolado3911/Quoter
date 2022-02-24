@@ -7,53 +7,53 @@
 
 import UIKit
 import TTGTags
-import GradientView
+import Combine
 
 class FilterVC: UIViewController {
     
-    var tags: [String] = []
-    var tagLabels: [UILabel] = []
-    
-    lazy var gradientView1: UIView = {
-        
-        let width = collectionView.bounds.width
-        let height = collectionView.bounds.height * 0.05
-        let x: CGFloat = 0
-        let y: CGFloat = 0
-        let frame = CGRect(x: x, y: y, width: width, height: height)
-        
-        let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.gray.cgColor]
-        gradient.startPoint = CGPoint(x: 0.5, y: 0)
-        gradient.endPoint = CGPoint(x: 0.5, y: 1)
-        //gradient.loca
-        
-       
-        let gradientView = UIView(frame: frame)
-        gradientView.layer.addSublayer(gradient)
-        //gradientView.backgroundColor = .clear
-        
-        //gradientView.locations = [0.8, 1]
-        return gradientView
-        
-    }()
-    
-    lazy var gradientView2: GradientView = {
-        
-        let width = collectionView.bounds.width
-        let height = collectionView.bounds.height * 0.05
-        let x: CGFloat = 0
-        let y = collectionView.bounds.height * 0.9
-        let frame = CGRect(x: x, y: y, width: width, height: height)
-       
-        let gradientView = GradientView(frame: frame)
-        //gradientView.backgroundColor = .clear
-        gradientView.direction = .vertical
-        gradientView.colors = [.gray]
-        //gradientView.locations = [0.8, 1]
-        return gradientView
-        
-    }()
+    private var cancellables: Set<AnyCancellable> = []
+    let selectedCountSubject = PassthroughSubject<(() -> Void), Never>()
+
+//    lazy var gradientView1: UIView = {
+//
+//        let width = collectionView.bounds.width
+//        let height = collectionView.bounds.height * 0.05
+//        let x: CGFloat = 0
+//        let y: CGFloat = 0
+//        let frame = CGRect(x: x, y: y, width: width, height: height)
+//
+//        let gradientView = UIView(frame: frame)
+//        let gradient = CAGradientLayer()
+//        gradient.frame = frame
+//        gradient.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
+//        gradient.startPoint = CGPoint(x: 0.5, y: 1)
+//        gradient.endPoint = CGPoint(x: 0.5, y: 0)
+//        //gradient.locations = [0.8, 1]
+//
+//
+//        gradientView.layer.addSublayer(gradient)
+//        //gradientView.backgroundColor = .clear
+//
+//        return gradientView
+//
+//    }()
+//
+//    lazy var gradientView2: GradientView = {
+//
+//        let width = collectionView.bounds.width
+//        let height = collectionView.bounds.height * 0.05
+//        let x: CGFloat = 0
+//        let y = collectionView.bounds.height * 0.9
+//        let frame = CGRect(x: x, y: y, width: width, height: height)
+//
+//        let gradientView = GradientView(frame: frame)
+//        //gradientView.backgroundColor = .clear
+//        gradientView.direction = .vertical
+//        gradientView.colors = [.gray]
+//        //gradientView.locations = [0.8, 1]
+//        return gradientView
+//
+//    }()
     
     lazy var tapOnBackgroundGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self,
@@ -107,11 +107,30 @@ class FilterVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //buildView()
+        collectionView.scrollView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         buildView()
+        selectedCountSubject
+            .sink { [weak self] closure in
+                guard let self = self else { return }
+                if self.collectionView.allSelectedTags().count >= 1 {
+                    self.filterView.filterButton.isEnabled = true
+                }
+                else {
+                    self.filterView.filterButton.isEnabled = false
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        cancellables.forEach { cancellable in
+            cancellable.cancel()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -124,7 +143,7 @@ class FilterVC: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let filterObjects):
-                let convertedToTags = filterObjects.map { $0.genre }
+                let convertedToTags = filterObjects.map { $0.genre.capitalized }
                 var resultArr: [TTGTextTag] = []
                 for tag in convertedToTags {
                     
@@ -155,42 +174,68 @@ class FilterVC: UIViewController {
             }
         }
     }
-    
-    private func addTargets() {
-        
-    }
-    
+
     private func buildView() {
         view.addSubview(darkView)
         view.addSubview(filterView)
         UIView.animate(withDuration: 0.4) { [weak self] in
             guard let self = self else { return }
             self.filterView.frame = self.modalFinalFrame
-        } completion: { didFinish in
+        } completion: { [weak self] didFinish in
+            guard let self = self else { return }
             if didFinish {
                 self.filterView.buildView()
-                self.collectionView.addSubview(self.gradientView1)
-                self.collectionView.addSubview(self.gradientView2)
-                self.collectionView.bringSubviewToFront(self.gradientView1)
-                self.collectionView.bringSubviewToFront(self.gradientView2)
+//                self.collectionView.addSubview(self.gradientView1)
+//                self.collectionView.addSubview(self.gradientView2)
+//                self.collectionView.bringSubviewToFront(self.gradientView1)
+//                self.collectionView.bringSubviewToFront(self.gradientView2)
+                self.filterView.filterButton.addTarget(self,
+                                                       action: #selector(self.didTapOnFilter(sender:)),
+                                                       for: .touchUpInside)
+            }
+        }
+    }
+    
+    private func demolish() {
+        self.filterView.demolishView {
+            UIView.animate(withDuration: 0.4) { [weak self] in
+                guard let self = self else { return }
+                self.filterView.frame = self.view.initialFrame
+            } completion: { [weak self] didFinish in
+                guard let self = self else { return }
+                if didFinish {
+                    UIView.animate(withDuration: 0.3) {
+                        self.filterView.filterButton.alpha = 0
+                        self.filterView.mainTitleLabel.alpha = 0
+                        self.filterView.collectionView?.alpha = 0
+                    } completion: { didFinish in
+                        if didFinish {
+                            self.dismiss(animated: true)
+                        }
+                    }
+
+                }
             }
         }
     }
     
     @objc func didTapOnBackground(sender: UITapGestureRecognizer) {
-        self.filterView.demolishView {
-            UIView.animate(withDuration: 0.4) { [weak self] in
-                guard let self = self else { return }
-                self.filterView.frame = self.view.initialFrame
-            } completion: { didFinish in
-                if didFinish {
-                    self.dismiss(animated: true)
-                }
-            }
-        }
+        demolish()
+    }
+    
+    @objc func didTapOnFilter(sender: UITapGestureRecognizer) {
+        demolish()
     }
 }
 
-extension FilterVC: TTGTextTagCollectionViewDelegate {
+extension FilterVC: TTGTextTagCollectionViewDelegate, UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    }
+    
+    func textTagCollectionView(_ textTagCollectionView: TTGTextTagCollectionView!, didTap tag: TTGTextTag!, at index: UInt) {
+        selectedCountSubject.send {}
+        print("select")
+        print(collectionView.allSelectedTags().count)
+    }
     
 }

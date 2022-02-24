@@ -18,7 +18,6 @@
 		248FC0D627A9544D00069FFF /* QuotesOfAuthorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FC0D527A9544D00069FFF /* QuotesOfAuthorVC.swift */; };
 		248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FC0D727A9548D00069FFF /* QuotesOfAuthorView.swift */; };
 		249EDC1827C770A6005F7A9B /* TTGTags in Frameworks */ = {isa = PBXBuildFile; productRef = 249EDC1727C770A6005F7A9B /* TTGTags */; };
-		249EDC1B27C779ED005F7A9B /* GradientView in Frameworks */ = {isa = PBXBuildFile; productRef = 249EDC1A27C779ED005F7A9B /* GradientView */; };
 		24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24A0D38727A7ED84002286F6 /* CoreDataModel.xcdatamodeld */; };
 		24A0D38B27A7F099002286F6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A0D38A27A7F099002286F6 /* CoreDataManager.swift */; };
 		24A78ABE27C4F6730014A8C8 /* windTransition2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24A78ABD27C4F6730014A8C8 /* windTransition2.mp3 */; };
@@ -184,7 +183,6 @@
 				24D1289C2790887A00AD7F3D /* SnapKit in Frameworks */,
 				24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */,
 				249EDC1827C770A6005F7A9B /* TTGTags in Frameworks */,
-				249EDC1B27C779ED005F7A9B /* GradientView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,7 +480,6 @@
 				24DEBF4527ABB1D400C40B29 /* Lottie */,
 				24A8407427C3A0F400BCF304 /* AnimatedCollectionViewLayout */,
 				249EDC1727C770A6005F7A9B /* TTGTags */,
-				249EDC1A27C779ED005F7A9B /* GradientView */,
 			);
 			productName = Quoter;
 			productReference = 24D1286F27903ECD00AD7F3D /* Quoter.app */;
@@ -518,7 +515,6 @@
 				24DEBF4427ABB1D400C40B29 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				24A8407327C3A0F400BCF304 /* XCRemoteSwiftPackageReference "AnimatedCollectionViewLayout" */,
 				249EDC1627C770A6005F7A9B /* XCRemoteSwiftPackageReference "TTGTagCollectionView" */,
-				249EDC1927C779ED005F7A9B /* XCRemoteSwiftPackageReference "GradientView" */,
 			);
 			productRefGroup = 24D1287027903ECD00AD7F3D /* Products */;
 			projectDirPath = "";
@@ -840,14 +836,6 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		249EDC1927C779ED005F7A9B /* XCRemoteSwiftPackageReference "GradientView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/soffes/GradientView";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		24A8407327C3A0F400BCF304 /* XCRemoteSwiftPackageReference "AnimatedCollectionViewLayout" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/KelvinJin/AnimatedCollectionViewLayout";
@@ -887,11 +875,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 249EDC1627C770A6005F7A9B /* XCRemoteSwiftPackageReference "TTGTagCollectionView" */;
 			productName = TTGTags;
-		};
-		249EDC1A27C779ED005F7A9B /* GradientView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 249EDC1927C779ED005F7A9B /* XCRemoteSwiftPackageReference "GradientView" */;
-			productName = GradientView;
 		};
 		24A8407427C3A0F400BCF304 /* AnimatedCollectionViewLayout */ = {
 			isa = XCSwiftPackageProductDependency;

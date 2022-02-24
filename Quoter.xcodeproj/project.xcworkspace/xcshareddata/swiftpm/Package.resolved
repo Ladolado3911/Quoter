@@ -11,15 +11,6 @@
         }
       },
       {
-        "package": "GradientView",
-        "repositoryURL": "https://github.com/soffes/GradientView",
-        "state": {
-          "branch": "master",
-          "revision": "2ba23c51b7a4d55ee732379eb0eb35987a773185",
-          "version": null
-        }
-      },
-      {
         "package": "Kingfisher",
         "repositoryURL": "https://github.com/onevcat/Kingfisher",
         "state": {
