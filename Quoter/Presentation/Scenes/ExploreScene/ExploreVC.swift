@@ -15,20 +15,6 @@ enum ScrollingDirection {
     case right
 }
 
-//struct TagImageURLs {
-//    static var wisdom: [URL] = []
-//    static var friendship: [URL] = []
-//    static var inspirational: [URL] = []
-//    static var famousQuotes: [URL] = []
-//}
-
-//enum Tag: String {
-//    case wisdom
-//    case friendship
-//    case inspirational
-//    case famousQuotes = "famous-quotes"
-//}
-
 class ExploreVC: MonitoredVC {
     
     var loadedVMs: [QuoteGardenQuoteVM] = []
@@ -116,67 +102,108 @@ class ExploreVC: MonitoredVC {
     
     override func loadView() {
         super.loadView()
-        view = LottieView()
+        view = LottieView(frame: view.bounds)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //print(#function)
         UIApplication.shared.statusBarStyle = .lightContent
-        connectionStatusSubject
-            .sink { [weak self] (isConnected, isFirstLaunch) in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    if isConnected {
-                        print("connected")
-                        if let lottieView = self.view as? LottieView {
-                            if lottieView.lottieAnimation != nil {
-                                lottieView.stopLottieAnimation()
-                            }
-                        }
-                        if isFirstLaunch {
-                            self.loadInitialData {
-                                
-                            }
-                            self.view.addSubview(self.collectionView)
-                            self.collectionView.snp.makeConstraints { make in
-                                make.left.right.top.bottom.equalTo(self.view)
-                            }
-                        }
-                        else {
-                        }
-                    }
-                    else {
-                        print("not connected")
-                        if let lottieView = self.view as? LottieView {
-                            if lottieView.lottieAnimation != nil {
-                                lottieView.stopLottieAnimation()
-                            }
-                        }
-                        self.startWifiAnimation()
-                    }
-                }
+        if let lottieView = self.view as? LottieView {
+            let size = view.bounds.width / 2
+            let x = view.bounds.width / 2 - (size / 2)
+            let y = view.bounds.height / 2 - (size / 2)
+            let frame = CGRect(x: x, y: y, width: size, height: size)
+            lottieView.createAndStartLottieAnimation(animation: .circleLoading,
+                                                     animationSpeed: 1,
+                                                     frame: frame,
+                                                     loopMode: .loop,
+                                                     contentMode: .scaleAspectFit)
+            self.loadInitialData {
+//                lottieView.stopLottieAnimation()
             }
-            .store(in: &cancellables)
-        
-        NetworkMonitor.shared.startMonitoring { [weak self] path in
-            if NetworkMonitor.shared.isFirstCheck {
-                self?.connectionStatusSubject.send((path.status != .unsatisfied, true))
-//                NetworkMonitor.shared.isFirstCheck = false
-            }
-            else {
-                self?.connectionStatusSubject.send((path.status == .unsatisfied, false))
+            self.view.addSubview(self.collectionView)
+            self.collectionView.snp.makeConstraints { make in
+                make.left.right.top.bottom.equalTo(self.view)
             }
         }
+//        connectionStatusSubject
+//            .sink { [weak self] (isConnected, isFirstLaunch) in
+//                guard let self = self else { return }
+//                DispatchQueue.main.async {
+//                    if isConnected {
+//                        print("connected")
+//                        if let lottieView = self.view as? LottieView {
+//                            if lottieView.lottieAnimation != nil {
+//                                lottieView.stopLottieAnimation()
+//                            }
+//                        }
+//                        if isFirstLaunch {
+////                            if let lottieView = self.view as? LottieView {
+////                                lottieView.createAndStartLottieAnimation(animation: .circleLoading,
+////                                                                         animationSpeed: 1,
+////                                                                         frame: self.view.bounds,
+////                                                                         loopMode: .loop,
+////                                                                         contentMode: .scaleAspectFit)
+////                            }
+//                            self.loadInitialData {
+////                                if let lottieView = self.view as? LottieView {
+////                                    lottieView.stopLottieAnimation()
+////                                }
+//                            }
+//                            self.view.addSubview(self.collectionView)
+//                            self.collectionView.snp.makeConstraints { make in
+//                                make.left.right.top.bottom.equalTo(self.view)
+//                            }
+//                        }
+//                        else {
+//                        }
+//                    }
+//                    else {
+//                        print("not connected")
+//                        if let lottieView = self.view as? LottieView {
+//                            if lottieView.lottieAnimation != nil {
+//                                lottieView.stopLottieAnimation()
+//                            }
+//                        }
+//                        self.startWifiAnimation()
+//                    }
+//                }
+//            }
+//            .store(in: &cancellables)
+//
+//        NetworkMonitor.shared.startMonitoring { [weak self] path in
+//            if NetworkMonitor.shared.isFirstCheck {
+//                self?.connectionStatusSubject.send((path.status != .unsatisfied, true))
+////                NetworkMonitor.shared.isFirstCheck = false
+//            }
+//            else {
+//                self?.connectionStatusSubject.send((path.status == .unsatisfied, false))
+//            }
+//        }
     }
     
     private func resetInitialData() {
         loadedVMs = []
         loadedImages = []
         collectionView.reloadData()
+        if let lottieView = view as? LottieView {
+            let size = view.bounds.width / 2
+            let x = view.bounds.width / 2 - (size / 2)
+            let y = view.bounds.height / 2 - (size / 2)
+            let frame = CGRect(x: x, y: y, width: size, height: size)
+            lottieView.createAndStartLottieAnimation(animation: .circleLoading,
+                                                     animationSpeed: 1,
+                                                     frame: frame,
+                                                     loopMode: .loop,
+                                                     contentMode: .scaleAspectFit)
+        }
         loadImages { [weak self] in
             guard let self = self else { return }
             self.load10RandomQuotes {
+                if let lottieView = self.view as? LottieView {
+                    lottieView.stopLottieAnimation()
+                }
                 self.collectionView.reloadData()
             }
         }
@@ -187,6 +214,11 @@ class ExploreVC: MonitoredVC {
             guard let self = self else { return }
             self.load10RandomQuotes {
                 self.collectionView.insertItems(at: self.loadedVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) })
+                if let lottieView = self.view as? LottieView {
+                    if lottieView.lottieAnimation != nil {
+                        lottieView.stopLottieAnimation()
+                    }
+                }
             }
         }
     }
@@ -219,9 +251,10 @@ class ExploreVC: MonitoredVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
         if let lottieView = view as? LottieView {
             if lottieView.lottieAnimation != nil {
-                lottieView.stopLottieAnimation()
+                //lottieView.stopLottieAnimation()
                 connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
             }
         }
@@ -233,11 +266,11 @@ class ExploreVC: MonitoredVC {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let lottieView = view as? LottieView {
-            if lottieView.lottieAnimation != nil {
-                lottieView.stopLottieAnimation()
-            }
-        }
+//        if let lottieView = view as? LottieView {
+//            if lottieView.lottieAnimation != nil {
+//                lottieView.stopLottieAnimation()
+//            }
+//        }
     }
     
     private func startWifiAnimation() {

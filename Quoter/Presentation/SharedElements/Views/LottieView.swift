@@ -27,6 +27,7 @@ class LottieView: UIView {
     }
 
     func stopLottieAnimation() {
+        lottieAnimation.removeFromSuperview()
         lottieAnimation.stop()
         lottieAnimation.isHidden = true
     }
