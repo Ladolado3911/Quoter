@@ -20,6 +20,17 @@ class FilterButton: UIButton {
             }
         }
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        //titleLabel?.adjustsFontSizeToFitWidth = true
+        layer.borderWidth = 1
+        layer.cornerRadius = bounds.height * 0.3
+        backgroundColor = .clear
+        layer.borderColor = UIColor.black.cgColor
+        setTitleColor(.white, for: .normal)
+        setTitleColor(.black, for: .disabled)
+    }
 }
 
 class FilterView: UIView {
@@ -56,10 +67,41 @@ class FilterView: UIView {
         guard let parentFinalFrame = parentFinalFrame else {
             return nil
         }
-        let width = mainTitleFinalFrame!.width * 1.2
-        let height = mainTitleFinalFrame!.height
-        let x = bounds.width / 2 - (width / 2)
+        let width = mainTitleFinalFrame!.width / 2
+        let height = mainTitleFinalFrame!.height * 0.8
+        let x = bounds.width / 2 + 20
         let y = bounds.height - height - 20
+        let frame = CGRect(x: x, y: y, width: width, height: height)
+        return frame
+    }()
+    
+    lazy var closeButtonFinalFrame: CGRect? = {
+        guard let parentFinalFrame = parentFinalFrame else {
+            return nil
+        }
+        let size: CGFloat = PublicConstants.screenHeight * 0.045
+        let x: CGFloat = collectionViewFinalFrame!.minX
+        let y = (deselectButtonFinalFrame!.minY + deselectButtonFinalFrame!.height / 2) - (size / 2)
+        let frame = CGRect(x: x, y: y, width: size, height: size)
+        return frame
+    }()
+    
+    lazy var closeButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "close")?.withTintColor(.black), for: .normal)
+        button.frame = closeButtonFinalFrame!
+        button.alpha = 0
+        return button
+    }()
+    
+    lazy var removeFilterButtonFinalFrame: CGRect? = {
+        guard let parentFinalFrame = parentFinalFrame else {
+            return nil
+        }
+        let width = mainTitleFinalFrame!.width / 2
+        let height = mainTitleFinalFrame!.height * 0.8
+        let x = (bounds.width / 2) - 20 - width
+        let y = filterButtonFinalFrame!.minY
         let frame = CGRect(x: x, y: y, width: width, height: height)
         return frame
     }()
@@ -82,7 +124,7 @@ class FilterView: UIView {
         }
         let width = mainTitleFinalFrame!.width / 3
         let height = mainTitleLabel.bounds.height
-        let x: CGFloat = 5
+        let x: CGFloat = bounds.width - 20 - width
         let y = mainTitleLabel.frame.minY
         let frame = CGRect(x: x, y: y, width: width, height: height)
         return frame
@@ -91,8 +133,9 @@ class FilterView: UIView {
     lazy var deselectButton: UIButton = {
         let button = UIButton(type: .custom)
         button.frame = deselectButtonFinalFrame!
-        button.isHidden = true
+        //button.isHidden = true
         button.setImage(UIImage(named: "uncheck")?.resizedImage(targetHeight: 35), for: .normal)
+        button.setImage(UIImage(named: "checkAll")?.resizedImage(targetHeight: 35), for: .selected)
         button.setTitleColor(.black, for: .normal)
         button.alpha = 0
         return button
@@ -105,24 +148,26 @@ class FilterView: UIView {
         mainTitleLabel.textAlignment = .center
         mainTitleLabel.numberOfLines = 2
         mainTitleLabel.alpha = 0
-        mainTitleLabel.text = "Interest Tags"
+        mainTitleLabel.text = "Filters"
         return mainTitleLabel
     }()
     
     lazy var filterButton: FilterButton = {
         let filterButton = FilterButton(type: .custom)
         filterButton.frame = filterButtonFinalFrame!
-        filterButton.setTitle("Filter", for: .normal)
-        filterButton.layer.borderWidth = 1
-        filterButton.layer.cornerRadius = 20
-        filterButton.backgroundColor = .clear
-        filterButton.layer.borderColor = UIColor.black.cgColor
-        filterButton.setTitleColor(.white, for: .normal)
-        //filterButton.view
-        filterButton.setTitleColor(.black, for: .disabled)
+        filterButton.setTitle("Add", for: .normal)
         filterButton.isEnabled = false
         filterButton.alpha = 0
         return filterButton
+    }()
+    
+    lazy var removeFilterButton: FilterButton = {
+        let removeButton = FilterButton(type: .custom)
+        removeButton.frame = removeFilterButtonFinalFrame!
+        removeButton.setTitle("Clear", for: .normal)
+        removeButton.isEnabled = false
+        removeButton.alpha = 0
+        return removeButton
     }()
     
     override func layoutSubviews() {
@@ -136,6 +181,8 @@ class FilterView: UIView {
         addSubview(mainTitleLabel)
         addSubview(filterButton)
         addSubview(deselectButton)
+        addSubview(removeFilterButton)
+        addSubview(closeButton)
     }
     
     func buildView() {
@@ -145,6 +192,8 @@ class FilterView: UIView {
         self.filterButton.alpha = 0
         self.mainTitleLabel.alpha = 0
         self.deselectButton.alpha = 0
+        self.removeFilterButton.alpha = 0
+        self.closeButton.alpha = 0
         collectionView.alpha = 0
         collectionView.frame = collectionViewFinalFrame!
 
@@ -153,6 +202,8 @@ class FilterView: UIView {
             self.filterButton.alpha = 1
             self.mainTitleLabel.alpha = 1
             self.deselectButton.alpha = 1
+            self.removeFilterButton.alpha = 1
+            self.closeButton.alpha = 1
             collectionView.alpha = 1
         }
     }
@@ -166,6 +217,8 @@ class FilterView: UIView {
             self.filterButton.alpha = 0
             self.mainTitleLabel.alpha = 0
             self.deselectButton.alpha = 0
+            self.removeFilterButton.alpha = 0
+            self.closeButton.alpha = 0
             collectionView.alpha = 0
         } completion: { didFinish in
             if didFinish {

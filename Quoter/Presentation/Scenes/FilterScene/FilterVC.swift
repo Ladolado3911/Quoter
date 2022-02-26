@@ -67,7 +67,7 @@ class FilterVC: UIViewController {
     
     lazy var modalFinalFrame: CGRect = {
         let width = PublicConstants.screenWidth * 0.85
-        let height = width * 1.3
+        let height = width * 1.5
         let x = view.bounds.width / 2 - (width / 2)
         let y = view.bounds.height / 2 - (height / 2)
         return CGRect(x: x, y: y, width: width, height: height)
@@ -122,11 +122,11 @@ class FilterVC: UIViewController {
                 guard let self = self else { return }
                 if self.collectionView.allSelectedTags().count >= 1 {
                     self.filterView.filterButton.isEnabled = true
-                    self.filterView.deselectButton.isHidden = false
+                    self.filterView.deselectButton.isSelected = true
                 }
                 else {
                     self.filterView.filterButton.isEnabled = false
-                    self.filterView.deselectButton.isHidden = true
+                    self.filterView.deselectButton.isSelected = false
                 }
             }
             .store(in: &cancellables)
@@ -213,6 +213,10 @@ class FilterVC: UIViewController {
                 self.filterView.deselectButton.addTarget(self,
                                                          action: #selector(self.didTapOnDeselect(sender:)),
                                                          for: .touchUpInside)
+                self.filterView.closeButton.addTarget(self,
+                                                      action: #selector(self.didTapOnClose(sender:)),
+                                                      for: .touchUpInside)
+
             }
         }
     }
@@ -233,7 +237,6 @@ class FilterVC: UIViewController {
                     } completion: { didFinish in
                         if didFinish {
                             completion()
-//                            self.dismiss(animated: true)
                         }
                     }
                 }
@@ -257,9 +260,23 @@ class FilterVC: UIViewController {
         }
     }
     
+    @objc func didTapOnClose(sender: UIButton) {
+        demolish { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+    }
+    
     @objc func didTapOnDeselect(sender: UIButton) {
-        collectionView.allSelectedTags().forEach { tag in
-            tag.selected = false
+        if sender.isSelected {
+            collectionView.allSelectedTags().forEach { tag in
+                tag.selected = false
+            }
+        }
+        else {
+            collectionView.allTags().forEach { tag in
+                tag.selected = true
+            }
         }
         collectionView.reload()
         selectedCountSubject.send {}
