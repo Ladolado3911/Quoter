@@ -148,14 +148,14 @@ class FilterView: UIView {
         mainTitleLabel.textAlignment = .center
         mainTitleLabel.numberOfLines = 2
         mainTitleLabel.alpha = 0
-        mainTitleLabel.text = "Filters"
+        mainTitleLabel.text = "Tags"
         return mainTitleLabel
     }()
     
     lazy var filterButton: FilterButton = {
         let filterButton = FilterButton(type: .custom)
         filterButton.frame = filterButtonFinalFrame!
-        filterButton.setTitle("Add", for: .normal)
+        filterButton.setTitle("Filter", for: .normal)
         filterButton.isEnabled = false
         filterButton.alpha = 0
         return filterButton

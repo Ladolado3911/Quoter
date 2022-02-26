@@ -21,7 +21,7 @@ struct ImageEndpoints {
     }
     
     static func get10NatureLandscapeURLs() -> URL? {
-        URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&per_page=10&image_type=photo&q=landscape&safesearch=true&page=\(Int.random(in: 1...9))")
+        URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&per_page=10&image_type=photo&q=landscape&safesearch=true&page=\(Int.random(in: 1...40))")
     }
     
     static func getAuthorImageURL(authorName: String) -> URL? {

@@ -122,7 +122,6 @@ class TabbarController: UIViewController {
 extension TabbarController: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if musicIconButton.isSelected && flag {
-            print("play")
             let optionalMusic = arr.uniqueRandomElement()
             optionalMusic?.play(extensionString: .mp3)
             optionalMusic?.player?.delegate = self

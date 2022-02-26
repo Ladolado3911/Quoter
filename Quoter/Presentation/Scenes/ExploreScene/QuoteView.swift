@@ -23,12 +23,12 @@ class QuoteView: LottieView {
     }()
 
     let quotesOfAuthorButton: QuoteViewButton = {
-        let bookView = QuoteViewButton(title: "Quotes", icon: UIImage(named: "Reading")!)
+        let bookView = QuoteViewButton(title: "More", icon: UIImage(named: "Reading")!)
         return bookView
     }()
     
     let filtersButton: QuoteViewButton = {
-        let filterView = QuoteViewButton(title: "Filters", icon: UIImage(named: "filter")!)
+        let filterView = QuoteViewButton(title: "Tags", icon: UIImage(named: "filter")!)
         return filterView
     }()
     

@@ -22,12 +22,12 @@ class QuoteViewButton: UIButton {
         var configuration = UIButton.Configuration.plain()
         configuration.title = title
         configuration.background = .clear()
-        configuration.cornerStyle = .fixed
+        //configuration.cornerStyle = .fixed
         configuration.image = icon.resizedImage(targetHeight: PublicConstants.screenHeight * 0.035211267605633804)
         
         configuration.titlePadding = 10
         configuration.imagePadding = 10
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 15, bottom: 5, trailing: 15)
+        //configuration.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 15, bottom: 5, trailing: 15)
         self.init(configuration: configuration, primaryAction: nil)
     }
     
@@ -53,6 +53,6 @@ class QuoteViewButton: UIButton {
         layer.borderWidth = 0.7
         titleLabel?.textColor = .white
         titleLabel?.textAlignment = .center
-        titleLabel?.font = titleLabel?.font.withSize(PublicConstants.screenHeight * 0.020)
+        titleLabel?.font = titleLabel?.font.withSize(PublicConstants.screenHeight * 0.0182)
     }
 }
