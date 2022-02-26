@@ -9,13 +9,14 @@ import UIKit
 import TTGTags
 import Combine
 
+var isExploreVCFiltered: Bool = false
+
 class FilterVC: UIViewController {
     
     private var cancellables: Set<AnyCancellable> = []
     let selectedCountSubject = PassthroughSubject<(() -> Void), Never>()
     
     var selectedTagStrings: [String] = []
-    
     var dismissClosure: (([String]) -> Void)?
 
 //    lazy var gradientView1: UIView = {
@@ -128,6 +129,7 @@ class FilterVC: UIViewController {
                     self.filterView.filterButton.isEnabled = false
                     self.filterView.deselectButton.isSelected = false
                 }
+                self.filterView.removeFilterButton.isEnabled = isExploreVCFiltered
             }
             .store(in: &cancellables)
     }
@@ -210,6 +212,9 @@ class FilterVC: UIViewController {
                 self.filterView.filterButton.addTarget(self,
                                                        action: #selector(self.didTapOnFilter(sender:)),
                                                        for: .touchUpInside)
+                self.filterView.removeFilterButton.addTarget(self,
+                                                             action: #selector(self.didTapOnClear(sender:)),
+                                                             for: .touchUpInside)
                 self.filterView.deselectButton.addTarget(self,
                                                          action: #selector(self.didTapOnDeselect(sender:)),
                                                          for: .touchUpInside)
@@ -244,6 +249,16 @@ class FilterVC: UIViewController {
         }
     }
     
+    @objc func didTapOnClear(sender: UIButton) {
+        demolish { [weak self] in
+            guard let self = self else { return }
+            if let dismissClosure = self.dismissClosure {
+                isExploreVCFiltered = false
+                dismissClosure([""])
+            }
+        }
+    }
+    
     @objc func didTapOnBackground(sender: UIButton) {
         demolish { [weak self] in
             guard let self = self else { return }
@@ -255,6 +270,7 @@ class FilterVC: UIViewController {
         demolish { [weak self] in
             guard let self = self else { return }
             if let dismissClosure = self.dismissClosure {
+                isExploreVCFiltered = true
                 dismissClosure(self.selectedTagStrings)
             }
         }

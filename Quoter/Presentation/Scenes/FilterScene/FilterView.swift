@@ -26,7 +26,7 @@ class FilterButton: UIButton {
         //titleLabel?.adjustsFontSizeToFitWidth = true
         layer.borderWidth = 1
         layer.cornerRadius = bounds.height * 0.3
-        backgroundColor = .clear
+        //backgroundColor = .clear
         layer.borderColor = UIColor.black.cgColor
         setTitleColor(.white, for: .normal)
         setTitleColor(.black, for: .disabled)
