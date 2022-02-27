@@ -21,6 +21,8 @@ class ExploreVC: MonitoredVC {
     var loadedImageURLs: [URL?] = []
     var loadedImages: [UIImage?] = []
     
+    var isAdditionalDataAdded = true
+    
     var selectedFilters: [String] = []
     
     var scrollingDirection: ScrollingDirection = .right
@@ -111,7 +113,7 @@ class ExploreVC: MonitoredVC {
         //print(#function)
         UIApplication.shared.statusBarStyle = .lightContent
         if let lottieView = self.view as? LottieView {
-            let size = view.bounds.width / 2
+            let size = view.bounds.width / 3.5
             let x = view.bounds.width / 2 - (size / 2)
             let y = view.bounds.height / 2 - (size / 2)
             let frame = CGRect(x: x, y: y, width: size, height: size)
@@ -192,7 +194,7 @@ class ExploreVC: MonitoredVC {
         capturedCurrentPage = 0
         collectionView.reloadData()
         if let lottieView = view as? LottieView {
-            let size = view.bounds.width / 2
+            let size = view.bounds.width / 3.5
             let x = view.bounds.width / 2 - (size / 2)
             let y = view.bounds.height / 2 - (size / 2)
             let frame = CGRect(x: x, y: y, width: size, height: size)
@@ -228,13 +230,26 @@ class ExploreVC: MonitoredVC {
             }
         }
     }
+//
+//    private func loadNewData(completion: @escaping () -> Void) {
+//        loadImages { [weak self] in
+//            guard let self = self else { return }
+//            self.load10RandomQuotes {
+//                let indexPaths = self.loadedVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) }
+//                self.collectionView.insertItems(at: Array(indexPaths[(self.capturedCurrentPage + 4)...self.capturedCurrentPage + 14]))
+//                self.collectionView.isUserInteractionEnabled = true
+//                self.isLoadNewDataFunctionRunning = false
+//                self.dismiss(animated: false)
+//            }
+//        }
+//    }
     
-    private func loadNewData(completion: @escaping () -> Void) {
+    private func loadNewData(edges: (Int, Int), completion: @escaping () -> Void) {
         loadImages { [weak self] in
             guard let self = self else { return }
             self.load10RandomQuotes {
                 let indexPaths = self.loadedVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) }
-                self.collectionView.insertItems(at: Array(indexPaths[(self.capturedCurrentPage + 4)...self.capturedCurrentPage + 14]))
+                self.collectionView.insertItems(at: Array(indexPaths[(self.capturedCurrentPage + edges.0)...self.capturedCurrentPage + edges.1]))
                 self.collectionView.isUserInteractionEnabled = true
                 self.isLoadNewDataFunctionRunning = false
                 self.dismiss(animated: false)
@@ -265,7 +280,7 @@ class ExploreVC: MonitoredVC {
             }
             else {
                 if !isDataLoaded {
-                    let size = view.bounds.width / 2
+                    let size = view.bounds.width / 3.5
                     let x = view.bounds.width / 2 - (size / 2)
                     let y = view.bounds.height / 2 - (size / 2)
                     let frame = CGRect(x: x, y: y, width: size, height: size)
@@ -429,16 +444,26 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        if currentPage == self.loadedVMs.count - 5 {
+        //print(currentPage)
+        if currentPage == self.loadedVMs.count - 5 && !isLoadNewDataFunctionRunning {
             capturedCurrentPage = currentPage
+            //print(capturedCurrentPage)
             if !isLoadNewDataFunctionRunning {
                 isLoadNewDataFunctionRunning = true
-                loadNewData {
+                
+                loadNewData(edges: (4, 14)) {
                     
                 }
             }
-            else {
+        }
+        if currentPage == self.loadedVMs.count - 1 && !isLoadNewDataFunctionRunning {
+            capturedCurrentPage = currentPage
+            if !isLoadNewDataFunctionRunning {
+                isLoadNewDataFunctionRunning = true
                 
+                loadNewData(edges: (0, 10)) {
+                    
+                }
             }
         }
         if currentPage == self.loadedVMs.count - 1 && isLoadNewDataFunctionRunning {
