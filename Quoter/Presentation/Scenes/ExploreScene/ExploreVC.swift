@@ -186,6 +186,8 @@ class ExploreVC: MonitoredVC {
     private func resetInitialData() {
         loadedVMs = []
         loadedImages = []
+        currentPage = 0
+        capturedCurrentPage = 0
         collectionView.reloadData()
         if let lottieView = view as? LottieView {
             let size = view.bounds.width / 2
@@ -254,8 +256,19 @@ class ExploreVC: MonitoredVC {
         //connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
         if let lottieView = view as? LottieView {
             if lottieView.lottieAnimation != nil {
-                //lottieView.stopLottieAnimation()
+//                lottieView.stopLottieAnimation()
                 connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
+            }
+            else {
+                let size = view.bounds.width / 2
+                let x = view.bounds.width / 2 - (size / 2)
+                let y = view.bounds.height / 2 - (size / 2)
+                let frame = CGRect(x: x, y: y, width: size, height: size)
+                lottieView.createAndStartLottieAnimation(animation: .circleLoading,
+                                                         animationSpeed: 1,
+                                                         frame: frame,
+                                                         loopMode: .loop,
+                                                         contentMode: .scaleAspectFit)
             }
         }
     }
@@ -266,11 +279,12 @@ class ExploreVC: MonitoredVC {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        if let lottieView = view as? LottieView {
-//            if lottieView.lottieAnimation != nil {
-//                lottieView.stopLottieAnimation()
-//            }
-//        }
+        if let lottieView = view as? LottieView {
+            if lottieView.lottieAnimation != nil {
+                lottieView.stopLottieAnimation()
+                lottieView.lottieAnimation = nil
+            }
+        }
     }
     
     private func startWifiAnimation() {
