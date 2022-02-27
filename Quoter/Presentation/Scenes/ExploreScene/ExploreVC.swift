@@ -26,6 +26,7 @@ class ExploreVC: MonitoredVC {
     var scrollingDirection: ScrollingDirection = .right
     
     var isLoadNewDataFunctionRunning: Bool = false
+    var isDataLoaded = false
     
     lazy var presentQuotesOfAuthorClosure: (([QuoteGardenQuoteVM], UIImage?, QuoteGardenQuoteVM)) -> Void = { [weak self] quoteVMs in
         guard let self = self else { return }
@@ -184,6 +185,7 @@ class ExploreVC: MonitoredVC {
     }
     
     private func resetInitialData() {
+        isDataLoaded = false
         loadedVMs = []
         loadedImages = []
         currentPage = 0
@@ -207,6 +209,7 @@ class ExploreVC: MonitoredVC {
                     lottieView.stopLottieAnimation()
                 }
                 self.collectionView.reloadData()
+                self.isDataLoaded = true
             }
         }
     }
@@ -221,6 +224,7 @@ class ExploreVC: MonitoredVC {
                         lottieView.stopLottieAnimation()
                     }
                 }
+                self.isDataLoaded = true
             }
         }
     }
@@ -260,15 +264,17 @@ class ExploreVC: MonitoredVC {
                 connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
             }
             else {
-                let size = view.bounds.width / 2
-                let x = view.bounds.width / 2 - (size / 2)
-                let y = view.bounds.height / 2 - (size / 2)
-                let frame = CGRect(x: x, y: y, width: size, height: size)
-                lottieView.createAndStartLottieAnimation(animation: .circleLoading,
-                                                         animationSpeed: 1,
-                                                         frame: frame,
-                                                         loopMode: .loop,
-                                                         contentMode: .scaleAspectFit)
+                if !isDataLoaded {
+                    let size = view.bounds.width / 2
+                    let x = view.bounds.width / 2 - (size / 2)
+                    let y = view.bounds.height / 2 - (size / 2)
+                    let frame = CGRect(x: x, y: y, width: size, height: size)
+                    lottieView.createAndStartLottieAnimation(animation: .circleLoading,
+                                                             animationSpeed: 1,
+                                                             frame: frame,
+                                                             loopMode: .loop,
+                                                             contentMode: .scaleAspectFit)
+                }
             }
         }
     }
