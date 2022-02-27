@@ -57,6 +57,7 @@
 		24D4107B27B3FB4500B5C899 /* QuoteGardenEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107A27B3FB4500B5C899 /* QuoteGardenEndpoints.swift */; };
 		24D4107D27B3FD0200B5C899 /* QuoteGardenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107C27B3FD0200B5C899 /* QuoteGardenManager.swift */; };
 		24D4108027B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */; };
+		24D42EFA27CB67DA005AC82F /* idea.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24D42EF927CB67DA005AC82F /* idea.mp3 */; };
 		24D78DE927B27FB700E6B401 /* ImageEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D78DE827B27FB700E6B401 /* ImageEndpoints.swift */; };
 		24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 24DEBF4527ABB1D400C40B29 /* Lottie */; };
 		24DEBF4927ABB2AB00C40B29 /* cubeLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 24DEBF4827ABB2AB00C40B29 /* cubeLoading.json */; };
@@ -139,6 +140,7 @@
 		24D4107A27B3FB4500B5C899 /* QuoteGardenEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenEndpoints.swift; sourceTree = "<group>"; };
 		24D4107C27B3FD0200B5C899 /* QuoteGardenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenManager.swift; sourceTree = "<group>"; };
 		24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenQuoteModel.swift; sourceTree = "<group>"; };
+		24D42EF927CB67DA005AC82F /* idea.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = idea.mp3; sourceTree = "<group>"; };
 		24D78DE827B27FB700E6B401 /* ImageEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEndpoints.swift; sourceTree = "<group>"; };
 		24DEBF4827ABB2AB00C40B29 /* cubeLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cubeLoading.json; sourceTree = "<group>"; };
 		24DEBF4A27ABB55500C40B29 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				243B449927BE29A800953AD3 /* pageFlip.mp3 */,
 				243B449D27BE39EE00953AD3 /* pop.wav */,
 				24A78ABD27C4F6730014A8C8 /* windTransition2.mp3 */,
+				24D42EF927CB67DA005AC82F /* idea.mp3 */,
 				243B449B27BE29CC00953AD3 /* Sound.swift */,
 			);
 			path = Sounds;
@@ -536,6 +539,7 @@
 				24F51F29279EB7CE003057F7 /* LICENSE.txt in Resources */,
 				24F51F25279EB7CE003057F7 /* Roboto-ThinItalic.ttf in Resources */,
 				24D33E3B27B93FA100E4C668 /* circleLoading.json in Resources */,
+				24D42EFA27CB67DA005AC82F /* idea.mp3 in Resources */,
 				2472F69727C4BE1600746242 /* windTransition.wav in Resources */,
 				24F51F27279EB7CE003057F7 /* Roboto-LightItalic.ttf in Resources */,
 				24F51F2B279EB7CE003057F7 /* Roboto-Bold.ttf in Resources */,

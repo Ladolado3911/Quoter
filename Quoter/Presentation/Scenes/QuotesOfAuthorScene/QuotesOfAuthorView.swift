@@ -70,13 +70,13 @@ class QuotesOfAuthorView: UIView {
     
     let nextButton: SwitchButton = {
         let nextButton = SwitchButton(type: .custom)
-        nextButton.setTitle("Next Quote", for: .normal)
+        nextButton.setTitle("Next", for: .normal)
         return nextButton
     }()
     
     let prevButton: SwitchButton = {
         let prevButton = SwitchButton(type: .custom)
-        prevButton.setTitle("Previous Quote", for: .normal)
+        prevButton.setTitle("Previous", for: .normal)
         return prevButton
     }()
     

@@ -175,6 +175,7 @@ class QuotesOfAuthorVC: UIViewController {
         guard let authorName = authorName else {
             return
         }
+        Sound.idea.play(extensionString: .mp3)
         let quoteVMM = networkQuotesArr[currentQuoteIndex]
         ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: authorName)) { [weak self] result in
             guard let self = self else { return }

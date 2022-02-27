@@ -23,6 +23,7 @@ enum Sound: String, CaseIterable {
     case pop
     case windTransition
     case windTransition2
+    case idea
     
     var player: AVAudioPlayer? {
         Sound.players[self]

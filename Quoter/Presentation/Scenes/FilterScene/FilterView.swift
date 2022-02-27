@@ -10,6 +10,7 @@ import SnapKit
 import TTGTags
 
 class FilterButton: UIButton {
+    
     override var isEnabled: Bool {
         didSet {
             if isEnabled {
