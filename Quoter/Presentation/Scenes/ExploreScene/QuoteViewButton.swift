@@ -23,7 +23,7 @@ class QuoteViewButton: UIButton {
         configuration.title = title
         configuration.background = .clear()
         //configuration.cornerStyle = .fixed
-        configuration.image = icon.resizedImage(targetHeight: PublicConstants.screenHeight * 0.035211267605633804)
+        configuration.image = icon.resizedImage(targetHeight: PublicConstants.screenHeight * 0.037)
         
         configuration.titlePadding = 10
         configuration.imagePadding = 10
@@ -53,6 +53,6 @@ class QuoteViewButton: UIButton {
         layer.borderWidth = 0.7
         titleLabel?.textColor = .white
         titleLabel?.textAlignment = .center
-        titleLabel?.font = titleLabel?.font.withSize(PublicConstants.screenHeight * 0.0182)
+        titleLabel?.font = titleLabel?.font.withSize(PublicConstants.screenHeight * 0.0183)
     }
 }

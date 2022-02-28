@@ -101,15 +101,15 @@ class QuoteView: LottieView {
         }
         quotesOfAuthorButton.snp.makeConstraints { make in
             make.left.equalTo(self).inset(20)
-            make.width.equalTo(PublicConstants.screenHeight * 0.19)
-            make.height.equalTo(PublicConstants.screenHeight * 0.04)
+            make.width.equalTo(PublicConstants.screenHeight * 0.16)
+            make.height.equalTo(PublicConstants.screenHeight * 0.045)
             make.top.equalTo(self).inset(PublicConstants.screenHeight * 0.11267)
         }
         filtersButton.snp.makeConstraints { make in
             make.left.equalTo(self).inset(20)
             make.width.equalTo(quotesOfAuthorButton)
             make.height.equalTo(quotesOfAuthorButton)
-            make.top.equalTo(quotesOfAuthorButton.snp.bottom).inset(-10)
+            make.top.equalTo(quotesOfAuthorButton.snp.bottom).inset(-15)
         }
         quoteTextView.snp.makeConstraints { make in
             make.left.right.equalTo(self).inset(20)
