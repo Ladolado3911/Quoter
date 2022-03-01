@@ -28,9 +28,10 @@ class FilterVC: UIViewController {
 //        let frame = CGRect(x: x, y: y, width: width, height: height)
 //
 //        let gradientView = UIView(frame: frame)
+//        gradientView.backgroundColor = .clear
 //        let gradient = CAGradientLayer()
 //        gradient.frame = frame
-//        gradient.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
+//        gradient.colors = [UIColor.white.withAlphaComponent(1), UIColor.white.withAlphaComponent(1).cgColor]
 //        gradient.startPoint = CGPoint(x: 0.5, y: 1)
 //        gradient.endPoint = CGPoint(x: 0.5, y: 0)
 //        //gradient.locations = [0.8, 1]
@@ -42,7 +43,7 @@ class FilterVC: UIViewController {
 //        return gradientView
 //
 //    }()
-//
+
 //    lazy var gradientView2: GradientView = {
 //
 //        let width = collectionView.bounds.width
@@ -206,9 +207,9 @@ class FilterVC: UIViewController {
             if didFinish {
                 self.filterView.buildView()
 //                self.collectionView.addSubview(self.gradientView1)
-//                self.collectionView.addSubview(self.gradientView2)
+//                //self.collectionView.addSubview(self.gradientView2)
 //                self.collectionView.bringSubviewToFront(self.gradientView1)
-//                self.collectionView.bringSubviewToFront(self.gradientView2)
+                //self.collectionView.bringSubviewToFront(self.gradientView2)
                 self.filterView.filterButton.addTarget(self,
                                                        action: #selector(self.didTapOnFilter(sender:)),
                                                        for: .touchUpInside)

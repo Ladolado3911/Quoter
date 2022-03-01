@@ -101,7 +101,7 @@ class QuotesOfAuthorVC: UIViewController {
             guard let name = authorName else { return }
             if networkAuthorImage == nil {
                 quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFit
-                quotesOfAuthorView.mainImageView.image = UIImage(named: "unknown")
+                quotesOfAuthorView.mainImageView.image = UIImage(named: "testUpperQuotism")
             }
             else {
                 quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFill
@@ -119,7 +119,7 @@ class QuotesOfAuthorVC: UIViewController {
             guard let author = author else {
                 return
             }
-            if author.image.pngData() == UIImage(named: "unknown")?.pngData() {
+            if author.image.pngData() == UIImage(named: "testUpperQuotism")?.pngData() {
                 quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFit
             }
             else {
@@ -192,7 +192,7 @@ class QuotesOfAuthorVC: UIViewController {
                         else if self.quotesOfAuthorView.ideaButton.state == .normal {
                             self.quotesOfAuthorView.ideaButton.isSelected = true
                             if tuple.1 == .nature {
-                                CoreDataManager.addPair(quoteVM: quoteVMM, authorImageData: UIImage(named: "unknown")!.pngData())
+                                CoreDataManager.addPair(quoteVM: quoteVMM, authorImageData: UIImage(named: "testUpperQuotism")!.pngData())
                             }
                             else {
                                 CoreDataManager.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
