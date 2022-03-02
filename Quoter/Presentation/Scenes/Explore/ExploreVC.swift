@@ -17,13 +17,15 @@ enum ScrollingDirection {
 
 protocol PresenterToVCProtocol: AnyObject {
     var interactor: VCToInteractorProtocol? { get set }
+    
+    func loadInitialData()
+    
 }
 
-class ExploreVC: MonitoredVC, PresenterToVCProtocol {
+class ExploreVC: MonitoredVC {
     
+//    var router: ExploreRouter?
     var interactor: VCToInteractorProtocol?
-    var router: ExploreRouter?
-    
     
     var loadedVMs: [QuoteGardenQuoteVM] = []
     var loadedImageURLs: [URL?] = []
@@ -111,6 +113,16 @@ class ExploreVC: MonitoredVC, PresenterToVCProtocol {
         return frame
     }()
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+    
     override func loadView() {
         super.loadView()
         view = LottieView(frame: view.bounds)
@@ -144,9 +156,9 @@ class ExploreVC: MonitoredVC, PresenterToVCProtocol {
         let vc = self
         let interactor = ExploreInteractor()
         let presenter = ExplorePresenter()
-        let router = ExploreRouter()
+        //let router = ExploreRouter()
         vc.interactor = interactor
-        vc.router = router
+        //vc.router = router
         interactor.presenter = presenter
         presenter.vc = vc
         
@@ -182,7 +194,7 @@ class ExploreVC: MonitoredVC, PresenterToVCProtocol {
             }
         }
     }
-    
+
     private func loadInitialData(completion: @escaping () -> Void) {
         loadImages { [weak self] in
             guard let self = self else { return }
@@ -413,5 +425,12 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             loadingAlertVC.modalPresentationStyle = .custom
             present(loadingAlertVC, animated: false)
         }
+    }
+}
+
+extension ExploreVC: PresenterToVCProtocol {
+    
+    func loadInitialData() {
+        
     }
 }
