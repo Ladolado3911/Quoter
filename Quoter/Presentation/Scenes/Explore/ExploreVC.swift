@@ -113,8 +113,8 @@ class ExploreVC: MonitoredVC {
         return frame
     }()
     
-    lazy var lottieView: LottieView = {
-        let view = LottieView(frame: view.bounds)
+    lazy var exploreView: ExploreView = {
+        let view = ExploreView(frame: view.bounds)
         return view
     }()
     
@@ -130,23 +130,14 @@ class ExploreVC: MonitoredVC {
     
     override func loadView() {
         super.loadView()
-        view = lottieView
+        view = exploreView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //print(#function)
         UIApplication.shared.statusBarStyle = .lightContent
-
-        let size = view.bounds.width / 3.5
-        let x = view.bounds.width / 2 - (size / 2)
-        let y = view.bounds.height / 2 - (size / 2)
-        let frame = CGRect(x: x, y: y, width: size, height: size)
-        lottieView.createAndStartLottieAnimation(animation: .circleLoading,
-                                                 animationSpeed: 1,
-                                                 frame: frame,
-                                                 loopMode: .loop,
-                                                 contentMode: .scaleAspectFit)
+        exploreView.startAnimating()
         self.loadInitialData {
 //                lottieView.stopLottieAnimation()
         }
@@ -154,7 +145,6 @@ class ExploreVC: MonitoredVC {
         self.collectionView.snp.makeConstraints { make in
             make.left.right.top.bottom.equalTo(self.view)
         }
-
     }
     
     private func setup() {
@@ -178,20 +168,12 @@ class ExploreVC: MonitoredVC {
         capturedCurrentPage = 0
         collectionView.reloadData()
 
-        let size = view.bounds.width / 3.5
-        let x = view.bounds.width / 2 - (size / 2)
-        let y = view.bounds.height / 2 - (size / 2)
-        let frame = CGRect(x: x, y: y, width: size, height: size)
-        lottieView.createAndStartLottieAnimation(animation: .circleLoading,
-                                                 animationSpeed: 1,
-                                                 frame: frame,
-                                                 loopMode: .loop,
-                                                 contentMode: .scaleAspectFit)
+        exploreView.startAnimating()
     
         loadImages { [weak self] in
             guard let self = self else { return }
             self.load10RandomQuotes {
-                self.lottieView.stopLottieAnimation()
+                self.exploreView.stopLottieAnimation()
                 self.collectionView.reloadData()
                 self.isDataLoaded = true
             }
@@ -203,8 +185,8 @@ class ExploreVC: MonitoredVC {
             guard let self = self else { return }
             self.load10RandomQuotes {
                 self.collectionView.insertItems(at: self.loadedVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) })
-                if self.lottieView.lottieAnimation != nil {
-                    self.lottieView.stopLottieAnimation()
+                if self.exploreView.lottieAnimation != nil {
+                    self.exploreView.stopLottieAnimation()
                 }
                 self.isDataLoaded = true
             }
@@ -241,21 +223,13 @@ class ExploreVC: MonitoredVC {
         super.viewWillAppear(animated)
         //connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
 
-        if lottieView.lottieAnimation != nil {
+        if exploreView.lottieAnimation != nil {
 //                lottieView.stopLottieAnimation()
             connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
         }
         else {
             if !isDataLoaded {
-                let size = view.bounds.width / 3.5
-                let x = view.bounds.width / 2 - (size / 2)
-                let y = view.bounds.height / 2 - (size / 2)
-                let frame = CGRect(x: x, y: y, width: size, height: size)
-                lottieView.createAndStartLottieAnimation(animation: .circleLoading,
-                                                         animationSpeed: 1,
-                                                         frame: frame,
-                                                         loopMode: .loop,
-                                                         contentMode: .scaleAspectFit)
+                exploreView.startAnimating()
             }
         }
         
@@ -267,14 +241,14 @@ class ExploreVC: MonitoredVC {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if lottieView.lottieAnimation != nil {
-            lottieView.stopLottieAnimation()
-            lottieView.lottieAnimation = nil
+        if exploreView.lottieAnimation != nil {
+            exploreView.stopLottieAnimation()
+            exploreView.lottieAnimation = nil
         }
     }
     
     private func startWifiAnimation() {
-        lottieView.createAndStartLottieAnimation(animation: .wifiOff,
+        exploreView.createAndStartLottieAnimation(animation: .wifiOff,
                                                  animationSpeed: 2,
                                                  frame: animationFrame,
                                                  loopMode: .autoReverse,

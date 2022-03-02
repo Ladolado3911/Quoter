@@ -93,6 +93,7 @@
 		24FC97C927CF80A400504361 /* ExplorePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97C827CF80A400504361 /* ExplorePresenter.swift */; };
 		24FC97CB27CF819A00504361 /* ExploreRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97CA27CF819A00504361 /* ExploreRouter.swift */; };
 		24FC97CD27CF8BDD00504361 /* ExploreAnimationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97CC27CF8BDD00504361 /* ExploreAnimationWorker.swift */; };
+		24FC97D127CF9A5000504361 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97D027CF9A5000504361 /* ExploreView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -179,6 +180,7 @@
 		24FC97C827CF80A400504361 /* ExplorePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePresenter.swift; sourceTree = "<group>"; };
 		24FC97CA27CF819A00504361 /* ExploreRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreRouter.swift; sourceTree = "<group>"; };
 		24FC97CC27CF8BDD00504361 /* ExploreAnimationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreAnimationWorker.swift; sourceTree = "<group>"; };
+		24FC97D027CF9A5000504361 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +246,7 @@
 				24FC97CF27CF917600504361 /* Workers */,
 				24FC97CE27CF916A00504361 /* Common */,
 				24BEA3DF2798601A009DB491 /* QuoteView.swift */,
+				24FC97D027CF9A5000504361 /* ExploreView.swift */,
 				24BEA3DD27985FEE009DB491 /* ExploreVC.swift */,
 				24FC97C627CF809600504361 /* ExploreInteractor.swift */,
 				24FC97C827CF80A400504361 /* ExplorePresenter.swift */,
@@ -644,6 +647,7 @@
 				24D4107D27B3FD0200B5C899 /* QuoteGardenManager.swift in Sources */,
 				24D1289927904D0E00AD7F3D /* AppColors.swift in Sources */,
 				24A8407727C3B92800BCF304 /* LoadingAlertVC.swift in Sources */,
+				24FC97D127CF9A5000504361 /* ExploreView.swift in Sources */,
 				24D1287527903ECD00AD7F3D /* SceneDelegate.swift in Sources */,
 				248FC0D627A9544D00069FFF /* QuotesOfAuthorVC.swift in Sources */,
 				24D33E3D27B9683000E4C668 /* NetworkMonitor.swift in Sources */,
