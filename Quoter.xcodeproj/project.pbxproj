@@ -92,8 +92,9 @@
 		24FC97C727CF809600504361 /* ExploreInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97C627CF809600504361 /* ExploreInteractor.swift */; };
 		24FC97C927CF80A400504361 /* ExplorePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97C827CF80A400504361 /* ExplorePresenter.swift */; };
 		24FC97CB27CF819A00504361 /* ExploreRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97CA27CF819A00504361 /* ExploreRouter.swift */; };
-		24FC97CD27CF8BDD00504361 /* ExploreAnimationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97CC27CF8BDD00504361 /* ExploreAnimationWorker.swift */; };
+		24FC97CD27CF8BDD00504361 /* QuoteWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97CC27CF8BDD00504361 /* QuoteWorker.swift */; };
 		24FC97D127CF9A5000504361 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97D027CF9A5000504361 /* ExploreView.swift */; };
+		24FC97D527CFA8A100504361 /* ImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97D427CFA8A100504361 /* ImageWorker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -179,8 +180,9 @@
 		24FC97C627CF809600504361 /* ExploreInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreInteractor.swift; sourceTree = "<group>"; };
 		24FC97C827CF80A400504361 /* ExplorePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePresenter.swift; sourceTree = "<group>"; };
 		24FC97CA27CF819A00504361 /* ExploreRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreRouter.swift; sourceTree = "<group>"; };
-		24FC97CC27CF8BDD00504361 /* ExploreAnimationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreAnimationWorker.swift; sourceTree = "<group>"; };
+		24FC97CC27CF8BDD00504361 /* QuoteWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteWorker.swift; sourceTree = "<group>"; };
 		24FC97D027CF9A5000504361 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
+		24FC97D427CFA8A100504361 /* ImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWorker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -484,7 +486,8 @@
 		24FC97CF27CF917600504361 /* Workers */ = {
 			isa = PBXGroup;
 			children = (
-				24FC97CC27CF8BDD00504361 /* ExploreAnimationWorker.swift */,
+				24FC97CC27CF8BDD00504361 /* QuoteWorker.swift */,
+				24FC97D427CFA8A100504361 /* ImageWorker.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -608,7 +611,7 @@
 				24F7F05D27BFCA0C001FEA75 /* Array+Extension.swift in Sources */,
 				24FC97C927CF80A400504361 /* ExplorePresenter.swift in Sources */,
 				248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */,
-				24FC97CD27CF8BDD00504361 /* ExploreAnimationWorker.swift in Sources */,
+				24FC97CD27CF8BDD00504361 /* QuoteWorker.swift in Sources */,
 				24F51F2F279EEB12003057F7 /* TabbarItemView.swift in Sources */,
 				24D128972790491500AD7F3D /* UIColor+Extension.swift in Sources */,
 				24D1287727903ECD00AD7F3D /* AuthorsVC.swift in Sources */,
@@ -643,6 +646,7 @@
 				24F51F10279EA378003057F7 /* TabbarView.swift in Sources */,
 				24CB9FED27930C2700E9D49F /* NetworkManager.swift in Sources */,
 				24DF187227A554AE00D93F8D /* RandomImageModel.swift in Sources */,
+				24FC97D527CFA8A100504361 /* ImageWorker.swift in Sources */,
 				24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */,
 				24D4107D27B3FD0200B5C899 /* QuoteGardenManager.swift in Sources */,
 				24D1289927904D0E00AD7F3D /* AppColors.swift in Sources */,

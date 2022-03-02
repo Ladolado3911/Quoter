@@ -18,7 +18,7 @@ enum ScrollingDirection {
 protocol PresenterToVCProtocol: AnyObject {
     var interactor: VCToInteractorProtocol? { get set }
     
-    func loadInitialData()
+    func displayInitialData()
     
 }
 
@@ -400,7 +400,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 
 extension ExploreVC: PresenterToVCProtocol {
     
-    func loadInitialData() {
+    func displayInitialData() {
         
     }
 }
