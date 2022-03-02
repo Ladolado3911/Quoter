@@ -113,6 +113,11 @@ class ExploreVC: MonitoredVC {
         return frame
     }()
     
+    lazy var lottieView: LottieView = {
+        let view = LottieView(frame: view.bounds)
+        return view
+    }()
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -125,31 +130,31 @@ class ExploreVC: MonitoredVC {
     
     override func loadView() {
         super.loadView()
-        view = LottieView(frame: view.bounds)
+        view = lottieView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //print(#function)
         UIApplication.shared.statusBarStyle = .lightContent
-        if let lottieView = self.view as? LottieView {
-            let size = view.bounds.width / 3.5
-            let x = view.bounds.width / 2 - (size / 2)
-            let y = view.bounds.height / 2 - (size / 2)
-            let frame = CGRect(x: x, y: y, width: size, height: size)
-            lottieView.createAndStartLottieAnimation(animation: .circleLoading,
-                                                     animationSpeed: 1,
-                                                     frame: frame,
-                                                     loopMode: .loop,
-                                                     contentMode: .scaleAspectFit)
-            self.loadInitialData {
+
+        let size = view.bounds.width / 3.5
+        let x = view.bounds.width / 2 - (size / 2)
+        let y = view.bounds.height / 2 - (size / 2)
+        let frame = CGRect(x: x, y: y, width: size, height: size)
+        lottieView.createAndStartLottieAnimation(animation: .circleLoading,
+                                                 animationSpeed: 1,
+                                                 frame: frame,
+                                                 loopMode: .loop,
+                                                 contentMode: .scaleAspectFit)
+        self.loadInitialData {
 //                lottieView.stopLottieAnimation()
-            }
-            self.view.addSubview(self.collectionView)
-            self.collectionView.snp.makeConstraints { make in
-                make.left.right.top.bottom.equalTo(self.view)
-            }
         }
+        self.view.addSubview(self.collectionView)
+        self.collectionView.snp.makeConstraints { make in
+            make.left.right.top.bottom.equalTo(self.view)
+        }
+
     }
     
     private func setup() {
@@ -172,23 +177,21 @@ class ExploreVC: MonitoredVC {
         currentPage = 0
         capturedCurrentPage = 0
         collectionView.reloadData()
-        if let lottieView = view as? LottieView {
-            let size = view.bounds.width / 3.5
-            let x = view.bounds.width / 2 - (size / 2)
-            let y = view.bounds.height / 2 - (size / 2)
-            let frame = CGRect(x: x, y: y, width: size, height: size)
-            lottieView.createAndStartLottieAnimation(animation: .circleLoading,
-                                                     animationSpeed: 1,
-                                                     frame: frame,
-                                                     loopMode: .loop,
-                                                     contentMode: .scaleAspectFit)
-        }
+
+        let size = view.bounds.width / 3.5
+        let x = view.bounds.width / 2 - (size / 2)
+        let y = view.bounds.height / 2 - (size / 2)
+        let frame = CGRect(x: x, y: y, width: size, height: size)
+        lottieView.createAndStartLottieAnimation(animation: .circleLoading,
+                                                 animationSpeed: 1,
+                                                 frame: frame,
+                                                 loopMode: .loop,
+                                                 contentMode: .scaleAspectFit)
+    
         loadImages { [weak self] in
             guard let self = self else { return }
             self.load10RandomQuotes {
-                if let lottieView = self.view as? LottieView {
-                    lottieView.stopLottieAnimation()
-                }
+                self.lottieView.stopLottieAnimation()
                 self.collectionView.reloadData()
                 self.isDataLoaded = true
             }
@@ -200,10 +203,8 @@ class ExploreVC: MonitoredVC {
             guard let self = self else { return }
             self.load10RandomQuotes {
                 self.collectionView.insertItems(at: self.loadedVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) })
-                if let lottieView = self.view as? LottieView {
-                    if lottieView.lottieAnimation != nil {
-                        lottieView.stopLottieAnimation()
-                    }
+                if self.lottieView.lottieAnimation != nil {
+                    self.lottieView.stopLottieAnimation()
                 }
                 self.isDataLoaded = true
             }
@@ -239,25 +240,25 @@ class ExploreVC: MonitoredVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
-        if let lottieView = view as? LottieView {
-            if lottieView.lottieAnimation != nil {
+
+        if lottieView.lottieAnimation != nil {
 //                lottieView.stopLottieAnimation()
-                connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
-            }
-            else {
-                if !isDataLoaded {
-                    let size = view.bounds.width / 3.5
-                    let x = view.bounds.width / 2 - (size / 2)
-                    let y = view.bounds.height / 2 - (size / 2)
-                    let frame = CGRect(x: x, y: y, width: size, height: size)
-                    lottieView.createAndStartLottieAnimation(animation: .circleLoading,
-                                                             animationSpeed: 1,
-                                                             frame: frame,
-                                                             loopMode: .loop,
-                                                             contentMode: .scaleAspectFit)
-                }
+            connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
+        }
+        else {
+            if !isDataLoaded {
+                let size = view.bounds.width / 3.5
+                let x = view.bounds.width / 2 - (size / 2)
+                let y = view.bounds.height / 2 - (size / 2)
+                let frame = CGRect(x: x, y: y, width: size, height: size)
+                lottieView.createAndStartLottieAnimation(animation: .circleLoading,
+                                                         animationSpeed: 1,
+                                                         frame: frame,
+                                                         loopMode: .loop,
+                                                         contentMode: .scaleAspectFit)
             }
         }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -266,23 +267,18 @@ class ExploreVC: MonitoredVC {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let lottieView = view as? LottieView {
-            if lottieView.lottieAnimation != nil {
-                lottieView.stopLottieAnimation()
-                lottieView.lottieAnimation = nil
-            }
+        if lottieView.lottieAnimation != nil {
+            lottieView.stopLottieAnimation()
+            lottieView.lottieAnimation = nil
         }
     }
     
     private func startWifiAnimation() {
-        if let lottieView = view as? LottieView {
-            lottieView.createAndStartLottieAnimation(animation: .wifiOff,
-                                                     animationSpeed: 2,
-                                                     frame: animationFrame,
-                                                     loopMode: .autoReverse,
-                                                     contentMode: .scaleAspectFit)
-        
-        }
+        lottieView.createAndStartLottieAnimation(animation: .wifiOff,
+                                                 animationSpeed: 2,
+                                                 frame: animationFrame,
+                                                 loopMode: .autoReverse,
+                                                 contentMode: .scaleAspectFit)
     }
     
     private func loadRandomQuote(genre: String, completion: @escaping () -> Void) {
