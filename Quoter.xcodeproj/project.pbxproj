@@ -89,6 +89,9 @@
 		24F7F05927BFC6E5001FEA75 /* music1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24F7F05827BFC6E5001FEA75 /* music1.mp3 */; };
 		24F7F05B27BFC98E001FEA75 /* music2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24F7F05A27BFC98E001FEA75 /* music2.mp3 */; };
 		24F7F05D27BFCA0C001FEA75 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7F05C27BFCA0C001FEA75 /* Array+Extension.swift */; };
+		24FC97C727CF809600504361 /* ExploreInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97C627CF809600504361 /* ExploreInteractor.swift */; };
+		24FC97C927CF80A400504361 /* ExplorePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97C827CF80A400504361 /* ExplorePresenter.swift */; };
+		24FC97CB27CF819A00504361 /* ExploreRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97CA27CF819A00504361 /* ExploreRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,6 +174,9 @@
 		24F7F05827BFC6E5001FEA75 /* music1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music1.mp3; sourceTree = "<group>"; };
 		24F7F05A27BFC98E001FEA75 /* music2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music2.mp3; sourceTree = "<group>"; };
 		24F7F05C27BFCA0C001FEA75 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		24FC97C627CF809600504361 /* ExploreInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreInteractor.swift; sourceTree = "<group>"; };
+		24FC97C827CF80A400504361 /* ExplorePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePresenter.swift; sourceTree = "<group>"; };
+		24FC97CA27CF819A00504361 /* ExploreRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,41 +210,44 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
-		2472F69827C4D2EA00746242 /* FilterScene */ = {
+		2472F69827C4D2EA00746242 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
 				2472F69927C4D30600746242 /* FilterVC.swift */,
 				24A78ABF27C5152F0014A8C8 /* FilterView.swift */,
 			);
-			path = FilterScene;
+			path = Filter;
 			sourceTree = "<group>";
 		};
-		248FC0D427A9541500069FFF /* QuotesOfAuthorScene */ = {
+		248FC0D427A9541500069FFF /* QuotesOfAuthor */ = {
 			isa = PBXGroup;
 			children = (
 				248FC0D527A9544D00069FFF /* QuotesOfAuthorVC.swift */,
 				248FC0D727A9548D00069FFF /* QuotesOfAuthorView.swift */,
 			);
-			path = QuotesOfAuthorScene;
+			path = QuotesOfAuthor;
 			sourceTree = "<group>";
 		};
-		24A8407827C3BE3300BCF304 /* LoadingAlertScene */ = {
+		24A8407827C3BE3300BCF304 /* LoadingAlert */ = {
 			isa = PBXGroup;
 			children = (
 				24A8407627C3B92800BCF304 /* LoadingAlertVC.swift */,
 			);
-			path = LoadingAlertScene;
+			path = LoadingAlert;
 			sourceTree = "<group>";
 		};
-		24BEA3DC27985FDA009DB491 /* ExploreScene */ = {
+		24BEA3DC27985FDA009DB491 /* Explore */ = {
 			isa = PBXGroup;
 			children = (
 				24E4A8AE27C29480000BB7DB /* QuoteCell.swift */,
-				24BEA3DD27985FEE009DB491 /* ExploreVC.swift */,
 				24BEA3DF2798601A009DB491 /* QuoteView.swift */,
 				24C9A8E527BD20DD001C820F /* QuoteViewButton.swift */,
+				24BEA3DD27985FEE009DB491 /* ExploreVC.swift */,
+				24FC97C627CF809600504361 /* ExploreInteractor.swift */,
+				24FC97C827CF80A400504361 /* ExplorePresenter.swift */,
+				24FC97CA27CF819A00504361 /* ExploreRouter.swift */,
 			);
-			path = ExploreScene;
+			path = Explore;
 			sourceTree = "<group>";
 		};
 		24C12BCF27AAB02C0069684D /* Views */ = {
@@ -252,12 +261,12 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		24C12BD227AABB8D0069684D /* ModalAlertScene */ = {
+		24C12BD227AABB8D0069684D /* ModalAlert */ = {
 			isa = PBXGroup;
 			children = (
 				24C12BD027AABB800069684D /* ModalAlertVC.swift */,
 			);
-			path = ModalAlertScene;
+			path = ModalAlert;
 			sourceTree = "<group>";
 		};
 		24CB9FE027930C0B00E9D49F /* Endpoints */ = {
@@ -350,17 +359,17 @@
 		24D1288A27903FEC00AD7F3D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				24A8407827C3BE3300BCF304 /* LoadingAlertScene */,
-				24C12BD227AABB8D0069684D /* ModalAlertScene */,
-				2472F69827C4D2EA00746242 /* FilterScene */,
-				24BEA3DC27985FDA009DB491 /* ExploreScene */,
-				24D1288B27903FF500AD7F3D /* AuthorsScene */,
-				248FC0D427A9541500069FFF /* QuotesOfAuthorScene */,
+				24A8407827C3BE3300BCF304 /* LoadingAlert */,
+				24C12BD227AABB8D0069684D /* ModalAlert */,
+				2472F69827C4D2EA00746242 /* Filter */,
+				24BEA3DC27985FDA009DB491 /* Explore */,
+				24D1288B27903FF500AD7F3D /* Authors */,
+				248FC0D427A9541500069FFF /* QuotesOfAuthor */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		24D1288B27903FF500AD7F3D /* AuthorsScene */ = {
+		24D1288B27903FF500AD7F3D /* Authors */ = {
 			isa = PBXGroup;
 			children = (
 				24D1287627903ECD00AD7F3D /* AuthorsVC.swift */,
@@ -370,7 +379,7 @@
 				24D264F72791940F00614218 /* AuthorCellVM.swift */,
 				247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */,
 			);
-			path = AuthorsScene;
+			path = Authors;
 			sourceTree = "<group>";
 		};
 		24D1288C2790400100AD7F3D /* SharedElements */ = {
@@ -575,6 +584,7 @@
 				2472F69A27C4D30600746242 /* FilterVC.swift in Sources */,
 				24DEBF4B27ABB55500C40B29 /* LottieView.swift in Sources */,
 				24F7F05D27BFCA0C001FEA75 /* Array+Extension.swift in Sources */,
+				24FC97C927CF80A400504361 /* ExplorePresenter.swift in Sources */,
 				248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */,
 				24F51F2F279EEB12003057F7 /* TabbarItemView.swift in Sources */,
 				24D128972790491500AD7F3D /* UIColor+Extension.swift in Sources */,
@@ -598,12 +608,14 @@
 				2489797D27B151EA00BD0B2E /* ImageManager.swift in Sources */,
 				24C12BD427AABC8F0069684D /* ModalView.swift in Sources */,
 				24A78AC027C5152F0014A8C8 /* FilterView.swift in Sources */,
+				24FC97C727CF809600504361 /* ExploreInteractor.swift in Sources */,
 				24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */,
 				24C12BCE27AAB0230069684D /* ModalAlertView.swift in Sources */,
 				24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */,
 				24E4A8AF27C29480000BB7DB /* QuoteCell.swift in Sources */,
 				24D4107B27B3FB4500B5C899 /* QuoteGardenEndpoints.swift in Sources */,
 				24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */,
+				24FC97CB27CF819A00504361 /* ExploreRouter.swift in Sources */,
 				24A0D38B27A7F099002286F6 /* CoreDataManager.swift in Sources */,
 				24F51F10279EA378003057F7 /* TabbarView.swift in Sources */,
 				24CB9FED27930C2700E9D49F /* NetworkManager.swift in Sources */,

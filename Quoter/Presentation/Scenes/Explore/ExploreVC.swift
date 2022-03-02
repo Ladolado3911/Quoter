@@ -15,7 +15,15 @@ enum ScrollingDirection {
     case right
 }
 
-class ExploreVC: MonitoredVC {
+protocol PresenterToVCProtocol: AnyObject {
+    var interactor: VCToInteractorProtocol? { get set }
+}
+
+class ExploreVC: MonitoredVC, PresenterToVCProtocol {
+    
+    var interactor: VCToInteractorProtocol?
+    var router: ExploreRouter?
+    
     
     var loadedVMs: [QuoteGardenQuoteVM] = []
     var loadedImageURLs: [URL?] = []
@@ -130,60 +138,19 @@ class ExploreVC: MonitoredVC {
                 make.left.right.top.bottom.equalTo(self.view)
             }
         }
-//        connectionStatusSubject
-//            .sink { [weak self] (isConnected, isFirstLaunch) in
-//                guard let self = self else { return }
-//                DispatchQueue.main.async {
-//                    if isConnected {
-//                        print("connected")
-//                        if let lottieView = self.view as? LottieView {
-//                            if lottieView.lottieAnimation != nil {
-//                                lottieView.stopLottieAnimation()
-//                            }
-//                        }
-//                        if isFirstLaunch {
-////                            if let lottieView = self.view as? LottieView {
-////                                lottieView.createAndStartLottieAnimation(animation: .circleLoading,
-////                                                                         animationSpeed: 1,
-////                                                                         frame: self.view.bounds,
-////                                                                         loopMode: .loop,
-////                                                                         contentMode: .scaleAspectFit)
-////                            }
-//                            self.loadInitialData {
-////                                if let lottieView = self.view as? LottieView {
-////                                    lottieView.stopLottieAnimation()
-////                                }
-//                            }
-//                            self.view.addSubview(self.collectionView)
-//                            self.collectionView.snp.makeConstraints { make in
-//                                make.left.right.top.bottom.equalTo(self.view)
-//                            }
-//                        }
-//                        else {
-//                        }
-//                    }
-//                    else {
-//                        print("not connected")
-//                        if let lottieView = self.view as? LottieView {
-//                            if lottieView.lottieAnimation != nil {
-//                                lottieView.stopLottieAnimation()
-//                            }
-//                        }
-//                        self.startWifiAnimation()
-//                    }
-//                }
-//            }
-//            .store(in: &cancellables)
-//
-//        NetworkMonitor.shared.startMonitoring { [weak self] path in
-//            if NetworkMonitor.shared.isFirstCheck {
-//                self?.connectionStatusSubject.send((path.status != .unsatisfied, true))
-////                NetworkMonitor.shared.isFirstCheck = false
-//            }
-//            else {
-//                self?.connectionStatusSubject.send((path.status == .unsatisfied, false))
-//            }
-//        }
+    }
+    
+    private func setup() {
+        let vc = self
+        let interactor = ExploreInteractor()
+        let presenter = ExplorePresenter()
+        let router = ExploreRouter()
+        vc.interactor = interactor
+        vc.router = router
+        interactor.presenter = presenter
+        presenter.vc = vc
+        
+        
     }
     
     private func resetInitialData() {
@@ -230,19 +197,6 @@ class ExploreVC: MonitoredVC {
             }
         }
     }
-//
-//    private func loadNewData(completion: @escaping () -> Void) {
-//        loadImages { [weak self] in
-//            guard let self = self else { return }
-//            self.load10RandomQuotes {
-//                let indexPaths = self.loadedVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) }
-//                self.collectionView.insertItems(at: Array(indexPaths[(self.capturedCurrentPage + 4)...self.capturedCurrentPage + 14]))
-//                self.collectionView.isUserInteractionEnabled = true
-//                self.isLoadNewDataFunctionRunning = false
-//                self.dismiss(animated: false)
-//            }
-//        }
-//    }
     
     private func loadNewData(edges: (Int, Int), completion: @escaping () -> Void) {
         loadImages { [weak self] in
@@ -424,19 +378,6 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         0
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        let castedCell = cell as? QuoteCell
-//        castedCell?.quoteVM = loadedVMs[indexPath.item]
-//        castedCell?.mainImageURL = loadedImageURLs[indexPath.item]
-//    }
-    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let width = scrollView.frame.width - (scrollView.contentInset.left * 2)
-//        let index = scrollView.contentOffset.x / width
-//        let roundedIndex = round(index)
-//        currentPage = Int(roundedIndex)
-//    }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         Sound.windTransition2.play(extensionString: .mp3)
