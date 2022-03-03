@@ -18,7 +18,7 @@ enum ScrollingDirection {
 protocol PresenterToVCProtocol: AnyObject {
     var interactor: VCToInteractorProtocol? { get set }
     
-    func displayInitialData()
+    func displayInitialData(loadedVMs: [QuoteGardenQuoteVM], loadedImages: [UIImage?])
     
 }
 
@@ -138,9 +138,10 @@ class ExploreVC: MonitoredVC {
         //print(#function)
         UIApplication.shared.statusBarStyle = .lightContent
         exploreView.startAnimating()
-        self.loadInitialData {
-//                lottieView.stopLottieAnimation()
-        }
+        interactor?.displayInitialData()
+//        self.loadInitialData {
+////                lottieView.stopLottieAnimation()
+//        }
         self.view.addSubview(self.collectionView)
         self.collectionView.snp.makeConstraints { make in
             make.left.right.top.bottom.equalTo(self.view)
@@ -400,7 +401,13 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 
 extension ExploreVC: PresenterToVCProtocol {
     
-    func displayInitialData() {
-        
+    func displayInitialData(loadedVMs: [QuoteGardenQuoteVM], loadedImages: [UIImage?]) {
+        self.loadedVMs = loadedVMs
+        self.loadedImages = loadedImages
+        self.collectionView.insertItems(at: loadedVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) })
+        if self.exploreView.lottieAnimation != nil {
+            self.exploreView.stopLottieAnimation()
+        }
+        self.isDataLoaded = true
     }
 }
