@@ -10,13 +10,13 @@ import UIKit
 protocol VCToInteractorProtocol: AnyObject {
     var presenter: InteractorToPresenterProtocol? { get set }
     
-    func displayInitialData()
+    func requestToDisplayInitialData()
 }
 
 class ExploreInteractor: VCToInteractorProtocol {
     var presenter: InteractorToPresenterProtocol?
     
-    func displayInitialData() {
+    func requestToDisplayInitialData() {
         let imageWorker = ImageWorker()
         let quoteWorker = QuoteWorker()
         

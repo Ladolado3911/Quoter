@@ -768,7 +768,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "22"
             endingLineNumber = "22"
-            landmarkName = "displayInitialData()"
+            landmarkName = "requestToDisplayInitialData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -784,7 +784,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
             endingLineNumber = "51"
-            landmarkName = "displayInitialData()"
+            landmarkName = "requestToDisplayInitialData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

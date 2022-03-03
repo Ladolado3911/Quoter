@@ -138,7 +138,7 @@ class ExploreVC: MonitoredVC {
         //print(#function)
         UIApplication.shared.statusBarStyle = .lightContent
         exploreView.startAnimating()
-        interactor?.displayInitialData()
+        interactor?.requestToDisplayInitialData()
 //        self.loadInitialData {
 ////                lottieView.stopLottieAnimation()
 //        }
