@@ -750,9 +750,9 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "411"
-            endingLineNumber = "411"
-            landmarkName = "displayInitialData(loadedVMs:loadedImages:)"
+            startingLineNumber = "398"
+            endingLineNumber = "398"
+            landmarkName = "displayInitialData(loadedVMs:loadedImages:indexPaths:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -782,8 +782,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExplorePresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
             landmarkName = "formatData(quoteModels:images:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -830,40 +830,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/Workers/ImageWorker.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "get10LandscapeImages(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "01E3F2E8-8D3E-4F48-AEF3-E13EF3C672A6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/Explore/Workers/ImageWorker.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
             startingLineNumber = "50"
             endingLineNumber = "50"
-            landmarkName = "get10LandscapeImages(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DA915307-6A6A-4E7D-97EB-DED9B5E61035"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/Explore/Workers/ImageWorker.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
             landmarkName = "get10LandscapeImages(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -878,8 +846,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/Workers/ImageWorker.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "get10LandscapeImages(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -894,9 +862,9 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "405"
-            endingLineNumber = "405"
-            landmarkName = "displayInitialData(loadedVMs:loadedImages:)"
+            startingLineNumber = "392"
+            endingLineNumber = "392"
+            landmarkName = "displayInitialData(loadedVMs:loadedImages:indexPaths:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

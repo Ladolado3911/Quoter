@@ -45,9 +45,6 @@ class ImageWorker {
     
     func get10LandscapeImages(completion: @escaping (Result<[UIImage?], Error>) -> Void) {
         get10LandscapeImageItems { result in
-            
-            //guard let self = self else { return }
-            
             switch result {
             case .success(let imageItems):
                 //print(imageItems)

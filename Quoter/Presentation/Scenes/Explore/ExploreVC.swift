@@ -18,7 +18,7 @@ enum ScrollingDirection {
 protocol PresenterToVCProtocol: AnyObject {
     var interactor: VCToInteractorProtocol? { get set }
     
-    func displayInitialData(loadedVMs: [QuoteGardenQuoteVM], loadedImages: [UIImage?])
+    func displayInitialData(loadedVMs: [QuoteGardenQuoteVM], loadedImages: [UIImage?], indexPaths: [IndexPath])
     
 }
 
@@ -176,19 +176,6 @@ class ExploreVC: MonitoredVC {
             self.load10RandomQuotes {
                 self.exploreView.stopLottieAnimation()
                 self.collectionView.reloadData()
-                self.isDataLoaded = true
-            }
-        }
-    }
-
-    private func loadInitialData(completion: @escaping () -> Void) {
-        loadImages { [weak self] in
-            guard let self = self else { return }
-            self.load10RandomQuotes {
-                self.collectionView.insertItems(at: self.loadedVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) })
-                if self.exploreView.lottieAnimation != nil {
-                    self.exploreView.stopLottieAnimation()
-                }
                 self.isDataLoaded = true
             }
         }
@@ -401,10 +388,10 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 
 extension ExploreVC: PresenterToVCProtocol {
     
-    func displayInitialData(loadedVMs: [QuoteGardenQuoteVM], loadedImages: [UIImage?]) {
+    func displayInitialData(loadedVMs: [QuoteGardenQuoteVM], loadedImages: [UIImage?], indexPaths: [IndexPath]) {
         self.loadedVMs = loadedVMs
         self.loadedImages = loadedImages
-        self.collectionView.insertItems(at: loadedVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) })
+        self.collectionView.insertItems(at: indexPaths)
         if self.exploreView.lottieAnimation != nil {
             self.exploreView.stopLottieAnimation()
         }

@@ -17,8 +17,10 @@ class ExplorePresenter: InteractorToPresenterProtocol {
     var vc: PresenterToVCProtocol?
     
     func formatData(quoteModels: [QuoteGardenQuoteModel], images: [UIImage?]) {
+        
         let shuffledImages = images.shuffled()
         let quoteVMs = quoteModels.map { QuoteGardenQuoteVM(rootModel: $0) }
-        vc?.displayInitialData(loadedVMs: quoteVMs, loadedImages: shuffledImages)
+        let indexPaths = quoteVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) }
+        vc?.displayInitialData(loadedVMs: quoteVMs, loadedImages: shuffledImages, indexPaths: indexPaths)
     }
 }
