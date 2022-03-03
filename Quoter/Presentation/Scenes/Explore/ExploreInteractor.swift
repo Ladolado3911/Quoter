@@ -17,38 +17,10 @@ class ExploreInteractor: VCToInteractorProtocol {
     var presenter: InteractorToPresenterProtocol?
     
     func requestToDisplayInitialData() {
-        let imageWorker = ImageWorker()
-        let quoteWorker = QuoteWorker()
-        
-        var resultQuoteModels: [QuoteGardenQuoteModel] = []
-        var resultImages: [UIImage?] = []
-        
-        let group = DispatchGroup()
-        
-        group.enter()
-        imageWorker.get10LandscapeImages { result in
-            switch result {
-            case .success(let images):
-                resultImages.append(contentsOf: images)
-            case .failure(let error):
-                print(error)
-            }
-            group.leave()
-        }
-        
-        group.enter()
-        quoteWorker.get10RandomQuotes(genre: "") { result in
-            switch result {
-            case .success(let quoteModels):
-                resultQuoteModels.append(contentsOf: quoteModels)
-            case .failure(let error):
-                print(error)
-            }
-            group.leave()
-        }
-        group.notify(queue: .main) { [weak self] in
+        let contentWorker = ContentWorker()
+        contentWorker.getContent { [weak self] quoteModels, images in
             guard let self = self else { return }
-            self.presenter?.formatData(quoteModels: resultQuoteModels, images: resultImages)
+            self.presenter?.formatData(quoteModels: quoteModels, images: images)
         }
     }
 }
