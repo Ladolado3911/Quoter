@@ -18,6 +18,7 @@ enum ScrollingDirection {
 protocol PresenterToVCProtocol: AnyObject {
     var interactor: VCToInteractorProtocol? { get set }
     
+    //func resetDisplayData()
     func displayInitialData(loadedVMs: [QuoteGardenQuoteVM], loadedImages: [UIImage?], indexPaths: [IndexPath])
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
@@ -35,7 +36,7 @@ class ExploreVC: MonitoredVC {
     
     var isAdditionalDataAdded = true
     
-    var selectedFilters: [String] = []
+    var selectedFilters: [String] = [""]
     
     var scrollingDirection: ScrollingDirection = .right
     
@@ -140,7 +141,7 @@ class ExploreVC: MonitoredVC {
         //print(#function)
         UIApplication.shared.statusBarStyle = .lightContent
         exploreView.startAnimating()
-        interactor?.requestDisplayInitialData()
+        interactor?.requestDisplayInitialData(genres: selectedFilters)
 //        self.loadInitialData {
 ////                lottieView.stopLottieAnimation()
 //        }
@@ -167,20 +168,21 @@ class ExploreVC: MonitoredVC {
         isDataLoaded = false
         loadedVMs = []
         loadedImages = []
-        currentPage = 0
-        capturedCurrentPage = 0
+//        currentPage = 0
+//        capturedCurrentPage = 0
         collectionView.reloadData()
 
         exploreView.startAnimating()
+        interactor?.requestDisplayInitialData(genres: selectedFilters)
     
-        loadImages { [weak self] in
-            guard let self = self else { return }
-            self.load10RandomQuotes {
-                self.exploreView.stopLottieAnimation()
-                self.collectionView.reloadData()
-                self.isDataLoaded = true
-            }
-        }
+//        loadImages { [weak self] in
+//            guard let self = self else { return }
+//            self.load10RandomQuotes {
+//                self.exploreView.stopLottieAnimation()
+//                self.collectionView.reloadData()
+//                self.isDataLoaded = true
+//            }
+//        }
     }
     
     private func loadNewData(edges: (Int, Int), completion: @escaping () -> Void) {
@@ -367,7 +369,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 //                loadNewData(edges: (4, 14)) {
 //
 //                }
-                interactor?.requestDisplayNewData(currentVMs: self.loadedVMs, capturedPage: self.capturedCurrentPage, edges: (4, 14))
+                interactor?.requestDisplayNewData(genres: selectedFilters, currentVMs: self.loadedVMs, capturedPage: self.capturedCurrentPage, edges: (4, 14))
             }
         }
         if currentPage == self.loadedVMs.count - 1 && !isLoadNewDataFunctionRunning {
@@ -378,7 +380,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 //                loadNewData(edges: (0, 10)) {
 //
 //                }
-                interactor?.requestDisplayNewData(currentVMs: self.loadedVMs, capturedPage: self.capturedCurrentPage, edges: (0, 10))
+                interactor?.requestDisplayNewData(genres: selectedFilters, currentVMs: self.loadedVMs, capturedPage: self.capturedCurrentPage, edges: (0, 10))
             }
         }
         if currentPage == self.loadedVMs.count - 1 && isLoadNewDataFunctionRunning {
@@ -392,6 +394,12 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 
 extension ExploreVC: PresenterToVCProtocol {
     
+//    func resetDisplayData() {
+//        self.exploreView.stopLottieAnimation()
+//        self.collectionView.reloadData()
+//        self.isDataLoaded = true
+//    }
+//
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
                         indexPaths: [IndexPath]) {
@@ -408,6 +416,8 @@ extension ExploreVC: PresenterToVCProtocol {
                             loadedImages: [UIImage?],
                             indexPaths: [IndexPath]) {
         
+        self.currentPage = 0
+        self.capturedCurrentPage = 0
         self.loadedVMs = loadedVMs
         self.loadedImages = loadedImages
         self.collectionView.insertItems(at: indexPaths)

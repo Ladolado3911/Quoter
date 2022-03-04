@@ -17,7 +17,7 @@ class ContentWorker {
     
     let group = DispatchGroup()
     
-    func getContent(completion: @escaping ([QuoteGardenQuoteModel], [UIImage?]) -> Void) {
+    func getContent(genres: [String], completion: @escaping ([QuoteGardenQuoteModel], [UIImage?]) -> Void) {
         group.enter()
         imageWorker.get10LandscapeImages { result in
             switch result {
@@ -29,7 +29,7 @@ class ContentWorker {
             self.group.leave()
         }
         group.enter()
-        quoteWorker.get10RandomQuotes(genre: "") {  result in
+        quoteWorker.get10RandomQuotes(genre: genres.randomElement() ?? "") {  result in
             switch result {
             case .success(let quoteModels):
                 self.resultQuoteModels.append(contentsOf: quoteModels)

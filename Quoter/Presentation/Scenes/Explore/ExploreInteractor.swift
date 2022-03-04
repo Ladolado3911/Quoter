@@ -10,16 +10,17 @@ import UIKit
 protocol VCToInteractorProtocol: AnyObject {
     var presenter: InteractorToPresenterProtocol? { get set }
     
-    func requestDisplayInitialData()
-    func requestDisplayNewData(currentVMs: [QuoteGardenQuoteVM], capturedPage: Int, edges: (Int, Int))
+    //func requestResetDisplayData()
+    func requestDisplayInitialData(genres: [String])
+    func requestDisplayNewData(genres: [String], currentVMs: [QuoteGardenQuoteVM], capturedPage: Int, edges: (Int, Int))
 }
 
 class ExploreInteractor: VCToInteractorProtocol {
     var presenter: InteractorToPresenterProtocol?
-    
-    func requestDisplayNewData(currentVMs: [QuoteGardenQuoteVM], capturedPage: Int, edges: (Int, Int)) {
+
+    func requestDisplayNewData(genres: [String], currentVMs: [QuoteGardenQuoteVM], capturedPage: Int, edges: (Int, Int)) {
         let contentWorker = ContentWorker()
-        contentWorker.getContent { [weak self] quoteModels, images in
+        contentWorker.getContent(genres: genres) { [weak self] quoteModels, images in
             guard let self = self else { return }
             self.presenter?.formatNewData(currentVMs: currentVMs,
                                           capturedPage: capturedPage,
@@ -29,9 +30,9 @@ class ExploreInteractor: VCToInteractorProtocol {
         }
     }
     
-    func requestDisplayInitialData() {
+    func requestDisplayInitialData(genres: [String]) {
         let contentWorker = ContentWorker()
-        contentWorker.getContent { [weak self] quoteModels, images in
+        contentWorker.getContent(genres: genres) { [weak self] quoteModels, images in
             guard let self = self else { return }
             self.presenter?.formatData(quoteModels: quoteModels, images: images)
         }
