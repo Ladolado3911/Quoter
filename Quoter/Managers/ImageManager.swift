@@ -25,23 +25,6 @@ class ImageManager: NetworkManager {
     }
     
     static func getAuthorImageURLUsingSlug(slug: String, completion: @escaping (Result<(URL?, ImageType), Error>) -> Void) {
-//        var newSlug: String = ""
-//        if ["Confucius", "Laozi"].contains(slug) {
-//            completion(.success((nil, .noPicture)))
-//            return
-//        }
-//        else if slug == "Napoleon_Bonaparte" {
-//            newSlug = "Napoleon"
-//        }
-//        else if slug == "Buddha" {
-//            newSlug = "Gautama_Buddha"
-//        }
-//        else if slug == "Bernard_Shaw" {
-//            newSlug = "George_Bernard_Shaw"
-//        }
-//        else {
-//            newSlug = slug
-//        }
         if let url = ImageEndpoints.getAuthorImageURL(authorName: slug.convertAuthorNameException()) {
             getData(url: url, model: Resource(model: Response.self)) { result in
                 switch result {

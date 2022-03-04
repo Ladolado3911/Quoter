@@ -25,4 +25,8 @@ extension String {
         }
         return newSlug
     }
+    
+    func convertAuthorName() -> String {
+        self.replacingOccurrences(of: " ", with: "_")
+    }
 }

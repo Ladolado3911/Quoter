@@ -9,8 +9,6 @@ import UIKit
 
 class ExploreImageWorker {
     
-    let downloader = ImageDownloaderWorker()
-    
     private func get10LandscapeImageItems(completion: @escaping (Result<[ImageItem], Error>) -> Void) {
         guard let url = ImageEndpoints.get10NatureLandscapeURLs() else { return }
         NetworkManager.getData(url: url, model: Resource(model: ImageResponse.self)) { result in
@@ -27,7 +25,7 @@ class ExploreImageWorker {
     
     private func downloadImage(image: ImageItem, completion: @escaping (UIImage?) -> Void) {
         if let urlString = image.largeImageURL {
-            downloader.downloadImage(urlString: urlString) { image in
+            ImageDownloaderWorker.downloadImage(urlString: urlString) { image in
                 completion(image)
             }
         }
