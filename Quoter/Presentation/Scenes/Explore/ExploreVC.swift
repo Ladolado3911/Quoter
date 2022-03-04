@@ -19,7 +19,9 @@ protocol PresenterToVCProtocol: AnyObject {
     var interactor: VCToInteractorProtocol? { get set }
     
     func displayInitialData(loadedVMs: [QuoteGardenQuoteVM], loadedImages: [UIImage?], indexPaths: [IndexPath])
-    
+    func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
+                        loadedImages: [UIImage?],
+                        indexPaths: [IndexPath])
 }
 
 class ExploreVC: MonitoredVC {
@@ -138,7 +140,7 @@ class ExploreVC: MonitoredVC {
         //print(#function)
         UIApplication.shared.statusBarStyle = .lightContent
         exploreView.startAnimating()
-        interactor?.requestToDisplayInitialData()
+        interactor?.requestDisplayInitialData()
 //        self.loadInitialData {
 ////                lottieView.stopLottieAnimation()
 //        }
@@ -362,9 +364,10 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             if !isLoadNewDataFunctionRunning {
                 isLoadNewDataFunctionRunning = true
                 
-                loadNewData(edges: (4, 14)) {
-                    
-                }
+//                loadNewData(edges: (4, 14)) {
+//
+//                }
+                interactor?.requestDisplayNewData(currentVMs: self.loadedVMs, capturedPage: self.capturedCurrentPage, edges: (4, 14))
             }
         }
         if currentPage == self.loadedVMs.count - 1 && !isLoadNewDataFunctionRunning {
@@ -372,9 +375,10 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             if !isLoadNewDataFunctionRunning {
                 isLoadNewDataFunctionRunning = true
                 
-                loadNewData(edges: (0, 10)) {
-                    
-                }
+//                loadNewData(edges: (0, 10)) {
+//
+//                }
+                interactor?.requestDisplayNewData(currentVMs: self.loadedVMs, capturedPage: self.capturedCurrentPage, edges: (0, 10))
             }
         }
         if currentPage == self.loadedVMs.count - 1 && isLoadNewDataFunctionRunning {
@@ -388,7 +392,22 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 
 extension ExploreVC: PresenterToVCProtocol {
     
-    func displayInitialData(loadedVMs: [QuoteGardenQuoteVM], loadedImages: [UIImage?], indexPaths: [IndexPath]) {
+    func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
+                        loadedImages: [UIImage?],
+                        indexPaths: [IndexPath]) {
+        
+        self.loadedVMs.append(contentsOf: loadedVMs)
+        self.loadedImages.append(contentsOf: loadedImages)
+        self.collectionView.insertItems(at: indexPaths)
+        self.collectionView.isUserInteractionEnabled = true
+        self.isLoadNewDataFunctionRunning = false
+        self.dismiss(animated: false)
+    }
+    
+    func displayInitialData(loadedVMs: [QuoteGardenQuoteVM],
+                            loadedImages: [UIImage?],
+                            indexPaths: [IndexPath]) {
+        
         self.loadedVMs = loadedVMs
         self.loadedImages = loadedImages
         self.collectionView.insertItems(at: indexPaths)
