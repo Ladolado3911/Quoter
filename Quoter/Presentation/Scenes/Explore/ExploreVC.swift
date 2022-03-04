@@ -10,15 +10,9 @@ import SnapKit
 import AnimatedCollectionViewLayout
 import Combine
 
-enum ScrollingDirection {
-    case left
-    case right
-}
-
 protocol PresenterToVCProtocol: AnyObject {
     var interactor: VCToInteractorProtocol? { get set }
     
-    //func resetDisplayData()
     func displayInitialData(loadedVMs: [QuoteGardenQuoteVM], loadedImages: [UIImage?], indexPaths: [IndexPath])
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
@@ -29,17 +23,11 @@ class ExploreVC: MonitoredVC {
     
 //    var router: ExploreRouter?
     var interactor: VCToInteractorProtocol?
+    var router: ExploreRouterProtocol?
     
     var loadedVMs: [QuoteGardenQuoteVM] = []
-    var loadedImageURLs: [URL?] = []
     var loadedImages: [UIImage?] = []
-    
-    var isAdditionalDataAdded = true
-    
     var selectedFilters: [String] = [""]
-    
-    var scrollingDirection: ScrollingDirection = .right
-    
     var isLoadNewDataFunctionRunning: Bool = false
     var isDataLoaded = false
     
@@ -74,21 +62,7 @@ class ExploreVC: MonitoredVC {
             print(currentPage)
         }
     }
-    
     var capturedCurrentPage: Int = 0
-    
-    
-    
-    var currentGenre: String = ""
-
-    var currentIndex: Int = 0
-    var currentX: CGFloat = 0
-    var prevX: CGFloat = -1
-    
-    var tempQuoteVM: QuoteVM?
-    
-    var currentNetworkPage: Int = 0
-    var totalNetworkPages: Int = 0
 
     lazy var collectionView: UICollectionView = {
         let layout = AnimatedCollectionViewLayout()
@@ -108,14 +82,6 @@ class ExploreVC: MonitoredVC {
         return collectionView
     }()
 
-    let animationFrame: CGRect = {
-        let size = PublicConstants.screenWidth / 3
-        let x = PublicConstants.screenWidth / 2 - (size / 2)
-        let y = PublicConstants.screenHeight / 2 - (size / 2)
-        let frame = CGRect(x: x, y: y, width: size, height: size)
-        return frame
-    }()
-    
     lazy var exploreView: ExploreView = {
         let view = ExploreView(frame: view.bounds)
         return view
@@ -151,15 +117,15 @@ class ExploreVC: MonitoredVC {
         let vc = self
         let interactor = ExploreInteractor()
         let presenter = ExplorePresenter()
-        //let router = ExploreRouter()
+        let router = ExploreRouter()
         vc.interactor = interactor
-        //vc.router = router
+        vc.router = router
         interactor.presenter = presenter
         presenter.vc = vc
-        
+        router.vc = vc
     }
     
-    private func resetInitialData() {
+    func resetInitialData() {
         isDataLoaded = false
         loadedVMs = []
         loadedImages = []
@@ -204,17 +170,7 @@ class ExploreVC: MonitoredVC {
     }
     
     @objc func didTapOnFilter(sender: UITapGestureRecognizer) {
-        let filterVC = FilterVC()
-        filterVC.modalTransitionStyle = .crossDissolve
-        filterVC.modalPresentationStyle = .custom
-        filterVC.selectedTagStrings = selectedFilters
-        filterVC.dismissClosure = { [weak self] selectedFilters in
-            guard let self = self else { return }
-            self.selectedFilters = selectedFilters
-            self.resetInitialData()
-            self.dismiss(animated: true)
-        }
-        present(filterVC, animated: true)
+        router?.routeToFilters()
     }
 }
 
