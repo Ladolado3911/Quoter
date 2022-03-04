@@ -138,13 +138,9 @@ class ExploreVC: MonitoredVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print(#function)
         UIApplication.shared.statusBarStyle = .lightContent
         exploreView.startAnimating()
         interactor?.requestDisplayInitialData(genres: selectedFilters)
-//        self.loadInitialData {
-////                lottieView.stopLottieAnimation()
-//        }
         self.view.addSubview(self.collectionView)
         self.collectionView.snp.makeConstraints { make in
             make.left.right.top.bottom.equalTo(self.view)
@@ -161,62 +157,20 @@ class ExploreVC: MonitoredVC {
         interactor.presenter = presenter
         presenter.vc = vc
         
-        
     }
     
     private func resetInitialData() {
         isDataLoaded = false
         loadedVMs = []
         loadedImages = []
-//        currentPage = 0
-//        capturedCurrentPage = 0
         collectionView.reloadData()
-
         exploreView.startAnimating()
         interactor?.requestDisplayInitialData(genres: selectedFilters)
-    
-//        loadImages { [weak self] in
-//            guard let self = self else { return }
-//            self.load10RandomQuotes {
-//                self.exploreView.stopLottieAnimation()
-//                self.collectionView.reloadData()
-//                self.isDataLoaded = true
-//            }
-//        }
-    }
-    
-    private func loadNewData(edges: (Int, Int), completion: @escaping () -> Void) {
-        loadImages { [weak self] in
-            guard let self = self else { return }
-            self.load10RandomQuotes {
-                let indexPaths = self.loadedVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) }
-                self.collectionView.insertItems(at: Array(indexPaths[(self.capturedCurrentPage + edges.0)...self.capturedCurrentPage + edges.1]))
-                self.collectionView.isUserInteractionEnabled = true
-                self.isLoadNewDataFunctionRunning = false
-                self.dismiss(animated: false)
-            }
-        }
-    }
-    
-    private func load10RandomQuotes(completion: @escaping () -> Void) {
-        let group = DispatchGroup()
-        for _ in 0..<10 {
-            group.enter()
-            loadRandomQuote(genre: selectedFilters.randomElement() ?? "") {
-                group.leave()
-            }
-        }
-        group.notify(queue: .main) {
-            completion()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
-
         if exploreView.lottieAnimation != nil {
-//                lottieView.stopLottieAnimation()
             connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
         }
         else {
@@ -224,7 +178,6 @@ class ExploreVC: MonitoredVC {
                 exploreView.startAnimating()
             }
         }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -237,63 +190,6 @@ class ExploreVC: MonitoredVC {
             exploreView.stopLottieAnimation()
             exploreView.lottieAnimation = nil
         }
-    }
-    
-    private func startWifiAnimation() {
-        exploreView.createAndStartLottieAnimation(animation: .wifiOff,
-                                                 animationSpeed: 2,
-                                                 frame: animationFrame,
-                                                 loopMode: .autoReverse,
-                                                 contentMode: .scaleAspectFit)
-    }
-    
-    private func loadRandomQuote(genre: String, completion: @escaping () -> Void) {
-        QuoteGardenManager.getRandomQuote(genre: genre) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let quote):
-                self.loadedVMs.append(quote)
-                completion()
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    private func loadImages(completion: @escaping () -> Void) {
-        ImageManager.load10LandscapeURLs { [weak self] result in
-            switch result {
-            case .success(let urls):
-                let shuffled = urls.shuffled().compactMap { $0 }
-                let imageFetchingQueue = DispatchQueue.global(qos: .background)
-                let group = DispatchGroup()
-                for shuffledUrl in shuffled {
-                    group.enter()
-                    imageFetchingQueue.async {
-                        do {
-                            let data = try Data(contentsOf: shuffledUrl)
-                            DispatchQueue.main.async {
-                                let image = UIImage(data: data)
-                                self?.loadedImages.append(image)
-                                group.leave()
-                            }
-                        }
-                        catch {
-                            print(error)
-                        }
-                    }
-                }
-                group.notify(queue: .main) {
-                    completion()
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    private func convertAuthorName(name: String) -> String {
-        name.replacingOccurrences(of: " ", with: "_")
     }
     
     @objc func didTapOnBook(sender: UITapGestureRecognizer) {
@@ -316,11 +212,6 @@ class ExploreVC: MonitoredVC {
             guard let self = self else { return }
             self.selectedFilters = selectedFilters
             self.resetInitialData()
-            // load new content
-//            self.loadInitialData {
-//
-//            }
-            
             self.dismiss(animated: true)
         }
         present(filterVC, animated: true)
@@ -359,16 +250,10 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        //print(currentPage)
         if currentPage == self.loadedVMs.count - 5 && !isLoadNewDataFunctionRunning {
             capturedCurrentPage = currentPage
-            //print(capturedCurrentPage)
             if !isLoadNewDataFunctionRunning {
                 isLoadNewDataFunctionRunning = true
-                
-//                loadNewData(edges: (4, 14)) {
-//
-//                }
                 interactor?.requestDisplayNewData(genres: selectedFilters, currentVMs: self.loadedVMs, capturedPage: self.capturedCurrentPage, edges: (4, 14))
             }
         }
@@ -376,10 +261,6 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             capturedCurrentPage = currentPage
             if !isLoadNewDataFunctionRunning {
                 isLoadNewDataFunctionRunning = true
-                
-//                loadNewData(edges: (0, 10)) {
-//
-//                }
                 interactor?.requestDisplayNewData(genres: selectedFilters, currentVMs: self.loadedVMs, capturedPage: self.capturedCurrentPage, edges: (0, 10))
             }
         }
@@ -393,13 +274,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 }
 
 extension ExploreVC: PresenterToVCProtocol {
-    
-//    func resetDisplayData() {
-//        self.exploreView.stopLottieAnimation()
-//        self.collectionView.reloadData()
-//        self.isDataLoaded = true
-//    }
-//
+
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
                         indexPaths: [IndexPath]) {
