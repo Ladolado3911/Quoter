@@ -23,13 +23,13 @@ class ExplorePresenter: InteractorToExplorePresenterProtocol {
                        quoteModels: [QuoteGardenQuoteModel],
                        images: [UIImage?]) {
         
-        var newCurrentVMs = currentVMs
         let shuffledImages = images.shuffled()
+        var newCurrentVMs = currentVMs
         let additionalQuoteVMs = quoteModels.map { QuoteGardenQuoteVM(rootModel: $0) }
         newCurrentVMs.append(contentsOf: additionalQuoteVMs)
         let indexPaths = newCurrentVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) }
         let newIndexPaths = Array(indexPaths[(capturedPage + edges.0)...capturedPage + edges.1])
-        vc?.displayNewData(loadedVMs: currentVMs, loadedImages: shuffledImages, indexPaths: newIndexPaths)
+        vc?.displayNewData(loadedVMs: additionalQuoteVMs, loadedImages: shuffledImages, indexPaths: newIndexPaths)
     }
     
     func formatData(quoteModels: [QuoteGardenQuoteModel], images: [UIImage?]) {

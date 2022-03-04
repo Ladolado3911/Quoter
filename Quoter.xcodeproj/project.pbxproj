@@ -72,6 +72,7 @@
 		24E289EB27D2286300FDB6BB /* ModalAlertImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289EA27D2286300FDB6BB /* ModalAlertImageWorker.swift */; };
 		24E289ED27D228BC00FDB6BB /* ModalAlertContentWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289EC27D228BC00FDB6BB /* ModalAlertContentWorker.swift */; };
 		24E289F027D234A700FDB6BB /* ImageDownloaderWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289EF27D234A700FDB6BB /* ImageDownloaderWorker.swift */; };
+		24E289F227D23D2800FDB6BB /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289F127D23D2800FDB6BB /* String+Extension.swift */; };
 		24E4A8AF27C29480000BB7DB /* QuoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E4A8AE27C29480000BB7DB /* QuoteCell.swift */; };
 		24EBDBEF27BA2BCE0059654B /* MonitoredVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EBDBEE27BA2BCE0059654B /* MonitoredVC.swift */; };
 		24EBDBF127BA35D90059654B /* wifi-off.json in Resources */ = {isa = PBXBuildFile; fileRef = 24EBDBF027BA35D90059654B /* wifi-off.json */; };
@@ -168,6 +169,7 @@
 		24E289EA27D2286300FDB6BB /* ModalAlertImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertImageWorker.swift; sourceTree = "<group>"; };
 		24E289EC27D228BC00FDB6BB /* ModalAlertContentWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertContentWorker.swift; sourceTree = "<group>"; };
 		24E289EF27D234A700FDB6BB /* ImageDownloaderWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloaderWorker.swift; sourceTree = "<group>"; };
+		24E289F127D23D2800FDB6BB /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		24E4A8AE27C29480000BB7DB /* QuoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteCell.swift; sourceTree = "<group>"; };
 		24EBDBEE27BA2BCE0059654B /* MonitoredVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoredVC.swift; sourceTree = "<group>"; };
 		24EBDBF027BA35D90059654B /* wifi-off.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wifi-off.json"; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 				24C12BCB27AAAFCF0069684D /* UIViewController+Extension.swift */,
 				24C9A8E727BD2E25001C820F /* UIImage+Extension.swift */,
 				24F7F05C27BFCA0C001FEA75 /* Array+Extension.swift */,
+				24E289F127D23D2800FDB6BB /* String+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -682,6 +685,7 @@
 				24E289ED27D228BC00FDB6BB /* ModalAlertContentWorker.swift in Sources */,
 				24A78AC027C5152F0014A8C8 /* FilterView.swift in Sources */,
 				24FC97C727CF809600504361 /* ExploreInteractor.swift in Sources */,
+				24E289F227D23D2800FDB6BB /* String+Extension.swift in Sources */,
 				24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */,
 				24C12BCE27AAB0230069684D /* ModalAlertView.swift in Sources */,
 				24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */,

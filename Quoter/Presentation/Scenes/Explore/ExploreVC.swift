@@ -239,6 +239,7 @@ extension ExploreVC: PresenterToExploreVCProtocol {
         self.collectionView.insertItems(at: indexPaths)
         self.collectionView.isUserInteractionEnabled = true
         self.isLoadNewDataFunctionRunning = false
+        
         self.dismiss(animated: false)
     }
     
