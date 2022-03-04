@@ -7,10 +7,10 @@
 
 import UIKit
 
-class ContentWorker {
+class ExploreContentWorker {
     
-    let imageWorker = ImageWorker()
-    let quoteWorker = QuoteWorker()
+    let imageWorker = ExploreImageWorker()
+    let quoteWorker = ExploreQuoteWorker()
     
     var resultQuoteModels: [QuoteGardenQuoteModel] = []
     var resultImages: [UIImage?] = []

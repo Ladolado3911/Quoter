@@ -7,18 +7,18 @@
 
 import UIKit
 
-protocol VCToInteractorProtocol: AnyObject {
-    var presenter: InteractorToPresenterProtocol? { get set }
+protocol VCToExploreInteractorProtocol: AnyObject {
+    var presenter: InteractorToExplorePresenterProtocol? { get set }
     
     func requestDisplayInitialData(genres: [String])
     func requestDisplayNewData(genres: [String], currentVMs: [QuoteGardenQuoteVM], capturedPage: Int, edges: (Int, Int))
 }
 
-class ExploreInteractor: VCToInteractorProtocol {
-    var presenter: InteractorToPresenterProtocol?
+class ExploreInteractor: VCToExploreInteractorProtocol {
+    var presenter: InteractorToExplorePresenterProtocol?
 
     func requestDisplayNewData(genres: [String], currentVMs: [QuoteGardenQuoteVM], capturedPage: Int, edges: (Int, Int)) {
-        let contentWorker = ContentWorker()
+        let contentWorker = ExploreContentWorker()
         contentWorker.getContent(genres: genres) { [weak self] quoteModels, images in
             guard let self = self else { return }
             self.presenter?.formatNewData(currentVMs: currentVMs,
@@ -30,7 +30,7 @@ class ExploreInteractor: VCToInteractorProtocol {
     }
     
     func requestDisplayInitialData(genres: [String]) {
-        let contentWorker = ContentWorker()
+        let contentWorker = ExploreContentWorker()
         contentWorker.getContent(genres: genres) { [weak self] quoteModels, images in
             guard let self = self else { return }
             self.presenter?.formatData(quoteModels: quoteModels, images: images)

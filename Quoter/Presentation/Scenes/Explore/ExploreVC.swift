@@ -10,8 +10,8 @@ import SnapKit
 import AnimatedCollectionViewLayout
 import Combine
 
-protocol PresenterToVCProtocol: AnyObject {
-    var interactor: VCToInteractorProtocol? { get set }
+protocol PresenterToExploreVCProtocol: AnyObject {
+    var interactor: VCToExploreInteractorProtocol? { get set }
     
     func displayInitialData(loadedVMs: [QuoteGardenQuoteVM], loadedImages: [UIImage?], indexPaths: [IndexPath])
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
@@ -21,8 +21,7 @@ protocol PresenterToVCProtocol: AnyObject {
 
 class ExploreVC: MonitoredVC {
     
-//    var router: ExploreRouter?
-    var interactor: VCToInteractorProtocol?
+    var interactor: VCToExploreInteractorProtocol?
     var router: ExploreRouterProtocol?
     
     var loadedVMs: [QuoteGardenQuoteVM] = []
@@ -229,7 +228,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
 }
 
-extension ExploreVC: PresenterToVCProtocol {
+extension ExploreVC: PresenterToExploreVCProtocol {
 
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],

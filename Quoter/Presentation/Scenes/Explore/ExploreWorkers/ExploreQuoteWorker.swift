@@ -7,7 +7,7 @@
 
 import UIKit
 
-class QuoteWorker {
+class ExploreQuoteWorker {
     
     private func getRandomQuote(genre: String, completion: @escaping (Result<QuoteGardenQuoteModel, Error>) -> Void) {
         guard let url = QuoteGardenEndpoints.getRandomQuoteURL(genre: genre) else { return }

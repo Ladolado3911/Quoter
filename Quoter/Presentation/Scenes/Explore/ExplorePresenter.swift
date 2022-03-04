@@ -7,15 +7,15 @@
 
 import UIKit
 
-protocol InteractorToPresenterProtocol: AnyObject {
-    var vc: PresenterToVCProtocol? { get set }
+protocol InteractorToExplorePresenterProtocol: AnyObject {
+    var vc: PresenterToExploreVCProtocol? { get set }
     
     func formatData(quoteModels: [QuoteGardenQuoteModel], images: [UIImage?])
     func formatNewData(currentVMs: [QuoteGardenQuoteVM], capturedPage: Int, edges: (Int, Int), quoteModels: [QuoteGardenQuoteModel], images: [UIImage?])
 }
 
-class ExplorePresenter: InteractorToPresenterProtocol {
-    var vc: PresenterToVCProtocol?
+class ExplorePresenter: InteractorToExplorePresenterProtocol {
+    var vc: PresenterToExploreVCProtocol?
     
     func formatNewData(currentVMs: [QuoteGardenQuoteVM],
                        capturedPage: Int,

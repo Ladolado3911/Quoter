@@ -59,7 +59,7 @@
 		24D4108027B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */; };
 		24D42EFA27CB67DA005AC82F /* idea.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24D42EF927CB67DA005AC82F /* idea.mp3 */; };
 		24D78DE927B27FB700E6B401 /* ImageEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D78DE827B27FB700E6B401 /* ImageEndpoints.swift */; };
-		24DC6ED027D0EAEE00A022FB /* ContentWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DC6ECF27D0EAEE00A022FB /* ContentWorker.swift */; };
+		24DC6ED027D0EAEE00A022FB /* ExploreContentWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DC6ECF27D0EAEE00A022FB /* ExploreContentWorker.swift */; };
 		24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 24DEBF4527ABB1D400C40B29 /* Lottie */; };
 		24DEBF4927ABB2AB00C40B29 /* cubeLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 24DEBF4827ABB2AB00C40B29 /* cubeLoading.json */; };
 		24DEBF4B27ABB55500C40B29 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DEBF4A27ABB55500C40B29 /* LottieView.swift */; };
@@ -68,6 +68,9 @@
 		24E289E227D2204E00FDB6BB /* ModalAlertInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289E127D2204E00FDB6BB /* ModalAlertInteractor.swift */; };
 		24E289E427D2208700FDB6BB /* ModalAlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289E327D2208700FDB6BB /* ModalAlertPresenter.swift */; };
 		24E289E627D2210000FDB6BB /* ModalAlertRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289E527D2210000FDB6BB /* ModalAlertRouter.swift */; };
+		24E289E927D2282500FDB6BB /* ModalAlertQuoteWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289E827D2282500FDB6BB /* ModalAlertQuoteWorker.swift */; };
+		24E289EB27D2286300FDB6BB /* ModalAlertImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289EA27D2286300FDB6BB /* ModalAlertImageWorker.swift */; };
+		24E289ED27D228BC00FDB6BB /* ModalAlertContentWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289EC27D228BC00FDB6BB /* ModalAlertContentWorker.swift */; };
 		24E4A8AF27C29480000BB7DB /* QuoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E4A8AE27C29480000BB7DB /* QuoteCell.swift */; };
 		24EBDBEF27BA2BCE0059654B /* MonitoredVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EBDBEE27BA2BCE0059654B /* MonitoredVC.swift */; };
 		24EBDBF127BA35D90059654B /* wifi-off.json in Resources */ = {isa = PBXBuildFile; fileRef = 24EBDBF027BA35D90059654B /* wifi-off.json */; };
@@ -96,9 +99,9 @@
 		24FC97C727CF809600504361 /* ExploreInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97C627CF809600504361 /* ExploreInteractor.swift */; };
 		24FC97C927CF80A400504361 /* ExplorePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97C827CF80A400504361 /* ExplorePresenter.swift */; };
 		24FC97CB27CF819A00504361 /* ExploreRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97CA27CF819A00504361 /* ExploreRouter.swift */; };
-		24FC97CD27CF8BDD00504361 /* QuoteWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97CC27CF8BDD00504361 /* QuoteWorker.swift */; };
+		24FC97CD27CF8BDD00504361 /* ExploreQuoteWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97CC27CF8BDD00504361 /* ExploreQuoteWorker.swift */; };
 		24FC97D127CF9A5000504361 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97D027CF9A5000504361 /* ExploreView.swift */; };
-		24FC97D527CFA8A100504361 /* ImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97D427CFA8A100504361 /* ImageWorker.swift */; };
+		24FC97D527CFA8A100504361 /* ExploreImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97D427CFA8A100504361 /* ExploreImageWorker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -152,7 +155,7 @@
 		24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenQuoteModel.swift; sourceTree = "<group>"; };
 		24D42EF927CB67DA005AC82F /* idea.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = idea.mp3; sourceTree = "<group>"; };
 		24D78DE827B27FB700E6B401 /* ImageEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEndpoints.swift; sourceTree = "<group>"; };
-		24DC6ECF27D0EAEE00A022FB /* ContentWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWorker.swift; sourceTree = "<group>"; };
+		24DC6ECF27D0EAEE00A022FB /* ExploreContentWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreContentWorker.swift; sourceTree = "<group>"; };
 		24DEBF4827ABB2AB00C40B29 /* cubeLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cubeLoading.json; sourceTree = "<group>"; };
 		24DEBF4A27ABB55500C40B29 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		24DEBF4C27ABB5BB00C40B29 /* LottieAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieAnimations.swift; sourceTree = "<group>"; };
@@ -160,6 +163,9 @@
 		24E289E127D2204E00FDB6BB /* ModalAlertInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertInteractor.swift; sourceTree = "<group>"; };
 		24E289E327D2208700FDB6BB /* ModalAlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertPresenter.swift; sourceTree = "<group>"; };
 		24E289E527D2210000FDB6BB /* ModalAlertRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertRouter.swift; sourceTree = "<group>"; };
+		24E289E827D2282500FDB6BB /* ModalAlertQuoteWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertQuoteWorker.swift; sourceTree = "<group>"; };
+		24E289EA27D2286300FDB6BB /* ModalAlertImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertImageWorker.swift; sourceTree = "<group>"; };
+		24E289EC27D228BC00FDB6BB /* ModalAlertContentWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertContentWorker.swift; sourceTree = "<group>"; };
 		24E4A8AE27C29480000BB7DB /* QuoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteCell.swift; sourceTree = "<group>"; };
 		24EBDBEE27BA2BCE0059654B /* MonitoredVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoredVC.swift; sourceTree = "<group>"; };
 		24EBDBF027BA35D90059654B /* wifi-off.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wifi-off.json"; sourceTree = "<group>"; };
@@ -188,9 +194,9 @@
 		24FC97C627CF809600504361 /* ExploreInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreInteractor.swift; sourceTree = "<group>"; };
 		24FC97C827CF80A400504361 /* ExplorePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePresenter.swift; sourceTree = "<group>"; };
 		24FC97CA27CF819A00504361 /* ExploreRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreRouter.swift; sourceTree = "<group>"; };
-		24FC97CC27CF8BDD00504361 /* QuoteWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteWorker.swift; sourceTree = "<group>"; };
+		24FC97CC27CF8BDD00504361 /* ExploreQuoteWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreQuoteWorker.swift; sourceTree = "<group>"; };
 		24FC97D027CF9A5000504361 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
-		24FC97D427CFA8A100504361 /* ImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWorker.swift; sourceTree = "<group>"; };
+		24FC97D427CFA8A100504361 /* ExploreImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreImageWorker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,7 +259,7 @@
 		24BEA3DC27985FDA009DB491 /* Explore */ = {
 			isa = PBXGroup;
 			children = (
-				24FC97CF27CF917600504361 /* Workers */,
+				24FC97CF27CF917600504361 /* ExploreWorkers */,
 				24FC97CE27CF916A00504361 /* Common */,
 				24BEA3DD27985FEE009DB491 /* ExploreVC.swift */,
 				24FC97C627CF809600504361 /* ExploreInteractor.swift */,
@@ -277,6 +283,7 @@
 		24C12BD227AABB8D0069684D /* ModalAlert */ = {
 			isa = PBXGroup;
 			children = (
+				24E289E727D2280C00FDB6BB /* ModalAlertWorkers */,
 				24C12BD027AABB800069684D /* ModalAlertVC.swift */,
 				24E289E127D2204E00FDB6BB /* ModalAlertInteractor.swift */,
 				24E289E327D2208700FDB6BB /* ModalAlertPresenter.swift */,
@@ -433,6 +440,16 @@
 			path = LottieJsons;
 			sourceTree = "<group>";
 		};
+		24E289E727D2280C00FDB6BB /* ModalAlertWorkers */ = {
+			isa = PBXGroup;
+			children = (
+				24E289E827D2282500FDB6BB /* ModalAlertQuoteWorker.swift */,
+				24E289EA27D2286300FDB6BB /* ModalAlertImageWorker.swift */,
+				24E289EC27D228BC00FDB6BB /* ModalAlertContentWorker.swift */,
+			);
+			path = ModalAlertWorkers;
+			sourceTree = "<group>";
+		};
 		24F51F04279E85ED003057F7 /* Kalam */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,14 +511,14 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		24FC97CF27CF917600504361 /* Workers */ = {
+		24FC97CF27CF917600504361 /* ExploreWorkers */ = {
 			isa = PBXGroup;
 			children = (
-				24FC97CC27CF8BDD00504361 /* QuoteWorker.swift */,
-				24FC97D427CFA8A100504361 /* ImageWorker.swift */,
-				24DC6ECF27D0EAEE00A022FB /* ContentWorker.swift */,
+				24FC97CC27CF8BDD00504361 /* ExploreQuoteWorker.swift */,
+				24FC97D427CFA8A100504361 /* ExploreImageWorker.swift */,
+				24DC6ECF27D0EAEE00A022FB /* ExploreContentWorker.swift */,
 			);
-			path = Workers;
+			path = ExploreWorkers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -622,11 +639,12 @@
 				24DEBF4B27ABB55500C40B29 /* LottieView.swift in Sources */,
 				24E289E627D2210000FDB6BB /* ModalAlertRouter.swift in Sources */,
 				24F7F05D27BFCA0C001FEA75 /* Array+Extension.swift in Sources */,
-				24DC6ED027D0EAEE00A022FB /* ContentWorker.swift in Sources */,
+				24DC6ED027D0EAEE00A022FB /* ExploreContentWorker.swift in Sources */,
 				24FC97C927CF80A400504361 /* ExplorePresenter.swift in Sources */,
 				248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */,
-				24FC97CD27CF8BDD00504361 /* QuoteWorker.swift in Sources */,
+				24FC97CD27CF8BDD00504361 /* ExploreQuoteWorker.swift in Sources */,
 				24E289E427D2208700FDB6BB /* ModalAlertPresenter.swift in Sources */,
+				24E289E927D2282500FDB6BB /* ModalAlertQuoteWorker.swift in Sources */,
 				24F51F2F279EEB12003057F7 /* TabbarItemView.swift in Sources */,
 				24D128972790491500AD7F3D /* UIColor+Extension.swift in Sources */,
 				24D1287727903ECD00AD7F3D /* AuthorsVC.swift in Sources */,
@@ -638,6 +656,7 @@
 				24D264F82791940F00614218 /* AuthorCellVM.swift in Sources */,
 				24D264F62791777500614218 /* AuthorCell.swift in Sources */,
 				24D0B25127A055C00050D3B4 /* TabbarController.swift in Sources */,
+				24E289EB27D2286300FDB6BB /* ModalAlertImageWorker.swift in Sources */,
 				24C9A8E827BD2E25001C820F /* UIImage+Extension.swift in Sources */,
 				24D78DE927B27FB700E6B401 /* ImageEndpoints.swift in Sources */,
 				24CB9FE927930C1700E9D49F /* AuthorModel.swift in Sources */,
@@ -648,6 +667,7 @@
 				24C12BD127AABB800069684D /* ModalAlertVC.swift in Sources */,
 				2489797D27B151EA00BD0B2E /* ImageManager.swift in Sources */,
 				24C12BD427AABC8F0069684D /* ModalView.swift in Sources */,
+				24E289ED27D228BC00FDB6BB /* ModalAlertContentWorker.swift in Sources */,
 				24A78AC027C5152F0014A8C8 /* FilterView.swift in Sources */,
 				24FC97C727CF809600504361 /* ExploreInteractor.swift in Sources */,
 				24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */,
@@ -661,7 +681,7 @@
 				24F51F10279EA378003057F7 /* TabbarView.swift in Sources */,
 				24CB9FED27930C2700E9D49F /* NetworkManager.swift in Sources */,
 				24DF187227A554AE00D93F8D /* RandomImageModel.swift in Sources */,
-				24FC97D527CFA8A100504361 /* ImageWorker.swift in Sources */,
+				24FC97D527CFA8A100504361 /* ExploreImageWorker.swift in Sources */,
 				24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */,
 				24D4107D27B3FD0200B5C899 /* QuoteGardenManager.swift in Sources */,
 				24D1289927904D0E00AD7F3D /* AppColors.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageWorker {
+class ExploreImageWorker {
     
     private func get10LandscapeImageItems(completion: @escaping (Result<[ImageItem], Error>) -> Void) {
         guard let url = ImageEndpoints.get10NatureLandscapeURLs() else { return }
