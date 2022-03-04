@@ -22,6 +22,7 @@ class ExplorePresenter: InteractorToPresenterProtocol {
                        edges: (Int, Int),
                        quoteModels: [QuoteGardenQuoteModel],
                        images: [UIImage?]) {
+        
         var newCurrentVMs = currentVMs
         let shuffledImages = images.shuffled()
         let additionalQuoteVMs = quoteModels.map { QuoteGardenQuoteVM(rootModel: $0) }

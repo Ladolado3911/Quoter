@@ -10,7 +10,6 @@ import UIKit
 protocol VCToInteractorProtocol: AnyObject {
     var presenter: InteractorToPresenterProtocol? { get set }
     
-    //func requestResetDisplayData()
     func requestDisplayInitialData(genres: [String])
     func requestDisplayNewData(genres: [String], currentVMs: [QuoteGardenQuoteVM], capturedPage: Int, edges: (Int, Int))
 }

@@ -65,6 +65,9 @@
 		24DEBF4B27ABB55500C40B29 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DEBF4A27ABB55500C40B29 /* LottieView.swift */; };
 		24DEBF4D27ABB5BB00C40B29 /* LottieAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DEBF4C27ABB5BB00C40B29 /* LottieAnimations.swift */; };
 		24DF187227A554AE00D93F8D /* RandomImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DF187127A554AE00D93F8D /* RandomImageModel.swift */; };
+		24E289E227D2204E00FDB6BB /* ModalAlertInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289E127D2204E00FDB6BB /* ModalAlertInteractor.swift */; };
+		24E289E427D2208700FDB6BB /* ModalAlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289E327D2208700FDB6BB /* ModalAlertPresenter.swift */; };
+		24E289E627D2210000FDB6BB /* ModalAlertRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289E527D2210000FDB6BB /* ModalAlertRouter.swift */; };
 		24E4A8AF27C29480000BB7DB /* QuoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E4A8AE27C29480000BB7DB /* QuoteCell.swift */; };
 		24EBDBEF27BA2BCE0059654B /* MonitoredVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EBDBEE27BA2BCE0059654B /* MonitoredVC.swift */; };
 		24EBDBF127BA35D90059654B /* wifi-off.json in Resources */ = {isa = PBXBuildFile; fileRef = 24EBDBF027BA35D90059654B /* wifi-off.json */; };
@@ -154,6 +157,9 @@
 		24DEBF4A27ABB55500C40B29 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		24DEBF4C27ABB5BB00C40B29 /* LottieAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieAnimations.swift; sourceTree = "<group>"; };
 		24DF187127A554AE00D93F8D /* RandomImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomImageModel.swift; sourceTree = "<group>"; };
+		24E289E127D2204E00FDB6BB /* ModalAlertInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertInteractor.swift; sourceTree = "<group>"; };
+		24E289E327D2208700FDB6BB /* ModalAlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertPresenter.swift; sourceTree = "<group>"; };
+		24E289E527D2210000FDB6BB /* ModalAlertRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertRouter.swift; sourceTree = "<group>"; };
 		24E4A8AE27C29480000BB7DB /* QuoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteCell.swift; sourceTree = "<group>"; };
 		24EBDBEE27BA2BCE0059654B /* MonitoredVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoredVC.swift; sourceTree = "<group>"; };
 		24EBDBF027BA35D90059654B /* wifi-off.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wifi-off.json"; sourceTree = "<group>"; };
@@ -272,6 +278,9 @@
 			isa = PBXGroup;
 			children = (
 				24C12BD027AABB800069684D /* ModalAlertVC.swift */,
+				24E289E127D2204E00FDB6BB /* ModalAlertInteractor.swift */,
+				24E289E327D2208700FDB6BB /* ModalAlertPresenter.swift */,
+				24E289E527D2210000FDB6BB /* ModalAlertRouter.swift */,
 			);
 			path = ModalAlert;
 			sourceTree = "<group>";
@@ -611,11 +620,13 @@
 				24C12BD627AABE1E0069684D /* UIView+Extension.swift in Sources */,
 				2472F69A27C4D30600746242 /* FilterVC.swift in Sources */,
 				24DEBF4B27ABB55500C40B29 /* LottieView.swift in Sources */,
+				24E289E627D2210000FDB6BB /* ModalAlertRouter.swift in Sources */,
 				24F7F05D27BFCA0C001FEA75 /* Array+Extension.swift in Sources */,
 				24DC6ED027D0EAEE00A022FB /* ContentWorker.swift in Sources */,
 				24FC97C927CF80A400504361 /* ExplorePresenter.swift in Sources */,
 				248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */,
 				24FC97CD27CF8BDD00504361 /* QuoteWorker.swift in Sources */,
+				24E289E427D2208700FDB6BB /* ModalAlertPresenter.swift in Sources */,
 				24F51F2F279EEB12003057F7 /* TabbarItemView.swift in Sources */,
 				24D128972790491500AD7F3D /* UIColor+Extension.swift in Sources */,
 				24D1287727903ECD00AD7F3D /* AuthorsVC.swift in Sources */,
@@ -654,6 +665,7 @@
 				24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */,
 				24D4107D27B3FD0200B5C899 /* QuoteGardenManager.swift in Sources */,
 				24D1289927904D0E00AD7F3D /* AppColors.swift in Sources */,
+				24E289E227D2204E00FDB6BB /* ModalAlertInteractor.swift in Sources */,
 				24A8407727C3B92800BCF304 /* LoadingAlertVC.swift in Sources */,
 				24FC97D127CF9A5000504361 /* ExploreView.swift in Sources */,
 				24D1287527903ECD00AD7F3D /* SceneDelegate.swift in Sources */,

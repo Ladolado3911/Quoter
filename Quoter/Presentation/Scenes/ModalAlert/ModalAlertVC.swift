@@ -7,7 +7,15 @@
 
 import UIKit
 
+protocol PresenterToModalAlertVCProtocol {
+    var interactor: VCToModalAlertInteractorProtocol? { get set }
+    var router: ModalAlertRouterProtocol? { get set }
+}
+
 class ModalAlertVC: UIViewController {
+    
+    var interactor: VCToModalAlertInteractorProtocol?
+    var router: ModalAlertRouterProtocol?
     
     var authorName: String?
     var authorSlug: String?
@@ -21,6 +29,16 @@ class ModalAlertVC: UIViewController {
         let modalAlertView = ModalAlertView()
         return modalAlertView
     }()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
     
     override func loadView() {
         super.loadView()
@@ -88,7 +106,23 @@ class ModalAlertVC: UIViewController {
         }
     }
     
+    private func setup() {
+        let vc = self
+        let interactor = ModalAlertInteractor()
+        let presenter = ModalAlertPresenter()
+        let router = ModalAlertRouter()
+        vc.interactor = interactor
+        vc.router = router
+        interactor.presenter = presenter
+        presenter.vc = vc
+        router.vc = vc
+    }
+    
     private func convertAuthorName(name: String) -> String {
         name.replacingOccurrences(of: " ", with: "_")
     }
+}
+
+extension ModalAlertVC: PresenterToModalAlertVCProtocol {
+    
 }
