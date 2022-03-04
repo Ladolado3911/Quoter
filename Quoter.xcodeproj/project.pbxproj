@@ -71,6 +71,7 @@
 		24E289E927D2282500FDB6BB /* ModalAlertQuoteWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289E827D2282500FDB6BB /* ModalAlertQuoteWorker.swift */; };
 		24E289EB27D2286300FDB6BB /* ModalAlertImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289EA27D2286300FDB6BB /* ModalAlertImageWorker.swift */; };
 		24E289ED27D228BC00FDB6BB /* ModalAlertContentWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289EC27D228BC00FDB6BB /* ModalAlertContentWorker.swift */; };
+		24E289F027D234A700FDB6BB /* ImageDownloaderWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E289EF27D234A700FDB6BB /* ImageDownloaderWorker.swift */; };
 		24E4A8AF27C29480000BB7DB /* QuoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E4A8AE27C29480000BB7DB /* QuoteCell.swift */; };
 		24EBDBEF27BA2BCE0059654B /* MonitoredVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EBDBEE27BA2BCE0059654B /* MonitoredVC.swift */; };
 		24EBDBF127BA35D90059654B /* wifi-off.json in Resources */ = {isa = PBXBuildFile; fileRef = 24EBDBF027BA35D90059654B /* wifi-off.json */; };
@@ -166,6 +167,7 @@
 		24E289E827D2282500FDB6BB /* ModalAlertQuoteWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertQuoteWorker.swift; sourceTree = "<group>"; };
 		24E289EA27D2286300FDB6BB /* ModalAlertImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertImageWorker.swift; sourceTree = "<group>"; };
 		24E289EC27D228BC00FDB6BB /* ModalAlertContentWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertContentWorker.swift; sourceTree = "<group>"; };
+		24E289EF27D234A700FDB6BB /* ImageDownloaderWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloaderWorker.swift; sourceTree = "<group>"; };
 		24E4A8AE27C29480000BB7DB /* QuoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteCell.swift; sourceTree = "<group>"; };
 		24EBDBEE27BA2BCE0059654B /* MonitoredVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoredVC.swift; sourceTree = "<group>"; };
 		24EBDBF027BA35D90059654B /* wifi-off.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wifi-off.json"; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 			children = (
 				24D33E3C27B9683000E4C668 /* NetworkMonitor.swift */,
 				24EBDBEE27BA2BCE0059654B /* MonitoredVC.swift */,
+				24E289EE27D2349800FDB6BB /* Workers */,
 				24C12BCF27AAB02C0069684D /* Views */,
 				24F51F0E279EA360003057F7 /* TabbarController */,
 			);
@@ -448,6 +451,14 @@
 				24E289EC27D228BC00FDB6BB /* ModalAlertContentWorker.swift */,
 			);
 			path = ModalAlertWorkers;
+			sourceTree = "<group>";
+		};
+		24E289EE27D2349800FDB6BB /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				24E289EF27D234A700FDB6BB /* ImageDownloaderWorker.swift */,
+			);
+			path = Workers;
 			sourceTree = "<group>";
 		};
 		24F51F04279E85ED003057F7 /* Kalam */ = {
@@ -657,6 +668,7 @@
 				24D264F62791777500614218 /* AuthorCell.swift in Sources */,
 				24D0B25127A055C00050D3B4 /* TabbarController.swift in Sources */,
 				24E289EB27D2286300FDB6BB /* ModalAlertImageWorker.swift in Sources */,
+				24E289F027D234A700FDB6BB /* ImageDownloaderWorker.swift in Sources */,
 				24C9A8E827BD2E25001C820F /* UIImage+Extension.swift in Sources */,
 				24D78DE927B27FB700E6B401 /* ImageEndpoints.swift in Sources */,
 				24CB9FE927930C1700E9D49F /* AuthorModel.swift in Sources */,

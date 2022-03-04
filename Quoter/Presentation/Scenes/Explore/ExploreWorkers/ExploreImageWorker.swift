@@ -9,14 +9,14 @@ import UIKit
 
 class ExploreImageWorker {
     
+    let downloader = ImageDownloaderWorker()
+    
     private func get10LandscapeImageItems(completion: @escaping (Result<[ImageItem], Error>) -> Void) {
         guard let url = ImageEndpoints.get10NatureLandscapeURLs() else { return }
-        
         NetworkManager.getData(url: url, model: Resource(model: ImageResponse.self)) { result in
             switch result {
             case .success(let imageResponse):
                 if let results = imageResponse.hits {
-                    
                     completion(.success(results))
                 }
             case .failure(let error):
@@ -25,20 +25,10 @@ class ExploreImageWorker {
         }
     }
     
-    private func downloadImage(image: ImageItem,
-                               completion: @escaping (UIImage?) -> Void) {
-        
-        if let urlString = image.largeImageURL,
-           let url = URL(string: urlString) {
-            do {
-                let data = try Data(contentsOf: url)
-                DispatchQueue.main.async {
-                    let image = UIImage(data: data)
-                    completion(image)
-                }
-            }
-            catch {
-                print(error)
+    private func downloadImage(image: ImageItem, completion: @escaping (UIImage?) -> Void) {
+        if let urlString = image.largeImageURL {
+            downloader.downloadImage(urlString: urlString) { image in
+                completion(image)
             }
         }
     }
@@ -47,7 +37,6 @@ class ExploreImageWorker {
         get10LandscapeImageItems { result in
             switch result {
             case .success(let imageItems):
-                //print(imageItems)
                 var images: [UIImage?] = []
                 let group = DispatchGroup()
                 let queue = DispatchQueue.global(qos: .background)

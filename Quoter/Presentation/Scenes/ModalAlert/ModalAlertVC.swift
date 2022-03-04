@@ -59,10 +59,11 @@ class ModalAlertVC: UIViewController {
                 switch result {
                 case .success(let tuple):
                     if tuple.1 == .author {
+                        guard let url = tuple.0 else { return }
                         group.enter()
                         customQueue.async {
                             do {
-                                let imageData = try Data(contentsOf: tuple.0)
+                                let imageData = try Data(contentsOf: url)
                                 let image = UIImage(data: imageData)
                                 DispatchQueue.main.async {
                                     self.authorImage = image

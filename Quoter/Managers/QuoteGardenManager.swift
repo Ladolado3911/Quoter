@@ -17,7 +17,7 @@ enum CustomError: Error {
 }
 
 enum ImageType {
-    case nature
+    case noPicture
     case author
 }
 
@@ -81,34 +81,7 @@ class QuoteGardenManager: NetworkManager {
             }
         }
     }
-    
-    
-//    static func get50Quotes(genre: String, page: Int, completion: @escaping (Result<[QuoteGardenQuoteVM], Error>) -> Void) {
-//        guard let url = QuoteGardenEndpoints.get50QuotesURL(genre: genre, page: page) else { return }
-//        getData(url: url, model: Resource(model: QuoteGardenResponse.self)) { result in
-//            switch result {
-//            case .success(let gardenResponse):
-//                if let data = gardenResponse.data {
-//                    if let pagination = gardenResponse.pagination,
-//                       let totalPages = pagination.totalPages {
-////                        let indexInFilters = Filters.filterObjects.firstIndex { $0.genre == genre }
-////                        Filters.filterObjects[indexInFilters!].pageRange = 1...totalPages
-//                        Filters.filtersDict[genre] = 1...totalPages
-//                    }
-//                    let converted = data.map { QuoteGardenQuoteVM(rootModel: $0) }
-//                    //let filtered = converted.filter { $0.content.count <= 120 }
-//                    let shuffled = converted.shuffled()
-//                    completion(.success(shuffled))
-//                }
-//                else {
-//                    completion(.failure(CustomError.unwrapError))
-//                }
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//        }
-//    }
-    
+
     static func getQuotesOfAuthor(authorName: String, completion: @escaping (Result<[QuoteGardenQuoteVM], Error>) -> Void) {
         
         guard let url = QuoteGardenEndpoints.getQuotesOfAuthor(authorName: authorName) else { return }

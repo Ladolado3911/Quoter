@@ -24,17 +24,10 @@ class ImageManager: NetworkManager {
         }
     }
     
-    static func getAuthorImageURLUsingSlug(slug: String, completion: @escaping (Result<(URL, ImageType), Error>) -> Void) {
+    static func getAuthorImageURLUsingSlug(slug: String, completion: @escaping (Result<(URL?, ImageType), Error>) -> Void) {
         var newSlug: String = ""
         if ["Confucius", "Laozi"].contains(slug) {
-            getRandomImage { result in
-                switch result {
-                case .success(let url):
-                    completion(.success((url, .nature)))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
+            completion(.success((nil, .noPicture)))
             return
         }
         else if slug == "Napoleon_Bonaparte" {
@@ -46,10 +39,6 @@ class ImageManager: NetworkManager {
         else if slug == "Bernard_Shaw" {
             newSlug = "George_Bernard_Shaw"
         }
-//        else if slug == "Francois_de_La_Rochefoucauld" {
-//            newSlug = "François_de_La_Rochefoucauld"
-//        }
-        
         else {
             newSlug = slug
         }
@@ -66,14 +55,7 @@ class ImageManager: NetworkManager {
                         completion(.success((url, .author)))
                     }
                     else {
-                        getRandomImage { result in
-                            switch result {
-                            case .success(let url):
-                                completion(.success((url, .nature)))
-                            case .failure(let error):
-                                completion(.failure(error))
-                            }
-                        }
+                        completion(.success((nil, .noPicture)))
                     }
                 case .failure(let error):
                     completion(.failure(error))
@@ -81,14 +63,7 @@ class ImageManager: NetworkManager {
             }
         }
         else {
-            getRandomImage { result in
-                switch result {
-                case .success(let url):
-                    completion(.success((url, .nature)))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
+            completion(.success((nil, .noPicture)))
         }
     }
 
