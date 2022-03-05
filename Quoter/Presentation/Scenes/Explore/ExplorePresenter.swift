@@ -12,10 +12,15 @@ protocol InteractorToExplorePresenterProtocol: AnyObject {
     
     func formatData(quoteModels: [QuoteGardenQuoteModel], images: [UIImage?])
     func formatNewData(currentVMs: [QuoteGardenQuoteVM], capturedPage: Int, edges: (Int, Int), quoteModels: [QuoteGardenQuoteModel], images: [UIImage?])
+    func transfer(edges: (Int, Int), offsetOfPage: Int)
 }
 
 class ExplorePresenter: InteractorToExplorePresenterProtocol {
     var vc: PresenterToExploreVCProtocol?
+    
+    func transfer(edges: (Int, Int), offsetOfPage: Int) {
+        vc?.requestedNewData(edges: edges, offsetOfPage: offsetOfPage)
+    }
     
     func formatNewData(currentVMs: [QuoteGardenQuoteVM],
                        capturedPage: Int,

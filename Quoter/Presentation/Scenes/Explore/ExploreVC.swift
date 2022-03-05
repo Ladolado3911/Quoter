@@ -17,6 +17,7 @@ protocol PresenterToExploreVCProtocol: AnyObject {
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
                         indexPaths: [IndexPath])
+    func requestedNewData(edges: (Int, Int), offsetOfPage: Int)
 }
 
 class ExploreVC: MonitoredVC {
@@ -35,20 +36,17 @@ class ExploreVC: MonitoredVC {
                                                   action: #selector(didTapOnBook(sender:)))
         return tapOnGesture
     }
-    
     var tapOnFilterGesture: UITapGestureRecognizer {
         let tapOnGesture = UITapGestureRecognizer(target: self,
                                                   action: #selector(didTapOnFilter(sender:)))
         return tapOnGesture
     }
-
     var currentPage: Int = 0 {
         didSet {
             print(currentPage)
         }
     }
     var capturedCurrentPage: Int = 0
-
     lazy var exploreView: ExploreView = {
         let view = ExploreView(frame: view.bounds)
         return view
@@ -169,20 +167,8 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        if currentPage == self.loadedVMs.count - 5 && !isLoadNewDataFunctionRunning {
-            capturedCurrentPage = currentPage
-            if !isLoadNewDataFunctionRunning {
-                isLoadNewDataFunctionRunning = true
-                interactor?.requestDisplayNewData(genres: selectedFilters, currentVMs: self.loadedVMs, capturedPage: self.capturedCurrentPage, edges: (4, 14))
-            }
-        }
-        if currentPage == self.loadedVMs.count - 1 && !isLoadNewDataFunctionRunning {
-            capturedCurrentPage = currentPage
-            if !isLoadNewDataFunctionRunning {
-                isLoadNewDataFunctionRunning = true
-                interactor?.requestDisplayNewData(genres: selectedFilters, currentVMs: self.loadedVMs, capturedPage: self.capturedCurrentPage, edges: (0, 10))
-            }
-        }
+        interactor?.requestNewData(edges: (4, 14), offsetOfPage: 5)
+        interactor?.requestNewData(edges: (0, 10), offsetOfPage: 1)
         if currentPage == self.loadedVMs.count - 1 && isLoadNewDataFunctionRunning {
             router?.routeToLoadingAlertVC()
         }
@@ -217,5 +203,15 @@ extension ExploreVC: PresenterToExploreVCProtocol {
             self.exploreView.stopLottieAnimation()
         }
         self.isDataLoaded = true
+    }
+    
+    func requestedNewData(edges: (Int, Int), offsetOfPage: Int) {
+        if currentPage == loadedVMs.count - offsetOfPage && !isLoadNewDataFunctionRunning {
+            capturedCurrentPage = currentPage
+            if !isLoadNewDataFunctionRunning {
+                isLoadNewDataFunctionRunning = true
+                interactor?.requestDisplayNewData(genres: selectedFilters, currentVMs: loadedVMs, capturedPage: capturedCurrentPage, edges: edges)
+            }
+        }
     }
 }
