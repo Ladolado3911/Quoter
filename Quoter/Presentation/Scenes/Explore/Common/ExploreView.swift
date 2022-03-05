@@ -6,8 +6,32 @@
 //
 
 import UIKit
+import AnimatedCollectionViewLayout
 
 class ExploreView: LottieView {
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = AnimatedCollectionViewLayout()
+        layout.animator = CrossFadeAttributesAnimator()
+        let collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
+        if let layout = collectionView.collectionViewLayout as? AnimatedCollectionViewLayout {
+            layout.scrollDirection = .horizontal
+        }
+        collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isPagingEnabled = true
+//        collectionView.dataSource = self
+//        collectionView.delegate = self
+//
+//        collectionView.register(QuoteCell.self, forCellWithReuseIdentifier: "cell")
+//
+        return collectionView
+    }()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        addSubview(collectionView)
+    }
     
     func startAnimating() {
         let size = bounds.width / 3.5

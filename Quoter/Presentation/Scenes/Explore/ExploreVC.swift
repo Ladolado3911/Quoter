@@ -49,24 +49,6 @@ class ExploreVC: MonitoredVC {
     }
     var capturedCurrentPage: Int = 0
 
-    lazy var collectionView: UICollectionView = {
-        let layout = AnimatedCollectionViewLayout()
-        layout.animator = CrossFadeAttributesAnimator()
-        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
-        if let layout = collectionView.collectionViewLayout as? AnimatedCollectionViewLayout {
-            layout.scrollDirection = .horizontal
-        }
-        collectionView.backgroundColor = .clear
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.isPagingEnabled = true
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        
-        collectionView.register(QuoteCell.self, forCellWithReuseIdentifier: "cell")
-        
-        return collectionView
-    }()
-
     lazy var exploreView: ExploreView = {
         let view = ExploreView(frame: view.bounds)
         return view
@@ -92,10 +74,7 @@ class ExploreVC: MonitoredVC {
         UIApplication.shared.statusBarStyle = .lightContent
         exploreView.startAnimating()
         interactor?.requestDisplayInitialData(genres: selectedFilters)
-        self.view.addSubview(self.collectionView)
-        self.collectionView.snp.makeConstraints { make in
-            make.left.right.top.bottom.equalTo(self.view)
-        }
+        configCollectionView()
     }
     
     private func setup() {
@@ -110,11 +89,17 @@ class ExploreVC: MonitoredVC {
         router.vc = vc
     }
     
+    private func configCollectionView() {
+        exploreView.collectionView.dataSource = self
+        exploreView.collectionView.delegate = self
+        exploreView.collectionView.register(QuoteCell.self, forCellWithReuseIdentifier: "cell")
+    }
+    
     func resetInitialData() {
         isDataLoaded = false
         loadedVMs = []
         loadedImages = []
-        collectionView.reloadData()
+        exploreView.collectionView.reloadData()
         exploreView.startAnimating()
         interactor?.requestDisplayInitialData(genres: selectedFilters)
     }
@@ -215,8 +200,8 @@ extension ExploreVC: PresenterToExploreVCProtocol {
         
         self.loadedVMs.append(contentsOf: loadedVMs)
         self.loadedImages.append(contentsOf: loadedImages)
-        self.collectionView.insertItems(at: indexPaths)
-        self.collectionView.isUserInteractionEnabled = true
+        self.exploreView.collectionView.insertItems(at: indexPaths)
+        self.exploreView.collectionView.isUserInteractionEnabled = true
         self.isLoadNewDataFunctionRunning = false
         
         self.dismiss(animated: false)
@@ -230,7 +215,7 @@ extension ExploreVC: PresenterToExploreVCProtocol {
         self.capturedCurrentPage = 0
         self.loadedVMs = loadedVMs
         self.loadedImages = loadedImages
-        self.collectionView.insertItems(at: indexPaths)
+        self.exploreView.collectionView.insertItems(at: indexPaths)
         if self.exploreView.lottieAnimation != nil {
             self.exploreView.stopLottieAnimation()
         }
