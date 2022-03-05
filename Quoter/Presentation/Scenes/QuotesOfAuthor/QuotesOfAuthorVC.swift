@@ -181,10 +181,15 @@ class QuotesOfAuthorVC: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let tuple):
-                guard let url = tuple.0 else { return }
                 do {
-                    let data = try Data(contentsOf: url)
-                    if let image = UIImage(data: data) {
+                    var data: Data?
+                    if tuple.1 == .noPicture {
+                        data = UIImage(named: "testUpperQuotism")?.pngData()
+                    }
+                    else {
+                        data = try Data(contentsOf: tuple.0!)
+                    }
+                    if let image = UIImage(data: data!) {
                         if self.quotesOfAuthorView.ideaButton.state == .selected {
                             self.quotesOfAuthorView.ideaButton.isSelected = false
                             CoreDataManager.removePair(quoteVM: quoteVMM)

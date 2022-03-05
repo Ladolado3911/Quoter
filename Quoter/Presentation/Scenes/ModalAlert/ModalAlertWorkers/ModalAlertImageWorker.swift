@@ -40,14 +40,20 @@ class ModalAlertImageWorker {
         getAuthorImageURLUsingSlug(slug: authorName.convertAuthorName()) { result in
             switch result {
             case .success(let tuple):
-                guard let url = tuple.0 else { return }
-                queue.async {
-                    ImageDownloaderWorker.downloadImage(url: url) { image in
-                        switch tuple.1 {
-                        case .author:
-                            completion((image, tuple.1))
-                        case .noPicture:
-                            completion((UIImage(named: "testUpperQuotism"), tuple.1))
+                if tuple.1 == .noPicture {
+                    completion((UIImage(named: "testUpperQuotism"), tuple.1))
+                    return
+                }
+                else {
+                    guard let url = tuple.0 else { return }
+                    queue.async {
+                        ImageDownloaderWorker.downloadImage(url: url) { image in
+                            switch tuple.1 {
+                            case .author:
+                                completion((image, tuple.1))
+                            case .noPicture:
+                                completion((UIImage(named: "testUpperQuotism"), tuple.1))
+                            }
                         }
                     }
                 }
