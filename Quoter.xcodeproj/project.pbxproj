@@ -264,7 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				24FC97CF27CF917600504361 /* ExploreWorkers */,
-				24FC97CE27CF916A00504361 /* Common */,
+				24FC97CE27CF916A00504361 /* ExploreSubviews */,
 				24BEA3DD27985FEE009DB491 /* ExploreVC.swift */,
 				24FC97C627CF809600504361 /* ExploreInteractor.swift */,
 				24FC97C827CF80A400504361 /* ExplorePresenter.swift */,
@@ -514,7 +514,7 @@
 			path = Roboto;
 			sourceTree = "<group>";
 		};
-		24FC97CE27CF916A00504361 /* Common */ = {
+		24FC97CE27CF916A00504361 /* ExploreSubviews */ = {
 			isa = PBXGroup;
 			children = (
 				24E4A8AE27C29480000BB7DB /* QuoteCell.swift */,
@@ -522,7 +522,7 @@
 				24FC97D027CF9A5000504361 /* ExploreView.swift */,
 				24C9A8E527BD20DD001C820F /* QuoteViewButton.swift */,
 			);
-			path = Common;
+			path = ExploreSubviews;
 			sourceTree = "<group>";
 		};
 		24FC97CF27CF917600504361 /* ExploreWorkers */ = {

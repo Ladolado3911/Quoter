@@ -184,10 +184,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             }
         }
         if currentPage == self.loadedVMs.count - 1 && isLoadNewDataFunctionRunning {
-            let loadingAlertVC = LoadingAlertVC()
-            loadingAlertVC.modalTransitionStyle = .crossDissolve
-            loadingAlertVC.modalPresentationStyle = .custom
-            present(loadingAlertVC, animated: false)
+            router?.routeToLoadingAlertVC()
         }
     }
 }

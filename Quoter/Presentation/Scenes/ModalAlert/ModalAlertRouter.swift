@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ModalAlertRouterProtocol {
+protocol ModalAlertRouterProtocol: AnyObject {
     var vc: PresenterToModalAlertVCProtocol? { get set }
     
     func routeToQuotesOfAuthor(passingClosure: @escaping (([QuoteGardenQuoteVM], (UIImage?, ImageType))) -> Void,
