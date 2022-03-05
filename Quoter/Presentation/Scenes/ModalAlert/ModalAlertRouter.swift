@@ -27,7 +27,6 @@ class ModalAlertRouter: ModalAlertRouterProtocol {
         
         if let vc = vc as? ModalAlertVC {
             vc.dismiss(animated: true) {
-//                explore vc routes to quotes of author scene
                 passingClosure(resultTuple)
             }
         }

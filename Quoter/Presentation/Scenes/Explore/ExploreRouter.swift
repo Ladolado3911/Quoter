@@ -11,6 +11,7 @@ protocol ExploreRouterProtocol {
     var vc: ExploreVC? { get set }
     
     func routeToFilters()
+    func routeToModalAlertVC(quoteVM: QuoteGardenQuoteVM)
     func routeToQuotesOfAuthor(resultTuple: ([QuoteGardenQuoteVM], (UIImage?, ImageType)))
 }
 
@@ -39,7 +40,19 @@ class ExploreRouter: ExploreRouterProtocol {
         destVC.state = .network
         destVC.networkAuthorImage = resultTuple.1.0
         destVC.authorName = resultTuple.0.first?.authorName
-        //destVC.quoteVM = quoteVM
         vc?.present(destVC, animated: true)
+    }
+    
+    func routeToModalAlertVC(quoteVM: QuoteGardenQuoteVM) {
+        let modalAlertVC = ModalAlertVC()
+        let quoteVM = quoteVM
+        modalAlertVC.modalTransitionStyle = .crossDissolve
+        modalAlertVC.modalPresentationStyle = .custom
+        modalAlertVC.authorName = quoteVM.authorName
+        modalAlertVC.passingClosure = { [weak self] resultTuple in
+            self?.routeToQuotesOfAuthor(resultTuple: resultTuple)
+        }
+        modalAlertVC.quoteVM = quoteVM
+        vc?.present(modalAlertVC, animated: false)
     }
 }

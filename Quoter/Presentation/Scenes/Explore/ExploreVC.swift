@@ -30,20 +30,6 @@ class ExploreVC: MonitoredVC {
     var isLoadNewDataFunctionRunning: Bool = false
     var isDataLoaded = false
     
-//    lazy var presentQuotesOfAuthorClosure: (([QuoteGardenQuoteVM], (UIImage?, ImageType))) -> Void = { [weak self] quoteVMs in
-//        guard let self = self else { return }
-//        let destVC = QuotesOfAuthorVC()
-//        destVC.modalTransitionStyle = .coverVertical
-//        destVC.modalPresentationStyle = .overCurrentContext
-//        destVC.networkQuotesArr = quoteVMs.0
-//        destVC.state = .network
-//        destVC.networkAuthorImage = quoteVMs.1
-//       // destVC.authorImageURL = quoteVMs.1
-//        destVC.authorName = self.loadedVMs[self.currentPage].authorName
-//        destVC.quoteVM = quoteVMs.2
-//        self.present(destVC, animated: true)
-//    }
-    
     var tapOnBookGesture: UITapGestureRecognizer {
         let tapOnGesture = UITapGestureRecognizer(target: self,
                                                   action: #selector(didTapOnBook(sender:)))
@@ -158,17 +144,7 @@ class ExploreVC: MonitoredVC {
     }
     
     @objc func didTapOnBook(sender: UITapGestureRecognizer) {
-        let modalAlertVC = ModalAlertVC()
-        let quoteVM = loadedVMs[currentPage]
-        modalAlertVC.modalTransitionStyle = .crossDissolve
-        modalAlertVC.modalPresentationStyle = .custom
-        modalAlertVC.authorName = quoteVM.authorName
-        //modalAlertVC.presentingClosure = presentQuotesOfAuthorClosure
-        modalAlertVC.passingClosure = { [weak self] resultTuple in
-            self?.router?.routeToQuotesOfAuthor(resultTuple: resultTuple)
-        }
-        modalAlertVC.quoteVM = quoteVM
-        present(modalAlertVC, animated: false)
+        router?.routeToModalAlertVC(quoteVM: loadedVMs[currentPage])
     }
     
     @objc func didTapOnFilter(sender: UITapGestureRecognizer) {
