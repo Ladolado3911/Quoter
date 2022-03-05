@@ -11,7 +11,7 @@ class ExploreImageWorker {
     
     private func get10LandscapeImageItems(completion: @escaping (Result<[ImageItem], Error>) -> Void) {
         guard let url = ImageEndpoints.get10NatureLandscapeURLs() else { return }
-        NetworkManager.getData(url: url, model: Resource(model: ImageResponse.self)) { result in
+        NetworkWorker.getData(url: url, model: Resource(model: ImageResponse.self)) { result in
             switch result {
             case .success(let imageResponse):
                 if let results = imageResponse.hits {

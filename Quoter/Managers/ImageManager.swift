@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageManager: NetworkManager {
+class ImageManager: NetworkWorker {
 
     static func load10LandscapeURLs(completion: @escaping (Result<[URL?], Error>) -> Void) {
         guard let url = ImageEndpoints.get10NatureLandscapeURLs() else { return }

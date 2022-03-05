@@ -43,7 +43,7 @@ class FilterObject {
     }
 }
 
-class QuoteGardenManager: NetworkManager {
+class QuoteGardenManager: NetworkWorker {
     
     static func getGenres(completion: @escaping (Result<[FilterObject], Error>) -> Void) {
         guard let url = QuoteGardenEndpoints.getGenres() else { return }

@@ -11,7 +11,7 @@ class ExploreQuoteWorker {
     
     private func getRandomQuote(genre: String, completion: @escaping (Result<QuoteGardenQuoteModel, Error>) -> Void) {
         guard let url = QuoteGardenEndpoints.getRandomQuoteURL(genre: genre) else { return }
-        NetworkManager.getData(url: url, model: Resource(model: QuoteGardenResponse.self)) { result in
+        NetworkWorker.getData(url: url, model: Resource(model: QuoteGardenResponse.self)) { result in
             switch result {
             case .success(let gardenResponse):
                 if let data = gardenResponse.data,

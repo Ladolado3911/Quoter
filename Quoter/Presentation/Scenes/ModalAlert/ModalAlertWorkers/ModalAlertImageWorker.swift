@@ -11,7 +11,7 @@ class ModalAlertImageWorker {
     
     private func getAuthorImageURLUsingSlug(slug: String, completion: @escaping (Result<(URL?, ImageType), Error>) -> Void) {
         if let url = ImageEndpoints.getAuthorImageURL(authorName: slug.convertAuthorNameException()) {
-            NetworkManager.getData(url: url, model: Resource(model: Response.self)) { result in
+            NetworkWorker.getData(url: url, model: Resource(model: Response.self)) { result in
                 switch result {
                 case .success(let response):
                     if let query = response.query,

@@ -11,7 +11,7 @@ struct Resource<T: Codable> {
     var model: T.Type
 }
 
-class NetworkManager {
+class NetworkWorker {
     static func getData<T: Codable>(url: URL, model: Resource<T>, completion: @escaping (Result<T, Error>) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
