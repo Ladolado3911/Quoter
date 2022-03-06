@@ -10,7 +10,7 @@ import UIKit
 protocol VCToQoaInteractorProtocol {
     var presenter: InteractorToQoaPresenterProtocol? { get set }
     
-    func requestToDisplayData(state: QuotesOfAuthorVCState,
+    func requestToDisplayInitialData(state: QuotesOfAuthorVCState,
                               author: AuthorCoreVM?,
                               authorName: String?,
                               networkAuthorImage: UIImage?,
@@ -22,7 +22,7 @@ protocol VCToQoaInteractorProtocol {
 class QoaInteractor: VCToQoaInteractorProtocol {
     var presenter: InteractorToQoaPresenterProtocol?
     
-    func requestToDisplayData(state: QuotesOfAuthorVCState,
+    func requestToDisplayInitialData(state: QuotesOfAuthorVCState,
                               author: AuthorCoreVM?,
                               authorName: String?,
                               networkAuthorImage: UIImage?,
@@ -34,8 +34,7 @@ class QoaInteractor: VCToQoaInteractorProtocol {
         switch state {
         case .network:
             guard let name = authorName else { return }
-            
-            // variables to export
+
             var contentMode: UIView.ContentMode
             var exportImage: UIImage?
             var isButtonEnabled: Bool = false
@@ -52,13 +51,11 @@ class QoaInteractor: VCToQoaInteractorProtocol {
                 print("more than 1 qoute network")
                 isButtonEnabled = true
             }
-            presenter?.formatTest1(name: name, contentMode: contentMode, exportImage: exportImage, array: networkArray, currentIndex: currentIndex, isButtonEnabled: isButtonEnabled)
+            presenter?.formatNetworkData(name: name, contentMode: contentMode, exportImage: exportImage, array: networkArray, currentIndex: currentIndex, isButtonEnabled: isButtonEnabled)
             
         case .coreData:
             guard let author = author else { return }
-            
-            // variables to export
-            
+
             var contentMode: UIView.ContentMode
             var isButtonEnabled: Bool = false
             
@@ -72,7 +69,7 @@ class QoaInteractor: VCToQoaInteractorProtocol {
                 isButtonEnabled = true
                 print("more than 1 qoute core")
             }
-            presenter?.formatTest2(author: author, contentMode: contentMode, isButtonEnabled: isButtonEnabled, currentIndex: currentIndex, array: quotesArr)
+            presenter?.formatCoreData(author: author, contentMode: contentMode, isButtonEnabled: isButtonEnabled, currentIndex: currentIndex, array: quotesArr)
         }
     }
 }

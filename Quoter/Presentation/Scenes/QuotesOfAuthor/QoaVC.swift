@@ -17,9 +17,9 @@ protocol PresenterToQoaVCProtocol {
     var interactor: VCToQoaInteractorProtocol? { get set }
     var router: QoaRouterProtocol? { get set }
 
-    func displayTest1(name: String, contentMode: UIView.ContentMode, exportImage: UIImage?, isButtonEnabled: Bool, quoteContent: String)
+    func displayInitialNetworkData(name: String, contentMode: UIView.ContentMode, exportImage: UIImage?, isButtonEnabled: Bool, quoteContent: String)
     
-    func displayTest2(author: AuthorCoreVM, contentMode: UIView.ContentMode, isButtonEnabled: Bool, quoteContent: String)
+    func displayInitialCoreData(author: AuthorCoreVM, contentMode: UIView.ContentMode, isButtonEnabled: Bool, quoteContent: String)
     
 }
 
@@ -73,7 +73,7 @@ class QoaVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configButtons()
-        interactor?.requestToDisplayData(state: state,
+        interactor?.requestToDisplayInitialData(state: state,
                                          author: author,
                                          authorName: authorName,
                                          networkAuthorImage: networkAuthorImage,
@@ -289,7 +289,7 @@ class QoaVC: UIViewController {
 
 extension QoaVC: PresenterToQoaVCProtocol {
     
-    func displayTest1(name: String, contentMode: UIView.ContentMode, exportImage: UIImage?, isButtonEnabled: Bool, quoteContent: String) {
+    func displayInitialNetworkData(name: String, contentMode: UIView.ContentMode, exportImage: UIImage?, isButtonEnabled: Bool, quoteContent: String) {
         quotesOfAuthorView.mainImageView.contentMode = contentMode
         quotesOfAuthorView.mainImageView.image = exportImage
         quotesOfAuthorView.titleOfAuthor.text = name
@@ -297,7 +297,7 @@ extension QoaVC: PresenterToQoaVCProtocol {
         quotesOfAuthorView.nextButton.isButtonEnabled = isButtonEnabled
     }
     
-    func displayTest2(author: AuthorCoreVM, contentMode: UIView.ContentMode, isButtonEnabled: Bool, quoteContent: String) {
+    func displayInitialCoreData(author: AuthorCoreVM, contentMode: UIView.ContentMode, isButtonEnabled: Bool, quoteContent: String) {
         quotesOfAuthorView.mainImageView.contentMode = contentMode
         quotesOfAuthorView.titleOfAuthor.text = author.name
         quotesOfAuthorView.mainImageView.image = author.image
