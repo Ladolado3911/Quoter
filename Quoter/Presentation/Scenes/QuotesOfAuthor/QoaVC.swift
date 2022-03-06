@@ -15,7 +15,12 @@ enum QuotesOfAuthorVCState {
 
 protocol PresenterToQoaVCProtocol {
     var interactor: VCToQoaInteractorProtocol? { get set }
-    var router: QoaRouterProtocol? { get set}
+    var router: QoaRouterProtocol? { get set }
+
+    func displayTest1(name: String, contentMode: UIView.ContentMode, exportImage: UIImage?, isButtonEnabled: Bool, quoteContent: String)
+    
+    func displayTest2(author: AuthorCoreVM, contentMode: UIView.ContentMode, isButtonEnabled: Bool, quoteContent: String)
+    
 }
 
 class QoaVC: UIViewController {
@@ -68,7 +73,13 @@ class QoaVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configButtons()
-        populateData()
+        interactor?.requestToDisplayData(state: state,
+                                         author: author,
+                                         authorName: authorName,
+                                         networkAuthorImage: networkAuthorImage,
+                                         networkArray: networkQuotesArr,
+                                         quotesArr: quotesArr,
+                                         currentIndex: currentQuoteIndex)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -123,47 +134,6 @@ class QoaVC: UIViewController {
         quotesOfAuthorView.prevButton.addTarget(self,
                                                 action: #selector(onPrev(sender:)),
                                                 for: .touchUpInside)
-    }
-    
-    private func populateData() {
-        switch state {
-        case .network:
-            guard let name = authorName else { return }
-            if networkAuthorImage == nil {
-                quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFit
-                quotesOfAuthorView.mainImageView.image = UIImage(named: "testUpperQuotism")
-            }
-            else {
-                quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFill
-                //quotesOfAuthorView.mainImageView.kf.setImage(with: authorImageURL)
-                quotesOfAuthorView.mainImageView.image = networkAuthorImage
-            }
-            quotesOfAuthorView.titleOfAuthor.text = name
-            quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].content
-            if networkQuotesArr.count > 1 {
-                print("more than 1 qoute network")
-                quotesOfAuthorView.nextButton.isButtonEnabled = true
-            }
-            
-        case .coreData:
-            guard let author = author else {
-                return
-            }
-            if author.image.pngData() == UIImage(named: "testUpperQuotism")?.pngData() {
-                quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFit
-            }
-            else {
-                quotesOfAuthorView.mainImageView.contentMode = .scaleAspectFill
-            }
-            quotesOfAuthorView.titleOfAuthor.text = author.name
-            quotesOfAuthorView.mainImageView.image = author.image
-            quotesArr = author.quotes
-            quotesOfAuthorView.quoteTextView.text = quotesArr[currentQuoteIndex].content
-            if quotesArr.count > 1 {
-                print("more than 1 qoute core")
-                quotesOfAuthorView.nextButton.isButtonEnabled = true
-            }
-        }
     }
     
     private func updateQuote() {
@@ -319,4 +289,20 @@ class QoaVC: UIViewController {
 
 extension QoaVC: PresenterToQoaVCProtocol {
     
+    func displayTest1(name: String, contentMode: UIView.ContentMode, exportImage: UIImage?, isButtonEnabled: Bool, quoteContent: String) {
+        quotesOfAuthorView.mainImageView.contentMode = contentMode
+        quotesOfAuthorView.mainImageView.image = exportImage
+        quotesOfAuthorView.titleOfAuthor.text = name
+        quotesOfAuthorView.quoteTextView.text = quoteContent
+        quotesOfAuthorView.nextButton.isButtonEnabled = isButtonEnabled
+    }
+    
+    func displayTest2(author: AuthorCoreVM, contentMode: UIView.ContentMode, isButtonEnabled: Bool, quoteContent: String) {
+        quotesOfAuthorView.mainImageView.contentMode = contentMode
+        quotesOfAuthorView.titleOfAuthor.text = author.name
+        quotesOfAuthorView.mainImageView.image = author.image
+        quotesOfAuthorView.quoteTextView.text = quoteContent
+        quotesOfAuthorView.nextButton.isButtonEnabled = isButtonEnabled
+        quotesArr = author.quotes
+    }
 }
