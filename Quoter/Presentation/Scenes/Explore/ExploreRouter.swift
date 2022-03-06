@@ -35,7 +35,7 @@ class ExploreRouter: ExploreRouterProtocol {
     
     func routeToQuotesOfAuthor(resultTuple: ([QuoteGardenQuoteVM], (UIImage?, ImageType))) {
         guard let exploreVC = vc as? ExploreVC else { return }
-        let destVC = QuotesOfAuthorVC()
+        let destVC = QoaVC()
         destVC.modalTransitionStyle = .coverVertical
         destVC.modalPresentationStyle = .overCurrentContext
         destVC.networkQuotesArr = resultTuple.0

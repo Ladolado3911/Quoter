@@ -13,7 +13,15 @@ enum QuotesOfAuthorVCState {
     case coreData
 }
 
-class QuotesOfAuthorVC: UIViewController {
+protocol PresenterToQoaVCProtocol {
+    var interactor: VCToQoaInteractorProtocol? { get set }
+    var router: QoaRouterProtocol? { get set}
+}
+
+class QoaVC: UIViewController {
+    
+    var interactor: VCToQoaInteractorProtocol?
+    var router: QoaRouterProtocol?
     
     var state: QuotesOfAuthorVCState = .coreData {
         didSet {
@@ -42,6 +50,16 @@ class QuotesOfAuthorVC: UIViewController {
         return quotesOfAuthorView
     }()
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+    
     override func loadView() {
         super.loadView()
         view = quotesOfAuthorView
@@ -55,6 +73,18 @@ class QuotesOfAuthorVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    private func setup() {
+        let vc = self
+        let interactor = QoaInteractor()
+        let presenter = QoaPresenter()
+        let router = QoaRouter()
+        vc.interactor = interactor
+        vc.router = router
+        interactor.presenter = presenter
+        presenter.vc = vc
+        router.vc = vc
     }
     
     private func configButtons() {
@@ -150,8 +180,7 @@ class QuotesOfAuthorVC: UIViewController {
             if currentQuoteIndex == 0 {
                 quotesOfAuthorView.prevButton.isButtonEnabled = false
             }
-            //print(networkQuotesArr[currentQuoteIndex].content)
-            quotesOfAuthorView.ideaButton.isSelected = CoreDataManager.isQuoteInCoreData(quoteVM: networkQuotesArr[currentQuoteIndex])
+            quotesOfAuthorView.ideaButton.isSelected = CoreDataWorker.isQuoteInCoreData(quoteVM: networkQuotesArr[currentQuoteIndex])
         case .coreData:
             quotesOfAuthorView.quoteTextView.text = quotesArr[currentQuoteIndex].content
             quotesOfAuthorView.nextButton.isButtonEnabled = !(currentQuoteIndex == networkQuotesArr.count - 1)
@@ -192,16 +221,16 @@ class QuotesOfAuthorVC: UIViewController {
                     if let image = UIImage(data: data!) {
                         if self.quotesOfAuthorView.ideaButton.state == .selected {
                             self.quotesOfAuthorView.ideaButton.isSelected = false
-                            CoreDataManager.removePair(quoteVM: quoteVMM)
+                            CoreDataWorker.removePair(quoteVM: quoteVMM)
                             collectionViewUpdateSubject.send {}
                         }
                         else if self.quotesOfAuthorView.ideaButton.state == .normal {
                             self.quotesOfAuthorView.ideaButton.isSelected = true
                             if tuple.1 == .noPicture {
-                                CoreDataManager.addPair(quoteVM: quoteVMM, authorImageData: UIImage(named: "testUpperQuotism")!.pngData())
+                                CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: UIImage(named: "testUpperQuotism")!.pngData())
                             }
                             else {
-                                CoreDataManager.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
+                                CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
                             }
                             collectionViewUpdateSubject.send {}
                         }
@@ -225,7 +254,7 @@ class QuotesOfAuthorVC: UIViewController {
         }
         let quoteVm = QuoteGardenQuoteVM(rootModel: QuoteGardenQuoteModel(quoteText: quotesArr[currentQuoteIndex].content, quoteAuthor: author.name))
         
-        CoreDataManager.removePair(quoteVM: quoteVm) { [weak self] in
+        CoreDataWorker.removePair(quoteVM: quoteVm) { [weak self] in
             guard let self = self else { return }
             if self.quotesArr.count == 1 {
                 if let authorsVCreloadDataClosure = self.authorsVCreloadDataClosure {
@@ -238,7 +267,6 @@ class QuotesOfAuthorVC: UIViewController {
                 }
                 return
             }
-            
             if self.currentQuoteIndex == self.quotesArr.count - 1 {
                 self.quotesArr.removeLast()
                 self.currentQuoteIndex -= 1
@@ -287,4 +315,8 @@ class QuotesOfAuthorVC: UIViewController {
             currentQuoteIndex -= 1
         }
     }
+}
+
+extension QoaVC: PresenterToQoaVCProtocol {
+    
 }

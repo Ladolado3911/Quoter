@@ -58,7 +58,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //                print(error)
 //            }
 //        }
-        CoreDataManager.clearWhereverNeeded()
+        CoreDataWorker.clearWhereverNeeded()
         UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
         let tabbarController = TabbarController()
         tabbarController.addTabbarItem(item: TabbarItem(itemView: TabbarItemView(icon: UIImage(named: "explore2")!,

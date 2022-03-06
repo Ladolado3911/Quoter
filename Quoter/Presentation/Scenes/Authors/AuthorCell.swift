@@ -152,7 +152,7 @@ class AuthorCell: UICollectionViewCell {
         else {
             imageView.contentMode = .scaleAspectFill
             
-            CoreDataManager.getAuthorImageAsync(author: vm) { [weak self] result in
+            CoreDataWorker.getAuthorImageAsync(author: vm) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let imageData):

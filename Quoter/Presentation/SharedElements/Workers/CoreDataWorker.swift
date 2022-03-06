@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class CoreDataManager {
+class CoreDataWorker {
     
     static var context: NSManagedObjectContext? {
         return (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
@@ -240,8 +240,8 @@ class CoreDataManager {
 
         let quote = QuoteCore(context: context)
         
-        let isAuthorInCore: Bool = CoreDataManager.isAuthorInCoreData(authorName: quoteVM.authorName)
-        let isQuoteInCore: Bool = CoreDataManager.isQuoteInCoreData(quoteVM: quoteVM)
+        let isAuthorInCore: Bool = CoreDataWorker.isAuthorInCoreData(authorName: quoteVM.authorName)
+        let isQuoteInCore: Bool = CoreDataWorker.isQuoteInCoreData(quoteVM: quoteVM)
         
         if isAuthorInCore && isQuoteInCore {
             print("CAN NOT ADD QUOTE, IT ALREADY EXISTS IN CORE DATA")
@@ -249,7 +249,7 @@ class CoreDataManager {
         else if isAuthorInCore && !isQuoteInCore {
             print("THERE IS AUTHOR IN CORE BUT NOT THIS QUOTE, ADD THIS QUOTE AS NEW QUOTE")
             // get author and add this quote to that author
-            if let authorObject = CoreDataManager.getAuthor(authorName: quoteVM.authorName) {
+            if let authorObject = CoreDataWorker.getAuthor(authorName: quoteVM.authorName) {
                 quote.content = quoteVM.content
                 authorObject.addToRelationship(quote)
                 //quote
@@ -263,7 +263,7 @@ class CoreDataManager {
         }
         else if !isAuthorInCore && isQuoteInCore {
             print("AUTHOR IS NOT IN CORE AND QUOTE IS IN CORE. DELETE RUBBISH QUOTE FROM CORE")
-            CoreDataManager.deleteQuote(quoteVM: quoteVM)
+            CoreDataWorker.deleteQuote(quoteVM: quoteVM)
         }
         else {
             print("THERE IS NOTHING LIKE THIS IN CORE. NO AUTHOR AND NO QUOTE. ADD BOTH")
@@ -286,8 +286,8 @@ class CoreDataManager {
         
         guard let context = context else { return }
         
-        let isAuthorInCore: Bool = CoreDataManager.isAuthorInCoreData(authorName: quoteVM.authorName)
-        let isQuoteInCore: Bool = CoreDataManager.isQuoteInCoreData(quoteVM: quoteVM)
+        let isAuthorInCore: Bool = CoreDataWorker.isAuthorInCoreData(authorName: quoteVM.authorName)
+        let isQuoteInCore: Bool = CoreDataWorker.isQuoteInCoreData(quoteVM: quoteVM)
         
         if isAuthorInCore && isQuoteInCore {
             print("REMOVE QUOTE. REMOVE AUTHOR IF IT IS EMPTY")
@@ -307,7 +307,7 @@ class CoreDataManager {
                         }
                     }
                 }
-                CoreDataManager.clearWhereverNeeded()
+                CoreDataWorker.clearWhereverNeeded()
                 try context.save()
             }
             catch {
@@ -320,7 +320,7 @@ class CoreDataManager {
         }
         else if !isAuthorInCore && isQuoteInCore {
             print("SUPER ERROR. IDEA IS ON, AUTHOR IS NOT IN CORE AND QUOTE IS IN CORE. REMOVE RUBBISH QUOTE")
-            CoreDataManager.deleteQuote(quoteVM: quoteVM)
+            CoreDataWorker.deleteQuote(quoteVM: quoteVM)
         }
         else {
             print("THIS IS ERROR. IDEA IS ON AND NOTHING IS IN CORE")
@@ -331,8 +331,8 @@ class CoreDataManager {
         
         guard let context = context else { return }
         
-        let isAuthorInCore: Bool = CoreDataManager.isAuthorInCoreData(authorName: quoteVM.authorName)
-        let isQuoteInCore: Bool = CoreDataManager.isQuoteInCoreData(quoteVM: quoteVM)
+        let isAuthorInCore: Bool = CoreDataWorker.isAuthorInCoreData(authorName: quoteVM.authorName)
+        let isQuoteInCore: Bool = CoreDataWorker.isQuoteInCoreData(quoteVM: quoteVM)
         
         if isAuthorInCore && isQuoteInCore {
             print("REMOVE QUOTE. REMOVE AUTHOR IF IT IS EMPTY")
@@ -354,7 +354,7 @@ class CoreDataManager {
                         }
                     }
                 }
-                CoreDataManager.clearWhereverNeeded()
+                CoreDataWorker.clearWhereverNeeded()
                 try context.save()
             }
             catch {
@@ -367,7 +367,7 @@ class CoreDataManager {
         }
         else if !isAuthorInCore && isQuoteInCore {
             print("SUPER ERROR. IDEA IS ON, AUTHOR IS NOT IN CORE AND QUOTE IS IN CORE. REMOVE RUBBISH QUOTE")
-            CoreDataManager.deleteQuote(quoteVM: quoteVM)
+            CoreDataWorker.deleteQuote(quoteVM: quoteVM)
         }
         else {
             print("THIS IS ERROR. IDEA IS ON AND NOTHING IS IN CORE")

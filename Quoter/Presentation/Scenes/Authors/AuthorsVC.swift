@@ -62,7 +62,7 @@ class AuthorsVC: UIViewController {
     }
 
     private func populateData() {
-        if let authors = CoreDataManager.getAuthors() {
+        if let authors = CoreDataWorker.getAuthors() {
             var vms: [AuthorCoreVM] = []
             for vm in 0..<authors.count {
                 let newVM = AuthorCoreVM(rootAuthor: authors[vm])
@@ -126,7 +126,7 @@ class AuthorsVC: UIViewController {
     }
     
     @objc func onSeeQuoteButton(sender: UIButton) {
-        let vc = QuotesOfAuthorVC()
+        let vc = QoaVC()
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overCurrentContext
         guard let selectedAuthor = selectedAuthor else {
@@ -139,7 +139,7 @@ class AuthorsVC: UIViewController {
             self.authorsView.mainImageView.contentMode = .scaleAspectFill
             self.mainTitle.send("Select Person")
             self.data3Subject.send(self.data3)
-            CoreDataManager.deleteAuthor(authorName: selectedAuthor.name)
+            CoreDataWorker.deleteAuthor(authorName: selectedAuthor.name)
             collectionViewUpdateSubject.send {}
         }
         present(vc, animated: true)
@@ -156,7 +156,7 @@ class AuthorsVC: UIViewController {
                 self.authorsView.mainImageView.contentMode = .scaleAspectFill
                 self.mainTitle.send("Select Person")
                 self.data3Subject.send(self.data3)
-                CoreDataManager.deleteAuthor(authorName: selectedAuthor.name)
+                CoreDataWorker.deleteAuthor(authorName: selectedAuthor.name)
                 collectionViewUpdateSubject.send {}
             }
         }
