@@ -49,3 +49,4 @@ class QoaNetworkSetWorker {
         return (isNextButtonEnabled, isPrevButtonEnabled)
     }
 }
+ 

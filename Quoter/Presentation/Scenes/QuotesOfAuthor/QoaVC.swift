@@ -172,12 +172,7 @@ class QoaVC: UIViewController {
                         }
                         else if self.quotesOfAuthorView.ideaButton.state == .normal {
                             self.quotesOfAuthorView.ideaButton.isSelected = true
-                            if tuple.1 == .noPicture {
-                                CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: UIImage(named: "testUpperQuotism")!.pngData())
-                            }
-                            else {
-                                CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
-                            }
+                            CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
                             collectionViewUpdateSubject.send {}
                         }
                     }
