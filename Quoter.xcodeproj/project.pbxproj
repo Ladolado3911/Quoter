@@ -54,9 +54,6 @@
 		24D2A30427D4CAC60068DFB1 /* QoaInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2A30327D4CAC60068DFB1 /* QoaInteractor.swift */; };
 		24D2A30727D4CB1C0068DFB1 /* QoaPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2A30627D4CB1C0068DFB1 /* QoaPresenter.swift */; };
 		24D2A30927D4CB2C0068DFB1 /* QoaRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2A30827D4CB2C0068DFB1 /* QoaRouter.swift */; };
-		24D2A30C27D4CF640068DFB1 /* QoaContentWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2A30B27D4CF640068DFB1 /* QoaContentWorker.swift */; };
-		24D2A30E27D4CFA90068DFB1 /* QoaNetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2A30D27D4CFA90068DFB1 /* QoaNetworkWorker.swift */; };
-		24D2A31027D4CFB60068DFB1 /* QoaCoreDataWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D2A30F27D4CFB60068DFB1 /* QoaCoreDataWorker.swift */; };
 		24D33E3927B93A4100E4C668 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 24D33E3827B93A4100E4C668 /* loading.json */; };
 		24D33E3B27B93FA100E4C668 /* circleLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 24D33E3A27B93FA100E4C668 /* circleLoading.json */; };
 		24D33E3D27B9683000E4C668 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D33E3C27B9683000E4C668 /* NetworkMonitor.swift */; };
@@ -110,6 +107,8 @@
 		24FC97CD27CF8BDD00504361 /* ExploreQuoteWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97CC27CF8BDD00504361 /* ExploreQuoteWorker.swift */; };
 		24FC97D127CF9A5000504361 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97D027CF9A5000504361 /* ExploreView.swift */; };
 		24FC97D527CFA8A100504361 /* ExploreImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FC97D427CFA8A100504361 /* ExploreImageWorker.swift */; };
+		24FF8A0827D5E001004E40B4 /* QoaNetworkSetWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FF8A0727D5E001004E40B4 /* QoaNetworkSetWorker.swift */; };
+		24FF8A0B27D5E313004E40B4 /* QoaCoreSetWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FF8A0A27D5E313004E40B4 /* QoaCoreSetWorker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -158,9 +157,6 @@
 		24D2A30327D4CAC60068DFB1 /* QoaInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QoaInteractor.swift; sourceTree = "<group>"; };
 		24D2A30627D4CB1C0068DFB1 /* QoaPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QoaPresenter.swift; sourceTree = "<group>"; };
 		24D2A30827D4CB2C0068DFB1 /* QoaRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QoaRouter.swift; sourceTree = "<group>"; };
-		24D2A30B27D4CF640068DFB1 /* QoaContentWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QoaContentWorker.swift; sourceTree = "<group>"; };
-		24D2A30D27D4CFA90068DFB1 /* QoaNetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QoaNetworkWorker.swift; sourceTree = "<group>"; };
-		24D2A30F27D4CFB60068DFB1 /* QoaCoreDataWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QoaCoreDataWorker.swift; sourceTree = "<group>"; };
 		24D33E3827B93A4100E4C668 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		24D33E3A27B93FA100E4C668 /* circleLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = circleLoading.json; sourceTree = "<group>"; };
 		24D33E3C27B9683000E4C668 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
@@ -213,6 +209,8 @@
 		24FC97CC27CF8BDD00504361 /* ExploreQuoteWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreQuoteWorker.swift; sourceTree = "<group>"; };
 		24FC97D027CF9A5000504361 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		24FC97D427CFA8A100504361 /* ExploreImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreImageWorker.swift; sourceTree = "<group>"; };
+		24FF8A0727D5E001004E40B4 /* QoaNetworkSetWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QoaNetworkSetWorker.swift; sourceTree = "<group>"; };
+		24FF8A0A27D5E313004E40B4 /* QoaCoreSetWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QoaCoreSetWorker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,7 +256,8 @@
 		248FC0D427A9541500069FFF /* QuotesOfAuthor */ = {
 			isa = PBXGroup;
 			children = (
-				24D2A30A27D4CF4C0068DFB1 /* QoaWorkers */,
+				24FF8A0927D5E2F6004E40B4 /* QoaCoreDataWorkers */,
+				24FF8A0627D5DFE7004E40B4 /* QoaNetworkWorkers */,
 				24D2A30527D4CB090068DFB1 /* QoaSubviews */,
 				248FC0D527A9544D00069FFF /* QoaVC.swift */,
 				24D2A30327D4CAC60068DFB1 /* QoaInteractor.swift */,
@@ -456,16 +455,6 @@
 			path = QoaSubviews;
 			sourceTree = "<group>";
 		};
-		24D2A30A27D4CF4C0068DFB1 /* QoaWorkers */ = {
-			isa = PBXGroup;
-			children = (
-				24D2A30B27D4CF640068DFB1 /* QoaContentWorker.swift */,
-				24D2A30D27D4CFA90068DFB1 /* QoaNetworkWorker.swift */,
-				24D2A30F27D4CFB60068DFB1 /* QoaCoreDataWorker.swift */,
-			);
-			path = QoaWorkers;
-			sourceTree = "<group>";
-		};
 		24DEBF4727ABB1E800C40B29 /* LottieJsons */ = {
 			isa = PBXGroup;
 			children = (
@@ -567,6 +556,22 @@
 				24DC6ECF27D0EAEE00A022FB /* ExploreContentWorker.swift */,
 			);
 			path = ExploreWorkers;
+			sourceTree = "<group>";
+		};
+		24FF8A0627D5DFE7004E40B4 /* QoaNetworkWorkers */ = {
+			isa = PBXGroup;
+			children = (
+				24FF8A0727D5E001004E40B4 /* QoaNetworkSetWorker.swift */,
+			);
+			path = QoaNetworkWorkers;
+			sourceTree = "<group>";
+		};
+		24FF8A0927D5E2F6004E40B4 /* QoaCoreDataWorkers */ = {
+			isa = PBXGroup;
+			children = (
+				24FF8A0A27D5E313004E40B4 /* QoaCoreSetWorker.swift */,
+			);
+			path = QoaCoreDataWorkers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -692,8 +697,8 @@
 				24FC97C927CF80A400504361 /* ExplorePresenter.swift in Sources */,
 				248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */,
 				24FC97CD27CF8BDD00504361 /* ExploreQuoteWorker.swift in Sources */,
+				24FF8A0B27D5E313004E40B4 /* QoaCoreSetWorker.swift in Sources */,
 				24E289E427D2208700FDB6BB /* ModalAlertPresenter.swift in Sources */,
-				24D2A30E27D4CFA90068DFB1 /* QoaNetworkWorker.swift in Sources */,
 				24E289E927D2282500FDB6BB /* ModalAlertQuoteWorker.swift in Sources */,
 				24F51F2F279EEB12003057F7 /* TabbarItemView.swift in Sources */,
 				24D128972790491500AD7F3D /* UIColor+Extension.swift in Sources */,
@@ -715,18 +720,17 @@
 				24D1288827903FB100AD7F3D /* AuthorsView.swift in Sources */,
 				24AD7D62279A9DA300BFC1BF /* QuoteModel.swift in Sources */,
 				24BEA3E02798601A009DB491 /* QuoteView.swift in Sources */,
+				24FF8A0827D5E001004E40B4 /* QoaNetworkSetWorker.swift in Sources */,
 				24C12BD127AABB800069684D /* ModalAlertVC.swift in Sources */,
 				2489797D27B151EA00BD0B2E /* ImageManager.swift in Sources */,
 				24C12BD427AABC8F0069684D /* ModalView.swift in Sources */,
 				24E289ED27D228BC00FDB6BB /* ModalAlertContentWorker.swift in Sources */,
 				24A78AC027C5152F0014A8C8 /* FilterView.swift in Sources */,
 				24FC97C727CF809600504361 /* ExploreInteractor.swift in Sources */,
-				24D2A31027D4CFB60068DFB1 /* QoaCoreDataWorker.swift in Sources */,
 				24E289F227D23D2800FDB6BB /* String+Extension.swift in Sources */,
 				24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */,
 				24C12BCE27AAB0230069684D /* ModalAlertView.swift in Sources */,
 				24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */,
-				24D2A30C27D4CF640068DFB1 /* QoaContentWorker.swift in Sources */,
 				24E4A8AF27C29480000BB7DB /* QuoteCell.swift in Sources */,
 				24D4107B27B3FB4500B5C899 /* QuoteGardenEndpoints.swift in Sources */,
 				24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */,

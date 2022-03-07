@@ -34,42 +34,26 @@ class QoaInteractor: VCToQoaInteractorProtocol {
         switch state {
         case .network:
             guard let name = authorName else { return }
-
-            var contentMode: UIView.ContentMode
-            var exportImage: UIImage?
-            var isButtonEnabled: Bool = false
-            
-            if networkAuthorImage == nil {
-                contentMode = .scaleAspectFit
-                exportImage = defaultImage
-            }
-            else {
-                contentMode = .scaleAspectFill
-                exportImage = networkAuthorImage
-            }
-            if networkArray.count > 1 {
-                print("more than 1 qoute network")
-                isButtonEnabled = true
-            }
-            presenter?.formatNetworkData(name: name, contentMode: contentMode, exportImage: exportImage, array: networkArray, currentIndex: currentIndex, isButtonEnabled: isButtonEnabled)
+            let networkSetWorker = QoaNetworkSetWorker()
+            let content = networkSetWorker.getContent(defaultImage: defaultImage,
+                                                      networkAuthorImage: networkAuthorImage,
+                                                      networkArray: networkArray)
+            presenter?.formatNetworkData(name: name,
+                                         contentMode: content.contentMode,
+                                         exportImage: content.exportImage,
+                                         array: networkArray,
+                                         currentIndex: currentIndex,
+                                         isButtonEnabled: content.isButtonEnabled)
             
         case .coreData:
             guard let author = author else { return }
-
-            var contentMode: UIView.ContentMode
-            var isButtonEnabled: Bool = false
-            
-            if author.image.pngData() == defaultImage?.pngData() {
-                contentMode = .scaleAspectFit
-            }
-            else {
-                contentMode = .scaleAspectFill
-            }
-            if author.quotes.count > 1 {
-                isButtonEnabled = true
-                print("more than 1 qoute core")
-            }
-            presenter?.formatCoreData(author: author, contentMode: contentMode, isButtonEnabled: isButtonEnabled, currentIndex: currentIndex, array: quotesArr)
+            let coreSetWorker = QoaCoreSetWorker()
+            let content = coreSetWorker.getContent(author: author, defaultImage: defaultImage)
+            presenter?.formatCoreData(author: author,
+                                      contentMode: content.contentMode,
+                                      isButtonEnabled: content.isButtonEnabled,
+                                      currentIndex: currentIndex,
+                                      array: quotesArr)
         }
     }
 }
