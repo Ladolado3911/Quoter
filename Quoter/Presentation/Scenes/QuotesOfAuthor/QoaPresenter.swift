@@ -12,6 +12,7 @@ protocol InteractorToQoaPresenterProtocol {
     
     func formatNetworkData(name: String, contentMode: UIView.ContentMode, exportImage: UIImage?, array: [QuoteGardenQuoteVM], currentIndex: Int, isButtonEnabled: Bool)
     func formatCoreData(author: AuthorCoreVM, contentMode: UIView.ContentMode, isButtonEnabled: Bool, currentIndex: Int, array: [QuoteCore])
+    func testFormat()
 }
 
 class QoaPresenter: InteractorToQoaPresenterProtocol {
@@ -26,5 +27,9 @@ class QoaPresenter: InteractorToQoaPresenterProtocol {
         let quotesArr = author.quotes
         let quoteContent = quotesArr[currentIndex].content ?? "No Quote"
         vc?.displayInitialCoreData(author: author, contentMode: contentMode, isButtonEnabled: isButtonEnabled, quoteContent: quoteContent)
+    }
+    
+    func testFormat() {
+        vc?.displayUpdatedData()
     }
 }

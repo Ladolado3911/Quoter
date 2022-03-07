@@ -21,6 +21,8 @@ protocol PresenterToQoaVCProtocol {
     
     func displayInitialCoreData(author: AuthorCoreVM, contentMode: UIView.ContentMode, isButtonEnabled: Bool, quoteContent: String)
     
+    func displayUpdatedData()
+    
 }
 
 class QoaVC: UIViewController {
@@ -304,5 +306,9 @@ extension QoaVC: PresenterToQoaVCProtocol {
         quotesOfAuthorView.quoteTextView.text = quoteContent
         quotesOfAuthorView.nextButton.isButtonEnabled = isButtonEnabled
         quotesArr = author.quotes
+    }
+    
+    func displayUpdatedData() {
+        
     }
 }

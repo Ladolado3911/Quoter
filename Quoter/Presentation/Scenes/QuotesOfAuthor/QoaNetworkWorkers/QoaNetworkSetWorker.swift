@@ -9,7 +9,7 @@ import UIKit
 
 class QoaNetworkSetWorker {
     
-    func getContent(defaultImage: UIImage?,
+    func getInitialContent(defaultImage: UIImage?,
                     networkAuthorImage: UIImage?,
                     networkArray: [QuoteGardenQuoteVM]) -> (contentMode: UIView.ContentMode, exportImage: UIImage?, isButtonEnabled: Bool) {
         
@@ -32,4 +32,20 @@ class QoaNetworkSetWorker {
         return (contentMode, exportImage, isButtonEnabled)
     }
     
+    func getUpdatedContent(currentQuoteIndex: Int, networkQuotesArr: [QuoteGardenQuoteVM]) -> (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool) {
+        
+        var isNextButtonEnabled: Bool = false
+        var isPrevButtonEnabled: Bool = false
+        
+        if currentQuoteIndex == networkQuotesArr.count - 1 {
+            isNextButtonEnabled = false
+        }
+        if currentQuoteIndex > 0 {
+            isPrevButtonEnabled = true
+        }
+        if currentQuoteIndex == 0 {
+            isPrevButtonEnabled = false
+        }
+        return (isNextButtonEnabled, isPrevButtonEnabled)
+    }
 }

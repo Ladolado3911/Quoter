@@ -9,7 +9,7 @@ import UIKit
 
 class QoaCoreSetWorker {
     
-    func getContent(author: AuthorCoreVM, defaultImage: UIImage?) -> (contentMode: UIView.ContentMode, isButtonEnabled: Bool) {
+    func getInitialContent(author: AuthorCoreVM, defaultImage: UIImage?) -> (contentMode: UIView.ContentMode, isButtonEnabled: Bool) {
         
         var contentMode: UIView.ContentMode
         var isButtonEnabled: Bool = false
@@ -25,5 +25,9 @@ class QoaCoreSetWorker {
             print("more than 1 qoute core")
         }
         return (contentMode, isButtonEnabled)
+    }
+    
+    func getUpdatedContent() {
+        
     }
 }
