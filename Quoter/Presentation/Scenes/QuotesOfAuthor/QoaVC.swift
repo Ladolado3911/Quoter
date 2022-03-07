@@ -31,6 +31,7 @@ class QoaVC: UIViewController {
     var interactor: VCToQoaInteractorProtocol?
     var router: QoaRouterProtocol?
     
+    let defaultImage = UIImage(named: "testUpperQuotism")
     var state: QuotesOfAuthorVCState = .coreData {
         didSet {
             quotesOfAuthorView.state = state
@@ -156,33 +157,32 @@ class QoaVC: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let tuple):
-                do {
-                    var data: Data?
-                    if tuple.1 == .noPicture {
-                        data = UIImage(named: "testUpperQuotism")?.pngData()
+                var image: UIImage?
+                if tuple.1 == .noPicture {
+                    image = self.defaultImage
+                }
+                else {
+                    image = self.networkAuthorImage
+                }
+                if let image = image {
+                    if self.quotesOfAuthorView.ideaButton.state == .selected {
+                        self.quotesOfAuthorView.ideaButton.isSelected = false
+                        CoreDataWorker.removePair(quoteVM: quoteVMM)
+                        collectionViewUpdateSubject.send {}
+                    }
+                    else if self.quotesOfAuthorView.ideaButton.state == .normal {
+                        self.quotesOfAuthorView.ideaButton.isSelected = true
+                        CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
+                        collectionViewUpdateSubject.send {}
                     }
                     else {
-                        data = try Data(contentsOf: tuple.0!)
-                    }
-                    if let image = UIImage(data: data!) {
-                        if self.quotesOfAuthorView.ideaButton.state == .selected {
-                            self.quotesOfAuthorView.ideaButton.isSelected = false
-                            CoreDataWorker.removePair(quoteVM: quoteVMM)
-                            collectionViewUpdateSubject.send {}
-                        }
-                        else if self.quotesOfAuthorView.ideaButton.state == .normal {
-                            self.quotesOfAuthorView.ideaButton.isSelected = true
-                            CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
-                            collectionViewUpdateSubject.send {}
-                        }
-                    }
-                    else {
-                        print("Could not unwrap")
+                        
                     }
                 }
-                catch {
-                    print(error)
+                else {
+                    print("Could not unwrap")
                 }
+                
             case .failure(let error):
                 print(error)
             }

@@ -35,7 +35,6 @@ class QoaInteractor: VCToQoaInteractorProtocol {
                               quotesArr: [QuoteCore],
                               currentIndex: Int) {
         
-        let defaultImage = UIImage(named: "testUpperQuotism")
         switch state {
         case .network:
             guard let name = authorName else { return }

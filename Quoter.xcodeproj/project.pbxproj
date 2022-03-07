@@ -79,6 +79,7 @@
 		24E4A8AF27C29480000BB7DB /* QuoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E4A8AE27C29480000BB7DB /* QuoteCell.swift */; };
 		24EBDBEF27BA2BCE0059654B /* MonitoredVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EBDBEE27BA2BCE0059654B /* MonitoredVC.swift */; };
 		24EBDBF127BA35D90059654B /* wifi-off.json in Resources */ = {isa = PBXBuildFile; fileRef = 24EBDBF027BA35D90059654B /* wifi-off.json */; };
+		24ED440727D61C4E00A3040C /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED440627D61C4E00A3040C /* SwitchButton.swift */; };
 		24F51F09279E85ED003057F7 /* Kalam-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F05279E85ED003057F7 /* Kalam-Regular.ttf */; };
 		24F51F0A279E85ED003057F7 /* Kalam-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F06279E85ED003057F7 /* Kalam-Light.ttf */; };
 		24F51F0B279E85ED003057F7 /* Kalam-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F51F07279E85ED003057F7 /* Kalam-Bold.ttf */; };
@@ -181,6 +182,7 @@
 		24E4A8AE27C29480000BB7DB /* QuoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteCell.swift; sourceTree = "<group>"; };
 		24EBDBEE27BA2BCE0059654B /* MonitoredVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoredVC.swift; sourceTree = "<group>"; };
 		24EBDBF027BA35D90059654B /* wifi-off.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wifi-off.json"; sourceTree = "<group>"; };
+		24ED440627D61C4E00A3040C /* SwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
 		24F51F05279E85ED003057F7 /* Kalam-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kalam-Regular.ttf"; sourceTree = "<group>"; };
 		24F51F06279E85ED003057F7 /* Kalam-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kalam-Light.ttf"; sourceTree = "<group>"; };
 		24F51F07279E85ED003057F7 /* Kalam-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kalam-Bold.ttf"; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 		24D2A30527D4CB090068DFB1 /* QoaSubviews */ = {
 			isa = PBXGroup;
 			children = (
+				24ED440627D61C4E00A3040C /* SwitchButton.swift */,
 				248FC0D727A9548D00069FFF /* QuotesOfAuthorView.swift */,
 			);
 			path = QoaSubviews;
@@ -697,6 +700,7 @@
 				24FC97C927CF80A400504361 /* ExplorePresenter.swift in Sources */,
 				248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */,
 				24FC97CD27CF8BDD00504361 /* ExploreQuoteWorker.swift in Sources */,
+				24ED440727D61C4E00A3040C /* SwitchButton.swift in Sources */,
 				24FF8A0B27D5E313004E40B4 /* QoaCoreSetWorker.swift in Sources */,
 				24E289E427D2208700FDB6BB /* ModalAlertPresenter.swift in Sources */,
 				24E289E927D2282500FDB6BB /* ModalAlertQuoteWorker.swift in Sources */,

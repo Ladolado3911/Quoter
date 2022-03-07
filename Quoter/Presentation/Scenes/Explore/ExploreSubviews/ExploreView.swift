@@ -20,11 +20,6 @@ class ExploreView: LottieView {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isPagingEnabled = true
-//        collectionView.dataSource = self
-//        collectionView.delegate = self
-//
-//        collectionView.register(QuoteCell.self, forCellWithReuseIdentifier: "cell")
-//
         return collectionView
     }()
     

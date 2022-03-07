@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class QuotesOfAuthorView: UIView {
+class QuotesOfAuthorView: LottieView {
     
     var state: QuotesOfAuthorVCState = .coreData {
         didSet {
@@ -143,53 +143,23 @@ class QuotesOfAuthorView: UIView {
         }
     }
     
+    func startAnimating() {
+        let size = bounds.width / 3.5
+        let x = bounds.width / 2 - (size / 2)
+        let y = bounds.height / 2 - (size / 2)
+        let frame = CGRect(x: x, y: y, width: size, height: size)
+        createAndStartLottieAnimation(animation: .circleLoading,
+                                      animationSpeed: 1,
+                                      frame: frame,
+                                      loopMode: .loop,
+                                      contentMode: .scaleAspectFit)
+    }
+    
     private func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {
         let lowerBound: CGFloat = PublicConstants.screenHeight * 0.02159827213822894
         let higherBound: CGFloat = PublicConstants.screenHeight * 0.05399568034557235
         let boundRange = higherBound - lowerBound
         let testResult = lowerBound + ((1 / (stringCount / 35)) * boundRange)
         return testResult
-    }
-}
-
-class SwitchButton: UIButton {
-    
-    var isButtonEnabled: Bool = false {
-        didSet {
-            if isButtonEnabled != oldValue {
-                if isButtonEnabled {
-                    enableButton()
-                }
-                else {
-                    disableButton()
-                }
-            }
-        }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layer.cornerRadius = frame.height / 3
-        titleLabel?.textAlignment = .center
-        titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 18)
-        
-        switch isButtonEnabled {
-        case true:
-            enableButton()
-        case false:
-            disableButton()
-        }
-    }
-    
-    private func enableButton() {
-        backgroundColor = .white
-        setTitleColor(.black, for: .normal)
-        isUserInteractionEnabled = true
-    }
-    
-    private func disableButton() {
-        backgroundColor = .gray
-        setTitleColor(.white, for: .normal)
-        isUserInteractionEnabled = false
     }
 }

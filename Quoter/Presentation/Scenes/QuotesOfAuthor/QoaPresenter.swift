@@ -31,7 +31,7 @@ class QoaPresenter: InteractorToQoaPresenterProtocol {
     }
     
     func formatNetworkUpdatedData(content: (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool), isIdeaButtonEnabled: Bool, quoteContent: String) {
-        let resultContent = (content.isPrevButtonEnabled, content.isNextButtonEnabled, isIdeaButtonEnabled, quoteContent)
+        let resultContent = (content.isNextButtonEnabled, content.isPrevButtonEnabled, isIdeaButtonEnabled, quoteContent)
         vc?.displayUpdatedNetworkData(content: resultContent)
     }
     
