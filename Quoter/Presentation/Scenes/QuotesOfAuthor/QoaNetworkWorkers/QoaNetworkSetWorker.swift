@@ -34,7 +34,7 @@ class QoaNetworkSetWorker {
     
     func getUpdatedContent(currentQuoteIndex: Int, networkQuotesArr: [QuoteGardenQuoteVM]) -> (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool) {
         
-        var isNextButtonEnabled: Bool = false
+        var isNextButtonEnabled: Bool = !(currentQuoteIndex == networkQuotesArr.count - 1)
         var isPrevButtonEnabled: Bool = false
         
         if currentQuoteIndex == networkQuotesArr.count - 1 {

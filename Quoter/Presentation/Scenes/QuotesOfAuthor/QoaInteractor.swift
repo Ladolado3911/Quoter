@@ -18,7 +18,7 @@ protocol VCToQoaInteractorProtocol {
                               quotesArr: [QuoteCore],
                               currentIndex: Int)
     
-    func requestToDisplayUpdatedData()
+    func requestToDisplayUpdatedData(state: QuotesOfAuthorVCState, networkQuotesArr: [QuoteGardenQuoteVM], currentQuoteIndex: Int, quotesArr: [QuoteCore])
 }
 
 class QoaInteractor: VCToQoaInteractorProtocol {
@@ -42,7 +42,7 @@ class QoaInteractor: VCToQoaInteractorProtocol {
             let content = networkSetWorker.getInitialContent(defaultImage: defaultImage,
                                                       networkAuthorImage: networkAuthorImage,
                                                       networkArray: networkArray)
-            presenter?.formatNetworkData(name: name,
+            presenter?.formatNetworkInitialData(name: name,
                                          contentMode: content.contentMode,
                                          exportImage: content.exportImage,
                                          array: networkArray,
@@ -52,7 +52,7 @@ class QoaInteractor: VCToQoaInteractorProtocol {
         case .coreData:
             guard let author = author else { return }
             let content = coreSetWorker.getInitialContent(author: author, defaultImage: defaultImage)
-            presenter?.formatCoreData(author: author,
+            presenter?.formatCoreInitialData(author: author,
                                       contentMode: content.contentMode,
                                       isButtonEnabled: content.isButtonEnabled,
                                       currentIndex: currentIndex,
@@ -60,37 +60,17 @@ class QoaInteractor: VCToQoaInteractorProtocol {
         }
     }
     
-    func requestToDisplayUpdatedData(state: QuotesOfAuthorVCState) {
+    func requestToDisplayUpdatedData(state: QuotesOfAuthorVCState, networkQuotesArr: [QuoteGardenQuoteVM], currentQuoteIndex: Int, quotesArr: [QuoteCore]) {
         switch state {
         case .network:
-            quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].content
-            quotesOfAuthorView.nextButton.isButtonEnabled = !(currentQuoteIndex == networkQuotesArr.count - 1)
-            
-//            if currentQuoteIndex == networkQuotesArr.count - 1 {
-//                quotesOfAuthorView.nextButton.isButtonEnabled = false
-//            }
-//            if currentQuoteIndex > 0 {
-//                quotesOfAuthorView.prevButton.isButtonEnabled = true
-//            }
-//            if currentQuoteIndex == 0 {
-//                quotesOfAuthorView.prevButton.isButtonEnabled = false
-//            }
-            let content = networkSetWorker.getUpdatedContent(currentQuoteIndex: <#T##Int#>, networkQuotesArr: <#T##[QuoteGardenQuoteVM]#>)
-            quotesOfAuthorView.ideaButton.isSelected = CoreDataWorker.isQuoteInCoreData(quoteVM: networkQuotesArr[currentQuoteIndex])
+            let quoteVM = networkQuotesArr[currentQuoteIndex]
+            let quoteContent = quoteVM.content
+            let content = networkSetWorker.getUpdatedContent(currentQuoteIndex: currentQuoteIndex, networkQuotesArr: networkQuotesArr)
+            let isIdeaButtonSelected = CoreDataWorker.isQuoteInCoreData(quoteVM: quoteVM)
+            presenter?.formatNetworkUpdatedData(content: content, isIdeaButtonEnabled: isIdeaButtonSelected, quoteContent: quoteContent)
         case .coreData:
-            quotesOfAuthorView.quoteTextView.text = quotesArr[currentQuoteIndex].content
-            quotesOfAuthorView.nextButton.isButtonEnabled = !(currentQuoteIndex == networkQuotesArr.count - 1)
-//            if currentQuoteIndex == quotesArr.count - 1 {
-//                quotesOfAuthorView.nextButton.isButtonEnabled = false
-//            }
-//            if currentQuoteIndex > 0 {
-//                quotesOfAuthorView.prevButton.isButtonEnabled = true
-//            }
-//            if currentQuoteIndex == 0 {
-//                quotesOfAuthorView.prevButton.isButtonEnabled = false
-//            }
-            let content = coreSetWorker.getUpdatedContent(currentQuoteIndex: <#T##Int#>, quotesArr: <#T##[QuoteCore]#>)
+            let content = coreSetWorker.getUpdatedContent(currentQuoteIndex: currentQuoteIndex, quotesArr: quotesArr, networkArr: networkQuotesArr)
+            presenter?.formatCoreUpdatedData(content: content, quotesArr: quotesArr, currentQuoteIndex: currentQuoteIndex)
         }
-        presenter?.testFormat()
     }
 }

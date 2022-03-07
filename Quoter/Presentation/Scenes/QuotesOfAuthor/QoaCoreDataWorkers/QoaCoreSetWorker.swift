@@ -27,9 +27,9 @@ class QoaCoreSetWorker {
         return (contentMode, isButtonEnabled)
     }
     
-    func getUpdatedContent(currentQuoteIndex: Int, quotesArr: [QuoteCore]) -> (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool) {
+    func getUpdatedContent(currentQuoteIndex: Int, quotesArr: [QuoteCore], networkArr: [QuoteGardenQuoteVM]) -> (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool) {
         
-        var isNextButtonEnabled: Bool = false
+        var isNextButtonEnabled: Bool = !(currentQuoteIndex == networkArr.count - 1)
         var isPrevButtonEnabled: Bool = false
         
         if currentQuoteIndex == quotesArr.count - 1 {

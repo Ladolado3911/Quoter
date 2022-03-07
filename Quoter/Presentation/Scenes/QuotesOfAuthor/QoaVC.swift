@@ -21,8 +21,9 @@ protocol PresenterToQoaVCProtocol {
     
     func displayInitialCoreData(author: AuthorCoreVM, contentMode: UIView.ContentMode, isButtonEnabled: Bool, quoteContent: String)
     
-    func displayUpdatedData()
+    func displayUpdatedNetworkData(content: (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool, isIdeaButtonSelected: Bool, quoteContent: String))
     
+    func displayUpdatedCoreData(content: (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool, quoteContent: String))
 }
 
 class QoaVC: UIViewController {
@@ -308,7 +309,11 @@ extension QoaVC: PresenterToQoaVCProtocol {
         quotesArr = author.quotes
     }
     
-    func displayUpdatedData() {
+    func displayUpdatedNetworkData(content: (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool, isIdeaButtonSelected: Bool, quoteContent: String)) {
+        
+    }
+    
+    func displayUpdatedCoreData(content: (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool, quoteContent: String)) {
         
     }
 }
