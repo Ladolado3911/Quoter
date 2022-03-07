@@ -148,27 +148,18 @@ class QoaVC: UIViewController {
     }
     
     @objc func onIdeaButton(sender: UIButton) {
-        Sound.idea.play(extensionString: .mp3)
         let quoteVMM = networkQuotesArr[currentQuoteIndex]
-        
-        var image: UIImage?
-        if networkAuthorImage == nil {
-            image = self.defaultImage
-        }
-        else {
-            image = self.networkAuthorImage
-        }
+        let image: UIImage? = networkAuthorImage == nil ? defaultImage : networkAuthorImage
         if let image = image {
             if self.quotesOfAuthorView.switchButton.isSelected {
-                self.quotesOfAuthorView.switchButton.isSelected = false
                 CoreDataWorker.removePair(quoteVM: quoteVMM)
-                collectionViewUpdateSubject.send {}
             }
-            else  {
-                self.quotesOfAuthorView.switchButton.isSelected = true
+            else {
+                Sound.idea.play(extensionString: .mp3)
                 CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
-                collectionViewUpdateSubject.send {}
             }
+            quotesOfAuthorView.switchButton.isSelected.toggle()
+            collectionViewUpdateSubject.send {}
         }
         else {
             print("Could not unwrap")
