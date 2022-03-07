@@ -175,18 +175,17 @@ class QoaVC: UIViewController {
                 }
                 return
             }
-            if self.currentQuoteIndex == self.quotesArr.count - 1 {
+            switch self.currentQuoteIndex {
+            case self.quotesArr.count - 1:
                 self.quotesArr.removeLast()
                 self.currentQuoteIndex -= 1
-            }
-            else if self.currentQuoteIndex == 0 {
+            case 0:
                 self.quotesArr.removeFirst()
                 self.interactor?.requestToDisplayUpdatedData(state: self.state,
                                                              networkQuotesArr: self.networkQuotesArr,
                                                              currentQuoteIndex: self.currentQuoteIndex,
                                                              quotesArr: self.quotesArr)
-            }
-            else {
+            default:
                 self.quotesArr.remove(at: self.currentQuoteIndex)
                 self.currentQuoteIndex -= 1
             }
