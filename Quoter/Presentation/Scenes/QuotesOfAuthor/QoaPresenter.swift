@@ -14,6 +14,7 @@ protocol InteractorToQoaPresenterProtocol {
     func formatCoreInitialData(author: AuthorCoreVM, contentMode: UIView.ContentMode, isButtonEnabled: Bool, currentIndex: Int, array: [QuoteCore])
     func formatNetworkUpdatedData(content: (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool), isIdeaButtonEnabled: Bool, quoteContent: String)
     func formatCoreUpdatedData(content: (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool), quotesArr: [QuoteCore], currentQuoteIndex: Int)
+    func formatIdeaChange()
 }
 
 class QoaPresenter: InteractorToQoaPresenterProtocol {
@@ -39,5 +40,9 @@ class QoaPresenter: InteractorToQoaPresenterProtocol {
         let quoteContent = quotesArr[currentQuoteIndex].content
         let resultContent = (content.isNextButtonEnabled, content.isPrevButtonEnabled, quoteContent ?? "No Quote")
         vc?.displayUpdatedCoreData(content: resultContent)
+    }
+    
+    func formatIdeaChange() {
+        vc?.displayIdeaChange()
     }
 }

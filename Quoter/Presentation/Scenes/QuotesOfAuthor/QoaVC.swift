@@ -24,6 +24,7 @@ protocol PresenterToQoaVCProtocol {
     func displayUpdatedNetworkData(content: (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool, isIdeaButtonSelected: Bool, quoteContent: String))
     
     func displayUpdatedCoreData(content: (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool, quoteContent: String))
+    func displayIdeaChange()
 }
 
 class QoaVC: UIViewController {
@@ -148,22 +149,11 @@ class QoaVC: UIViewController {
     }
     
     @objc func onIdeaButton(sender: UIButton) {
-        let quoteVMM = networkQuotesArr[currentQuoteIndex]
-        let image: UIImage? = networkAuthorImage == nil ? defaultImage : networkAuthorImage
-        if let image = image {
-            if self.quotesOfAuthorView.switchButton.isSelected {
-                CoreDataWorker.removePair(quoteVM: quoteVMM)
-            }
-            else {
-                Sound.idea.play(extensionString: .mp3)
-                CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
-            }
-            quotesOfAuthorView.switchButton.isSelected.toggle()
-            collectionViewUpdateSubject.send {}
-        }
-        else {
-            print("Could not unwrap")
-        }
+        interactor?.requestToChangeIdeaState(networkArr: networkQuotesArr,
+                                             currentQuoteIndex: currentQuoteIndex,
+                                             networkAuthorImage: networkAuthorImage,
+                                             defaultImage: defaultImage,
+                                             isSwitchButtonSelected: quotesOfAuthorView.switchButton.isSelected)
     }
     
     @objc func onDeleteButton(sender: UIButton) {
@@ -268,5 +258,9 @@ extension QoaVC: PresenterToQoaVCProtocol {
         quotesOfAuthorView.nextButton.isButtonEnabled = content.isNextButtonEnabled
         quotesOfAuthorView.prevButton.isButtonEnabled = content.isPrevButtonEnabled
         quotesOfAuthorView.quoteTextView.text = content.quoteContent
+    }
+    
+    func displayIdeaChange() {
+        quotesOfAuthorView.switchButton.isSelected.toggle()
     }
 }

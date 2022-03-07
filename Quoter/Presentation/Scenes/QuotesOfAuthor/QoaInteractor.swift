@@ -19,6 +19,7 @@ protocol VCToQoaInteractorProtocol {
                               currentIndex: Int)
     
     func requestToDisplayUpdatedData(state: QuotesOfAuthorVCState, networkQuotesArr: [QuoteGardenQuoteVM], currentQuoteIndex: Int, quotesArr: [QuoteCore])
+    func requestToChangeIdeaState(networkArr: [QuoteGardenQuoteVM], currentQuoteIndex: Int, networkAuthorImage: UIImage?, defaultImage: UIImage?, isSwitchButtonSelected: Bool)
 }
 
 class QoaInteractor: VCToQoaInteractorProtocol {
@@ -70,6 +71,25 @@ class QoaInteractor: VCToQoaInteractorProtocol {
         case .coreData:
             let content = coreSetWorker.getUpdatedContent(currentQuoteIndex: currentQuoteIndex, quotesArr: quotesArr, networkArr: networkQuotesArr)
             presenter?.formatCoreUpdatedData(content: content, quotesArr: quotesArr, currentQuoteIndex: currentQuoteIndex)
+        }
+    }
+    
+    func requestToChangeIdeaState(networkArr: [QuoteGardenQuoteVM], currentQuoteIndex: Int, networkAuthorImage: UIImage?, defaultImage: UIImage?, isSwitchButtonSelected: Bool) {
+        let quoteVMM = networkArr[currentQuoteIndex]
+        let image: UIImage? = networkAuthorImage == nil ? defaultImage : networkAuthorImage
+        if let image = image {
+            if isSwitchButtonSelected {
+                CoreDataWorker.removePair(quoteVM: quoteVMM)
+            }
+            else {
+                Sound.idea.play(extensionString: .mp3)
+                CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
+            }
+            collectionViewUpdateSubject.send {}
+            presenter?.formatIdeaChange()
+        }
+        else {
+            print("Could not unwrap")
         }
     }
 }

@@ -10,6 +10,7 @@ import Combine
 import Kingfisher
 
 let collectionViewUpdateSubject = PassthroughSubject<(() -> Void), Never>()
+let collectionViewReloadSubject = PassthroughSubject<(() -> Void), Never>()
 
 class AuthorsVC: UIViewController {
 
@@ -19,7 +20,7 @@ class AuthorsVC: UIViewController {
     
     var data3Before: [AuthorCoreVM] = []
     
-    let compareImage = UIImage(named: "unknown")?.pngData()
+    let compareImage = UIImage(named: "testUpperQuotism")?.pngData()
     let bookImage = UIImage(named: "book")
     
     lazy var data3Subject = CurrentValueSubject<[AuthorCoreVM], Never>(data3)
@@ -71,6 +72,8 @@ class AuthorsVC: UIViewController {
                 }
                 vms.append(newVM)
             }
+            mainTitle.send("Select Author")
+            sendMainImagetoSubject(bookImage!)
             data3 = vms
             data3Subject.send(data3)
             authorsView.authorsContentView.collectionView.reloadData()
@@ -101,6 +104,13 @@ class AuthorsVC: UIViewController {
             .sink { [weak self] value in
                 guard let self = self else { return }
                 self.populateData()
+            }
+            .store(in: &cancellables)
+        
+        collectionViewReloadSubject
+            .sink { [weak self] value in
+                guard let self = self else { return }
+                self.authorsView.authorsContentView.collectionView.reloadData()
             }
             .store(in: &cancellables)
     }
