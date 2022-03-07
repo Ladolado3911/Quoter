@@ -115,11 +115,11 @@ class QoaVC: UIViewController {
     private func configIdeaButton() {
         switch state {
         case .network:
-            quotesOfAuthorView.ideaButton.addTarget(self,
+            quotesOfAuthorView.switchButton.addTarget(self,
                                                     action: #selector(onIdeaButton(sender:)),
                                                     for: .touchUpInside)
         case .coreData:
-            quotesOfAuthorView.ideaButton.addTarget(self,
+            quotesOfAuthorView.switchButton.addTarget(self,
                                                     action: #selector(onDeleteButton(sender:)),
                                                     for: .touchUpInside)
         }
@@ -148,44 +148,30 @@ class QoaVC: UIViewController {
     }
     
     @objc func onIdeaButton(sender: UIButton) {
-        guard let authorName = authorName else {
-            return
-        }
         Sound.idea.play(extensionString: .mp3)
         let quoteVMM = networkQuotesArr[currentQuoteIndex]
-        ImageManager.getAuthorImageURLUsingSlug(slug: convertAuthorName(name: authorName)) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let tuple):
-                var image: UIImage?
-                if tuple.1 == .noPicture {
-                    image = self.defaultImage
-                }
-                else {
-                    image = self.networkAuthorImage
-                }
-                if let image = image {
-                    if self.quotesOfAuthorView.ideaButton.state == .selected {
-                        self.quotesOfAuthorView.ideaButton.isSelected = false
-                        CoreDataWorker.removePair(quoteVM: quoteVMM)
-                        collectionViewUpdateSubject.send {}
-                    }
-                    else if self.quotesOfAuthorView.ideaButton.state == .normal {
-                        self.quotesOfAuthorView.ideaButton.isSelected = true
-                        CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
-                        collectionViewUpdateSubject.send {}
-                    }
-                    else {
-                        
-                    }
-                }
-                else {
-                    print("Could not unwrap")
-                }
-                
-            case .failure(let error):
-                print(error)
+        
+        var image: UIImage?
+        if networkAuthorImage == nil {
+            image = self.defaultImage
+        }
+        else {
+            image = self.networkAuthorImage
+        }
+        if let image = image {
+            if self.quotesOfAuthorView.switchButton.isSelected {
+                self.quotesOfAuthorView.switchButton.isSelected = false
+                CoreDataWorker.removePair(quoteVM: quoteVMM)
+                collectionViewUpdateSubject.send {}
             }
+            else  {
+                self.quotesOfAuthorView.switchButton.isSelected = true
+                CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
+                collectionViewUpdateSubject.send {}
+            }
+        }
+        else {
+            print("Could not unwrap")
         }
     }
     
@@ -283,7 +269,7 @@ extension QoaVC: PresenterToQoaVCProtocol {
     func displayUpdatedNetworkData(content: (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool, isIdeaButtonSelected: Bool, quoteContent: String)) {
         quotesOfAuthorView.nextButton.isButtonEnabled = content.isNextButtonEnabled
         quotesOfAuthorView.prevButton.isButtonEnabled = content.isPrevButtonEnabled
-        quotesOfAuthorView.ideaButton.isSelected = content.isIdeaButtonSelected
+        quotesOfAuthorView.switchButton.isSelected = content.isIdeaButtonSelected
         quotesOfAuthorView.quoteTextView.text = content.quoteContent
     }
     

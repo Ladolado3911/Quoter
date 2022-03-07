@@ -44,7 +44,7 @@ class QuotesOfAuthorView: LottieView {
         return title
     }()
     
-    lazy var ideaButton: UIButton = {
+    lazy var switchButton: UIButton = {
         let button = UIButton(type: .custom)
         switch state {
         case .network:
@@ -92,7 +92,7 @@ class QuotesOfAuthorView: LottieView {
         addSubview(darkView)
         addSubview(closeButton)
         addSubview(titleOfAuthor)
-        addSubview(ideaButton)
+        addSubview(switchButton)
         addSubview(quoteTextView)
         addSubview(nextButton)
         addSubview(prevButton)
@@ -115,10 +115,10 @@ class QuotesOfAuthorView: LottieView {
         }
         titleOfAuthor.snp.makeConstraints { make in
             make.left.equalTo(closeButton.snp.right).inset(-20)
-            make.right.equalTo(ideaButton.snp.left).inset(-20)
+            make.right.equalTo(switchButton.snp.left).inset(-20)
             make.bottom.equalTo(quoteTextView.snp.top)
         }
-        ideaButton.snp.makeConstraints { make in
+        switchButton.snp.makeConstraints { make in
             make.right.equalTo(self).inset(20)
             make.centerY.equalTo(closeButton)
             make.width.height.equalTo(PublicConstants.screenHeight * 0.0968)
