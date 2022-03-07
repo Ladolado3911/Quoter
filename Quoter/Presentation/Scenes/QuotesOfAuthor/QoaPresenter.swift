@@ -39,6 +39,5 @@ class QoaPresenter: InteractorToQoaPresenterProtocol {
         let quoteContent = quotesArr[currentQuoteIndex].content
         let resultContent = (content.isNextButtonEnabled, content.isPrevButtonEnabled, quoteContent ?? "No Quote")
         vc?.displayUpdatedCoreData(content: resultContent)
-        
     }
 }

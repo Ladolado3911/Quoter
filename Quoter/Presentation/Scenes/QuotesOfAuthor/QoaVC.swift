@@ -39,7 +39,10 @@ class QoaVC: UIViewController {
     var author: AuthorCoreVM?
     var currentQuoteIndex: Int = 0 {
         didSet {
-            updateQuote()
+            interactor?.requestToDisplayUpdatedData(state: state,
+                                                    networkQuotesArr: networkQuotesArr,
+                                                    currentQuoteIndex: currentQuoteIndex,
+                                                    quotesArr: quotesArr)
         }
     }
     var quotesArr: [QuoteCore] = []
@@ -138,37 +141,7 @@ class QoaVC: UIViewController {
                                                 action: #selector(onPrev(sender:)),
                                                 for: .touchUpInside)
     }
-    
-    private func updateQuote() {
-        switch state {
-        case .network:
-            quotesOfAuthorView.quoteTextView.text = networkQuotesArr[currentQuoteIndex].content
-            quotesOfAuthorView.nextButton.isButtonEnabled = !(currentQuoteIndex == networkQuotesArr.count - 1)
-            if currentQuoteIndex == networkQuotesArr.count - 1 {
-                quotesOfAuthorView.nextButton.isButtonEnabled = false
-            }
-            if currentQuoteIndex > 0 {
-                quotesOfAuthorView.prevButton.isButtonEnabled = true
-            }
-            if currentQuoteIndex == 0 {
-                quotesOfAuthorView.prevButton.isButtonEnabled = false
-            }
-            quotesOfAuthorView.ideaButton.isSelected = CoreDataWorker.isQuoteInCoreData(quoteVM: networkQuotesArr[currentQuoteIndex])
-        case .coreData:
-            quotesOfAuthorView.quoteTextView.text = quotesArr[currentQuoteIndex].content
-            quotesOfAuthorView.nextButton.isButtonEnabled = !(currentQuoteIndex == networkQuotesArr.count - 1)
-            if currentQuoteIndex == quotesArr.count - 1 {
-                quotesOfAuthorView.nextButton.isButtonEnabled = false
-            }
-            if currentQuoteIndex > 0 {
-                quotesOfAuthorView.prevButton.isButtonEnabled = true
-            }
-            if currentQuoteIndex == 0 {
-                quotesOfAuthorView.prevButton.isButtonEnabled = false
-            }
-        }
-    }
-    
+
     private func convertAuthorName(name: String) -> String {
         name.replacingOccurrences(of: " ", with: "_")
     }
@@ -246,7 +219,10 @@ class QoaVC: UIViewController {
             }
             else if self.currentQuoteIndex == 0 {
                 self.quotesArr.removeFirst()
-                self.updateQuote()
+                self.interactor?.requestToDisplayUpdatedData(state: self.state,
+                                                             networkQuotesArr: self.networkQuotesArr,
+                                                             currentQuoteIndex: self.currentQuoteIndex,
+                                                             quotesArr: self.quotesArr)
             }
             else {
                 self.quotesArr.remove(at: self.currentQuoteIndex)
@@ -310,10 +286,15 @@ extension QoaVC: PresenterToQoaVCProtocol {
     }
     
     func displayUpdatedNetworkData(content: (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool, isIdeaButtonSelected: Bool, quoteContent: String)) {
-        
+        quotesOfAuthorView.nextButton.isButtonEnabled = content.isNextButtonEnabled
+        quotesOfAuthorView.prevButton.isButtonEnabled = content.isPrevButtonEnabled
+        quotesOfAuthorView.ideaButton.isSelected = content.isIdeaButtonSelected
+        quotesOfAuthorView.quoteTextView.text = content.quoteContent
     }
     
     func displayUpdatedCoreData(content: (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool, quoteContent: String)) {
-        
+        quotesOfAuthorView.nextButton.isButtonEnabled = content.isNextButtonEnabled
+        quotesOfAuthorView.prevButton.isButtonEnabled = content.isPrevButtonEnabled
+        quotesOfAuthorView.quoteTextView.text = content.quoteContent
     }
 }
