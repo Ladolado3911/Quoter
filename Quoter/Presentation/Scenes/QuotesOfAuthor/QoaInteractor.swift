@@ -20,6 +20,7 @@ protocol VCToQoaInteractorProtocol {
     
     func requestToDisplayUpdatedData(state: QuotesOfAuthorVCState, networkQuotesArr: [QuoteGardenQuoteVM], currentQuoteIndex: Int, quotesArr: [QuoteCore])
     func requestToChangeIdeaState(networkArr: [QuoteGardenQuoteVM], currentQuoteIndex: Int, networkAuthorImage: UIImage?, defaultImage: UIImage?, isSwitchButtonSelected: Bool)
+    func requestToDelete()
 }
 
 class QoaInteractor: VCToQoaInteractorProtocol {
@@ -91,5 +92,9 @@ class QoaInteractor: VCToQoaInteractorProtocol {
         else {
             print("Could not unwrap")
         }
+    }
+    
+    func requestToDelete() {
+        presenter?.formatDelete()
     }
 }

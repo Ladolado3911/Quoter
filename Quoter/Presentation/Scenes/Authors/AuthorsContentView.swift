@@ -40,6 +40,7 @@ class AuthorsContentView: UIView {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
     
