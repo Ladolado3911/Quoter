@@ -11,6 +11,10 @@ import Combine
 
 var isExploreVCFiltered: Bool = false
 
+protocol PresenterToFilterVCProtocol: AnyObject {
+    
+}
+
 class FilterVC: UIViewController {
     
     private var cancellables: Set<AnyCancellable> = []
@@ -162,10 +166,6 @@ class FilterVC: UIViewController {
             guard let self = self else { return }
             if didFinish {
                 self.filterView.buildView()
-//                self.collectionView.addSubview(self.gradientView1)
-//                //self.collectionView.addSubview(self.gradientView2)
-//                self.collectionView.bringSubviewToFront(self.gradientView1)
-                //self.collectionView.bringSubviewToFront(self.gradientView2)
                 self.filterView.filterButton.addTarget(self,
                                                        action: #selector(self.didTapOnFilter(sender:)),
                                                        for: .touchUpInside)
