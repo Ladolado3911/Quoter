@@ -13,9 +13,14 @@ var isExploreVCFiltered: Bool = false
 
 protocol PresenterToFilterVCProtocol: AnyObject {
     
+    var interactor: VCToFilterInteractorProtocol? { get set }
+    
+    func displayFetchedTags(selectionLimit: UInt, resultArr: [TTGTextTag])
 }
 
 class FilterVC: UIViewController {
+    
+    var interactor: VCToFilterInteractorProtocol?
     
     private var cancellables: Set<AnyCancellable> = []
     let selectedCountSubject = PassthroughSubject<(() -> Void), Never>()
@@ -57,12 +62,19 @@ class FilterVC: UIViewController {
         collectionView.verticalSpacing = 30
         collectionView.horizontalSpacing = 30
         collectionView.enableTagSelection = true
-        
         collectionView.alpha = 0
-        
-        //collectionView.register(TagCell.self, forCellWithReuseIdentifier: "tagCell")
         return collectionView
     }()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
 
     override func loadView() {
         super.loadView()
@@ -74,7 +86,6 @@ class FilterVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //buildView()
         collectionView.scrollView.delegate = self
     }
     
@@ -106,8 +117,7 @@ class FilterVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        populateTags()
-        //setSelected()
+        interactor?.requestToPopulateTags()
     }
     
     private func setSelected() {
@@ -120,41 +130,49 @@ class FilterVC: UIViewController {
         collectionView.reload()
     }
     
-    private func populateTags() {
-        QuoteGardenManager.getGenres { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let filterObjects):
-                let convertedToTags = filterObjects.map { $0.genre.capitalized }
-                var resultArr: [TTGTextTag] = []
-                for tag in convertedToTags {
-                    
-                    let content = TTGTextTagStringContent(text: tag)
-                    content.textColor = .black
-                    let style = TTGTextTagStyle()
-                    style.backgroundColor = .white
-                    style.textAlignment = .center
-                    style.extraSpace = CGSize(width: 10, height: 10)
-                    
-                    let selectedContent = TTGTextTagStringContent(text: tag)
-                    selectedContent.textColor = .white
-                    let selectedStyle = TTGTextTagStyle()
-                    selectedStyle.backgroundColor = .black
-                    selectedStyle.textAlignment = .center
-                    selectedStyle.extraSpace = CGSize(width: 10, height: 10)
-
-                    let selectedTextTag = TTGTextTag(content: content, style: style, selectedContent: selectedContent, selectedStyle: selectedStyle)
-                    
-                    resultArr.append(selectedTextTag)
-                }
-                self.collectionView.selectionLimit = UInt(convertedToTags.count - 1)
-                self.collectionView.add(resultArr)
-                self.setSelected()
-            case .failure(let error):
-                print(error)
-            }
-        }
+    private func setup() {
+        let vc = self
+        let interactor = FilterInteractor()
+        let presenter = FilterPresenter()
+        vc.interactor = interactor
+        interactor.presenter = presenter
+        presenter.vc = vc
     }
+    
+//    private func populateTags() {
+//        QuoteGardenManager.getGenres { [weak self] result in
+//            guard let self = self else { return }
+//            switch result {
+//            case .success(let filterObjects):
+//                let convertedToTags = filterObjects.map { $0.genre.capitalized }
+//                var resultArr: [TTGTextTag] = []
+//                for tag in convertedToTags {
+//    
+//                    let content = TTGTextTagStringContent(text: tag)
+//                    content.textColor = .black
+//                    let style = TTGTextTagStyle()
+//                    style.backgroundColor = .white
+//                    style.textAlignment = .center
+//                    style.extraSpace = CGSize(width: 10, height: 10)
+//                    
+//                    let selectedContent = TTGTextTagStringContent(text: tag)
+//                    selectedContent.textColor = .white
+//                    let selectedStyle = TTGTextTagStyle()
+//                    selectedStyle.backgroundColor = .black
+//                    selectedStyle.textAlignment = .center
+//                    selectedStyle.extraSpace = CGSize(width: 10, height: 10)
+//
+//                    let selectedTextTag = TTGTextTag(content: content, style: style, selectedContent: selectedContent, selectedStyle: selectedStyle)
+//                    resultArr.append(selectedTextTag)
+//                }
+//                self.collectionView.selectionLimit = UInt(convertedToTags.count - 1)
+//                self.collectionView.add(resultArr)
+//                self.setSelected()
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+ //   }
 
     private func buildView() {
         view.addSubview(darkView)
@@ -270,4 +288,14 @@ extension FilterVC: TTGTextTagCollectionViewDelegate, UIScrollViewDelegate {
             selectedTagStrings.removeAll { $0 == tag.content.getAttributedString().string }
         }
     }
+}
+
+extension FilterVC: PresenterToFilterVCProtocol {
+    
+    func displayFetchedTags(selectionLimit: UInt, resultArr: [TTGTextTag]) {
+        collectionView.selectionLimit = selectionLimit
+        collectionView.add(resultArr)
+        setSelected()
+    }
+    
 }

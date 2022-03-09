@@ -26,6 +26,7 @@
 		24B0CEF927D8C4750064F843 /* FilterGenreWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B0CEF827D8C4750064F843 /* FilterGenreWorker.swift */; };
 		24B0CEFB27D8C4E10064F843 /* FilterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B0CEFA27D8C4E10064F843 /* FilterInteractor.swift */; };
 		24B0CEFD27D8C4EF0064F843 /* FilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B0CEFC27D8C4EF0064F843 /* FilterPresenter.swift */; };
+		24B0CF0127D8D4530064F843 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B0CF0027D8D4530064F843 /* Common.swift */; };
 		24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3DD27985FEE009DB491 /* ExploreVC.swift */; };
 		24BEA3E02798601A009DB491 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3DF2798601A009DB491 /* QuoteView.swift */; };
 		24C12BCA27AAACCC0069684D /* BookImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C12BC927AAACCC0069684D /* BookImageView.swift */; };
@@ -60,7 +61,6 @@
 		24D33E3B27B93FA100E4C668 /* circleLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 24D33E3A27B93FA100E4C668 /* circleLoading.json */; };
 		24D33E3D27B9683000E4C668 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D33E3C27B9683000E4C668 /* NetworkMonitor.swift */; };
 		24D4107B27B3FB4500B5C899 /* QuoteGardenEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107A27B3FB4500B5C899 /* QuoteGardenEndpoints.swift */; };
-		24D4107D27B3FD0200B5C899 /* QuoteGardenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107C27B3FD0200B5C899 /* QuoteGardenManager.swift */; };
 		24D4108027B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */; };
 		24D42EFA27CB67DA005AC82F /* idea.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 24D42EF927CB67DA005AC82F /* idea.mp3 */; };
 		24D78DE927B27FB700E6B401 /* ImageEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D78DE827B27FB700E6B401 /* ImageEndpoints.swift */; };
@@ -132,6 +132,7 @@
 		24B0CEF827D8C4750064F843 /* FilterGenreWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterGenreWorker.swift; sourceTree = "<group>"; };
 		24B0CEFA27D8C4E10064F843 /* FilterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInteractor.swift; sourceTree = "<group>"; };
 		24B0CEFC27D8C4EF0064F843 /* FilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresenter.swift; sourceTree = "<group>"; };
+		24B0CF0027D8D4530064F843 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		24BEA3DD27985FEE009DB491 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		24BEA3DF2798601A009DB491 /* QuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
 		24C12BC927AAACCC0069684D /* BookImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookImageView.swift; sourceTree = "<group>"; };
@@ -166,7 +167,6 @@
 		24D33E3A27B93FA100E4C668 /* circleLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = circleLoading.json; sourceTree = "<group>"; };
 		24D33E3C27B9683000E4C668 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		24D4107A27B3FB4500B5C899 /* QuoteGardenEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenEndpoints.swift; sourceTree = "<group>"; };
-		24D4107C27B3FD0200B5C899 /* QuoteGardenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenManager.swift; sourceTree = "<group>"; };
 		24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteGardenQuoteModel.swift; sourceTree = "<group>"; };
 		24D42EF927CB67DA005AC82F /* idea.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = idea.mp3; sourceTree = "<group>"; };
 		24D78DE827B27FB700E6B401 /* ImageEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEndpoints.swift; sourceTree = "<group>"; };
@@ -380,20 +380,13 @@
 			isa = PBXGroup;
 			children = (
 				24A0D38727A7ED84002286F6 /* CoreDataModel.xcdatamodeld */,
+				24B0CF0027D8D4530064F843 /* Common.swift */,
 				24CB9FE727930C1700E9D49F /* AuthorModel.swift */,
 				24AD7D61279A9DA300BFC1BF /* QuoteModel.swift */,
 				24DF187127A554AE00D93F8D /* RandomImageModel.swift */,
 				24D4107F27B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		24CB9FEA27930C2700E9D49F /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				24D4107C27B3FD0200B5C899 /* QuoteGardenManager.swift */,
-			);
-			path = Managers;
 			sourceTree = "<group>";
 		};
 		24D1286627903ECD00AD7F3D = {
@@ -419,7 +412,6 @@
 				24D128A22790AE0E00AD7F3D /* PublicConstants.swift */,
 				24D1288627903F5900AD7F3D /* App */,
 				24CB9FE527930C1700E9D49F /* Models */,
-				24CB9FEA27930C2700E9D49F /* Managers */,
 				24CB9FE027930C0B00E9D49F /* Endpoints */,
 				24B0CEFF27D8C5EC0064F843 /* Resources */,
 				24D128952790490400AD7F3D /* Extensions */,
@@ -765,6 +757,7 @@
 				24E289F227D23D2800FDB6BB /* String+Extension.swift in Sources */,
 				24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */,
 				24C12BCE27AAB0230069684D /* ModalAlertView.swift in Sources */,
+				24B0CF0127D8D4530064F843 /* Common.swift in Sources */,
 				24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */,
 				24E4A8AF27C29480000BB7DB /* QuoteCell.swift in Sources */,
 				24D4107B27B3FB4500B5C899 /* QuoteGardenEndpoints.swift in Sources */,
@@ -777,7 +770,6 @@
 				24DF187227A554AE00D93F8D /* RandomImageModel.swift in Sources */,
 				24FC97D527CFA8A100504361 /* ExploreImageWorker.swift in Sources */,
 				24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */,
-				24D4107D27B3FD0200B5C899 /* QuoteGardenManager.swift in Sources */,
 				24D1289927904D0E00AD7F3D /* AppColors.swift in Sources */,
 				24E289E227D2204E00FDB6BB /* ModalAlertInteractor.swift in Sources */,
 				24A8407727C3B92800BCF304 /* LoadingAlertVC.swift in Sources */,
