@@ -20,7 +20,7 @@ protocol VCToQoaInteractorProtocol {
     
     func requestToDisplayInitialData()
     
-    func requestToDisplayUpdatedData(state: QuotesOfAuthorVCState, networkQuotesArr: [QuoteGardenQuoteVM], currentQuoteIndex: Int, quotesArr: [QuoteCore])
+    func requestToDisplayUpdatedData()
     func requestToChangeIdeaState(isSwitchButtonSelected: Bool)
     func requestToconfigViewButtons()
     func requestToDismissView()
@@ -46,10 +46,7 @@ class QoaInteractor: VCToQoaInteractorProtocol {
     var author: AuthorCoreVM?
     var currentQuoteIndex: Int = 0 {
         didSet {
-            requestToDisplayUpdatedData(state: state,
-                                        networkQuotesArr: networkQuotesArr,
-                                        currentQuoteIndex: currentQuoteIndex,
-                                        quotesArr: quotesArr)
+            requestToDisplayUpdatedData()
         }
     }
     var quotesArr: [QuoteCore] = []
@@ -62,7 +59,6 @@ class QoaInteractor: VCToQoaInteractorProtocol {
     var quoteVM: QuoteGardenQuoteVM?
     
     func requestToDisplayInitialData() {
-        
         switch state {
         case .network:
             guard let name = authorName else { return }
@@ -88,7 +84,7 @@ class QoaInteractor: VCToQoaInteractorProtocol {
         }
     }
     
-    func requestToDisplayUpdatedData(state: QuotesOfAuthorVCState, networkQuotesArr: [QuoteGardenQuoteVM], currentQuoteIndex: Int, quotesArr: [QuoteCore]) {
+    func requestToDisplayUpdatedData() {
         switch state {
         case .network:
             let quoteVM = networkQuotesArr[currentQuoteIndex]
@@ -122,11 +118,8 @@ class QoaInteractor: VCToQoaInteractorProtocol {
     }
     
     func requestToDelete() {
-        guard let author = author else {
-            return
-        }
+        guard let author = author else { return }
         let quoteVm = QuoteGardenQuoteVM(rootModel: QuoteGardenQuoteModel(quoteText: quotesArr[currentQuoteIndex].content, quoteAuthor: author.name))
-        
         CoreDataWorker.removePair(quoteVM: quoteVm) { [weak self] in
             guard let self = self else { return }
             if self.quotesArr.count == 1 {
@@ -143,10 +136,7 @@ class QoaInteractor: VCToQoaInteractorProtocol {
                 self.currentQuoteIndex -= 1
             case 0:
                 self.quotesArr.removeFirst()
-                self.requestToDisplayUpdatedData(state: self.state,
-                                                 networkQuotesArr: self.networkQuotesArr,
-                                                 currentQuoteIndex: self.currentQuoteIndex,
-                                                 quotesArr: self.quotesArr)
+                self.requestToDisplayUpdatedData()
             default:
                 self.quotesArr.remove(at: self.currentQuoteIndex)
                 self.currentQuoteIndex -= 1
@@ -189,8 +179,6 @@ class QoaInteractor: VCToQoaInteractorProtocol {
     }
     
     func requestToDismissView() {
-        presenter?.dismissView {
-            
-        }
+        presenter?.dismissView {}
     }
 }

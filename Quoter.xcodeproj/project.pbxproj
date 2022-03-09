@@ -231,6 +231,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2412526927D8949900DF15AC /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				24FF8A0727D5E001004E40B4 /* QoaNetworkSetWorker.swift */,
+				24FF8A0A27D5E313004E40B4 /* QoaCoreSetWorker.swift */,
+			);
+			path = Workers;
+			sourceTree = "<group>";
+		};
+		2412526A27D894C800DF15AC /* AuthorsSubviews */ = {
+			isa = PBXGroup;
+			children = (
+				24D1288727903FB100AD7F3D /* AuthorsView.swift */,
+				24D128A02790AD0500AD7F3D /* AuthorsContentView.swift */,
+				24D264F52791777500614218 /* AuthorCell.swift */,
+				24D264F72791940F00614218 /* AuthorCellVM.swift */,
+				247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */,
+			);
+			path = AuthorsSubviews;
+			sourceTree = "<group>";
+		};
 		243B449627BE294C00953AD3 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,8 +279,7 @@
 		248FC0D427A9541500069FFF /* QuotesOfAuthor */ = {
 			isa = PBXGroup;
 			children = (
-				24FF8A0927D5E2F6004E40B4 /* QoaCoreDataWorkers */,
-				24FF8A0627D5DFE7004E40B4 /* QoaNetworkWorkers */,
+				2412526927D8949900DF15AC /* Workers */,
 				24D2A30527D4CB090068DFB1 /* QoaSubviews */,
 				248FC0D527A9544D00069FFF /* QoaVC.swift */,
 				24D2A30327D4CAC60068DFB1 /* QoaInteractor.swift */,
@@ -414,12 +434,8 @@
 		24D1288B27903FF500AD7F3D /* Authors */ = {
 			isa = PBXGroup;
 			children = (
+				2412526A27D894C800DF15AC /* AuthorsSubviews */,
 				24D1287627903ECD00AD7F3D /* AuthorsVC.swift */,
-				24D1288727903FB100AD7F3D /* AuthorsView.swift */,
-				24D128A02790AD0500AD7F3D /* AuthorsContentView.swift */,
-				24D264F52791777500614218 /* AuthorCell.swift */,
-				24D264F72791940F00614218 /* AuthorCellVM.swift */,
-				247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */,
 			);
 			path = Authors;
 			sourceTree = "<group>";
@@ -559,22 +575,6 @@
 				24DC6ECF27D0EAEE00A022FB /* ExploreContentWorker.swift */,
 			);
 			path = ExploreWorkers;
-			sourceTree = "<group>";
-		};
-		24FF8A0627D5DFE7004E40B4 /* QoaNetworkWorkers */ = {
-			isa = PBXGroup;
-			children = (
-				24FF8A0727D5E001004E40B4 /* QoaNetworkSetWorker.swift */,
-			);
-			path = QoaNetworkWorkers;
-			sourceTree = "<group>";
-		};
-		24FF8A0927D5E2F6004E40B4 /* QoaCoreDataWorkers */ = {
-			isa = PBXGroup;
-			children = (
-				24FF8A0A27D5E313004E40B4 /* QoaCoreSetWorker.swift */,
-			);
-			path = QoaCoreDataWorkers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

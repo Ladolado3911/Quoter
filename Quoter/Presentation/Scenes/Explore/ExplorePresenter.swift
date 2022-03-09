@@ -13,6 +13,7 @@ protocol InteractorToExplorePresenterProtocol: AnyObject {
     func formatData(quoteModels: [QuoteGardenQuoteModel], images: [UIImage?])
     func formatNewData(currentVMs: [QuoteGardenQuoteVM], capturedPage: Int, edges: (Int, Int), quoteModels: [QuoteGardenQuoteModel], images: [UIImage?])
     func transfer(edges: (Int, Int), offsetOfPage: Int)
+    func startAnimating()
 }
 
 class ExplorePresenter: InteractorToExplorePresenterProtocol {
@@ -42,5 +43,9 @@ class ExplorePresenter: InteractorToExplorePresenterProtocol {
         let quoteVMs = quoteModels.map { QuoteGardenQuoteVM(rootModel: $0) }
         let indexPaths = quoteVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) }
         vc?.displayInitialData(loadedVMs: quoteVMs, loadedImages: shuffledImages, indexPaths: indexPaths)
+    }
+    
+    func startAnimating() {
+        vc?.startAnimating()
     }
 }
