@@ -18,7 +18,6 @@ protocol PresenterToExploreVCProtocol: AnyObject {
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
                         indexPaths: [IndexPath])
-    func requestedNewData(edges: (Int, Int), offsetOfPage: Int)
 }
 
 class ExploreVC: MonitoredVC {
@@ -118,15 +117,11 @@ class ExploreVC: MonitoredVC {
 
 extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        interactor!.loadedVMs.count
+        interactor?.loadedVMs.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? QuoteCell
-        cell?.quoteVM = interactor!.loadedVMs[indexPath.item]
-        cell?.mainImage = interactor!.loadedImages[indexPath.item]
-        cell?.tapOnBookGesture = tapOnBookGesture
-        cell?.tapOnFilterGesture = tapOnFilterGesture
+        let cell = interactor?.collectionView(collectionView, cellForItemAt: indexPath, bookGesture: tapOnBookGesture, filterGesture: tapOnFilterGesture)
         return cell!
     }
 
@@ -147,11 +142,9 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        interactor!.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        interactor?.requestNewData(edges: (4, 14), offsetOfPage: 5)
-        interactor?.requestNewData(edges: (0, 10), offsetOfPage: 1)
-        if interactor!.currentPage == interactor!.loadedVMs.count - 1 && interactor!.isLoadNewDataFunctionRunning {
-            router?.routeToLoadingAlertVC()
+        interactor?.scrollViewDidEndDecelerating(scrollView) { [weak self] in
+            guard let self = self else { return }
+            self.router?.routeToLoadingAlertVC()
         }
     }
 }
@@ -162,12 +155,11 @@ extension ExploreVC: PresenterToExploreVCProtocol {
                         loadedImages: [UIImage?],
                         indexPaths: [IndexPath]) {
         
-        interactor!.loadedVMs.append(contentsOf: loadedVMs)
-        interactor!.loadedImages.append(contentsOf: loadedImages)
-        self.exploreView.collectionView.insertItems(at: indexPaths)
-        self.exploreView.collectionView.isUserInteractionEnabled = true
-        interactor!.isLoadNewDataFunctionRunning = false
-        
+        interactor?.loadedVMs.append(contentsOf: loadedVMs)
+        interactor?.loadedImages.append(contentsOf: loadedImages)
+        exploreView.collectionView.insertItems(at: indexPaths)
+        exploreView.collectionView.isUserInteractionEnabled = true
+        interactor?.isLoadNewDataFunctionRunning = false
         self.dismiss(animated: false)
     }
     
@@ -175,25 +167,13 @@ extension ExploreVC: PresenterToExploreVCProtocol {
                             loadedImages: [UIImage?],
                             indexPaths: [IndexPath]) {
         
-        interactor!.currentPage = 0
-        interactor!.capturedCurrentPage = 0
-        interactor!.loadedVMs = loadedVMs
-        interactor!.loadedImages = loadedImages
-        self.exploreView.collectionView.insertItems(at: indexPaths)
-        if self.exploreView.lottieAnimation != nil {
-            self.exploreView.stopLottieAnimation()
+        interactor?.loadedVMs = loadedVMs
+        interactor?.loadedImages = loadedImages
+        exploreView.collectionView.insertItems(at: indexPaths)
+        if exploreView.lottieAnimation != nil {
+            exploreView.stopLottieAnimation()
         }
-        interactor!.isDataLoaded = true
-    }
-    
-    func requestedNewData(edges: (Int, Int), offsetOfPage: Int) {
-        if interactor!.currentPage == interactor!.loadedVMs.count - offsetOfPage && !interactor!.isLoadNewDataFunctionRunning {
-            interactor!.capturedCurrentPage = interactor!.currentPage
-            if !interactor!.isLoadNewDataFunctionRunning {
-                interactor!.isLoadNewDataFunctionRunning = true
-                interactor?.requestDisplayNewData(genres: interactor!.selectedFilters, currentVMs: interactor!.loadedVMs, capturedPage: interactor!.capturedCurrentPage, edges: edges)
-            }
-        }
+        interactor?.isDataLoaded = true
     }
     
     func startAnimating() {

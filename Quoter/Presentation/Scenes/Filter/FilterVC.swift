@@ -19,48 +19,6 @@ class FilterVC: UIViewController {
     var selectedTagStrings: [String] = []
     var dismissClosure: (([String]) -> Void)?
 
-//    lazy var gradientView1: UIView = {
-//
-//        let width = collectionView.bounds.width
-//        let height = collectionView.bounds.height * 0.05
-//        let x: CGFloat = 0
-//        let y: CGFloat = 0
-//        let frame = CGRect(x: x, y: y, width: width, height: height)
-//
-//        let gradientView = UIView(frame: frame)
-//        gradientView.backgroundColor = .clear
-//        let gradient = CAGradientLayer()
-//        gradient.frame = frame
-//        gradient.colors = [UIColor.white.withAlphaComponent(1), UIColor.white.withAlphaComponent(1).cgColor]
-//        gradient.startPoint = CGPoint(x: 0.5, y: 1)
-//        gradient.endPoint = CGPoint(x: 0.5, y: 0)
-//        //gradient.locations = [0.8, 1]
-//
-//
-//        gradientView.layer.addSublayer(gradient)
-//        //gradientView.backgroundColor = .clear
-//
-//        return gradientView
-//
-//    }()
-
-//    lazy var gradientView2: GradientView = {
-//
-//        let width = collectionView.bounds.width
-//        let height = collectionView.bounds.height * 0.05
-//        let x: CGFloat = 0
-//        let y = collectionView.bounds.height * 0.9
-//        let frame = CGRect(x: x, y: y, width: width, height: height)
-//
-//        let gradientView = GradientView(frame: frame)
-//        //gradientView.backgroundColor = .clear
-//        gradientView.direction = .vertical
-//        gradientView.colors = [.gray]
-//        //gradientView.locations = [0.8, 1]
-//        return gradientView
-//
-//    }()
-    
     lazy var tapOnBackgroundGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self,
                                              action: #selector(didTapOnBackground(sender:)))
@@ -180,8 +138,7 @@ class FilterVC: UIViewController {
                     selectedStyle.backgroundColor = .black
                     selectedStyle.textAlignment = .center
                     selectedStyle.extraSpace = CGSize(width: 10, height: 10)
-                    
-                    //let textTag = TTGTextTag(content: content, style: style)
+
                     let selectedTextTag = TTGTextTag(content: content, style: style, selectedContent: selectedContent, selectedStyle: selectedStyle)
                     
                     resultArr.append(selectedTextTag)
@@ -189,7 +146,6 @@ class FilterVC: UIViewController {
                 self.collectionView.selectionLimit = UInt(convertedToTags.count - 1)
                 self.collectionView.add(resultArr)
                 self.setSelected()
-                //self.collectionView.reload()
             case .failure(let error):
                 print(error)
             }
