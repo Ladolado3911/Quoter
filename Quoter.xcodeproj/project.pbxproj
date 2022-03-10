@@ -15,6 +15,10 @@
 		247D1FA827B68F34001CABF9 /* AuthorCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */; };
 		248FC0D627A9544D00069FFF /* QoaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FC0D527A9544D00069FFF /* QoaVC.swift */; };
 		248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FC0D727A9548D00069FFF /* QuotesOfAuthorView.swift */; };
+		2497158027D9E15F00968E08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2497157F27D9E15F00968E08 /* GoogleService-Info.plist */; };
+		2497158327D9E23400968E08 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158227D9E23400968E08 /* FirebaseAnalytics */; };
+		2497158527D9E23400968E08 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158427D9E23400968E08 /* FirebaseCrashlytics */; };
+		2497158927D9E40F00968E08 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2497158727D9E3FB00968E08 /* AdSupport.framework */; };
 		249EDC1827C770A6005F7A9B /* TTGTags in Frameworks */ = {isa = PBXBuildFile; productRef = 249EDC1727C770A6005F7A9B /* TTGTags */; };
 		24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24A0D38727A7ED84002286F6 /* CoreDataModel.xcdatamodeld */; };
 		24A0D38B27A7F099002286F6 /* CoreDataWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A0D38A27A7F099002286F6 /* CoreDataWorker.swift */; };
@@ -27,6 +31,7 @@
 		24B0CEFB27D8C4E10064F843 /* FilterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B0CEFA27D8C4E10064F843 /* FilterInteractor.swift */; };
 		24B0CEFD27D8C4EF0064F843 /* FilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B0CEFC27D8C4EF0064F843 /* FilterPresenter.swift */; };
 		24B0CF0127D8D4530064F843 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B0CF0027D8D4530064F843 /* Common.swift */; };
+		24B0CF0427D8D8980064F843 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B0CF0327D8D8980064F843 /* FilterButton.swift */; };
 		24BEA3DE27985FEE009DB491 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3DD27985FEE009DB491 /* ExploreVC.swift */; };
 		24BEA3E02798601A009DB491 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEA3DF2798601A009DB491 /* QuoteView.swift */; };
 		24C12BCA27AAACCC0069684D /* BookImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C12BC927AAACCC0069684D /* BookImageView.swift */; };
@@ -123,6 +128,8 @@
 		247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCellOverlayView.swift; sourceTree = "<group>"; };
 		248FC0D527A9544D00069FFF /* QoaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QoaVC.swift; sourceTree = "<group>"; };
 		248FC0D727A9548D00069FFF /* QuotesOfAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesOfAuthorView.swift; sourceTree = "<group>"; };
+		2497157F27D9E15F00968E08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2497158727D9E3FB00968E08 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		24A0D38827A7ED84002286F6 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		24A0D38A27A7F099002286F6 /* CoreDataWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataWorker.swift; sourceTree = "<group>"; };
 		24A78ABD27C4F6730014A8C8 /* windTransition2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = windTransition2.mp3; sourceTree = "<group>"; };
@@ -133,6 +140,7 @@
 		24B0CEFA27D8C4E10064F843 /* FilterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInteractor.swift; sourceTree = "<group>"; };
 		24B0CEFC27D8C4EF0064F843 /* FilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresenter.swift; sourceTree = "<group>"; };
 		24B0CF0027D8D4530064F843 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		24B0CF0327D8D8980064F843 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		24BEA3DD27985FEE009DB491 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		24BEA3DF2798601A009DB491 /* QuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
 		24C12BC927AAACCC0069684D /* BookImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookImageView.swift; sourceTree = "<group>"; };
@@ -225,7 +233,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				24A8407527C3A0F400BCF304 /* AnimatedCollectionViewLayout in Frameworks */,
+				2497158927D9E40F00968E08 /* AdSupport.framework in Frameworks */,
 				24D1289F2790AB4900AD7F3D /* Kingfisher in Frameworks */,
+				2497158327D9E23400968E08 /* FirebaseAnalytics in Frameworks */,
+				2497158527D9E23400968E08 /* FirebaseCrashlytics in Frameworks */,
 				24D1289C2790887A00AD7F3D /* SnapKit in Frameworks */,
 				24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */,
 				249EDC1827C770A6005F7A9B /* TTGTags in Frameworks */,
@@ -296,6 +307,14 @@
 			path = QuotesOfAuthor;
 			sourceTree = "<group>";
 		};
+		2497158627D9E3FA00968E08 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2497158727D9E3FB00968E08 /* AdSupport.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		24A8407827C3BE3300BCF304 /* LoadingAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				24A78ABF27C5152F0014A8C8 /* FilterView.swift */,
+				24B0CF0327D8D8980064F843 /* FilterButton.swift */,
 			);
 			path = FilterSubviews;
 			sourceTree = "<group>";
@@ -323,12 +343,22 @@
 		24B0CEFF27D8C5EC0064F843 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				24B0CF0227D8D5FA0064F843 /* Others */,
 				24DEBF4727ABB1E800C40B29 /* LottieJsons */,
 				24F51F0D279EA27F003057F7 /* Fonts */,
 				243B449627BE294C00953AD3 /* Sounds */,
 				24D1287B27903ECE00AD7F3D /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		24B0CF0227D8D5FA0064F843 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				24D1289827904D0E00AD7F3D /* AppColors.swift */,
+				24D128A22790AE0E00AD7F3D /* PublicConstants.swift */,
+			);
+			path = Others;
 			sourceTree = "<group>";
 		};
 		24BEA3DC27985FDA009DB491 /* Explore */ = {
@@ -394,6 +424,7 @@
 			children = (
 				24D1287127903ECD00AD7F3D /* Quoter */,
 				24D1287027903ECD00AD7F3D /* Products */,
+				2497158627D9E3FA00968E08 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -408,8 +439,6 @@
 		24D1287127903ECD00AD7F3D /* Quoter */ = {
 			isa = PBXGroup;
 			children = (
-				24D1289827904D0E00AD7F3D /* AppColors.swift */,
-				24D128A22790AE0E00AD7F3D /* PublicConstants.swift */,
 				24D1288627903F5900AD7F3D /* App */,
 				24CB9FE527930C1700E9D49F /* Models */,
 				24CB9FE027930C0B00E9D49F /* Endpoints */,
@@ -418,6 +447,7 @@
 				24D1288927903FE000AD7F3D /* Presentation */,
 				24D1287D27903ECE00AD7F3D /* LaunchScreen.storyboard */,
 				24D1288027903ECE00AD7F3D /* Info.plist */,
+				2497157F27D9E15F00968E08 /* GoogleService-Info.plist */,
 			);
 			path = Quoter;
 			sourceTree = "<group>";
@@ -621,6 +651,8 @@
 				24DEBF4527ABB1D400C40B29 /* Lottie */,
 				24A8407427C3A0F400BCF304 /* AnimatedCollectionViewLayout */,
 				249EDC1727C770A6005F7A9B /* TTGTags */,
+				2497158227D9E23400968E08 /* FirebaseAnalytics */,
+				2497158427D9E23400968E08 /* FirebaseCrashlytics */,
 			);
 			productName = Quoter;
 			productReference = 24D1286F27903ECD00AD7F3D /* Quoter.app */;
@@ -656,6 +688,7 @@
 				24DEBF4427ABB1D400C40B29 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				24A8407327C3A0F400BCF304 /* XCRemoteSwiftPackageReference "AnimatedCollectionViewLayout" */,
 				249EDC1627C770A6005F7A9B /* XCRemoteSwiftPackageReference "TTGTagCollectionView" */,
+				2497158127D9E23400968E08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 24D1287027903ECD00AD7F3D /* Products */;
 			projectDirPath = "";
@@ -686,6 +719,7 @@
 				24F51F2B279EB7CE003057F7 /* Roboto-Bold.ttf in Resources */,
 				24F51F21279EB7CE003057F7 /* Roboto-Medium.ttf in Resources */,
 				24F51F2C279EB7CE003057F7 /* Roboto-Thin.ttf in Resources */,
+				2497158027D9E15F00968E08 /* GoogleService-Info.plist in Resources */,
 				24F51F2A279EB7CE003057F7 /* Roboto-BlackItalic.ttf in Resources */,
 				24DEBF4927ABB2AB00C40B29 /* cubeLoading.json in Resources */,
 				24F51F0A279E85ED003057F7 /* Kalam-Light.ttf in Resources */,
@@ -729,6 +763,7 @@
 				24F51F2F279EEB12003057F7 /* TabbarItemView.swift in Sources */,
 				24D128972790491500AD7F3D /* UIColor+Extension.swift in Sources */,
 				24D1287727903ECD00AD7F3D /* AuthorsVC.swift in Sources */,
+				24B0CF0427D8D8980064F843 /* FilterButton.swift in Sources */,
 				24DEBF4D27ABB5BB00C40B29 /* LottieAnimations.swift in Sources */,
 				24C12BCC27AAAFCF0069684D /* UIViewController+Extension.swift in Sources */,
 				24C9A8E627BD20DD001C820F /* QuoteViewButton.swift in Sources */,
@@ -924,7 +959,7 @@
 				DEVELOPMENT_TEAM = 24V5M6ZW7B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Quoter/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Quotism;
+				INFOPLIST_KEY_CFBundleDisplayName = Quotie;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -953,7 +988,7 @@
 				DEVELOPMENT_TEAM = 24V5M6ZW7B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Quoter/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Quotism;
+				INFOPLIST_KEY_CFBundleDisplayName = Quotie;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -996,6 +1031,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2497158127D9E23400968E08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 		249EDC1627C770A6005F7A9B /* XCRemoteSwiftPackageReference "TTGTagCollectionView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zekunyan/TTGTagCollectionView";
@@ -1039,6 +1082,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2497158227D9E23400968E08 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2497158127D9E23400968E08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		2497158427D9E23400968E08 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2497158127D9E23400968E08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
 		249EDC1727C770A6005F7A9B /* TTGTags */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 249EDC1627C770A6005F7A9B /* XCRemoteSwiftPackageReference "TTGTagCollectionView" */;

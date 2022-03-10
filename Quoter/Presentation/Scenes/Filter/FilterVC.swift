@@ -46,7 +46,7 @@ class FilterVC: UIViewController {
         let filterView = FilterView(frame: view.initialFrame, finalFrame: modalFinalFrame)
         return filterView
     }()
-    
+
     lazy var darkView: UIView = {
         let view = UIView(frame: view.bounds)
         view.backgroundColor = .black.withAlphaComponent(0.7)
@@ -138,41 +138,6 @@ class FilterVC: UIViewController {
         interactor.presenter = presenter
         presenter.vc = vc
     }
-    
-//    private func populateTags() {
-//        QuoteGardenManager.getGenres { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success(let filterObjects):
-//                let convertedToTags = filterObjects.map { $0.genre.capitalized }
-//                var resultArr: [TTGTextTag] = []
-//                for tag in convertedToTags {
-//    
-//                    let content = TTGTextTagStringContent(text: tag)
-//                    content.textColor = .black
-//                    let style = TTGTextTagStyle()
-//                    style.backgroundColor = .white
-//                    style.textAlignment = .center
-//                    style.extraSpace = CGSize(width: 10, height: 10)
-//                    
-//                    let selectedContent = TTGTextTagStringContent(text: tag)
-//                    selectedContent.textColor = .white
-//                    let selectedStyle = TTGTextTagStyle()
-//                    selectedStyle.backgroundColor = .black
-//                    selectedStyle.textAlignment = .center
-//                    selectedStyle.extraSpace = CGSize(width: 10, height: 10)
-//
-//                    let selectedTextTag = TTGTextTag(content: content, style: style, selectedContent: selectedContent, selectedStyle: selectedStyle)
-//                    resultArr.append(selectedTextTag)
-//                }
-//                self.collectionView.selectionLimit = UInt(convertedToTags.count - 1)
-//                self.collectionView.add(resultArr)
-//                self.setSelected()
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
- //   }
 
     private func buildView() {
         view.addSubview(darkView)
@@ -196,7 +161,6 @@ class FilterVC: UIViewController {
                 self.filterView.closeButton.addTarget(self,
                                                       action: #selector(self.didTapOnClose(sender:)),
                                                       for: .touchUpInside)
-
             }
         }
     }

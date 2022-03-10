@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import AnimatedCollectionViewLayout
 import Combine
+import Firebase
 
 protocol PresenterToExploreVCProtocol: AnyObject {
     var interactor: VCToExploreInteractorProtocol? { get set }
@@ -107,6 +108,7 @@ class ExploreVC: MonitoredVC {
     }
     
     @objc func didTapOnBook(sender: UITapGestureRecognizer) {
+        Analytics.logEvent("did tap on book", parameters: nil)
         router?.routeToModalAlertVC(quoteVM: interactor!.loadedVMs[interactor!.currentPage])
     }
     

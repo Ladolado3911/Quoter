@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         //print(type(of: 1...5))
         Thread.sleep(forTimeInterval: 2.0)
+        FirebaseApp.configure()
         return true
     }
 
