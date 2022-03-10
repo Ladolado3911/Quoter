@@ -108,11 +108,12 @@ class ExploreVC: MonitoredVC {
     }
     
     @objc func didTapOnBook(sender: UITapGestureRecognizer) {
-        Analytics.logEvent("did tap on book", parameters: nil)
+        Analytics.logEvent("did_tap_on_book", parameters: nil)
         router?.routeToModalAlertVC(quoteVM: interactor!.loadedVMs[interactor!.currentPage])
     }
     
     @objc func didTapOnFilter(sender: UITapGestureRecognizer) {
+        Analytics.logEvent("did_tap_on_filter", parameters: nil)
         router?.routeToFilters()
     }
 }
