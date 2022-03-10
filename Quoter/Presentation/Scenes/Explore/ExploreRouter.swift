@@ -24,8 +24,8 @@ class ExploreRouter: ExploreRouterProtocol {
         let filterVC = FilterVC()
         filterVC.modalTransitionStyle = .crossDissolve
         filterVC.modalPresentationStyle = .custom
-        filterVC.selectedTagStrings = exploreVC.interactor!.selectedFilters
-        filterVC.dismissClosure = { selectedFilters in
+        filterVC.interactor!.selectedTagStrings = exploreVC.interactor!.selectedFilters
+        filterVC.interactor?.dismissClosure = { selectedFilters in
             exploreVC.interactor!.selectedFilters = selectedFilters
             exploreVC.interactor!.resetInitialData()
             exploreVC.dismiss(animated: true)

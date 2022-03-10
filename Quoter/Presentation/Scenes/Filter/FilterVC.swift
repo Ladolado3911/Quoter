@@ -16,17 +16,15 @@ protocol PresenterToFilterVCProtocol: AnyObject {
     var interactor: VCToFilterInteractorProtocol? { get set }
     
     func displayFetchedTags(selectionLimit: UInt, resultArr: [TTGTextTag])
+    func addListener()
+    func reloadCollectionView()
+    func demolish(completion: @escaping () -> Void)
+    func dismiss()
 }
 
 class FilterVC: UIViewController {
     
     var interactor: VCToFilterInteractorProtocol?
-    
-    private var cancellables: Set<AnyCancellable> = []
-    let selectedCountSubject = PassthroughSubject<(() -> Void), Never>()
-    
-    var selectedTagStrings: [String] = []
-    var dismissClosure: (([String]) -> Void)?
 
     lazy var tapOnBackgroundGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self,
@@ -92,27 +90,12 @@ class FilterVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         buildView()
-        selectedCountSubject
-            .sink { [weak self] closure in
-                guard let self = self else { return }
-                if self.collectionView.allSelectedTags().count >= 1 {
-                    self.filterView.filterButton.isEnabled = true
-                    self.filterView.deselectButton.isSelected = true
-                }
-                else {
-                    self.filterView.filterButton.isEnabled = false
-                    self.filterView.deselectButton.isSelected = false
-                }
-                self.filterView.removeFilterButton.isEnabled = isExploreVCFiltered
-            }
-            .store(in: &cancellables)
+        interactor?.addListener()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        cancellables.forEach { cancellable in
-            cancellable.cancel()
-        }
+        interactor?.cancelListeners()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -121,13 +104,7 @@ class FilterVC: UIViewController {
     }
     
     private func setSelected() {
-        for tag in collectionView.allTags() {
-            if selectedTagStrings.contains(tag.content.getAttributedString().string) {
-                tag.selected = true
-            }
-        }
-        selectedCountSubject.send {}
-        collectionView.reload()
+        interactor?.setSelected(allTags: collectionView.allTags())
     }
     
     private func setup() {
@@ -164,9 +141,75 @@ class FilterVC: UIViewController {
             }
         }
     }
+
+    @objc func didTapOnClear(sender: UIButton) {
+        interactor?.demolishView { [weak self] in
+            guard let self = self else { return }
+            self.interactor?.dismiss(isExploreFiltered: false, type: .clear)
+        }
+    }
     
-    private func demolish(completion: @escaping () -> Void) {
-        self.filterView.demolishView {
+    @objc func didTapOnBackground(sender: UIButton) {
+        interactor?.demolishView { [weak self] in
+            guard let self = self else { return }
+            self.interactor?.dismiss()
+        }
+    }
+    
+    @objc func didTapOnFilter(sender: UIButton) {
+        interactor?.demolishView { [weak self] in
+            guard let self = self else { return }
+            self.interactor?.dismiss(isExploreFiltered: true, type: .filter)
+        }
+    }
+    
+    @objc func didTapOnClose(sender: UIButton) {
+        demolish { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+    }
+    
+    @objc func didTapOnDeselect(sender: UIButton) {
+        interactor?.didTapOnDeselect(sender: sender, allSelectedTags: collectionView.allSelectedTags(), allTags: collectionView.allTags())
+    }
+}
+
+extension FilterVC: TTGTextTagCollectionViewDelegate, UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    }
+    
+    func textTagCollectionView(_ textTagCollectionView: TTGTextTagCollectionView!, didTap tag: TTGTextTag!, at index: UInt) {
+        interactor?.textTagCollectionView(textTagCollectionView, didTap: tag, at: index)
+    }
+}
+
+extension FilterVC: PresenterToFilterVCProtocol {
+    
+    func displayFetchedTags(selectionLimit: UInt, resultArr: [TTGTextTag]) {
+        collectionView.selectionLimit = selectionLimit
+        collectionView.add(resultArr)
+        setSelected()
+    }
+    
+    func addListener() {
+        if collectionView.allSelectedTags().count >= 1 {
+            filterView.filterButton.isEnabled = true
+            filterView.deselectButton.isSelected = true
+        }
+        else {
+            filterView.filterButton.isEnabled = false
+            filterView.deselectButton.isSelected = false
+        }
+        filterView.removeFilterButton.isEnabled = isExploreVCFiltered
+    }
+    
+    func reloadCollectionView() {
+        collectionView.reload()
+    }
+    
+    func demolish(completion: @escaping () -> Void) {
+        filterView.demolishView {
             UIView.animate(withDuration: 0.4) { [weak self] in
                 guard let self = self else { return }
                 self.filterView.frame = self.view.initialFrame
@@ -188,78 +231,8 @@ class FilterVC: UIViewController {
         }
     }
     
-    @objc func didTapOnClear(sender: UIButton) {
-        demolish { [weak self] in
-            guard let self = self else { return }
-            if let dismissClosure = self.dismissClosure {
-                isExploreVCFiltered = false
-                dismissClosure([""])
-            }
-        }
-    }
-    
-    @objc func didTapOnBackground(sender: UIButton) {
-        demolish { [weak self] in
-            guard let self = self else { return }
-            self.dismiss(animated: true)
-        }
-    }
-    
-    @objc func didTapOnFilter(sender: UIButton) {
-        demolish { [weak self] in
-            guard let self = self else { return }
-            if let dismissClosure = self.dismissClosure {
-                isExploreVCFiltered = true
-                dismissClosure(self.selectedTagStrings)
-            }
-        }
-    }
-    
-    @objc func didTapOnClose(sender: UIButton) {
-        demolish { [weak self] in
-            guard let self = self else { return }
-            self.dismiss(animated: true)
-        }
-    }
-    
-    @objc func didTapOnDeselect(sender: UIButton) {
-        if sender.isSelected {
-            collectionView.allSelectedTags().forEach { tag in
-                tag.selected = false
-            }
-        }
-        else {
-            collectionView.allTags().forEach { tag in
-                tag.selected = true
-            }
-        }
-        collectionView.reload()
-        selectedCountSubject.send {}
-        selectedTagStrings.removeAll()
-    }
-}
-
-extension FilterVC: TTGTextTagCollectionViewDelegate, UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    }
-    
-    func textTagCollectionView(_ textTagCollectionView: TTGTextTagCollectionView!, didTap tag: TTGTextTag!, at index: UInt) {
-        selectedCountSubject.send {}
-        if tag.selected {
-            selectedTagStrings.append(tag.content.getAttributedString().string)
-        }
-        else {
-            selectedTagStrings.removeAll { $0 == tag.content.getAttributedString().string }
-        }
-    }
-}
-
-extension FilterVC: PresenterToFilterVCProtocol {
-    
-    func displayFetchedTags(selectionLimit: UInt, resultArr: [TTGTextTag]) {
-        collectionView.selectionLimit = selectionLimit
-        collectionView.add(resultArr)
-        setSelected()
+    func dismiss() {
+        dismiss(animated: true)
     }
     
 }

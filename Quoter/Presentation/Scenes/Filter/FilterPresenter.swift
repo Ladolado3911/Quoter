@@ -13,6 +13,10 @@ protocol InteractorToFilterPresenterProtocol: AnyObject {
     var vc: PresenterToFilterVCProtocol? { get set }
     
     func formatFetchedTags(filterObjects: [FilterObject])
+    func formatListener()
+    func reloadCollectionView()
+    func demolish(completion: @escaping () -> Void)
+    func dismiss()
     
 }
 
@@ -41,5 +45,21 @@ class FilterPresenter: InteractorToFilterPresenterProtocol {
             resultArr.append(selectedTextTag)
         }
         vc?.displayFetchedTags(selectionLimit: UInt(convertedToTags.count - 1), resultArr: resultArr)
+    }
+    
+    func formatListener() {
+        vc?.addListener()
+    }
+    
+    func reloadCollectionView() {
+        vc?.reloadCollectionView()
+    }
+    
+    func demolish(completion: @escaping () -> Void) {
+        vc?.demolish(completion: completion)
+    }
+    
+    func dismiss() {
+        vc?.dismiss()
     }
 }

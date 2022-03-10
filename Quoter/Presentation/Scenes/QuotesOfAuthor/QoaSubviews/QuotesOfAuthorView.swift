@@ -28,6 +28,19 @@ class QuotesOfAuthorView: LottieView {
         return darkView
     }()
     
+//    lazy var gradient: CAGradientLayer = {
+//        let gradient = CAGradientLayer()
+//        gradient.type = .radial
+//        gradient.colors = [
+//            UIColor.black.withAlphaComponent(0.8).cgColor,
+//            UIColor.clear.cgColor,
+//        ]
+//        gradient.locations = [0, 1]
+//        gradient.startPoint = CGPoint(x: 0.5, y: 0.5)
+//        gradient.endPoint = CGPoint(x: 1.2, y: 0.9)
+//        return gradient
+//    }()
+    
     let closeButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "close"), for: .normal)
@@ -96,6 +109,8 @@ class QuotesOfAuthorView: LottieView {
         addSubview(quoteTextView)
         addSubview(nextButton)
         addSubview(prevButton)
+//        layer.addSublayer(gradient)
+//        gradient.frame = bounds
         quoteTextView.numberOfLines = 15
         let fontSize = getFontSizeForQuote(stringCount: CGFloat(quoteTextView.text?.count ?? 0))
         quoteTextView.font = quoteTextView.font?.withSize(fontSize)
@@ -108,14 +123,14 @@ class QuotesOfAuthorView: LottieView {
         darkView.snp.makeConstraints { make in
             make.left.right.bottom.top.equalTo(mainImageView)
         }
+
         closeButton.snp.makeConstraints { make in
             make.left.equalTo(self).inset(20)
             make.width.height.equalTo(PublicConstants.screenHeight * 0.0968)
             make.top.equalTo(self).inset(70)
         }
         titleOfAuthor.snp.makeConstraints { make in
-            make.left.equalTo(closeButton.snp.right).inset(-20)
-            make.right.equalTo(switchButton.snp.left).inset(-20)
+            make.left.right.equalTo(self).inset(20)
             make.bottom.equalTo(quoteTextView.snp.top)
         }
         switchButton.snp.makeConstraints { make in
@@ -125,7 +140,6 @@ class QuotesOfAuthorView: LottieView {
         }
         quoteTextView.snp.makeConstraints { make in
             make.left.right.equalTo(self).inset(20)
-            //make.centerY.equalTo(self)
             make.bottom.equalTo(prevButton.snp.top).inset(-10)
             make.height.equalTo(PublicConstants.screenHeight * 0.3521126)
         }
