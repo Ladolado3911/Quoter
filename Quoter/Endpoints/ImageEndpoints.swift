@@ -12,6 +12,14 @@ let pixabayApiKey = "23037768-717e451d8c6f76d8ebd54cf9d"
 
 struct ImageEndpoints {
     
+    static var pages: [Int] = {
+        var arr: [Int] = []
+        for item in 1..<40 {
+            arr.append(item)
+        }
+        return arr
+    }()
+    
     static func getRandomImageURL(page: Int) -> URL? {
         return URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&category=nature&q=landscape&page=\(page)&image_type=photo&&per_page=150&safesearch=true")
     }
@@ -21,7 +29,7 @@ struct ImageEndpoints {
     }
     
     static func get10NatureLandscapeURLs() -> URL? {
-        URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&per_page=10&image_type=photo&q=landscape&safesearch=true&page=\(Int.random(in: 1...40))")
+        URL(string: "https://pixabay.com/api/?key=\(pixabayApiKey)&per_page=10&image_type=photo&q=landscape&safesearch=true&page=\(pages.uniqueRandomElement() ?? 0)")
     }
     
     static func getAuthorImageURL(authorName: String) -> URL? {

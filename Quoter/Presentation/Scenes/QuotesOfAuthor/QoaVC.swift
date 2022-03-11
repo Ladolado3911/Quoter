@@ -25,38 +25,15 @@ protocol PresenterToQoaVCProtocol {
     
     func displayUpdatedCoreData(content: (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool, quoteContent: String))
     func displayIdeaChange()
+    func configViewButtons()
+    func updateViewState(state: QuotesOfAuthorVCState)
+    func dismissView(completion: @escaping () -> Void)
 }
 
 class QoaVC: UIViewController {
     
     var interactor: VCToQoaInteractorProtocol?
     var router: QoaRouterProtocol?
-    
-    let defaultImage = UIImage(named: "testUpperQuotism")
-    var state: QuotesOfAuthorVCState = .coreData {
-        didSet {
-            quotesOfAuthorView.state = state
-        }
-    }
-    var author: AuthorCoreVM?
-    var currentQuoteIndex: Int = 0 {
-        didSet {
-            interactor?.requestToDisplayUpdatedData(state: state,
-                                                    networkQuotesArr: networkQuotesArr,
-                                                    currentQuoteIndex: currentQuoteIndex,
-                                                    quotesArr: quotesArr)
-        }
-    }
-    var quotesArr: [QuoteCore] = []
-    
-    var networkQuotesArr: [QuoteGardenQuoteVM] = []
-    var authorImageURL: URL?
-    var networkAuthorImage: UIImage?
-    var authorName: String?
-    
-    var quoteVM: QuoteGardenQuoteVM?
-    
-    var authorsVCreloadDataClosure: (() -> Void)?
     
     let quotesOfAuthorView: QuotesOfAuthorView = {
         let quotesOfAuthorView = QuotesOfAuthorView()
@@ -80,14 +57,8 @@ class QoaVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configButtons()
-        interactor?.requestToDisplayInitialData(state: state,
-                                         author: author,
-                                         authorName: authorName,
-                                         networkAuthorImage: networkAuthorImage,
-                                         networkArray: networkQuotesArr,
-                                         quotesArr: quotesArr,
-                                         currentIndex: currentQuoteIndex)
+        interactor?.requestToconfigViewButtons()
+        interactor?.requestToDisplayInitialData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -105,125 +76,25 @@ class QoaVC: UIViewController {
         presenter.vc = vc
         router.vc = vc
     }
-    
-    private func configButtons() {
-        configCloseButton()
-        configNextButton()
-        configPrevButton()
-        configIdeaButton()
-    }
 
-    private func configIdeaButton() {
-        switch state {
-        case .network:
-            quotesOfAuthorView.switchButton.addTarget(self,
-                                                    action: #selector(onIdeaButton(sender:)),
-                                                    for: .touchUpInside)
-        case .coreData:
-            quotesOfAuthorView.switchButton.addTarget(self,
-                                                    action: #selector(onDeleteButton(sender:)),
-                                                    for: .touchUpInside)
-        }
-    }
-    
-    private func configCloseButton() {
-        quotesOfAuthorView.closeButton.addTarget(self,
-                                                 action: #selector(onCloseButton(sender:)),
-                                                 for: .touchUpInside)
-    }
-    
-    private func configNextButton() {
-        quotesOfAuthorView.nextButton.addTarget(self,
-                                                action: #selector(onNext(sender:)),
-                                                for: .touchUpInside)
-    }
-    
-    private func configPrevButton() {
-        quotesOfAuthorView.prevButton.addTarget(self,
-                                                action: #selector(onPrev(sender:)),
-                                                for: .touchUpInside)
-    }
-
-    private func convertAuthorName(name: String) -> String {
-        name.replacingOccurrences(of: " ", with: "_")
-    }
-    
     @objc func onIdeaButton(sender: UIButton) {
-        interactor?.requestToChangeIdeaState(networkArr: networkQuotesArr,
-                                             currentQuoteIndex: currentQuoteIndex,
-                                             networkAuthorImage: networkAuthorImage,
-                                             defaultImage: defaultImage,
-                                             isSwitchButtonSelected: quotesOfAuthorView.switchButton.isSelected)
+        interactor?.requestToChangeIdeaState(isSwitchButtonSelected: quotesOfAuthorView.switchButton.isSelected)
     }
     
     @objc func onDeleteButton(sender: UIButton) {
-        guard let author = author else {
-            return
-        }
-        let quoteVm = QuoteGardenQuoteVM(rootModel: QuoteGardenQuoteModel(quoteText: quotesArr[currentQuoteIndex].content, quoteAuthor: author.name))
-        
-        CoreDataWorker.removePair(quoteVM: quoteVm) { [weak self] in
-            guard let self = self else { return }
-            if self.quotesArr.count == 1 {
-                if let authorsVCreloadDataClosure = self.authorsVCreloadDataClosure {
-                    self.dismiss(animated: true) {
-                        authorsVCreloadDataClosure()
-                    }
-                }
-                else {
-                    self.dismiss(animated: true)
-                }
-                return
-            }
-            switch self.currentQuoteIndex {
-            case self.quotesArr.count - 1:
-                self.quotesArr.removeLast()
-                self.currentQuoteIndex -= 1
-            case 0:
-                self.quotesArr.removeFirst()
-                self.interactor?.requestToDisplayUpdatedData(state: self.state,
-                                                             networkQuotesArr: self.networkQuotesArr,
-                                                             currentQuoteIndex: self.currentQuoteIndex,
-                                                             quotesArr: self.quotesArr)
-            default:
-                self.quotesArr.remove(at: self.currentQuoteIndex)
-                self.currentQuoteIndex -= 1
-            }
-        }
+        interactor?.requestToDelete()
     }
     
     @objc func onCloseButton(sender: UIButton) {
-        dismiss(animated: true)
+        interactor?.requestToDismissView()
     }
     
     @objc func onNext(sender: UIButton) {
-        switch state {
-        case .network:
-            if currentQuoteIndex + 1 >= networkQuotesArr.count {
-                return
-            }
-            currentQuoteIndex += 1
-        case .coreData:
-            if currentQuoteIndex + 1 >= quotesArr.count {
-                return
-            }
-            currentQuoteIndex += 1
-        }
+        interactor?.onNext()
     }
     
     @objc func onPrev(sender: UIButton) {
-        switch state {
-        case .network:
-            if currentQuoteIndex - 1 < 0 {
-                return
-            }
-            currentQuoteIndex -= 1
-        case .coreData:
-            if currentQuoteIndex - 1 < 0 {
-                return
-            }
-            currentQuoteIndex -= 1
-        }
+        interactor?.onPrev()
     }
 }
 
@@ -243,7 +114,6 @@ extension QoaVC: PresenterToQoaVCProtocol {
         quotesOfAuthorView.mainImageView.image = author.image
         quotesOfAuthorView.quoteTextView.text = quoteContent
         quotesOfAuthorView.nextButton.isButtonEnabled = isButtonEnabled
-        quotesArr = author.quotes
     }
     
     func displayUpdatedNetworkData(content: (isNextButtonEnabled: Bool, isPrevButtonEnabled: Bool, isIdeaButtonSelected: Bool, quoteContent: String)) {
@@ -261,5 +131,39 @@ extension QoaVC: PresenterToQoaVCProtocol {
     
     func displayIdeaChange() {
         quotesOfAuthorView.switchButton.isSelected.toggle()
+    }
+    
+    func updateViewState(state: QuotesOfAuthorVCState) {
+        quotesOfAuthorView.state = state
+    }
+    
+    func dismissView(completion: @escaping () -> Void) {
+        dismiss(animated: true) {
+            completion()
+        }
+    }
+    
+    func configViewButtons() {
+        switch interactor?.state {
+        case .network:
+            quotesOfAuthorView.switchButton.addTarget(self,
+                                                    action: #selector(onIdeaButton(sender:)),
+                                                    for: .touchUpInside)
+        case .coreData:
+            quotesOfAuthorView.switchButton.addTarget(self,
+                                                    action: #selector(onDeleteButton(sender:)),
+                                                    for: .touchUpInside)
+        case .none:
+            break
+        }
+        quotesOfAuthorView.closeButton.addTarget(self,
+                                                 action: #selector(onCloseButton(sender:)),
+                                                 for: .touchUpInside)
+        quotesOfAuthorView.nextButton.addTarget(self,
+                                                action: #selector(onNext(sender:)),
+                                                for: .touchUpInside)
+        quotesOfAuthorView.prevButton.addTarget(self,
+                                                action: #selector(onPrev(sender:)),
+                                                for: .touchUpInside)
     }
 }

@@ -37,22 +37,6 @@ class QuoteCell: UICollectionViewCell {
             make.left.right.top.bottom.equalTo(self)
         }
         configWithVM()
-        
-        //print(quoteView.ideaImageView.gestureRecognizers)
-        //CoreDataManager.clearQuotesAndAuthors()
-        //print(CoreDataManager.getQuote(quoteVM: quoteVM!)?.content)
-        //CoreDataManager.printCoreDataItems()
-        
-        
-//        if isFirstAppear {
-//            isFirstAppear = false
-//        }
-//        else {
-//            if quoteView.lottieAnimation.isAnimationPlaying {
-//                quoteView.stopAnimating()
-//                quoteView.startAnimating()
-//            }
-//        }
     }
     
     private func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {
@@ -86,5 +70,4 @@ class QuoteCell: UICollectionViewCell {
         self.quoteView.quoteTextView.font = self.quoteView.quoteTextView.font?.withSize(fontSize)
         //quoteView.layoutIfNeeded()
     }
-
 }

@@ -11,56 +11,21 @@ import Combine
 
 var isExploreVCFiltered: Bool = false
 
+protocol PresenterToFilterVCProtocol: AnyObject {
+    
+    var interactor: VCToFilterInteractorProtocol? { get set }
+    
+    func displayFetchedTags(selectionLimit: UInt, resultArr: [TTGTextTag])
+    func addListener()
+    func reloadCollectionView()
+    func demolish(completion: @escaping () -> Void)
+    func dismiss()
+}
+
 class FilterVC: UIViewController {
     
-    private var cancellables: Set<AnyCancellable> = []
-    let selectedCountSubject = PassthroughSubject<(() -> Void), Never>()
-    
-    var selectedTagStrings: [String] = []
-    var dismissClosure: (([String]) -> Void)?
+    var interactor: VCToFilterInteractorProtocol?
 
-//    lazy var gradientView1: UIView = {
-//
-//        let width = collectionView.bounds.width
-//        let height = collectionView.bounds.height * 0.05
-//        let x: CGFloat = 0
-//        let y: CGFloat = 0
-//        let frame = CGRect(x: x, y: y, width: width, height: height)
-//
-//        let gradientView = UIView(frame: frame)
-//        gradientView.backgroundColor = .clear
-//        let gradient = CAGradientLayer()
-//        gradient.frame = frame
-//        gradient.colors = [UIColor.white.withAlphaComponent(1), UIColor.white.withAlphaComponent(1).cgColor]
-//        gradient.startPoint = CGPoint(x: 0.5, y: 1)
-//        gradient.endPoint = CGPoint(x: 0.5, y: 0)
-//        //gradient.locations = [0.8, 1]
-//
-//
-//        gradientView.layer.addSublayer(gradient)
-//        //gradientView.backgroundColor = .clear
-//
-//        return gradientView
-//
-//    }()
-
-//    lazy var gradientView2: GradientView = {
-//
-//        let width = collectionView.bounds.width
-//        let height = collectionView.bounds.height * 0.05
-//        let x: CGFloat = 0
-//        let y = collectionView.bounds.height * 0.9
-//        let frame = CGRect(x: x, y: y, width: width, height: height)
-//
-//        let gradientView = GradientView(frame: frame)
-//        //gradientView.backgroundColor = .clear
-//        gradientView.direction = .vertical
-//        gradientView.colors = [.gray]
-//        //gradientView.locations = [0.8, 1]
-//        return gradientView
-//
-//    }()
-    
     lazy var tapOnBackgroundGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self,
                                              action: #selector(didTapOnBackground(sender:)))
@@ -79,7 +44,7 @@ class FilterVC: UIViewController {
         let filterView = FilterView(frame: view.initialFrame, finalFrame: modalFinalFrame)
         return filterView
     }()
-    
+
     lazy var darkView: UIView = {
         let view = UIView(frame: view.bounds)
         view.backgroundColor = .black.withAlphaComponent(0.7)
@@ -95,12 +60,19 @@ class FilterVC: UIViewController {
         collectionView.verticalSpacing = 30
         collectionView.horizontalSpacing = 30
         collectionView.enableTagSelection = true
-        
         collectionView.alpha = 0
-        
-        //collectionView.register(TagCell.self, forCellWithReuseIdentifier: "tagCell")
         return collectionView
     }()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
 
     override func loadView() {
         super.loadView()
@@ -112,88 +84,36 @@ class FilterVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //buildView()
         collectionView.scrollView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         buildView()
-        selectedCountSubject
-            .sink { [weak self] closure in
-                guard let self = self else { return }
-                if self.collectionView.allSelectedTags().count >= 1 {
-                    self.filterView.filterButton.isEnabled = true
-                    self.filterView.deselectButton.isSelected = true
-                }
-                else {
-                    self.filterView.filterButton.isEnabled = false
-                    self.filterView.deselectButton.isSelected = false
-                }
-                self.filterView.removeFilterButton.isEnabled = isExploreVCFiltered
-            }
-            .store(in: &cancellables)
+        interactor?.addListener()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        cancellables.forEach { cancellable in
-            cancellable.cancel()
-        }
+        interactor?.cancelListeners()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        populateTags()
-        //setSelected()
+        interactor?.requestToPopulateTags()
     }
     
     private func setSelected() {
-        for tag in collectionView.allTags() {
-            if selectedTagStrings.contains(tag.content.getAttributedString().string) {
-                tag.selected = true
-            }
-        }
-        selectedCountSubject.send {}
-        collectionView.reload()
+        interactor?.setSelected(allTags: collectionView.allTags())
     }
     
-    private func populateTags() {
-        QuoteGardenManager.getGenres { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let filterObjects):
-                let convertedToTags = filterObjects.map { $0.genre.capitalized }
-                var resultArr: [TTGTextTag] = []
-                for tag in convertedToTags {
-                    
-                    let content = TTGTextTagStringContent(text: tag)
-                    content.textColor = .black
-                    let style = TTGTextTagStyle()
-                    style.backgroundColor = .white
-                    style.textAlignment = .center
-                    style.extraSpace = CGSize(width: 10, height: 10)
-                    
-                    let selectedContent = TTGTextTagStringContent(text: tag)
-                    selectedContent.textColor = .white
-                    let selectedStyle = TTGTextTagStyle()
-                    selectedStyle.backgroundColor = .black
-                    selectedStyle.textAlignment = .center
-                    selectedStyle.extraSpace = CGSize(width: 10, height: 10)
-                    
-                    //let textTag = TTGTextTag(content: content, style: style)
-                    let selectedTextTag = TTGTextTag(content: content, style: style, selectedContent: selectedContent, selectedStyle: selectedStyle)
-                    
-                    resultArr.append(selectedTextTag)
-                }
-                self.collectionView.selectionLimit = UInt(convertedToTags.count - 1)
-                self.collectionView.add(resultArr)
-                self.setSelected()
-                //self.collectionView.reload()
-            case .failure(let error):
-                print(error)
-            }
-        }
+    private func setup() {
+        let vc = self
+        let interactor = FilterInteractor()
+        let presenter = FilterPresenter()
+        vc.interactor = interactor
+        interactor.presenter = presenter
+        presenter.vc = vc
     }
 
     private func buildView() {
@@ -206,10 +126,6 @@ class FilterVC: UIViewController {
             guard let self = self else { return }
             if didFinish {
                 self.filterView.buildView()
-//                self.collectionView.addSubview(self.gradientView1)
-//                //self.collectionView.addSubview(self.gradientView2)
-//                self.collectionView.bringSubviewToFront(self.gradientView1)
-                //self.collectionView.bringSubviewToFront(self.gradientView2)
                 self.filterView.filterButton.addTarget(self,
                                                        action: #selector(self.didTapOnFilter(sender:)),
                                                        for: .touchUpInside)
@@ -222,13 +138,75 @@ class FilterVC: UIViewController {
                 self.filterView.closeButton.addTarget(self,
                                                       action: #selector(self.didTapOnClose(sender:)),
                                                       for: .touchUpInside)
-
             }
         }
     }
+
+    @objc func didTapOnClear(sender: UIButton) {
+        interactor?.demolishView { [weak self] in
+            guard let self = self else { return }
+            self.interactor?.dismiss(isExploreFiltered: false, type: .clear)
+        }
+    }
     
-    private func demolish(completion: @escaping () -> Void) {
-        self.filterView.demolishView {
+    @objc func didTapOnBackground(sender: UIButton) {
+        interactor?.demolishView { [weak self] in
+            guard let self = self else { return }
+            self.interactor?.dismiss()
+        }
+    }
+    
+    @objc func didTapOnFilter(sender: UIButton) {
+        interactor?.demolishView { [weak self] in
+            guard let self = self else { return }
+            self.interactor?.dismiss(isExploreFiltered: true, type: .filter)
+        }
+    }
+    
+    @objc func didTapOnClose(sender: UIButton) {
+        demolish { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+    }
+    
+    @objc func didTapOnDeselect(sender: UIButton) {
+        interactor?.didTapOnDeselect(sender: sender, allSelectedTags: collectionView.allSelectedTags(), allTags: collectionView.allTags())
+    }
+}
+
+extension FilterVC: TTGTextTagCollectionViewDelegate, UIScrollViewDelegate {
+    func textTagCollectionView(_ textTagCollectionView: TTGTextTagCollectionView!, didTap tag: TTGTextTag!, at index: UInt) {
+        interactor?.textTagCollectionView(textTagCollectionView, didTap: tag, at: index)
+    }
+}
+
+extension FilterVC: PresenterToFilterVCProtocol {
+    
+    func displayFetchedTags(selectionLimit: UInt, resultArr: [TTGTextTag]) {
+        collectionView.selectionLimit = selectionLimit
+        collectionView.add(resultArr)
+        setSelected()
+    }
+    
+    func addListener() {
+        if collectionView.allSelectedTags().count >= 1 {
+            filterView.filterButton.isEnabled = true
+            filterView.deselectButton.isSelected = true
+        }
+        else {
+            filterView.filterButton.isEnabled = false
+            filterView.deselectButton.isSelected = false
+        }
+        filterView.removeFilterButton.isEnabled = isExploreVCFiltered
+    }
+    
+    func reloadCollectionView() {
+        collectionView.reload()
+    }
+    
+    func demolish(completion: @escaping () -> Void) {
+        filterView.demolishView {
             UIView.animate(withDuration: 0.4) { [weak self] in
                 guard let self = self else { return }
                 self.filterView.frame = self.view.initialFrame
@@ -250,68 +228,8 @@ class FilterVC: UIViewController {
         }
     }
     
-    @objc func didTapOnClear(sender: UIButton) {
-        demolish { [weak self] in
-            guard let self = self else { return }
-            if let dismissClosure = self.dismissClosure {
-                isExploreVCFiltered = false
-                dismissClosure([""])
-            }
-        }
+    func dismiss() {
+        dismiss(animated: true)
     }
     
-    @objc func didTapOnBackground(sender: UIButton) {
-        demolish { [weak self] in
-            guard let self = self else { return }
-            self.dismiss(animated: true)
-        }
-    }
-    
-    @objc func didTapOnFilter(sender: UIButton) {
-        demolish { [weak self] in
-            guard let self = self else { return }
-            if let dismissClosure = self.dismissClosure {
-                isExploreVCFiltered = true
-                dismissClosure(self.selectedTagStrings)
-            }
-        }
-    }
-    
-    @objc func didTapOnClose(sender: UIButton) {
-        demolish { [weak self] in
-            guard let self = self else { return }
-            self.dismiss(animated: true)
-        }
-    }
-    
-    @objc func didTapOnDeselect(sender: UIButton) {
-        if sender.isSelected {
-            collectionView.allSelectedTags().forEach { tag in
-                tag.selected = false
-            }
-        }
-        else {
-            collectionView.allTags().forEach { tag in
-                tag.selected = true
-            }
-        }
-        collectionView.reload()
-        selectedCountSubject.send {}
-        selectedTagStrings.removeAll()
-    }
-}
-
-extension FilterVC: TTGTextTagCollectionViewDelegate, UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    }
-    
-    func textTagCollectionView(_ textTagCollectionView: TTGTextTagCollectionView!, didTap tag: TTGTextTag!, at index: UInt) {
-        selectedCountSubject.send {}
-        if tag.selected {
-            selectedTagStrings.append(tag.content.getAttributedString().string)
-        }
-        else {
-            selectedTagStrings.removeAll { $0 == tag.content.getAttributedString().string }
-        }
-    }
 }

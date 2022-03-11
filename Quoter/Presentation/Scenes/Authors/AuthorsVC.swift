@@ -142,8 +142,8 @@ class AuthorsVC: UIViewController {
         guard let selectedAuthor = selectedAuthor else {
             return
         }
-        vc.author = selectedAuthor
-        vc.authorsVCreloadDataClosure = { [weak self] in
+        vc.interactor?.author = selectedAuthor
+        vc.interactor?.authorsVCreloadDataClosure = { [weak self] in
             guard let self = self else { return }
             self.mainImageSubject.send(self.bookImage!)
             self.authorsView.mainImageView.contentMode = .scaleAspectFill

@@ -16,35 +16,11 @@ class MonitoredVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        NetworkMonitor.shared.startMonitoring { [weak self] path in
-//            if NetworkMonitor.shared.isFirstCheck {
-//                self?.connectionStatusSubject.send(path.status != .unsatisfied)
-//                NetworkMonitor.shared.isFirstCheck = false
-//            }
-//            else {
-//                self?.connectionStatusSubject.send(path.status == .unsatisfied)
-//            }
-//        }
+
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        NetworkMonitor.shared.startMonitoring { [weak self] path in
-//            if NetworkMonitor.shared.isFirstCheck {
-//                self?.connectionStatusSubject.send(path.status != .unsatisfied)
-//                NetworkMonitor.shared.isFirstCheck = false
-//            }
-//            else {
-//                self?.connectionStatusSubject.send(path.status == .unsatisfied)
-//            }
-//        }
-//    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        //NetworkMonitor.shared.stopMonitoring()
-//        cancellables.forEach { cancellable in
-//            cancellable.cancel()
-//        }
     }
     
     deinit {

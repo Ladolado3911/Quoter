@@ -19,6 +19,8 @@ enum Sound: String, CaseIterable {
 
     case music1
     case music2
+    case music3
+    case music4
     case pageFlip
     case pop
     case windTransition

@@ -9,28 +9,23 @@ import UIKit
 import SnapKit
 import AnimatedCollectionViewLayout
 import Combine
+import Firebase
 
 protocol PresenterToExploreVCProtocol: AnyObject {
     var interactor: VCToExploreInteractorProtocol? { get set }
     
+    func startAnimating()
     func displayInitialData(loadedVMs: [QuoteGardenQuoteVM], loadedImages: [UIImage?], indexPaths: [IndexPath])
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
                         indexPaths: [IndexPath])
-    func requestedNewData(edges: (Int, Int), offsetOfPage: Int)
 }
 
 class ExploreVC: MonitoredVC {
     
     var interactor: VCToExploreInteractorProtocol?
     var router: ExploreRouterProtocol?
-    
-    var loadedVMs: [QuoteGardenQuoteVM] = []
-    var loadedImages: [UIImage?] = []
-    var selectedFilters: [String] = [""]
-    var isLoadNewDataFunctionRunning: Bool = false
-    var isDataLoaded = false
-    
+
     var tapOnBookGesture: UITapGestureRecognizer {
         let tapOnGesture = UITapGestureRecognizer(target: self,
                                                   action: #selector(didTapOnBook(sender:)))
@@ -41,12 +36,7 @@ class ExploreVC: MonitoredVC {
                                                   action: #selector(didTapOnFilter(sender:)))
         return tapOnGesture
     }
-    var currentPage: Int = 0 {
-        didSet {
-            print(currentPage)
-        }
-    }
-    var capturedCurrentPage: Int = 0
+
     lazy var exploreView: ExploreView = {
         let view = ExploreView(frame: view.bounds)
         return view
@@ -71,7 +61,7 @@ class ExploreVC: MonitoredVC {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .lightContent
         exploreView.startAnimating()
-        interactor?.requestDisplayInitialData(genres: selectedFilters)
+        interactor?.requestDisplayInitialData()
         configCollectionView()
     }
     
@@ -92,23 +82,14 @@ class ExploreVC: MonitoredVC {
         exploreView.collectionView.delegate = self
         exploreView.collectionView.register(QuoteCell.self, forCellWithReuseIdentifier: "cell")
     }
-    
-    func resetInitialData() {
-        isDataLoaded = false
-        loadedVMs = []
-        loadedImages = []
-        exploreView.collectionView.reloadData()
-        exploreView.startAnimating()
-        interactor?.requestDisplayInitialData(genres: selectedFilters)
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if exploreView.lottieAnimation != nil {
             connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
         }
         else {
-            if !isDataLoaded {
+            if !interactor!.isDataLoaded {
                 exploreView.startAnimating()
             }
         }
@@ -127,25 +108,23 @@ class ExploreVC: MonitoredVC {
     }
     
     @objc func didTapOnBook(sender: UITapGestureRecognizer) {
-        router?.routeToModalAlertVC(quoteVM: loadedVMs[currentPage])
+        Analytics.logEvent("did_tap_on_book", parameters: nil)
+        router?.routeToModalAlertVC(quoteVM: interactor!.loadedVMs[interactor!.currentPage])
     }
     
     @objc func didTapOnFilter(sender: UITapGestureRecognizer) {
+        Analytics.logEvent("did_tap_on_filter", parameters: nil)
         router?.routeToFilters()
     }
 }
 
 extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        loadedVMs.count
+        interactor?.loadedVMs.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? QuoteCell
-        cell?.quoteVM = loadedVMs[indexPath.item]
-        cell?.mainImage = loadedImages[indexPath.item]
-        cell?.tapOnBookGesture = tapOnBookGesture
-        cell?.tapOnFilterGesture = tapOnFilterGesture
+        let cell = interactor?.collectionView(collectionView, cellForItemAt: indexPath, bookGesture: tapOnBookGesture, filterGesture: tapOnFilterGesture)
         return cell!
     }
 
@@ -166,11 +145,9 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        interactor?.requestNewData(edges: (4, 14), offsetOfPage: 5)
-        interactor?.requestNewData(edges: (0, 10), offsetOfPage: 1)
-        if currentPage == self.loadedVMs.count - 1 && isLoadNewDataFunctionRunning {
-            router?.routeToLoadingAlertVC()
+        interactor?.scrollViewDidEndDecelerating(scrollView) { [weak self] in
+            guard let self = self else { return }
+            self.router?.routeToLoadingAlertVC()
         }
     }
 }
@@ -181,12 +158,11 @@ extension ExploreVC: PresenterToExploreVCProtocol {
                         loadedImages: [UIImage?],
                         indexPaths: [IndexPath]) {
         
-        self.loadedVMs.append(contentsOf: loadedVMs)
-        self.loadedImages.append(contentsOf: loadedImages)
-        self.exploreView.collectionView.insertItems(at: indexPaths)
-        self.exploreView.collectionView.isUserInteractionEnabled = true
-        self.isLoadNewDataFunctionRunning = false
-        
+        interactor?.loadedVMs.append(contentsOf: loadedVMs)
+        interactor?.loadedImages.append(contentsOf: loadedImages)
+        exploreView.collectionView.insertItems(at: indexPaths)
+        exploreView.collectionView.isUserInteractionEnabled = true
+        interactor?.isLoadNewDataFunctionRunning = false
         self.dismiss(animated: false)
     }
     
@@ -194,24 +170,17 @@ extension ExploreVC: PresenterToExploreVCProtocol {
                             loadedImages: [UIImage?],
                             indexPaths: [IndexPath]) {
         
-        self.currentPage = 0
-        self.capturedCurrentPage = 0
-        self.loadedVMs = loadedVMs
-        self.loadedImages = loadedImages
-        self.exploreView.collectionView.insertItems(at: indexPaths)
-        if self.exploreView.lottieAnimation != nil {
-            self.exploreView.stopLottieAnimation()
+        interactor?.loadedVMs = loadedVMs
+        interactor?.loadedImages = loadedImages
+        exploreView.collectionView.insertItems(at: indexPaths)
+        if exploreView.lottieAnimation != nil {
+            exploreView.stopLottieAnimation()
         }
-        self.isDataLoaded = true
+        interactor?.isDataLoaded = true
     }
     
-    func requestedNewData(edges: (Int, Int), offsetOfPage: Int) {
-        if currentPage == loadedVMs.count - offsetOfPage && !isLoadNewDataFunctionRunning {
-            capturedCurrentPage = currentPage
-            if !isLoadNewDataFunctionRunning {
-                isLoadNewDataFunctionRunning = true
-                interactor?.requestDisplayNewData(genres: selectedFilters, currentVMs: loadedVMs, capturedPage: capturedCurrentPage, edges: edges)
-            }
-        }
+    func startAnimating() {
+        exploreView.collectionView.reloadData()
+        exploreView.startAnimating()
     }
 }

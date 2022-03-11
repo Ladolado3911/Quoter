@@ -9,31 +9,6 @@ import UIKit
 import SnapKit
 import TTGTags
 
-class FilterButton: UIButton {
-    
-    override var isEnabled: Bool {
-        didSet {
-            if isEnabled {
-                backgroundColor = .black
-            }
-            else {
-                backgroundColor = .white
-            }
-        }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        //titleLabel?.adjustsFontSizeToFitWidth = true
-        layer.borderWidth = 1
-        layer.cornerRadius = bounds.height * 0.3
-        //backgroundColor = .clear
-        layer.borderColor = UIColor.black.cgColor
-        setTitleColor(.white, for: .normal)
-        setTitleColor(.black, for: .disabled)
-    }
-}
-
 class FilterView: UIView {
     
     var collectionView: TTGTextTagCollectionView?

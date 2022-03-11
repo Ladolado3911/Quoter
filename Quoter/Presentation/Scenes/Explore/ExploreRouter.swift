@@ -24,10 +24,10 @@ class ExploreRouter: ExploreRouterProtocol {
         let filterVC = FilterVC()
         filterVC.modalTransitionStyle = .crossDissolve
         filterVC.modalPresentationStyle = .custom
-        filterVC.selectedTagStrings = exploreVC.selectedFilters
-        filterVC.dismissClosure = { selectedFilters in
-            exploreVC.selectedFilters = selectedFilters
-            exploreVC.resetInitialData()
+        filterVC.interactor!.selectedTagStrings = exploreVC.interactor!.selectedFilters
+        filterVC.interactor?.dismissClosure = { selectedFilters in
+            exploreVC.interactor!.selectedFilters = selectedFilters
+            exploreVC.interactor!.resetInitialData()
             exploreVC.dismiss(animated: true)
         }
         exploreVC.present(filterVC, animated: true)
@@ -38,10 +38,10 @@ class ExploreRouter: ExploreRouterProtocol {
         let destVC = QoaVC()
         destVC.modalTransitionStyle = .coverVertical
         destVC.modalPresentationStyle = .overCurrentContext
-        destVC.networkQuotesArr = resultTuple.0
-        destVC.state = .network
-        destVC.networkAuthorImage = resultTuple.1.0
-        destVC.authorName = resultTuple.0.first?.authorName
+        destVC.interactor?.networkQuotesArr = resultTuple.0
+        destVC.interactor?.state = .network
+        destVC.interactor?.networkAuthorImage = resultTuple.1.0
+        destVC.interactor?.authorName = resultTuple.0.first?.authorName
         exploreVC.present(destVC, animated: true)
     }
     

@@ -318,8 +318,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "32"
             endingLineNumber = "32"
-            landmarkName = "getAuthorImageURLUsingSlug(slug:completion:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
             <Locations>
                <Location
                   uuid = "773D742F-6DF5-44F8-A541-57EB6282698B - 5fbe77897f206e83"
@@ -389,22 +389,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "33727F4C-D26A-465E-A517-4FC54116856D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Managers/QuoteGardenManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "getQuotesOfAuthor(authorName:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "7E9C63F7-3DA0-4B23-8AFF-4CE5D1A90EAF"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -412,8 +396,8 @@
             filePath = "Quoter/Managers/QuoteGardenManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "QuoteGardenManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -559,22 +543,6 @@
             startingLineNumber = "108"
             endingLineNumber = "108"
             landmarkName = "onMusicIcon(sender:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "524E6BEF-A038-4F06-8E55-29575A605A0D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Extensions/Array+Extension.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "uniqueRandomElement()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -748,8 +716,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "displayInitialData(loadedVMs:loadedImages:indexPaths:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -780,8 +748,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExplorePresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
             landmarkName = "formatData(quoteModels:images:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -860,8 +828,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
             landmarkName = "displayInitialData(loadedVMs:loadedImages:indexPaths:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -876,9 +844,9 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "requestDisplayInitialData(genres:)"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "requestDisplayInitialData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -892,24 +860,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
-            landmarkName = "displayNewData(loadedVMs:loadedImages:indexPaths:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "167BE804-0BD5-4F44-8F01-DCE77B238BBA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quoter/Presentation/Scenes/Explore/ExploreVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "displayNewData(loadedVMs:loadedImages:indexPaths:)"
             landmarkType = "7">
          </BreakpointContent>
