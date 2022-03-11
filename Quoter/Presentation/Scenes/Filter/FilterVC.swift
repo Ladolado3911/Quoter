@@ -176,9 +176,6 @@ class FilterVC: UIViewController {
 }
 
 extension FilterVC: TTGTextTagCollectionViewDelegate, UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    }
-    
     func textTagCollectionView(_ textTagCollectionView: TTGTextTagCollectionView!, didTap tag: TTGTextTag!, at index: UInt) {
         interactor?.textTagCollectionView(textTagCollectionView, didTap: tag, at: index)
     }

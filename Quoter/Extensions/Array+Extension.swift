@@ -8,6 +8,7 @@
 import UIKit
 
 var randomElementStorage: [Sound?] = []
+var randomIntElementStorage: [Int?] = []
 
 extension Array where Element == Sound {
 
@@ -20,6 +21,21 @@ extension Array where Element == Sound {
             currentElement = self.randomElement()!
         }
         randomElementStorage.append(currentElement)
+        return currentElement
+    }
+}
+
+extension Array where Element == Int {
+
+    func uniqueRandomElement() -> Int? {
+        var currentElement: Int? = self.randomElement()
+        if randomIntElementStorage.count == ImageEndpoints.pages.count {
+            randomIntElementStorage.removeAll()
+        }
+        while randomIntElementStorage.contains(currentElement) {
+            currentElement = self.randomElement()!
+        }
+        randomIntElementStorage.append(currentElement)
         return currentElement
     }
 }
