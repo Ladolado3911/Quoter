@@ -106,7 +106,7 @@ class TabbarController: UIViewController {
     
     @objc func onMusicIcon(sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        let optionalMusic = arr.uniqueRandomElement()
+        let optionalMusic = arr.uniqueRandomElement(isEnabling: sender.isSelected)
         if let currentPlayer1 = currentPlayer {
             currentPlayer = nil
             currentPlayer1.stop()
@@ -122,7 +122,7 @@ class TabbarController: UIViewController {
 extension TabbarController: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if musicIconButton.isSelected && flag {
-            let optionalMusic = arr.uniqueRandomElement()
+            let optionalMusic = arr.uniqueRandomElement(isEnabling: true)
             optionalMusic?.play(extensionString: .mp3)
             optionalMusic?.player?.delegate = self
             currentPlayer = optionalMusic?.player

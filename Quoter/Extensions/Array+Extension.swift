@@ -12,16 +12,28 @@ var randomIntElementStorage: [Int?] = []
 
 extension Array where Element == Sound {
 
-    func uniqueRandomElement() -> Sound? {
-        var currentElement: Sound? = self.randomElement()
-        if randomElementStorage.count == Sound.allCases.filter { $0.rawValue.contains("music") }.count {
-            randomElementStorage.removeAll()
+    func uniqueRandomElement(isEnabling: Bool) -> Sound? {
+        if isEnabling {
+            var currentElement: Sound? = self.randomElement()!
+        
+            if randomElementStorage.count == Sound.allCases.filter { $0.rawValue.contains("music") }.count {
+                randomElementStorage.leaveOnlyLast()
+            }
+            while randomElementStorage.contains(currentElement) {
+                currentElement = self.randomElement()!
+            }
+            randomElementStorage.append(currentElement)
+            return currentElement
         }
-        while randomElementStorage.contains(currentElement) {
-            currentElement = self.randomElement()!
+        return nil
+    }
+}
+
+extension Array {
+    mutating func leaveOnlyLast(){
+        for item in 0..<self.count - 1 {
+            self.remove(at: item)
         }
-        randomElementStorage.append(currentElement)
-        return currentElement
     }
 }
 
