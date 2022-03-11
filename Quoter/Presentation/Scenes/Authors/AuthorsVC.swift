@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import Kingfisher
+import Firebase
 
 let collectionViewUpdateSubject = PassthroughSubject<(() -> Void), Never>()
 let collectionViewReloadSubject = PassthroughSubject<(() -> Void), Never>()
@@ -215,6 +216,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         let itemState = data3[indexPath.item].state
         let image = ((collectionView.cellForItem(at: indexPath) as? AuthorCell)?.imageView.image)!
         let name = data3[indexPath.item].name
+        Analytics.logEvent("did_interact_with_cell", parameters: nil)
         switch itemState {
         case .on:
             data3[indexPath.item].turnOff(isChanging: true)
