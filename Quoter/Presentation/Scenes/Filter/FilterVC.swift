@@ -8,6 +8,7 @@
 import UIKit
 import TTGTags
 import Combine
+import Firebase
 
 var isExploreVCFiltered: Bool = false
 
@@ -145,6 +146,7 @@ class FilterVC: UIViewController {
     @objc func didTapOnClear(sender: UIButton) {
         interactor?.demolishView { [weak self] in
             guard let self = self else { return }
+            Analytics.logEvent("did_tap_on_clear", parameters: nil)
             self.interactor?.dismiss(isExploreFiltered: false, type: .clear)
         }
     }
@@ -159,6 +161,7 @@ class FilterVC: UIViewController {
     @objc func didTapOnFilter(sender: UIButton) {
         interactor?.demolishView { [weak self] in
             guard let self = self else { return }
+            Analytics.logEvent("did_tap_on_filter", parameters: nil)
             self.interactor?.dismiss(isExploreFiltered: true, type: .filter)
         }
     }

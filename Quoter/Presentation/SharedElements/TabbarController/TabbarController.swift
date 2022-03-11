@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import AVFAudio
 import AVFoundation
+import Firebase
 
 
 class TabbarController: UIViewController {
@@ -97,6 +98,7 @@ class TabbarController: UIViewController {
     
     @objc func onTap(sender: UITapGestureRecognizer) {
         if let senderView = sender.view as? TabbarItemView {
+            Analytics.logEvent("switch_tabbar", parameters: nil)
             let arr = tabbarView.tabbarItems
             removeChildController(controller: arr[tabbarView.currentItemIndex].controller)
             addChildController(controller: arr[senderView.indexInTabbar].controller)
@@ -105,6 +107,7 @@ class TabbarController: UIViewController {
     }
     
     @objc func onMusicIcon(sender: UIButton) {
+        Analytics.logEvent("did_tap_on_music", parameters: nil)
         sender.isSelected = !sender.isSelected
         let optionalMusic = arr.uniqueRandomElement(isEnabling: sender.isSelected)
         if let currentPlayer1 = currentPlayer {
@@ -121,6 +124,7 @@ class TabbarController: UIViewController {
 
 extension TabbarController: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        Analytics.logEvent("audio_switched_while_playing", parameters: nil)
         if musicIconButton.isSelected && flag {
             let optionalMusic = arr.uniqueRandomElement(isEnabling: true)
             optionalMusic?.play(extensionString: .mp3)

@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import Firebase
 
 enum QuotesOfAuthorVCState {
     case network
@@ -78,10 +79,12 @@ class QoaVC: UIViewController {
     }
 
     @objc func onIdeaButton(sender: UIButton) {
+        Analytics.logEvent("did_tap_on_Idea", parameters: nil)
         interactor?.requestToChangeIdeaState(isSwitchButtonSelected: quotesOfAuthorView.switchButton.isSelected)
     }
     
     @objc func onDeleteButton(sender: UIButton) {
+        Analytics.logEvent("did_tap_on_delete", parameters: nil)
         interactor?.requestToDelete()
     }
     
@@ -90,10 +93,12 @@ class QoaVC: UIViewController {
     }
     
     @objc func onNext(sender: UIButton) {
+        Analytics.logEvent("did_tap_on_next", parameters: nil)
         interactor?.onNext()
     }
     
     @objc func onPrev(sender: UIButton) {
+        Analytics.logEvent("did_tap_on_prev", parameters: nil)
         interactor?.onPrev()
     }
 }

@@ -147,6 +147,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         interactor?.scrollViewDidEndDecelerating(scrollView) { [weak self] in
             guard let self = self else { return }
+            Analytics.logEvent("did_scroll", parameters: nil)
             self.router?.routeToLoadingAlertVC()
         }
     }
