@@ -23,7 +23,7 @@ class NotificationVC: UIViewController {
     
     lazy var tapOnBackgroundGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self,
-                                             action: #selector(didTapOnBackground(sender:)))
+                                             action: #selector(didTapOnClose(sender:)))
         return gesture
     }()
     
@@ -99,15 +99,14 @@ class NotificationVC: UIViewController {
 //                self.notificationView.deselectButton.addTarget(self,
 //                                                         action: #selector(self.didTapOnDeselect(sender:)),
 //                                                         for: .touchUpInside)
-//                self.notificationView.closeButton.addTarget(self,
-//                                                      action: #selector(self.didTapOnClose(sender:)),
-//                                                      for: .touchUpInside)
+                self.notificationView.closeButton.addTarget(self,
+                                                      action: #selector(self.didTapOnClose(sender:)),
+                                                      for: .touchUpInside)
             }
         }
     }
     
-    @objc func didTapOnBackground(sender: UIButton) {
-        
+    @objc func didTapOnClose(sender: UIButton) {
         interactor?.demolishView { [weak self] in
             guard let self = self else { return }
             self.interactor?.dismiss()
@@ -121,11 +120,12 @@ extension NotificationVC: PresenterToNotificationVCProtocol {
             UIView.animate(withDuration: 0.4) { [weak self] in
                 guard let self = self else { return }
                 self.notificationView.frame = self.view.initialFrame
-            } completion: { didFinish in
-                //guard let self = self else { return }
+            } completion: { [weak self] didFinish in
+                guard let self = self else { return }
                 if didFinish {
                     completion()
 //                    UIView.animate(withDuration: 0.3) {
+//                        self.notificationView.closeButton.alpha = 0
 ////                        self.filterView.filterButton.alpha = 0
 ////                        self.filterView.mainTitleLabel.alpha = 0
 ////                        self.filterView.collectionView?.alpha = 0

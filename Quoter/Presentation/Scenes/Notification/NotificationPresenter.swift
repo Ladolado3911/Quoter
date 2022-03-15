@@ -27,5 +27,4 @@ class NotificationPresenter: InteractorToNotificationPresenterProtocol {
     func dismiss() {
         vc?.dismiss()
     }
-    
 }

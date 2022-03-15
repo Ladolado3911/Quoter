@@ -29,7 +29,7 @@ class FilterVC: UIViewController {
 
     lazy var tapOnBackgroundGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self,
-                                             action: #selector(didTapOnBackground(sender:)))
+                                             action: #selector(didTapOnClose(sender:)))
         return gesture
     }()
     
