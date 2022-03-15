@@ -31,6 +31,13 @@ class TabbarController: UIViewController {
         return button
     }()
     
+    let bellIconButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.contentMode = .scaleAspectFill
+        button.setImage(UIImage(systemName: "bell"), for: .normal)
+        return button
+    }()
+    
     var currentPlayer: AVAudioPlayer?
     
     var viewControllers: [UIViewController] {

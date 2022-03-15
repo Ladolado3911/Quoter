@@ -98,7 +98,7 @@ class ExploreVC: MonitoredVC {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        interactor?.requestToTrack()
+        //interactor?.requestToTrack()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
