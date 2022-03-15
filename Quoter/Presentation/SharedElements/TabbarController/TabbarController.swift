@@ -138,6 +138,10 @@ class TabbarController: UIViewController {
     
     @objc func onBellIcon(sender: UIButton) {
         print("bell")
+        let vc = NotificationVC()
+        vc.modalTransitionStyle = .crossDissolve
+        vc.modalPresentationStyle = .custom
+        present(vc, animated: true)
     }
 }
 
