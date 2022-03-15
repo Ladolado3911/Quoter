@@ -34,7 +34,7 @@ class TabbarController: UIViewController {
     let bellIconButton: UIButton = {
         let button = UIButton(type: .custom)
         button.contentMode = .scaleAspectFill
-        button.setImage(UIImage(systemName: "bell"), for: .normal)
+        button.setImage(UIImage(named: "Alarm"), for: .normal)
         return button
     }()
     
@@ -53,8 +53,10 @@ class TabbarController: UIViewController {
         view.backgroundColor = .clear
         view.addSubview(tabbarView)
         view.addSubview(musicIconButton)
+        view.addSubview(bellIconButton)
         //currentPlayer?.delegate = self
         musicIconButton.addTarget(self, action: #selector(onMusicIcon(sender:)), for: .touchUpInside)
+        bellIconButton.addTarget(self, action: #selector(onBellIcon(sender:)), for: .touchUpInside)
 
         tabbarView.snp.makeConstraints { make in
             make.left.right.equalTo(view).inset(20)
@@ -62,9 +64,14 @@ class TabbarController: UIViewController {
             make.height.equalTo(PublicConstants.screenHeight * 0.0739)
         }
         musicIconButton.snp.makeConstraints { make in
+            make.top.equalTo(bellIconButton.snp.bottom).inset(-10)
+            make.right.equalTo(bellIconButton)
+            make.width.height.equalTo(PublicConstants.screenHeight * 0.06)
+        }
+        bellIconButton.snp.makeConstraints { make in
             make.top.equalTo(view).inset(PublicConstants.screenHeight * 0.11267)
             make.right.equalTo(view).inset(20)
-            make.width.height.equalTo(50)
+            make.width.height.equalTo(musicIconButton)
         }
     }
     
@@ -91,6 +98,7 @@ class TabbarController: UIViewController {
         controller.didMove(toParent: self)
         view.bringSubviewToFront(tabbarView)
         view.bringSubviewToFront(musicIconButton)
+        view.bringSubviewToFront(bellIconButton)
     }
     
     func removeChildController(controller: UIViewController) {
@@ -126,6 +134,10 @@ class TabbarController: UIViewController {
             optionalMusic?.player?.delegate = self
             currentPlayer = optionalMusic?.player
         }
+    }
+    
+    @objc func onBellIcon(sender: UIButton) {
+        print("bell")
     }
 }
 

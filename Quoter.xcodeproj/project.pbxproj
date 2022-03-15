@@ -10,6 +10,11 @@
 		243B449A27BE29A800953AD3 /* pageFlip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 243B449927BE29A800953AD3 /* pageFlip.mp3 */; };
 		243B449C27BE29CC00953AD3 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243B449B27BE29CC00953AD3 /* Sound.swift */; };
 		243B449E27BE39EF00953AD3 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 243B449D27BE39EE00953AD3 /* pop.wav */; };
+		245409F427E0A44C00A95E8E /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245409F327E0A44C00A95E8E /* NotificationVC.swift */; };
+		245409F627E0A47600A95E8E /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245409F527E0A47600A95E8E /* NotificationView.swift */; };
+		245409F827E0A49800A95E8E /* NotificationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245409F727E0A49800A95E8E /* NotificationInteractor.swift */; };
+		245409FA27E0A4AB00A95E8E /* NotificationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245409F927E0A4AB00A95E8E /* NotificationPresenter.swift */; };
+		245409FD27E0A74B00A95E8E /* NotificationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245409FC27E0A74B00A95E8E /* NotificationWorker.swift */; };
 		2472F69727C4BE1600746242 /* windTransition.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2472F69627C4BE1600746242 /* windTransition.wav */; };
 		2472F69A27C4D30600746242 /* FilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2472F69927C4D30600746242 /* FilterVC.swift */; };
 		247D1FA827B68F34001CABF9 /* AuthorCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */; };
@@ -125,6 +130,11 @@
 		243B449927BE29A800953AD3 /* pageFlip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pageFlip.mp3; sourceTree = "<group>"; };
 		243B449B27BE29CC00953AD3 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		243B449D27BE39EE00953AD3 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
+		245409F327E0A44C00A95E8E /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
+		245409F527E0A47600A95E8E /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		245409F727E0A49800A95E8E /* NotificationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationInteractor.swift; sourceTree = "<group>"; };
+		245409F927E0A4AB00A95E8E /* NotificationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPresenter.swift; sourceTree = "<group>"; };
+		245409FC27E0A74B00A95E8E /* NotificationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationWorker.swift; sourceTree = "<group>"; };
 		2472F69627C4BE1600746242 /* windTransition.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = windTransition.wav; sourceTree = "<group>"; };
 		2472F69927C4D30600746242 /* FilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterVC.swift; sourceTree = "<group>"; };
 		247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCellOverlayView.swift; sourceTree = "<group>"; };
@@ -286,6 +296,34 @@
 				243B449B27BE29CC00953AD3 /* Sound.swift */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		245409F227E0A43600A95E8E /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				245409FE27E0A75200A95E8E /* Workers */,
+				245409FB27E0A72F00A95E8E /* Subviews */,
+				245409F327E0A44C00A95E8E /* NotificationVC.swift */,
+				245409F727E0A49800A95E8E /* NotificationInteractor.swift */,
+				245409F927E0A4AB00A95E8E /* NotificationPresenter.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		245409FB27E0A72F00A95E8E /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				245409F527E0A47600A95E8E /* NotificationView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		245409FE27E0A75200A95E8E /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				245409FC27E0A74B00A95E8E /* NotificationWorker.swift */,
+			);
+			path = Workers;
 			sourceTree = "<group>";
 		};
 		2472F69827C4D2EA00746242 /* Filter */ = {
@@ -479,6 +517,7 @@
 		24D1288A27903FEC00AD7F3D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				245409F227E0A43600A95E8E /* Notification */,
 				24A8407827C3BE3300BCF304 /* LoadingAlert */,
 				24C12BD227AABB8D0069684D /* ModalAlert */,
 				2472F69827C4D2EA00746242 /* Filter */,
@@ -774,6 +813,7 @@
 				24B0CF0427D8D8980064F843 /* FilterButton.swift in Sources */,
 				24DEBF4D27ABB5BB00C40B29 /* LottieAnimations.swift in Sources */,
 				24C12BCC27AAAFCF0069684D /* UIViewController+Extension.swift in Sources */,
+				245409F627E0A47600A95E8E /* NotificationView.swift in Sources */,
 				24C9A8E627BD20DD001C820F /* QuoteViewButton.swift in Sources */,
 				24D4108027B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift in Sources */,
 				24D128A12790AD0500AD7F3D /* AuthorsContentView.swift in Sources */,
@@ -783,6 +823,7 @@
 				24E289EB27D2286300FDB6BB /* ModalAlertImageWorker.swift in Sources */,
 				24E289F027D234A700FDB6BB /* ImageDownloaderWorker.swift in Sources */,
 				24C9A8E827BD2E25001C820F /* UIImage+Extension.swift in Sources */,
+				245409F827E0A49800A95E8E /* NotificationInteractor.swift in Sources */,
 				24D78DE927B27FB700E6B401 /* ImageEndpoints.swift in Sources */,
 				24CB9FE927930C1700E9D49F /* AuthorModel.swift in Sources */,
 				24C12BCA27AAACCC0069684D /* BookImageView.swift in Sources */,
@@ -791,6 +832,7 @@
 				24BEA3E02798601A009DB491 /* QuoteView.swift in Sources */,
 				24FF8A0827D5E001004E40B4 /* QoaNetworkSetWorker.swift in Sources */,
 				24C12BD127AABB800069684D /* ModalAlertVC.swift in Sources */,
+				245409FD27E0A74B00A95E8E /* NotificationWorker.swift in Sources */,
 				24C12BD427AABC8F0069684D /* ModalView.swift in Sources */,
 				24B0CEFB27D8C4E10064F843 /* FilterInteractor.swift in Sources */,
 				24E289ED27D228BC00FDB6BB /* ModalAlertContentWorker.swift in Sources */,
@@ -798,6 +840,7 @@
 				24A78AC027C5152F0014A8C8 /* FilterView.swift in Sources */,
 				24FC97C727CF809600504361 /* ExploreInteractor.swift in Sources */,
 				24E289F227D23D2800FDB6BB /* String+Extension.swift in Sources */,
+				245409FA27E0A4AB00A95E8E /* NotificationPresenter.swift in Sources */,
 				24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */,
 				24C12BCE27AAB0230069684D /* ModalAlertView.swift in Sources */,
 				24B0CF0127D8D4530064F843 /* Common.swift in Sources */,
@@ -808,6 +851,7 @@
 				24FC97CB27CF819A00504361 /* ExploreRouter.swift in Sources */,
 				24D2A30427D4CAC60068DFB1 /* QoaInteractor.swift in Sources */,
 				24A0D38B27A7F099002286F6 /* CoreDataWorker.swift in Sources */,
+				245409F427E0A44C00A95E8E /* NotificationVC.swift in Sources */,
 				24F51F10279EA378003057F7 /* TabbarView.swift in Sources */,
 				24CB9FED27930C2700E9D49F /* NetworkWorker.swift in Sources */,
 				24DF187227A554AE00D93F8D /* RandomImageModel.swift in Sources */,
