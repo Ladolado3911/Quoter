@@ -41,6 +41,7 @@ class AuthorsContentView: UIView {
             layout.scrollDirection = .horizontal
         }
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     

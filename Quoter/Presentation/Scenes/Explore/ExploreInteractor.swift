@@ -27,7 +27,6 @@ protocol VCToExploreInteractorProtocol: AnyObject {
     func resetInitialData()
     func requestDisplayNewData(edges: (Int, Int))
     func requestNewData(edges: (Int, Int), offsetOfPage: Int)
-    //func requestToTrack()
 }
 
 class ExploreInteractor: VCToExploreInteractorProtocol {
@@ -45,24 +44,6 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         }
     }
     var capturedCurrentPage: Int = 0
-    
-//    func requestToTrack() {
-//        ATTrackingManager.requestTrackingAuthorization { status in
-//            switch status {
-//            case .notDetermined:
-//                print("Not Determined")
-//            case .restricted:
-//                print("Restricted")
-//            case .denied:
-//                print("Denied")
-//            case .authorized:
-//                print("Authorized")
-//                Analytics.setAnalyticsCollectionEnabled(true)
-//            @unknown default:
-//                print("default")
-//            }
-//        }
-//    }
 
     func requestDisplayNewData(edges: (Int, Int)) {
         let contentWorker = ExploreContentWorker()

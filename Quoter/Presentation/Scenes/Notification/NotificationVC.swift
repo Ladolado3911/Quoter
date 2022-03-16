@@ -15,8 +15,6 @@ protocol PresenterToNotificationVCProtocol: AnyObject {
     func dismiss()
 }
 
-
-
 class NotificationVC: UIViewController {
     
     var interactor: VCToNotificationInteractorProtocol?
@@ -90,15 +88,6 @@ class NotificationVC: UIViewController {
             guard let self = self else { return }
             if didFinish {
                 self.notificationView.buildView()
-//                self.notificationView.filterButton.addTarget(self,
-//                                                       action: #selector(self.didTapOnFilter(sender:)),
-//                                                       for: .touchUpInside)
-//                self.notificationView.removeFilterButton.addTarget(self,
-//                                                             action: #selector(self.didTapOnClear(sender:)),
-//                                                             for: .touchUpInside)
-//                self.notificationView.deselectButton.addTarget(self,
-//                                                         action: #selector(self.didTapOnDeselect(sender:)),
-//                                                         for: .touchUpInside)
                 self.notificationView.closeButton.addTarget(self,
                                                       action: #selector(self.didTapOnClose(sender:)),
                                                       for: .touchUpInside)
@@ -120,21 +109,9 @@ extension NotificationVC: PresenterToNotificationVCProtocol {
             UIView.animate(withDuration: 0.4) { [weak self] in
                 guard let self = self else { return }
                 self.notificationView.frame = self.view.initialFrame
-            } completion: { [weak self] didFinish in
-                guard let self = self else { return }
+            } completion: { didFinish in
                 if didFinish {
                     completion()
-//                    UIView.animate(withDuration: 0.3) {
-//                        self.notificationView.closeButton.alpha = 0
-////                        self.filterView.filterButton.alpha = 0
-////                        self.filterView.mainTitleLabel.alpha = 0
-////                        self.filterView.collectionView?.alpha = 0
-////                        self.filterView.deselectButton.alpha = 0
-//                    } completion: { didFinish in
-//                        if didFinish {
-//                            completion()
-//                        }
-//                    }
                 }
             }
         }
