@@ -12,4 +12,6 @@ enum LottieAnimation: String {
     case loading = "loading"
     case circleLoading = "circleLoading"
     case wifiOff = "wifi-off"
+    case swipeLeft = "swipeLeft"
+    case swipeRight = "swipeRight"
 }

@@ -122,6 +122,7 @@ class TabbarController: UIViewController {
     }
     
     @objc func onMusicIcon(sender: UIButton) {
+        sender.isUserInteractionEnabled = false
         Analytics.logEvent("did_tap_on_music", parameters: nil)
         sender.isSelected = !sender.isSelected
         let optionalMusic = arr.uniqueRandomElement(isEnabling: sender.isSelected)
@@ -133,6 +134,9 @@ class TabbarController: UIViewController {
             optionalMusic?.play(extensionString: .mp3)
             optionalMusic?.player?.delegate = self
             currentPlayer = optionalMusic?.player
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            sender.isUserInteractionEnabled = true
         }
     }
     

@@ -12,7 +12,7 @@ import Network
 class MonitoredVC: UIViewController {
     
     let connectionStatusSubject = PassthroughSubject<(Bool, Bool), Never>()
-    var cancellables: Set<AnyCancellable> = []
+    //var cancellables: Set<AnyCancellable> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,10 +23,10 @@ class MonitoredVC: UIViewController {
         super.viewWillDisappear(animated)
     }
     
-    deinit {
-        cancellables.forEach { cancellable in
-            cancellable.cancel()
-        }
-    }
+//    deinit {
+////        cancellables.forEach { cancellable in
+////            cancellable.cancel()
+////        }
+//    }
     
 }

@@ -13,6 +13,8 @@ import Firebase
 let collectionViewUpdateSubject = PassthroughSubject<(() -> Void), Never>()
 let collectionViewReloadSubject = PassthroughSubject<(() -> Void), Never>()
 
+let selectPersonMessage = "Tap on a picture of a person below"
+
 class AuthorsVC: UIViewController {
 
     var data3: [AuthorCoreVM] = []
@@ -26,7 +28,7 @@ class AuthorsVC: UIViewController {
     
     lazy var data3Subject = CurrentValueSubject<[AuthorCoreVM], Never>(data3)
     let mainImageSubject = CurrentValueSubject<UIImage, Never>(UIImage(named: "book")!)
-    let mainTitle = CurrentValueSubject<String, Never>("Select Author")
+    let mainTitle = CurrentValueSubject<String, Never>(selectPersonMessage)
     
     lazy var sendMainImagetoSubject: (UIImage) -> Void = { [weak self] image in
         guard let self = self else { return }
@@ -73,7 +75,7 @@ class AuthorsVC: UIViewController {
                 }
                 vms.append(newVM)
             }
-            mainTitle.send("Select Author")
+            mainTitle.send(selectPersonMessage)
             sendMainImagetoSubject(bookImage!)
             data3 = vms
             data3Subject.send(data3)
@@ -148,7 +150,7 @@ class AuthorsVC: UIViewController {
             guard let self = self else { return }
             self.mainImageSubject.send(self.bookImage!)
             self.authorsView.mainImageView.contentMode = .scaleAspectFill
-            self.mainTitle.send("Select Person")
+            self.mainTitle.send(selectPersonMessage)
             self.data3Subject.send(self.data3)
             CoreDataWorker.deleteAuthor(authorName: selectedAuthor.name)
             collectionViewUpdateSubject.send {}
@@ -165,7 +167,7 @@ class AuthorsVC: UIViewController {
                 guard let self = self else { return }
                 self.mainImageSubject.send(self.bookImage!)
                 self.authorsView.mainImageView.contentMode = .scaleAspectFill
-                self.mainTitle.send("Select Person")
+                self.mainTitle.send(selectPersonMessage)
                 self.data3Subject.send(self.data3)
                 CoreDataWorker.deleteAuthor(authorName: selectedAuthor.name)
                 collectionViewUpdateSubject.send {}
@@ -222,7 +224,7 @@ extension AuthorsVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
             data3[indexPath.item].turnOff(isChanging: true)
             mainImageSubject.send(UIImage(named: "book")!)
             authorsView.mainImageView.contentMode = .scaleAspectFill
-            mainTitle.send("Select Person")
+            mainTitle.send(selectPersonMessage)
         case .off:
             let filtered = data3.filter { $0 !== data3[indexPath.item] }
             for vm in 0...filtered.count {

@@ -14,6 +14,7 @@ protocol ExploreRouterProtocol: AnyObject {
     func routeToLoadingAlertVC()
     func routeToModalAlertVC(quoteVM: QuoteGardenQuoteVM)
     func routeToQuotesOfAuthor(resultTuple: ([QuoteGardenQuoteVM], (UIImage?, ImageType)))
+    func routeToSwipeHint(repeatCount: Float, delay: Int)
 }
 
 class ExploreRouter: ExploreRouterProtocol {
@@ -65,5 +66,16 @@ class ExploreRouter: ExploreRouterProtocol {
         loadingAlertVC.modalTransitionStyle = .crossDissolve
         loadingAlertVC.modalPresentationStyle = .custom
         exploreVC.present(loadingAlertVC, animated: false)
+    }
+    
+    func routeToSwipeHint(repeatCount: Float, delay: Int) {
+        guard let exploreVC = vc as? ExploreVC else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(delay)) {
+            let indicatorVC = ScrollIndicatorVC()
+            indicatorVC.modalTransitionStyle = .crossDissolve
+            indicatorVC.modalPresentationStyle = .custom
+            indicatorVC.repeatCount = repeatCount
+            exploreVC.present(indicatorVC, animated: true)
+        }
     }
 }

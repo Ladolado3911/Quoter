@@ -10,6 +10,10 @@
 		243B449A27BE29A800953AD3 /* pageFlip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 243B449927BE29A800953AD3 /* pageFlip.mp3 */; };
 		243B449C27BE29CC00953AD3 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243B449B27BE29CC00953AD3 /* Sound.swift */; };
 		243B449E27BE39EF00953AD3 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 243B449D27BE39EE00953AD3 /* pop.wav */; };
+		24416B0627E3184C00B32745 /* ScrollIndicatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24416B0527E3184C00B32745 /* ScrollIndicatorVC.swift */; };
+		24416B0827E31A4F00B32745 /* swipeLeft.json in Resources */ = {isa = PBXBuildFile; fileRef = 24416B0727E31A4F00B32745 /* swipeLeft.json */; };
+		24416B0A27E31A9D00B32745 /* swipeRight.json in Resources */ = {isa = PBXBuildFile; fileRef = 24416B0927E31A9D00B32745 /* swipeRight.json */; };
+		24416B0C27E31AFA00B32745 /* ScrollIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24416B0B27E31AFA00B32745 /* ScrollIndicatorView.swift */; };
 		245409F427E0A44C00A95E8E /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245409F327E0A44C00A95E8E /* NotificationVC.swift */; };
 		245409F627E0A47600A95E8E /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245409F527E0A47600A95E8E /* NotificationView.swift */; };
 		245409F827E0A49800A95E8E /* NotificationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245409F727E0A49800A95E8E /* NotificationInteractor.swift */; };
@@ -130,6 +134,10 @@
 		243B449927BE29A800953AD3 /* pageFlip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pageFlip.mp3; sourceTree = "<group>"; };
 		243B449B27BE29CC00953AD3 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		243B449D27BE39EE00953AD3 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
+		24416B0527E3184C00B32745 /* ScrollIndicatorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollIndicatorVC.swift; sourceTree = "<group>"; };
+		24416B0727E31A4F00B32745 /* swipeLeft.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = swipeLeft.json; sourceTree = "<group>"; };
+		24416B0927E31A9D00B32745 /* swipeRight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = swipeRight.json; sourceTree = "<group>"; };
+		24416B0B27E31AFA00B32745 /* ScrollIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollIndicatorView.swift; sourceTree = "<group>"; };
 		245409F327E0A44C00A95E8E /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		245409F527E0A47600A95E8E /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		245409F727E0A49800A95E8E /* NotificationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationInteractor.swift; sourceTree = "<group>"; };
@@ -296,6 +304,15 @@
 				243B449B27BE29CC00953AD3 /* Sound.swift */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		24416B0427E3183300B32745 /* ScrollIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				24416B0527E3184C00B32745 /* ScrollIndicatorVC.swift */,
+				24416B0B27E31AFA00B32745 /* ScrollIndicatorView.swift */,
+			);
+			path = ScrollIndicator;
 			sourceTree = "<group>";
 		};
 		245409F227E0A43600A95E8E /* Notification */ = {
@@ -517,6 +534,7 @@
 		24D1288A27903FEC00AD7F3D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				24416B0427E3183300B32745 /* ScrollIndicator */,
 				245409F227E0A43600A95E8E /* Notification */,
 				24A8407827C3BE3300BCF304 /* LoadingAlert */,
 				24C12BD227AABB8D0069684D /* ModalAlert */,
@@ -574,6 +592,8 @@
 		24DEBF4727ABB1E800C40B29 /* LottieJsons */ = {
 			isa = PBXGroup;
 			children = (
+				24416B0927E31A9D00B32745 /* swipeRight.json */,
+				24416B0727E31A4F00B32745 /* swipeLeft.json */,
 				24EBDBF027BA35D90059654B /* wifi-off.json */,
 				24D33E3A27B93FA100E4C668 /* circleLoading.json */,
 				24D33E3827B93A4100E4C668 /* loading.json */,
@@ -764,6 +784,7 @@
 				24F51F27279EB7CE003057F7 /* Roboto-LightItalic.ttf in Resources */,
 				24F51F2B279EB7CE003057F7 /* Roboto-Bold.ttf in Resources */,
 				24F51F21279EB7CE003057F7 /* Roboto-Medium.ttf in Resources */,
+				24416B0827E31A4F00B32745 /* swipeLeft.json in Resources */,
 				24F51F2C279EB7CE003057F7 /* Roboto-Thin.ttf in Resources */,
 				2497158027D9E15F00968E08 /* GoogleService-Info.plist in Resources */,
 				24F51F2A279EB7CE003057F7 /* Roboto-BlackItalic.ttf in Resources */,
@@ -774,6 +795,7 @@
 				24F51F26279EB7CE003057F7 /* Roboto-BoldItalic.ttf in Resources */,
 				24D1287C27903ECE00AD7F3D /* Assets.xcassets in Resources */,
 				24F51F24279EB7CE003057F7 /* Roboto-MediumItalic.ttf in Resources */,
+				24416B0A27E31A9D00B32745 /* swipeRight.json in Resources */,
 				24F51F2D279EB7CE003057F7 /* Roboto-Black.ttf in Resources */,
 				24F51F23279EB7CE003057F7 /* Roboto-Regular.ttf in Resources */,
 				24F51F28279EB7CE003057F7 /* Roboto-Italic.ttf in Resources */,
@@ -795,6 +817,7 @@
 				24EBDBEF27BA2BCE0059654B /* MonitoredVC.swift in Sources */,
 				24C12BD627AABE1E0069684D /* UIView+Extension.swift in Sources */,
 				2472F69A27C4D30600746242 /* FilterVC.swift in Sources */,
+				24416B0C27E31AFA00B32745 /* ScrollIndicatorView.swift in Sources */,
 				24DEBF4B27ABB55500C40B29 /* LottieView.swift in Sources */,
 				24E289E627D2210000FDB6BB /* ModalAlertRouter.swift in Sources */,
 				24F7F05D27BFCA0C001FEA75 /* Array+Extension.swift in Sources */,
@@ -802,6 +825,7 @@
 				24DC6ED027D0EAEE00A022FB /* ExploreContentWorker.swift in Sources */,
 				24FC97C927CF80A400504361 /* ExplorePresenter.swift in Sources */,
 				248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */,
+				24416B0627E3184C00B32745 /* ScrollIndicatorVC.swift in Sources */,
 				24FC97CD27CF8BDD00504361 /* ExploreQuoteWorker.swift in Sources */,
 				24ED440727D61C4E00A3040C /* SwitchButton.swift in Sources */,
 				24FF8A0B27D5E313004E40B4 /* QoaCoreSetWorker.swift in Sources */,

@@ -17,9 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //print(type(of: 1...5))
+        if UserDefaults.standard.value(forKey: "firstLaunch") as? Bool == nil {
+            UserDefaults.standard.set(true, forKey: "firstLaunch")
+        }
         Thread.sleep(forTimeInterval: 2.0)
         FirebaseApp.configure()
-        //Analytics.setAnalyticsCollectionEnabled(false)
+        Analytics.setAnalyticsCollectionEnabled(false)
+        guard let isFirstLaunch = UserDefaults.standard.value(forKey: "firstLaunch") as? Bool else { return true }
+        print("first launch: \(isFirstLaunch)")
+        isFirstLaunchSubject.send(isFirstLaunch)
         return true
     }
 
@@ -35,6 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        UserDefaults.standard.set(false, forKey: "firstLaunch")
     }
     
     // MARK: - Core Data stack

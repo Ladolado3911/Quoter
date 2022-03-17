@@ -108,7 +108,7 @@ extension NotificationVC: PresenterToNotificationVCProtocol {
         notificationView.demolishView {
             UIView.animate(withDuration: 0.4) { [weak self] in
                 guard let self = self else { return }
-                self.notificationView.frame = self.view.initialFrame
+                self.notificationView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             } completion: { didFinish in
                 if didFinish {
                     completion()

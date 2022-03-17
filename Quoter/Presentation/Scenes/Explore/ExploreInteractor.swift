@@ -36,7 +36,11 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
     var loadedImages: [UIImage?] = []
     var selectedFilters: [String] = [""]
     var isLoadNewDataFunctionRunning: Bool = false
-    var isDataLoaded = false
+    var isDataLoaded = false {
+        didSet {
+            isDataLoadedSubject.send(isDataLoaded)
+        }
+    }
     
     var currentPage: Int = 0 {
         didSet {

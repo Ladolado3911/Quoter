@@ -11,6 +11,9 @@ import AnimatedCollectionViewLayout
 import Combine
 import Firebase
 
+let isDataLoadedSubject = CurrentValueSubject<Bool, Never>(false)
+let isFirstLaunchSubject = CurrentValueSubject<Bool, Never>(false)
+
 protocol PresenterToExploreVCProtocol: AnyObject {
     var interactor: VCToExploreInteractorProtocol? { get set }
     
@@ -25,6 +28,12 @@ class ExploreVC: MonitoredVC {
     
     var interactor: VCToExploreInteractorProtocol?
     var router: ExploreRouterProtocol?
+
+    //var cancellables: Set<AnyCancellable> = []
+    
+    var isFirstAppearanceOfExploreVC: Bool = true
+    var counter: Int = 0
+    var timer: Timer?
 
     var tapOnBookGesture: UITapGestureRecognizer {
         let tapOnGesture = UITapGestureRecognizer(target: self,
@@ -63,8 +72,27 @@ class ExploreVC: MonitoredVC {
         exploreView.startAnimating()
         interactor?.requestDisplayInitialData()
         configCollectionView()
+        
+        
+//        Publishers.CombineLatest(isFirstLaunchSubject, isDataLoadedSubject)
+//            .sink { [weak self] isFirst, isData in
+//                print(isFirst)
+//                print(isData)
+//                guard let self = self else { return }
+//
+//                if isFirst == true && isData == true {
+//                    self.router?.routeToSwipeHint(repeatCount: 2, delay: 1)
+//                }
+//            }
+//            .store(in: &cancellables)
 //        interactor?.requestToTrack()
     }
+    
+//    deinit {
+//        cancellables.forEach {
+//            $0.cancel()
+//        }
+//    }
     
     private func setup() {
         let vc = self
@@ -98,6 +126,10 @@ class ExploreVC: MonitoredVC {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        guard let isDataLoaded = interactor?.isDataLoaded else { return }
+        if isDataLoaded {
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
+        }
         //interactor?.requestToTrack()
     }
 
@@ -107,6 +139,12 @@ class ExploreVC: MonitoredVC {
             exploreView.stopLottieAnimation()
             exploreView.lottieAnimation = nil
         }
+        if timer != nil {
+            timer?.invalidate()
+            timer = nil
+            counter = 0
+        }
+        isFirstAppearanceOfExploreVC = false
     }
     
     @objc func didTapOnBook(sender: UITapGestureRecognizer) {
@@ -117,6 +155,12 @@ class ExploreVC: MonitoredVC {
     @objc func didTapOnFilter(sender: UITapGestureRecognizer) {
         Analytics.logEvent("did_tap_on_filter", parameters: nil)
         router?.routeToFilters()
+    }
+    
+    @objc func timerFire(sender: Timer) {
+        counter += 1
+        print(counter)
+        
     }
 }
 
@@ -180,6 +224,9 @@ extension ExploreVC: PresenterToExploreVCProtocol {
             exploreView.stopLottieAnimation()
         }
         interactor?.isDataLoaded = true
+        if isFirstAppearanceOfExploreVC {
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
+        }
     }
     
     func startAnimating() {
