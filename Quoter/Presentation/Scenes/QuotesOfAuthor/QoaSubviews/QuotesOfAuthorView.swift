@@ -166,7 +166,8 @@ class QuotesOfAuthorView: LottieView {
                                       animationSpeed: 1,
                                       frame: frame,
                                       loopMode: .loop,
-                                      contentMode: .scaleAspectFit)
+                                      contentMode: .scaleAspectFit,
+                                      completion: nil)
     }
     
     private func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {

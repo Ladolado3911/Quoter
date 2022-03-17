@@ -37,7 +37,8 @@ class ExploreView: LottieView {
                                       animationSpeed: 1,
                                       frame: frame,
                                       loopMode: .loop,
-                                      contentMode: .scaleAspectFit)
+                                      contentMode: .scaleAspectFit,
+                                      completion: nil)
     }
     
     func stopAnimating() {

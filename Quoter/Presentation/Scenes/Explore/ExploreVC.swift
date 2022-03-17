@@ -29,17 +29,19 @@ class ExploreVC: MonitoredVC {
     var interactor: VCToExploreInteractorProtocol?
     var router: ExploreRouterProtocol?
 
-    //var cancellables: Set<AnyCancellable> = []
-    
     var isFirstAppearanceOfExploreVC: Bool = true
     var counter: Int = 0
     var timer: Timer?
-
+    
+    var isFirstLaunch: Bool = false
     var tapOnBookGesture: UITapGestureRecognizer {
         let tapOnGesture = UITapGestureRecognizer(target: self,
                                                   action: #selector(didTapOnBook(sender:)))
         return tapOnGesture
     }
+    
+    var isCounterFirstLaunchForDeviceFirstLaunch: Bool = true
+    
     var tapOnFilterGesture: UITapGestureRecognizer {
         let tapOnGesture = UITapGestureRecognizer(target: self,
                                                   action: #selector(didTapOnFilter(sender:)))
@@ -64,6 +66,9 @@ class ExploreVC: MonitoredVC {
     override func loadView() {
         super.loadView()
         view = exploreView
+        if !UIApplication.isAppAlreadyLaunchedOnce() {
+            self.isFirstLaunch = true
+        }
     }
     
     override func viewDidLoad() {
@@ -72,28 +77,10 @@ class ExploreVC: MonitoredVC {
         exploreView.startAnimating()
         interactor?.requestDisplayInitialData()
         configCollectionView()
-        
-        
-//        Publishers.CombineLatest(isFirstLaunchSubject, isDataLoadedSubject)
-//            .sink { [weak self] isFirst, isData in
-//                print(isFirst)
-//                print(isData)
-//                guard let self = self else { return }
-//
-//                if isFirst == true && isData == true {
-//                    self.router?.routeToSwipeHint(repeatCount: 2, delay: 1)
-//                }
-//            }
-//            .store(in: &cancellables)
+
 //        interactor?.requestToTrack()
     }
-    
-//    deinit {
-//        cancellables.forEach {
-//            $0.cancel()
-//        }
-//    }
-    
+
     private func setup() {
         let vc = self
         let interactor = ExploreInteractor()
@@ -130,6 +117,7 @@ class ExploreVC: MonitoredVC {
         if isDataLoaded {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
         }
+        //print("did appear")
         //interactor?.requestToTrack()
     }
 
@@ -140,27 +128,63 @@ class ExploreVC: MonitoredVC {
             exploreView.lottieAnimation = nil
         }
         if timer != nil {
-            timer?.invalidate()
-            timer = nil
-            counter = 0
+            invalidateTimer()
         }
         isFirstAppearanceOfExploreVC = false
+        print("will dissapear")
+    }
+    
+    private func invalidateTimer() {
+        timer?.invalidate()
+        timer = nil
+        counter = 0
     }
     
     @objc func didTapOnBook(sender: UITapGestureRecognizer) {
         Analytics.logEvent("did_tap_on_book", parameters: nil)
-        router?.routeToModalAlertVC(quoteVM: interactor!.loadedVMs[interactor!.currentPage])
+        invalidateTimer()
+        router?.routeToModalAlertVC(quoteVM: interactor!.loadedVMs[interactor!.currentPage]) { [weak self] in
+            guard let self = self else { return }
+            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerFire(sender:)), userInfo: nil, repeats: true)
+        }
     }
     
     @objc func didTapOnFilter(sender: UITapGestureRecognizer) {
         Analytics.logEvent("did_tap_on_filter", parameters: nil)
-        router?.routeToFilters()
+        invalidateTimer()
+        router?.routeToFilters { [weak self] in
+            guard let self = self else { return }
+//            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerFire(sender:)), userInfo: nil, repeats: true)
+        }
     }
     
     @objc func timerFire(sender: Timer) {
+        if isFirstLaunch {
+            if isCounterFirstLaunchForDeviceFirstLaunch {
+                if counter == 2 {
+                    router?.routeToSwipeHint(repeatCount: 2, delay: 1)
+                    invalidateTimer()
+                    isCounterFirstLaunchForDeviceFirstLaunch = false
+                    return
+                }
+            }
+            else {
+                if counter == 15 {
+                    router?.routeToSwipeHint(repeatCount: 2, delay: 1)
+                    invalidateTimer()
+                    return
+                }
+            }
+        }
+        else {
+            if counter == 15 {
+                router?.routeToSwipeHint(repeatCount: 2, delay: 1)
+                invalidateTimer()
+                return
+            }
+        }
         counter += 1
         print(counter)
-        
     }
 }
 
@@ -191,6 +215,8 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        invalidateTimer()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
         interactor?.scrollViewDidEndDecelerating(scrollView) { [weak self] in
             guard let self = self else { return }
             Analytics.logEvent("did_scroll", parameters: nil)
@@ -225,6 +251,7 @@ extension ExploreVC: PresenterToExploreVCProtocol {
         }
         interactor?.isDataLoaded = true
         if isFirstAppearanceOfExploreVC {
+            
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
         }
     }

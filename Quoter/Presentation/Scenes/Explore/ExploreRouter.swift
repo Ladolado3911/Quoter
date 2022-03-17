@@ -10,17 +10,17 @@ import UIKit
 protocol ExploreRouterProtocol: AnyObject {
     var vc: PresenterToExploreVCProtocol? { get set }
     
-    func routeToFilters()
+    func routeToFilters(completion: (() -> Void)?)
     func routeToLoadingAlertVC()
-    func routeToModalAlertVC(quoteVM: QuoteGardenQuoteVM)
-    func routeToQuotesOfAuthor(resultTuple: ([QuoteGardenQuoteVM], (UIImage?, ImageType)))
+    func routeToModalAlertVC(quoteVM: QuoteGardenQuoteVM, completion: (() -> Void)?)
+    func routeToQuotesOfAuthor(resultTuple: ([QuoteGardenQuoteVM], (UIImage?, ImageType)), completion: (() -> Void)?)
     func routeToSwipeHint(repeatCount: Float, delay: Int)
 }
 
 class ExploreRouter: ExploreRouterProtocol {
     var vc: PresenterToExploreVCProtocol?
     
-    func routeToFilters() {
+    func routeToFilters(completion: (() -> Void)?) {
         guard let exploreVC = vc as? ExploreVC else { return }
         let filterVC = FilterVC()
         filterVC.modalTransitionStyle = .crossDissolve
@@ -29,12 +29,16 @@ class ExploreRouter: ExploreRouterProtocol {
         filterVC.interactor?.dismissClosure = { selectedFilters in
             exploreVC.interactor!.selectedFilters = selectedFilters
             exploreVC.interactor!.resetInitialData()
-            exploreVC.dismiss(animated: true)
+            exploreVC.dismiss(animated: true) {
+                if let completion = completion {
+                    completion()
+                }
+            }
         }
         exploreVC.present(filterVC, animated: true)
     }
     
-    func routeToQuotesOfAuthor(resultTuple: ([QuoteGardenQuoteVM], (UIImage?, ImageType))) {
+    func routeToQuotesOfAuthor(resultTuple: ([QuoteGardenQuoteVM], (UIImage?, ImageType)), completion: (() -> Void)?) {
         guard let exploreVC = vc as? ExploreVC else { return }
         let destVC = QoaVC()
         destVC.modalTransitionStyle = .coverVertical
@@ -46,7 +50,7 @@ class ExploreRouter: ExploreRouterProtocol {
         exploreVC.present(destVC, animated: true)
     }
     
-    func routeToModalAlertVC(quoteVM: QuoteGardenQuoteVM) {
+    func routeToModalAlertVC(quoteVM: QuoteGardenQuoteVM, completion: (() -> Void)?) {
         guard let exploreVC = vc as? ExploreVC else { return }
         let modalAlertVC = ModalAlertVC()
         let quoteVM = quoteVM
@@ -54,7 +58,7 @@ class ExploreRouter: ExploreRouterProtocol {
         modalAlertVC.modalPresentationStyle = .custom
         modalAlertVC.authorName = quoteVM.authorName
         modalAlertVC.passingClosure = { resultTuple in
-            self.routeToQuotesOfAuthor(resultTuple: resultTuple)
+            self.routeToQuotesOfAuthor(resultTuple: resultTuple, completion: completion)
         }
         modalAlertVC.quoteVM = quoteVM
         exploreVC.present(modalAlertVC, animated: false)
@@ -75,6 +79,11 @@ class ExploreRouter: ExploreRouterProtocol {
             indicatorVC.modalTransitionStyle = .crossDissolve
             indicatorVC.modalPresentationStyle = .custom
             indicatorVC.repeatCount = repeatCount
+            indicatorVC.completion = { didFinish in
+                if didFinish {
+                    indicatorVC.dismiss(animated: true)
+                }
+            }
             exploreVC.present(indicatorVC, animated: true)
         }
     }

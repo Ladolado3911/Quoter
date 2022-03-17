@@ -44,7 +44,7 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
     
     var currentPage: Int = 0 {
         didSet {
-            print(currentPage)
+            //print(currentPage)
         }
     }
     var capturedCurrentPage: Int = 0
@@ -85,6 +85,7 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         isDataLoaded = false
         loadedVMs = []
         loadedImages = []
+        selectedFilters.removeAll { $0 == "" }
         presenter?.startAnimating()
         requestDisplayInitialData()
     }
@@ -102,6 +103,7 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
         requestNewData(edges: (4, 14), offsetOfPage: 5)
         requestNewData(edges: (0, 10), offsetOfPage: 1)
+        print(selectedFilters)
         if currentPage == loadedVMs.count - 1 && isLoadNewDataFunctionRunning {
             completion()
         }

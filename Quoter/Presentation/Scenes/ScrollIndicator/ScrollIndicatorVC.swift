@@ -10,6 +10,7 @@ import UIKit
 class ScrollIndicatorVC: UIViewController {
     
     var repeatCount: Float?
+    var completion: ((Bool) -> Void)?
 
     lazy var scrollIndicatorView: LottieView = {
         let view = ScrollIndicatorView(frame: view.bounds)
@@ -26,11 +27,16 @@ class ScrollIndicatorVC: UIViewController {
         guard let repeatCount = repeatCount else {
             return
         }
+        guard let completion = completion else {
+            return
+        }
         scrollIndicatorView.createAndStartLottieAnimation(animation: .swipeLeft,
                                                           animationSpeed: 1,
                                                           frame: view.bounds,
                                                           loopMode: .repeat(repeatCount),
-                                                          contentMode: .scaleAspectFit)
+                                                          contentMode: .scaleAspectFit,
+                                                          completion: completion)
+                                                          
     }
     
 }

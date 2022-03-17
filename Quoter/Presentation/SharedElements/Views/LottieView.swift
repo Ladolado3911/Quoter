@@ -15,7 +15,8 @@ class LottieView: UIView {
                               animationSpeed: CGFloat = 1,
                               frame: CGRect = .zero,
                               loopMode: LottieLoopMode = .loop,
-                              contentMode: UIView.ContentMode = .scaleAspectFit) {
+                              contentMode: UIView.ContentMode = .scaleAspectFit,
+                              completion: ((Bool) -> Void)?) {
 
         lottieAnimation = AnimationView(name: animation.rawValue)
         lottieAnimation.frame = frame
@@ -23,7 +24,13 @@ class LottieView: UIView {
         lottieAnimation.loopMode = loopMode
         lottieAnimation.animationSpeed = animationSpeed
         addSubview(lottieAnimation)
-        lottieAnimation.play()
+        if let completion = completion {
+            let lottieCompletion = completion as! LottieCompletionBlock
+            lottieAnimation.play(completion: lottieCompletion)
+        }
+        else {
+            lottieAnimation.play()
+        }
     }
 
     func stopLottieAnimation() {

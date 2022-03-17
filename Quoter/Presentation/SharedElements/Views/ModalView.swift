@@ -69,7 +69,8 @@ class ModalView: LottieView {
                                       animationSpeed: 0.7,
                                       frame: modalAlertAnimationFinalRect,
                                       loopMode: .loop,
-                                      contentMode: .scaleAspectFill)
+                                      contentMode: .scaleAspectFill,
+                                      completion: nil)
     }
     
     func startAnimating() {
@@ -78,6 +79,7 @@ class ModalView: LottieView {
                                       animationSpeed: 0.7,
                                       frame: loadingAlertAnimationRect,
                                       loopMode: .loop,
-                                      contentMode: .scaleAspectFill)
+                                      contentMode: .scaleAspectFill,
+                                      completion: nil)
     }
 }

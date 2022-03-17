@@ -14,6 +14,7 @@
 		24416B0827E31A4F00B32745 /* swipeLeft.json in Resources */ = {isa = PBXBuildFile; fileRef = 24416B0727E31A4F00B32745 /* swipeLeft.json */; };
 		24416B0A27E31A9D00B32745 /* swipeRight.json in Resources */ = {isa = PBXBuildFile; fileRef = 24416B0927E31A9D00B32745 /* swipeRight.json */; };
 		24416B0C27E31AFA00B32745 /* ScrollIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24416B0B27E31AFA00B32745 /* ScrollIndicatorView.swift */; };
+		2449CBB627E3563900CEC5E5 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2449CBB527E3563900CEC5E5 /* UIApplication+Extension.swift */; };
 		245409F427E0A44C00A95E8E /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245409F327E0A44C00A95E8E /* NotificationVC.swift */; };
 		245409F627E0A47600A95E8E /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245409F527E0A47600A95E8E /* NotificationView.swift */; };
 		245409F827E0A49800A95E8E /* NotificationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245409F727E0A49800A95E8E /* NotificationInteractor.swift */; };
@@ -138,6 +139,7 @@
 		24416B0727E31A4F00B32745 /* swipeLeft.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = swipeLeft.json; sourceTree = "<group>"; };
 		24416B0927E31A9D00B32745 /* swipeRight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = swipeRight.json; sourceTree = "<group>"; };
 		24416B0B27E31AFA00B32745 /* ScrollIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollIndicatorView.swift; sourceTree = "<group>"; };
+		2449CBB527E3563900CEC5E5 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		245409F327E0A44C00A95E8E /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		245409F527E0A47600A95E8E /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		245409F727E0A49800A95E8E /* NotificationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationInteractor.swift; sourceTree = "<group>"; };
@@ -576,6 +578,7 @@
 				24C9A8E727BD2E25001C820F /* UIImage+Extension.swift */,
 				24F7F05C27BFCA0C001FEA75 /* Array+Extension.swift */,
 				24E289F127D23D2800FDB6BB /* String+Extension.swift */,
+				2449CBB527E3563900CEC5E5 /* UIApplication+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -867,6 +870,7 @@
 				245409FA27E0A4AB00A95E8E /* NotificationPresenter.swift in Sources */,
 				24A0D38927A7ED84002286F6 /* CoreDataModel.xcdatamodeld in Sources */,
 				24C12BCE27AAB0230069684D /* ModalAlertView.swift in Sources */,
+				2449CBB627E3563900CEC5E5 /* UIApplication+Extension.swift in Sources */,
 				24B0CF0127D8D4530064F843 /* Common.swift in Sources */,
 				24D128A32790AE0E00AD7F3D /* PublicConstants.swift in Sources */,
 				24E4A8AF27C29480000BB7DB /* QuoteCell.swift in Sources */,
