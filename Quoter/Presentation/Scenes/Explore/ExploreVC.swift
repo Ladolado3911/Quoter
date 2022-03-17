@@ -33,6 +33,7 @@ class ExploreVC: MonitoredVC {
     var counter: Int = 0
     var timer: Timer?
     
+    var comesFromFilter: Bool = true
     var isFirstLaunch: Bool = false
     var tapOnBookGesture: UITapGestureRecognizer {
         let tapOnGesture = UITapGestureRecognizer(target: self,
@@ -154,7 +155,7 @@ class ExploreVC: MonitoredVC {
         invalidateTimer()
         router?.routeToFilters { [weak self] in
             guard let self = self else { return }
-//            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerFire(sender:)), userInfo: nil, repeats: true)
+            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerFire(sender:)), userInfo: nil, repeats: true)
         }
     }
     
@@ -169,7 +170,7 @@ class ExploreVC: MonitoredVC {
                 }
             }
             else {
-                if counter == 15 {
+                if counter == 30 {
                     router?.routeToSwipeHint(repeatCount: 2, delay: 1)
                     invalidateTimer()
                     return
@@ -177,7 +178,7 @@ class ExploreVC: MonitoredVC {
             }
         }
         else {
-            if counter == 15 {
+            if counter == 30 {
                 router?.routeToSwipeHint(repeatCount: 2, delay: 1)
                 invalidateTimer()
                 return
@@ -251,7 +252,6 @@ extension ExploreVC: PresenterToExploreVCProtocol {
         }
         interactor?.isDataLoaded = true
         if isFirstAppearanceOfExploreVC {
-            
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
         }
     }

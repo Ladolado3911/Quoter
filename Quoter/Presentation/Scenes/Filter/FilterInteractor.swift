@@ -19,6 +19,7 @@ protocol VCToFilterInteractorProtocol: AnyObject {
     
     var selectedTagStrings: [String] { get set }
     var dismissClosure: (([String]) -> Void)? { get set }
+    var dismissWithTimerClosure: (() -> Void)? { get set }
     
     func requestToPopulateTags()
     func textTagCollectionView(_ textTagCollectionView: TTGTextTagCollectionView!, didTap tag: TTGTextTag!, at index: UInt)
@@ -41,6 +42,7 @@ class FilterInteractor: VCToFilterInteractorProtocol {
     
     var selectedTagStrings: [String] = []
     var dismissClosure: (([String]) -> Void)?
+    var dismissWithTimerClosure: (() -> Void)?
 
     
     func requestToPopulateTags() {
@@ -123,7 +125,10 @@ class FilterInteractor: VCToFilterInteractorProtocol {
     }
     
     func dismiss() {
-        presenter?.dismiss()
+        if let dismissWithTimerClosure = dismissWithTimerClosure {
+            dismissWithTimerClosure()
+        }
+        //presenter?.dismiss()
     }
     
     

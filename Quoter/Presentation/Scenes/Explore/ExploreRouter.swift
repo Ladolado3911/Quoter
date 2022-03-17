@@ -29,6 +29,9 @@ class ExploreRouter: ExploreRouterProtocol {
         filterVC.interactor?.dismissClosure = { selectedFilters in
             exploreVC.interactor!.selectedFilters = selectedFilters
             exploreVC.interactor!.resetInitialData()
+            exploreVC.dismiss(animated: true)
+        }
+        filterVC.interactor?.dismissWithTimerClosure = {
             exploreVC.dismiss(animated: true) {
                 if let completion = completion {
                     completion()

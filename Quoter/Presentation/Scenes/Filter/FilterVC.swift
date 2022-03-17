@@ -167,9 +167,9 @@ class FilterVC: UIViewController {
     }
     
     @objc func didTapOnClose(sender: UIButton) {
-        demolish { [weak self] in
+        interactor?.demolishView { [weak self] in
             guard let self = self else { return }
-            self.dismiss(animated: true)
+            self.interactor?.dismiss()
         }
     }
     
