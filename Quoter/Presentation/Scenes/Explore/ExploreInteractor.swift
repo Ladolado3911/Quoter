@@ -42,11 +42,7 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         }
     }
     
-    var currentPage: Int = 0 {
-        didSet {
-            //print(currentPage)
-        }
-    }
+    var currentPage: Int = 0
     var capturedCurrentPage: Int = 0
 
     func requestDisplayNewData(edges: (Int, Int)) {

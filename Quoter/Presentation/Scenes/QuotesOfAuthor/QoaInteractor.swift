@@ -15,6 +15,7 @@ protocol VCToQoaInteractorProtocol {
     var networkAuthorImage: UIImage? { get set }
     var authorName: String? { get set }
     var author: AuthorCoreVM? { get set }
+    var dismissWithTimerClosure: (() -> Void)? { get set }
     
     var authorsVCreloadDataClosure: (() -> Void)? { get set }
     
@@ -38,6 +39,7 @@ class QoaInteractor: VCToQoaInteractorProtocol {
     var authorsVCreloadDataClosure: (() -> Void)?
     
     let defaultImage = UIImage(named: "testUpperQuotism")
+    var dismissWithTimerClosure: (() -> Void)?
     var state: QuotesOfAuthorVCState = .coreData {
         didSet {
             presenter?.updateViewState(state: state)
@@ -179,6 +181,11 @@ class QoaInteractor: VCToQoaInteractorProtocol {
     }
     
     func requestToDismissView() {
-        presenter?.dismissView {}
+        presenter?.dismissView { [weak self] in
+            guard let self = self else { return }
+            if let dismissWithTimerClosure = self.dismissWithTimerClosure {
+                dismissWithTimerClosure()
+            }
+        }
     }
 }

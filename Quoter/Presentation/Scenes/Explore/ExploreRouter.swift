@@ -46,6 +46,7 @@ class ExploreRouter: ExploreRouterProtocol {
         let destVC = QoaVC()
         destVC.modalTransitionStyle = .coverVertical
         destVC.modalPresentationStyle = .overCurrentContext
+        destVC.interactor?.dismissWithTimerClosure = completion
         destVC.interactor?.networkQuotesArr = resultTuple.0
         destVC.interactor?.state = .network
         destVC.interactor?.networkAuthorImage = resultTuple.1.0
