@@ -12,6 +12,13 @@ import Firebase
 protocol VCToExploreInteractorProtocol: AnyObject {
     var presenter: InteractorToExplorePresenterProtocol? { get set }
     
+    var isFirstAppearanceOfExploreVC: Bool { get set }
+    var counter: Int { get set }
+    var timer: Timer? { get set }
+    var comesFromFilter: Bool { get set }
+    var isFirstLaunch: Bool { get set }
+    var isCounterFirstLaunchForDeviceFirstLaunch: Bool { get set }
+    
     var loadedVMs: [QuoteGardenQuoteVM] { get set }
     var loadedImages: [UIImage?] { get set }
     var selectedFilters: [String] { get set }
@@ -25,12 +32,20 @@ protocol VCToExploreInteractorProtocol: AnyObject {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView, completion: @escaping () -> Void)
     func requestDisplayInitialData()
     func resetInitialData()
+    func invalidateTimer()
     func requestDisplayNewData(edges: (Int, Int))
     func requestNewData(edges: (Int, Int), offsetOfPage: Int)
 }
 
 class ExploreInteractor: VCToExploreInteractorProtocol {
     var presenter: InteractorToExplorePresenterProtocol?
+    
+    var isFirstAppearanceOfExploreVC: Bool = true
+    var counter: Int = 0
+    var timer: Timer?
+    var comesFromFilter: Bool = true
+    var isFirstLaunch: Bool = false
+    var isCounterFirstLaunchForDeviceFirstLaunch: Bool = true
     
     var loadedVMs: [QuoteGardenQuoteVM] = []
     var loadedImages: [UIImage?] = []
@@ -44,6 +59,12 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
     
     var currentPage: Int = 0
     var capturedCurrentPage: Int = 0
+    
+    func invalidateTimer() {
+        timer?.invalidate()
+        timer = nil
+        counter = 0
+    }
 
     func requestDisplayNewData(edges: (Int, Int)) {
         let contentWorker = ExploreContentWorker()

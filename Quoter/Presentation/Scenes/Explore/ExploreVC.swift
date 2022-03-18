@@ -29,19 +29,11 @@ class ExploreVC: MonitoredVC {
     var interactor: VCToExploreInteractorProtocol?
     var router: ExploreRouterProtocol?
 
-    var isFirstAppearanceOfExploreVC: Bool = true
-    var counter: Int = 0
-    var timer: Timer?
-    
-    var comesFromFilter: Bool = true
-    var isFirstLaunch: Bool = false
     var tapOnBookGesture: UITapGestureRecognizer {
         let tapOnGesture = UITapGestureRecognizer(target: self,
                                                   action: #selector(didTapOnBook(sender:)))
         return tapOnGesture
     }
-    
-    var isCounterFirstLaunchForDeviceFirstLaunch: Bool = true
     
     var tapOnFilterGesture: UITapGestureRecognizer {
         let tapOnGesture = UITapGestureRecognizer(target: self,
@@ -68,7 +60,7 @@ class ExploreVC: MonitoredVC {
         super.loadView()
         view = exploreView
         if !UIApplication.isAppAlreadyLaunchedOnce() {
-            self.isFirstLaunch = true
+            self.interactor?.isFirstLaunch = true
         }
     }
     
@@ -116,9 +108,8 @@ class ExploreVC: MonitoredVC {
         super.viewDidAppear(animated)
         guard let isDataLoaded = interactor?.isDataLoaded else { return }
         if isDataLoaded {
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
+            interactor?.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
         }
-        //print("did appear")
         //interactor?.requestToTrack()
     }
 
@@ -128,64 +119,58 @@ class ExploreVC: MonitoredVC {
             exploreView.stopLottieAnimation()
             exploreView.lottieAnimation = nil
         }
-        if timer != nil {
-            invalidateTimer()
+        if interactor?.timer != nil {
+            interactor?.invalidateTimer()
         }
-        isFirstAppearanceOfExploreVC = false
+        interactor?.isFirstAppearanceOfExploreVC = false
         print("will dissapear")
-    }
-    
-    private func invalidateTimer() {
-        timer?.invalidate()
-        timer = nil
-        counter = 0
     }
     
     @objc func didTapOnBook(sender: UITapGestureRecognizer) {
         Analytics.logEvent("did_tap_on_book", parameters: nil)
-        invalidateTimer()
+        interactor?.invalidateTimer()
         router?.routeToModalAlertVC(quoteVM: interactor!.loadedVMs[interactor!.currentPage]) { [weak self] in
             guard let self = self else { return }
-            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerFire(sender:)), userInfo: nil, repeats: true)
+            self.interactor?.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerFire(sender:)), userInfo: nil, repeats: true)
         }
     }
     
     @objc func didTapOnFilter(sender: UITapGestureRecognizer) {
         Analytics.logEvent("did_tap_on_filter", parameters: nil)
-        invalidateTimer()
+        interactor?.invalidateTimer()
         router?.routeToFilters { [weak self] in
             guard let self = self else { return }
-            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerFire(sender:)), userInfo: nil, repeats: true)
+            self.interactor?.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerFire(sender:)), userInfo: nil, repeats: true)
         }
     }
     
     @objc func timerFire(sender: Timer) {
-        if isFirstLaunch {
-            if isCounterFirstLaunchForDeviceFirstLaunch {
-                if counter == 2 {
+        if interactor!.isFirstLaunch {
+            if interactor!.isCounterFirstLaunchForDeviceFirstLaunch {
+                if interactor?.counter == 2 {
                     router?.routeToSwipeHint(repeatCount: 2, delay: 1)
-                    invalidateTimer()
-                    isCounterFirstLaunchForDeviceFirstLaunch = false
+                    interactor?.invalidateTimer()
+                    interactor?.isCounterFirstLaunchForDeviceFirstLaunch = false
                     return
                 }
             }
             else {
-                if counter == 30 {
+                if interactor?.counter == 22 {
                     router?.routeToSwipeHint(repeatCount: 2, delay: 1)
-                    invalidateTimer()
+                    interactor?.invalidateTimer()
                     return
                 }
             }
         }
         else {
-            if counter == 30 {
+            if interactor?.counter == 22 {
                 router?.routeToSwipeHint(repeatCount: 2, delay: 1)
-                invalidateTimer()
+                interactor?.invalidateTimer()
                 return
             }
         }
-        counter += 1
-        print(counter)
+        interactor?.counter += 1
+        print(interactor?.counter)
     }
 }
 
@@ -216,8 +201,8 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        invalidateTimer()
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
+        interactor?.invalidateTimer()
+        interactor?.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
         interactor?.scrollViewDidEndDecelerating(scrollView) { [weak self] in
             guard let self = self else { return }
             Analytics.logEvent("did_scroll", parameters: nil)
@@ -251,8 +236,8 @@ extension ExploreVC: PresenterToExploreVCProtocol {
             exploreView.stopLottieAnimation()
         }
         interactor?.isDataLoaded = true
-        if isFirstAppearanceOfExploreVC {
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
+        if interactor!.isFirstAppearanceOfExploreVC {
+            interactor?.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
         }
     }
     
