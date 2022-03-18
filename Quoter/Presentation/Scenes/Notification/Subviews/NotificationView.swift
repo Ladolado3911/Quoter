@@ -19,24 +19,36 @@ class NotificationView: UIView {
         return button
     }()
     
-    let headlineLabel: UILabel = {
+    let workInProgressLabel: UILabel = {
         let label = UILabel()
-        label.text = "Reminders"
-        label.font = UIFont(name: "Arial Rounded MT Bold", size: 15)
-        label.textColor = .black
+        label.text = "Reminders coming soon..."
+        label.textColor = .gray
+        label.font = UIFont(name: "Arial Rounded MT Bold", size: 25)
+        label.backgroundColor = .white
         label.textAlignment = .center
-        label.numberOfLines = 2
         label.alpha = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
-    let switchButton: UISwitch = {
-        let switchButton = UISwitch()
-        switchButton.translatesAutoresizingMaskIntoConstraints = false
-        switchButton.alpha = 0
-        return switchButton
-    }()
+    
+//    let headlineLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "Reminders"
+//        label.font = UIFont(name: "Arial Rounded MT Bold", size: 15)
+//        label.textColor = .black
+//        label.textAlignment = .center
+//        label.numberOfLines = 2
+//        label.alpha = 0
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
+//
+//    let switchButton: UISwitch = {
+//        let switchButton = UISwitch()
+//        switchButton.translatesAutoresizingMaskIntoConstraints = false
+//        switchButton.alpha = 0
+//        return switchButton
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,8 +73,9 @@ class NotificationView: UIView {
     
     private func buildSubviews() {
         addSubview(closeButton)
-        addSubview(headlineLabel)
-        addSubview(switchButton)
+        addSubview(workInProgressLabel)
+//        addSubview(headlineLabel)
+//        addSubview(switchButton)
     }
     
     private func buildConstraints() {
@@ -75,15 +88,22 @@ class NotificationView: UIView {
             closeButton.widthAnchor.constraint(equalToConstant: PublicConstants.screenHeight * 0.05),
             closeButton.heightAnchor.constraint(equalToConstant: PublicConstants.screenHeight * 0.05),
             
-            headlineLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            headlineLabel.topAnchor.constraint(equalTo: closeButton.topAnchor),
-            headlineLabel.widthAnchor.constraint(equalToConstant: parentFinalFrame.width * 0.4),
-            headlineLabel.heightAnchor.constraint(equalTo: closeButton.heightAnchor),
-
-            switchButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 15),
-            switchButton.centerYAnchor.constraint(equalTo: headlineLabel.centerYAnchor, constant: 5),
-            switchButton.widthAnchor.constraint(equalToConstant: 100),
-            switchButton.heightAnchor.constraint(equalTo: closeButton.heightAnchor),
+//            workInProgressLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            workInProgressLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            workInProgressLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            workInProgressLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            workInProgressLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor),
+            workInProgressLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
+            
+//            headlineLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            headlineLabel.topAnchor.constraint(equalTo: closeButton.topAnchor),
+//            headlineLabel.widthAnchor.constraint(equalToConstant: parentFinalFrame.width * 0.4),
+//            headlineLabel.heightAnchor.constraint(equalTo: closeButton.heightAnchor),
+//
+//            switchButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 15),
+//            switchButton.centerYAnchor.constraint(equalTo: headlineLabel.centerYAnchor, constant: 5),
+//            switchButton.widthAnchor.constraint(equalToConstant: 100),
+//            switchButton.heightAnchor.constraint(equalTo: closeButton.heightAnchor),
             
             
         ])
@@ -91,13 +111,15 @@ class NotificationView: UIView {
     
     func buildView() {
         self.closeButton.alpha = 0
-        self.headlineLabel.alpha = 0
-        self.switchButton.alpha = 0
+        self.workInProgressLabel.alpha = 0
+//        self.headlineLabel.alpha = 0
+//        self.switchButton.alpha = 0
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let self = self else { return }
             self.closeButton.alpha = 1
-            self.headlineLabel.alpha = 1
-            self.switchButton.alpha = 1
+            self.workInProgressLabel.alpha = 1
+//            self.headlineLabel.alpha = 1
+//            self.switchButton.alpha = 1
         }
     }
     
@@ -105,8 +127,9 @@ class NotificationView: UIView {
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let self = self else { return }
             self.closeButton.alpha = 0
-            self.headlineLabel.alpha = 0
-            self.switchButton.alpha = 0
+            self.workInProgressLabel.alpha = 0
+//            self.headlineLabel.alpha = 0
+//            self.switchButton.alpha = 0
         } completion: { didFinish in
             if didFinish {
                 completion()

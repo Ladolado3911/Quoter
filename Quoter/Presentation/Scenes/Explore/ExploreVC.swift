@@ -155,7 +155,7 @@ class ExploreVC: MonitoredVC {
                 }
             }
             else {
-                if interactor?.counter == 13 {
+                if interactor?.counter == 20 {
                     router?.routeToSwipeHint(repeatCount: 2, delay: 1)
                     interactor?.invalidateTimer()
                     return
@@ -163,14 +163,13 @@ class ExploreVC: MonitoredVC {
             }
         }
         else {
-            if interactor?.counter == 13 {
+            if interactor?.counter == 20 {
                 router?.routeToSwipeHint(repeatCount: 2, delay: 1)
                 interactor?.invalidateTimer()
                 return
             }
         }
         interactor?.counter += 1
-        print(interactor?.counter)
     }
 }
 
