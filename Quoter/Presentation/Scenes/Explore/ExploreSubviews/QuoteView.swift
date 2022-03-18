@@ -32,6 +32,13 @@ class QuoteView: LottieView {
         return filterView
     }()
     
+    lazy var ideaButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "IdeaOff"), for: .normal)
+        button.setImage(UIImage(named: "IdeaOn"), for: .selected)
+        return button
+    }()
+    
     lazy var quoteTextView: UILabel = {
         let quoteTextView = UILabel()
         let font = UIFont(name: "Kalam-Regular", size: 35)
@@ -76,6 +83,7 @@ class QuoteView: LottieView {
         addSubview(authorLabel)
         addSubview(quotesOfAuthorButton)
         addSubview(filtersButton)
+        addSubview(ideaButton)
     }
 
     private func buildConstraints() {
@@ -104,7 +112,14 @@ class QuoteView: LottieView {
         }
         authorLabel.snp.makeConstraints { make in
             make.left.right.equalTo(self)
-            make.bottom.equalTo(self).inset(PublicConstants.screenHeight * 0.19)
+            make.top.equalTo(quoteTextView.snp.bottom).inset(-15)//inset(PublicConstants.screenHeight * 0.19)
+            make.height.equalTo(20)
+        }
+        ideaButton.snp.makeConstraints { make in
+            make.centerX.equalTo(self)
+            make.top.equalTo(authorLabel.snp.bottom)
+            make.bottom.equalTo(self).inset(PublicConstants.screenHeight * 0.0739 + 20)
+            make.width.equalTo(PublicConstants.screenHeight * 0.0968)
         }
     }
 }

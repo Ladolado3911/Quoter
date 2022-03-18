@@ -30,8 +30,11 @@ extension Array where Element == Sound {
 }
 
 extension Array {
-    mutating func leaveOnlyLast(){
+    mutating func leaveOnlyLast() {
         for item in 0..<self.count - 1 {
+            if item >= self.count {
+                continue
+            }
             self.remove(at: item)
         }
     }
