@@ -41,6 +41,11 @@ class ExploreVC: MonitoredVC {
                                                   action: #selector(didTapOnFilter(sender:)))
         return tapOnGesture
     }
+    
+    var tapOnIdeaGesture: UITapGestureRecognizer {
+        let tapOnGesture = UITapGestureRecognizer(target: self,
+                                                  action: <#T##Selector?#>)
+    }
 
     lazy var exploreView: ExploreView = {
         let view = ExploreView(frame: view.bounds)
@@ -142,6 +147,11 @@ class ExploreVC: MonitoredVC {
             guard let self = self else { return }
             self.interactor?.requestToSetTimer()
         }
+    }
+    
+    @objc func onIdeaButton(sender: UIButton) {
+        Analytics.logEvent("did_tap_on_Idea", parameters: nil)
+        interactor?.requestToChangeIdeaState(isSwitchButtonSelected: sender.isSelected)
     }
     
     @objc func timerFire(sender: Timer) {

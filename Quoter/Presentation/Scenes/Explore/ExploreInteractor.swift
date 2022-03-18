@@ -40,6 +40,7 @@ protocol VCToExploreInteractorProtocol: AnyObject {
     func requestDisplayNewData(edges: (Int, Int))
     func requestNewData(edges: (Int, Int), offsetOfPage: Int)
     func requestToSetTimer()
+    func requestToChangeIdeaState(isSwitchButtonSelected: Bool)
 }
 
 //MARK: Explore Interactor Class
@@ -78,6 +79,27 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
     
     func requestToSetTimer() {
         presenter?.setTimer()
+    }
+    
+    func requestToChangeIdeaState(isSwitchButtonSelected: Bool) {
+        let quoteVMM = loadedVMs[currentPage]
+        let modalAlertImageWorker = ModalAlertImageWorker()
+        
+        let image: UIImage? = networkAuthorImage == nil ? defaultImage : networkAuthorImage
+        if let image = image {
+            if isSwitchButtonSelected {
+                CoreDataWorker.removePair(quoteVM: quoteVMM)
+            }
+            else {
+                Sound.idea.play(extensionString: .mp3)
+                CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
+            }
+            collectionViewUpdateSubject.send {}
+            presenter?.formatIdeaChange()
+        }
+        else {
+            print("Could not unwrap")
+        }
     }
 
     func requestDisplayNewData(edges: (Int, Int)) {
