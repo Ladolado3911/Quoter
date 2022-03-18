@@ -21,7 +21,7 @@ class NotificationView: UIView {
     
     let headlineLabel: UILabel = {
         let label = UILabel()
-        label.text = "Notifications"
+        label.text = "Reminders"
         label.font = UIFont(name: "Arial Rounded MT Bold", size: 15)
         label.textColor = .black
         label.textAlignment = .center
@@ -30,18 +30,7 @@ class NotificationView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    let stateLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Turn On/Off"
-        label.font = UIFont(name: "Arial", size: 15)
-        label.textColor = .black
-        label.backgroundColor = .white
-        label.alpha = 0
-        return label
-    }()
-    
+
     let switchButton: UISwitch = {
         let switchButton = UISwitch()
         switchButton.translatesAutoresizingMaskIntoConstraints = false
@@ -73,7 +62,6 @@ class NotificationView: UIView {
     private func buildSubviews() {
         addSubview(closeButton)
         addSubview(headlineLabel)
-        addSubview(stateLabel)
         addSubview(switchButton)
     }
     
@@ -84,36 +72,31 @@ class NotificationView: UIView {
         NSLayoutConstraint.activate([
             closeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             closeButton.topAnchor.constraint(equalTo: topAnchor, constant: 15),
-            closeButton.widthAnchor.constraint(equalToConstant: PublicConstants.screenHeight * 0.045),
-            closeButton.heightAnchor.constraint(equalToConstant: PublicConstants.screenHeight * 0.045),
+            closeButton.widthAnchor.constraint(equalToConstant: PublicConstants.screenHeight * 0.05),
+            closeButton.heightAnchor.constraint(equalToConstant: PublicConstants.screenHeight * 0.05),
             
-            headlineLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: parentFinalFrame.width / 2 - ((parentFinalFrame.width * 0.6) / 2)),
-            headlineLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
-            headlineLabel.widthAnchor.constraint(equalToConstant: parentFinalFrame.width * 0.6),
-            headlineLabel.heightAnchor.constraint(equalToConstant: parentFinalFrame.height * 0.10),
-            
-            stateLabel.leadingAnchor.constraint(equalTo: closeButton.leadingAnchor),
-            stateLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 20),
-            stateLabel.widthAnchor.constraint(equalToConstant: 50),
-            stateLabel.heightAnchor.constraint(equalToConstant: 10),
-            
-            switchButton.leadingAnchor.constraint(equalTo: stateLabel.trailingAnchor, constant: 20),
-            switchButton.topAnchor.constraint(equalTo: stateLabel.topAnchor),
+            headlineLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            headlineLabel.topAnchor.constraint(equalTo: closeButton.topAnchor),
+            headlineLabel.widthAnchor.constraint(equalToConstant: parentFinalFrame.width * 0.4),
+            headlineLabel.heightAnchor.constraint(equalTo: closeButton.heightAnchor),
+
+            switchButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 15),
+            switchButton.centerYAnchor.constraint(equalTo: headlineLabel.centerYAnchor, constant: 5),
             switchButton.widthAnchor.constraint(equalToConstant: 100),
-            switchButton.heightAnchor.constraint(equalTo: stateLabel.heightAnchor),
+            switchButton.heightAnchor.constraint(equalTo: closeButton.heightAnchor),
+            
+            
         ])
     }
     
     func buildView() {
         self.closeButton.alpha = 0
         self.headlineLabel.alpha = 0
-        self.stateLabel.alpha = 0
         self.switchButton.alpha = 0
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let self = self else { return }
             self.closeButton.alpha = 1
             self.headlineLabel.alpha = 1
-            self.stateLabel.alpha = 1
             self.switchButton.alpha = 1
         }
     }
@@ -123,7 +106,6 @@ class NotificationView: UIView {
             guard let self = self else { return }
             self.closeButton.alpha = 0
             self.headlineLabel.alpha = 0
-            self.stateLabel.alpha = 0
             self.switchButton.alpha = 0
         } completion: { didFinish in
             if didFinish {

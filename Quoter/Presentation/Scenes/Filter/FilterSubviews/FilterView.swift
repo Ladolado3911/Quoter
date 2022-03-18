@@ -55,7 +55,7 @@ class FilterView: UIView {
         guard let parentFinalFrame = parentFinalFrame else {
             return nil
         }
-        let size: CGFloat = PublicConstants.screenHeight * 0.045
+        let size: CGFloat = PublicConstants.screenHeight * 0.05
         let x: CGFloat = collectionViewFinalFrame!.minX
         let y = (deselectButtonFinalFrame!.minY + deselectButtonFinalFrame!.height / 2) - (size / 2)
         let frame = CGRect(x: x, y: y, width: size, height: size)
