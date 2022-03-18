@@ -6,11 +6,15 @@
 //
 
 import UIKit
-//import AppTrackingTransparency
 import Firebase
 
+//MARK: Explore Interactor Protocol
+
 protocol VCToExploreInteractorProtocol: AnyObject {
+    
     var presenter: InteractorToExplorePresenterProtocol? { get set }
+    
+    //MARK: Explore Interactor Protocol Properties
     
     var isFirstAppearanceOfExploreVC: Bool { get set }
     var counter: Int { get set }
@@ -18,15 +22,15 @@ protocol VCToExploreInteractorProtocol: AnyObject {
     var comesFromFilter: Bool { get set }
     var isFirstLaunch: Bool { get set }
     var isCounterFirstLaunchForDeviceFirstLaunch: Bool { get set }
-    
     var loadedVMs: [QuoteGardenQuoteVM] { get set }
     var loadedImages: [UIImage?] { get set }
     var selectedFilters: [String] { get set }
     var isLoadNewDataFunctionRunning: Bool { get set }
     var isDataLoaded: Bool  { get set }
-    
     var currentPage: Int { get set }
     var capturedCurrentPage: Int { get set }
+    
+    //MARK: Explore Interactor Protocol Methods
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath, bookGesture: UITapGestureRecognizer, filterGesture: UITapGestureRecognizer) -> UICollectionViewCell
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView, completion: @escaping () -> Void)
@@ -35,10 +39,16 @@ protocol VCToExploreInteractorProtocol: AnyObject {
     func invalidateTimer()
     func requestDisplayNewData(edges: (Int, Int))
     func requestNewData(edges: (Int, Int), offsetOfPage: Int)
+    func requestToSetTimer()
 }
 
+//MARK: Explore Interactor Class
+
 class ExploreInteractor: VCToExploreInteractorProtocol {
+    
     var presenter: InteractorToExplorePresenterProtocol?
+    
+    //MARK: Explore Interactor Class Properties
     
     var isFirstAppearanceOfExploreVC: Bool = true
     var counter: Int = 0
@@ -46,7 +56,6 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
     var comesFromFilter: Bool = true
     var isFirstLaunch: Bool = false
     var isCounterFirstLaunchForDeviceFirstLaunch: Bool = true
-    
     var loadedVMs: [QuoteGardenQuoteVM] = []
     var loadedImages: [UIImage?] = []
     var selectedFilters: [String] = [""]
@@ -56,14 +65,19 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
             isDataLoadedSubject.send(isDataLoaded)
         }
     }
-    
     var currentPage: Int = 0
     var capturedCurrentPage: Int = 0
+    
+    //MARK: Explore Interactor Class Methods
     
     func invalidateTimer() {
         timer?.invalidate()
         timer = nil
         counter = 0
+    }
+    
+    func requestToSetTimer() {
+        presenter?.setTimer()
     }
 
     func requestDisplayNewData(edges: (Int, Int)) {

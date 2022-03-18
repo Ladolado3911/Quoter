@@ -141,7 +141,13 @@ class TabbarController: UIViewController {
     }
     
     @objc func onBellIcon(sender: UIButton) {
+        Analytics.logEvent("did_tap_on_notifications", parameters: nil)
         let vc = NotificationVC()
+        let exploreVC = viewControllers.filter { ($0 as? PresenterToExploreVCProtocol) != nil }[0] as? PresenterToExploreVCProtocol
+        exploreVC?.interactor?.invalidateTimer()
+        vc.interactor?.setTimerClosure = {
+            exploreVC?.setTimer()
+        }
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .custom
         present(vc, animated: true)
@@ -158,7 +164,6 @@ extension TabbarController: AVAudioPlayerDelegate {
             currentPlayer = optionalMusic?.player
             currentPlayer?.play()
         }
-        
     }
 }
 

@@ -13,6 +13,7 @@ protocol InteractorToExplorePresenterProtocol: AnyObject {
     func formatData(quoteModels: [QuoteGardenQuoteModel], images: [UIImage?])
     func formatNewData(currentVMs: [QuoteGardenQuoteVM], capturedPage: Int, edges: (Int, Int), quoteModels: [QuoteGardenQuoteModel], images: [UIImage?])
     func startAnimating()
+    func setTimer()
 }
 
 class ExplorePresenter: InteractorToExplorePresenterProtocol {
@@ -42,5 +43,9 @@ class ExplorePresenter: InteractorToExplorePresenterProtocol {
     
     func startAnimating() {
         vc?.startAnimating()
+    }
+    
+    func setTimer() {
+        vc?.setTimer()
     }
 }

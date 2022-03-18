@@ -22,6 +22,7 @@ protocol PresenterToExploreVCProtocol: AnyObject {
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
                         indexPaths: [IndexPath])
+    func setTimer()
 }
 
 class ExploreVC: MonitoredVC {
@@ -108,7 +109,7 @@ class ExploreVC: MonitoredVC {
         super.viewDidAppear(animated)
         guard let isDataLoaded = interactor?.isDataLoaded else { return }
         if isDataLoaded {
-            interactor?.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
+            interactor?.requestToSetTimer()
         }
         //interactor?.requestToTrack()
     }
@@ -123,7 +124,6 @@ class ExploreVC: MonitoredVC {
             interactor?.invalidateTimer()
         }
         interactor?.isFirstAppearanceOfExploreVC = false
-        print("will dissapear")
     }
     
     @objc func didTapOnBook(sender: UITapGestureRecognizer) {
@@ -131,7 +131,7 @@ class ExploreVC: MonitoredVC {
         interactor?.invalidateTimer()
         router?.routeToModalAlertVC(quoteVM: interactor!.loadedVMs[interactor!.currentPage]) { [weak self] in
             guard let self = self else { return }
-            self.interactor?.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerFire(sender:)), userInfo: nil, repeats: true)
+            self.interactor?.requestToSetTimer()
         }
     }
     
@@ -140,7 +140,7 @@ class ExploreVC: MonitoredVC {
         interactor?.invalidateTimer()
         router?.routeToFilters { [weak self] in
             guard let self = self else { return }
-            self.interactor?.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerFire(sender:)), userInfo: nil, repeats: true)
+            self.interactor?.requestToSetTimer()
         }
     }
     
@@ -155,7 +155,7 @@ class ExploreVC: MonitoredVC {
                 }
             }
             else {
-                if interactor?.counter == 22 {
+                if interactor?.counter == 13 {
                     router?.routeToSwipeHint(repeatCount: 2, delay: 1)
                     interactor?.invalidateTimer()
                     return
@@ -163,7 +163,7 @@ class ExploreVC: MonitoredVC {
             }
         }
         else {
-            if interactor?.counter == 22 {
+            if interactor?.counter == 13 {
                 router?.routeToSwipeHint(repeatCount: 2, delay: 1)
                 interactor?.invalidateTimer()
                 return
@@ -202,7 +202,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         interactor?.invalidateTimer()
-        interactor?.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
+        interactor?.requestToSetTimer()
         interactor?.scrollViewDidEndDecelerating(scrollView) { [weak self] in
             guard let self = self else { return }
             Analytics.logEvent("did_scroll", parameters: nil)
@@ -237,12 +237,16 @@ extension ExploreVC: PresenterToExploreVCProtocol {
         }
         interactor?.isDataLoaded = true
         if interactor!.isFirstAppearanceOfExploreVC {
-            interactor?.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
+            interactor?.requestToSetTimer()
         }
     }
     
     func startAnimating() {
         exploreView.collectionView.reloadData()
         exploreView.startAnimating()
+    }
+    
+    func setTimer() {
+        interactor?.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
     }
 }

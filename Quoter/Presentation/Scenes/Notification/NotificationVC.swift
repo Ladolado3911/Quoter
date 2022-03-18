@@ -12,7 +12,7 @@ protocol PresenterToNotificationVCProtocol: AnyObject {
     var interactor: VCToNotificationInteractorProtocol? { get set }
     
     func demolish(completion: @escaping () -> Void)
-    func dismiss()
+    func dismiss(completion: @escaping () -> Void)
 }
 
 class NotificationVC: UIViewController {
@@ -117,7 +117,9 @@ extension NotificationVC: PresenterToNotificationVCProtocol {
         }
     }
     
-    func dismiss() {
-        dismiss(animated: true)
+    func dismiss(completion: @escaping () -> Void) {
+        dismiss(animated: true) {
+            completion()
+        }
     }
 }

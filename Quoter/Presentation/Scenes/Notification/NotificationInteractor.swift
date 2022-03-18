@@ -11,6 +11,8 @@ protocol VCToNotificationInteractorProtocol: AnyObject {
     
     var presenter: InteractorToNotificationPresenterProtocol? { get set }
     
+    var setTimerClosure: (() -> Void)? { get set }
+    
     func demolishView(completion: @escaping () -> Void)
     func dismiss()
     
@@ -20,12 +22,15 @@ class NotificationInteractor: VCToNotificationInteractorProtocol {
     
     var presenter: InteractorToNotificationPresenterProtocol?
     
+    var setTimerClosure: (() -> Void)?
+    
     func demolishView(completion: @escaping () -> Void) {
         presenter?.demolish(completion: completion)
     }
     
     func dismiss() {
-        presenter?.dismiss()
+        if let setTimerClosure = setTimerClosure {
+            presenter?.dismiss(completion: setTimerClosure)
+        }
     }
-    
 }

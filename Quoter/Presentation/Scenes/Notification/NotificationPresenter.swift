@@ -12,7 +12,7 @@ protocol InteractorToNotificationPresenterProtocol: AnyObject {
     var vc: PresenterToNotificationVCProtocol? { get set }
     
     func demolish(completion: @escaping () -> Void)
-    func dismiss()
+    func dismiss(completion: @escaping () -> Void)
     
 }
 
@@ -24,7 +24,7 @@ class NotificationPresenter: InteractorToNotificationPresenterProtocol {
         vc?.demolish(completion: completion)
     }
     
-    func dismiss() {
-        vc?.dismiss()
+    func dismiss(completion: @escaping () -> Void) {
+        vc?.dismiss(completion: completion)
     }
 }
