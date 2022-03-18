@@ -122,8 +122,8 @@ class TabbarController: UIViewController {
     }
     
     @objc func onMusicIcon(sender: UIButton) {
-        sender.isUserInteractionEnabled = false
         Analytics.logEvent("did_tap_on_music", parameters: nil)
+        sender.isUserInteractionEnabled = false
         sender.isSelected = !sender.isSelected
         let optionalMusic = arr.uniqueRandomElement(isEnabling: sender.isSelected)
         if let currentPlayer1 = currentPlayer {
@@ -146,7 +146,9 @@ class TabbarController: UIViewController {
         let exploreVC = viewControllers.filter { ($0 as? PresenterToExploreVCProtocol) != nil }[0] as? PresenterToExploreVCProtocol
         exploreVC?.interactor?.invalidateTimer()
         vc.interactor?.setTimerClosure = {
-            exploreVC?.setTimer()
+            if exploreVC?.interactor?.timer == nil {
+                exploreVC?.setTimer()
+            }
         }
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .custom

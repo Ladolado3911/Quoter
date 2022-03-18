@@ -38,12 +38,14 @@ class NotificationView: UIView {
         label.font = UIFont(name: "Arial", size: 15)
         label.textColor = .black
         label.backgroundColor = .white
+        label.alpha = 0
         return label
     }()
     
     let switchButton: UISwitch = {
         let switchButton = UISwitch()
         switchButton.translatesAutoresizingMaskIntoConstraints = false
+        switchButton.alpha = 0
         return switchButton
     }()
     
