@@ -56,6 +56,7 @@ class NotificationVC: UIViewController {
     
     override func loadView() {
         super.loadView()
+        Sound.pop.play(extensionString: .wav)
         darkView.addGestureRecognizer(tapOnBackgroundGesture)
     }
     

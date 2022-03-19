@@ -26,6 +26,7 @@ class NotificationView: UIView {
         label.font = UIFont(name: "Arial Rounded MT Bold", size: 25)
         label.backgroundColor = .white
         label.textAlignment = .center
+        label.numberOfLines = 2
         label.alpha = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
