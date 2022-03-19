@@ -108,11 +108,11 @@ class QuoteView: LottieView {
         quoteTextView.snp.makeConstraints { make in
             make.left.right.equalTo(self).inset(20)
             make.centerY.equalTo(self)
-            make.height.equalTo(300)
+            make.height.equalTo(PublicConstants.screenHeight * 0.31088)
         }
         authorLabel.snp.makeConstraints { make in
             make.left.right.equalTo(self)
-            make.top.equalTo(quoteTextView.snp.bottom).inset(-15)//inset(PublicConstants.screenHeight * 0.19)
+            make.top.equalTo(quoteTextView.snp.bottom).inset(-PublicConstants.screenHeight * 0.015544)//inset(PublicConstants.screenHeight * 0.19)
             make.height.equalTo(20)
         }
         ideaButton.snp.makeConstraints { make in

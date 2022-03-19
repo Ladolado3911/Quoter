@@ -23,6 +23,7 @@ protocol PresenterToExploreVCProtocol: AnyObject {
                         loadedImages: [UIImage?],
                         indexPaths: [IndexPath])
     func setTimer()
+    func displayIdeaChange()
 }
 
 class ExploreVC: MonitoredVC {
@@ -44,7 +45,8 @@ class ExploreVC: MonitoredVC {
     
     var tapOnIdeaGesture: UITapGestureRecognizer {
         let tapOnGesture = UITapGestureRecognizer(target: self,
-                                                  action: <#T##Selector?#>)
+                                                  action: #selector(onIdeaButton(sender:)))
+        return tapOnGesture
     }
 
     lazy var exploreView: ExploreView = {
@@ -116,6 +118,10 @@ class ExploreVC: MonitoredVC {
         if isDataLoaded {
             interactor?.requestToSetTimer()
         }
+        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
+            let ideaButton = currentCell.quoteView.ideaButton
+            ideaButton.isSelected = CoreDataWorker.isQuoteInCoreData(quoteVM: interactor!.loadedVMs[interactor!.currentPage])
+        }
         //interactor?.requestToTrack()
     }
 
@@ -149,9 +155,12 @@ class ExploreVC: MonitoredVC {
         }
     }
     
-    @objc func onIdeaButton(sender: UIButton) {
+    @objc func onIdeaButton(sender: UITapGestureRecognizer) {
         Analytics.logEvent("did_tap_on_Idea", parameters: nil)
-        interactor?.requestToChangeIdeaState(isSwitchButtonSelected: sender.isSelected)
+        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
+            let ideaButton = currentCell.quoteView.ideaButton
+            interactor?.requestToChangeIdeaState(isSwitchButtonSelected: ideaButton.isSelected)
+        }
     }
     
     @objc func timerFire(sender: Timer) {
@@ -189,7 +198,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = interactor?.collectionView(collectionView, cellForItemAt: indexPath, bookGesture: tapOnBookGesture, filterGesture: tapOnFilterGesture)
+        let cell = interactor?.collectionView(collectionView, cellForItemAt: indexPath, bookGesture: tapOnBookGesture, filterGesture: tapOnFilterGesture, ideaGesture: tapOnIdeaGesture)
         return cell!
     }
 
@@ -257,5 +266,13 @@ extension ExploreVC: PresenterToExploreVCProtocol {
     
     func setTimer() {
         interactor?.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
+    }
+    
+    func displayIdeaChange() {
+        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
+            let quoteView = currentCell.quoteView
+            quoteView.ideaButton.isSelected.toggle()
+        }
+        
     }
 }

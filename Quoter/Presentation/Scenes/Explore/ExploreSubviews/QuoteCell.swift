@@ -29,6 +29,7 @@ class QuoteCell: UICollectionViewCell {
     
     var tapOnBookGesture: UITapGestureRecognizer?
     var tapOnFilterGesture: UITapGestureRecognizer?
+    var tapOnIdeaGesture: UITapGestureRecognizer?
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -60,8 +61,12 @@ class QuoteCell: UICollectionViewCell {
         guard let tapOnFilterGesture = tapOnFilterGesture else {
             return
         }
+        guard let tapOnIdeaGesture = tapOnIdeaGesture else {
+            return
+        }
         quoteView.quotesOfAuthorButton.addGestureRecognizer(tapOnBookGesture)
         quoteView.filtersButton.addGestureRecognizer(tapOnFilterGesture)
+        quoteView.ideaButton.addGestureRecognizer(tapOnIdeaGesture)
         self.quoteView.mainImageView.image = mainImage
         self.quoteView.quoteTextView.text = quoteVM.content
         self.quoteView.authorLabel.text = quoteVM.authorName

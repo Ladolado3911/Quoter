@@ -32,7 +32,12 @@ protocol VCToExploreInteractorProtocol: AnyObject {
     
     //MARK: Explore Interactor Protocol Methods
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath, bookGesture: UITapGestureRecognizer, filterGesture: UITapGestureRecognizer) -> UICollectionViewCell
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath,
+                        bookGesture: UITapGestureRecognizer,
+                        filterGesture: UITapGestureRecognizer,
+                        ideaGesture: UITapGestureRecognizer) -> UICollectionViewCell
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView, completion: @escaping () -> Void)
     func requestDisplayInitialData()
     func resetInitialData()
@@ -84,22 +89,42 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
     func requestToChangeIdeaState(isSwitchButtonSelected: Bool) {
         let quoteVMM = loadedVMs[currentPage]
         let modalAlertImageWorker = ModalAlertImageWorker()
+        Sound.idea.play(extensionString: .mp3)
+        self.presenter?.formatIdeaChange()
         
-        let image: UIImage? = networkAuthorImage == nil ? defaultImage : networkAuthorImage
-        if let image = image {
-            if isSwitchButtonSelected {
-                CoreDataWorker.removePair(quoteVM: quoteVMM)
+        modalAlertImageWorker.getAuthorImage(authorName: quoteVMM.authorName) { (image, imageType) in
+            if let image = image {
+                if isSwitchButtonSelected {
+                    CoreDataWorker.removePair(quoteVM: quoteVMM)
+                }
+                else {
+//                    Sound.idea.play(extensionString: .mp3)
+                    CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
+                }
+                collectionViewUpdateSubject.send {}
+//                self.presenter?.formatIdeaChange()
             }
             else {
-                Sound.idea.play(extensionString: .mp3)
-                CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
+                print("Could not unwrap")
             }
-            collectionViewUpdateSubject.send {}
-            presenter?.formatIdeaChange()
         }
-        else {
-            print("Could not unwrap")
-        }
+//
+//
+//        let image: UIImage? = networkAuthorImage == nil ? defaultImage : networkAuthorImage
+//        if let image = image {
+//            if isSwitchButtonSelected {
+//                CoreDataWorker.removePair(quoteVM: quoteVMM)
+//            }
+//            else {
+//                Sound.idea.play(extensionString: .mp3)
+//                CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
+//            }
+//            collectionViewUpdateSubject.send {}
+//            presenter?.formatIdeaChange()
+//        }
+//        else {
+//            print("Could not unwrap")
+//        }
     }
 
     func requestDisplayNewData(edges: (Int, Int)) {
@@ -143,12 +168,18 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         requestDisplayInitialData()
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath, bookGesture: UITapGestureRecognizer, filterGesture: UITapGestureRecognizer) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath,
+                        bookGesture: UITapGestureRecognizer,
+                        filterGesture: UITapGestureRecognizer,
+                        ideaGesture: UITapGestureRecognizer) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? QuoteCell
         cell?.quoteVM = loadedVMs[indexPath.item]
         cell?.mainImage = loadedImages[indexPath.item]
         cell?.tapOnBookGesture = bookGesture
         cell?.tapOnFilterGesture = filterGesture
+        cell?.tapOnIdeaGesture = ideaGesture
         return cell!
     }
     
