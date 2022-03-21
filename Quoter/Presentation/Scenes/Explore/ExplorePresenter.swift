@@ -42,9 +42,8 @@ class ExplorePresenter: InteractorToExplorePresenterProtocol {
         let newIndexPaths = Array(indexPaths[(capturedPage + edges.0)...capturedPage + edges.1])
         
         let shuffledImageURLs = imageURLs.shuffled()
-        let loadedImageDatas = shuffledImages.map { $0?.pngData() }
         
-        vc?.displayNewData(loadedVMs: additionalQuoteVMs, loadedImages: shuffledImages, indexPaths: newIndexPaths, loadedImageDatas: loadedImageDatas, imageURLs: shuffledImageURLs)
+        vc?.displayNewData(loadedVMs: additionalQuoteVMs, loadedImages: shuffledImages, indexPaths: newIndexPaths, imageURLs: shuffledImageURLs)
     }
     
     func formatData(quoteModels: [QuoteGardenQuoteModel], images: [UIImage?], imageURLs: [String?]) {
@@ -53,9 +52,8 @@ class ExplorePresenter: InteractorToExplorePresenterProtocol {
         let indexPaths = quoteVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) }
         
         let shuffledImageURLs = imageURLs.shuffled()
-        let loadedImageDatas = shuffledImages.map { $0?.pngData() }
-        
-        vc?.displayInitialData(loadedVMs: quoteVMs, loadedImages: shuffledImages, indexPaths: indexPaths, loadedImageDatas: loadedImageDatas, imageURLs: shuffledImageURLs)
+
+        vc?.displayInitialData(loadedVMs: quoteVMs, loadedImages: shuffledImages, indexPaths: indexPaths, imageURLs: shuffledImageURLs)
     }
     
     func formatOldData() {

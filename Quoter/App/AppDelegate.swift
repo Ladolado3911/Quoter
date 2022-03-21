@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //print(type(of: 1...5))
-        CoreDataWorker.deleteAllImageDatas()
+        //CoreDataWorker.deleteAllImageDatas()
         if UserDefaults.standard.value(forKey: "firstLaunch") as? Bool == nil {
             UserDefaults.standard.set(true, forKey: "firstLaunch")
         }

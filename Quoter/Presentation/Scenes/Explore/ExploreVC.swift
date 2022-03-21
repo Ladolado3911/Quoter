@@ -21,13 +21,11 @@ protocol PresenterToExploreVCProtocol: AnyObject {
     func displayInitialData(loadedVMs: [QuoteGardenQuoteVM],
                             loadedImages: [UIImage?],
                             indexPaths: [IndexPath],
-                            loadedImageDatas: [Data?],
                             imageURLs: [String?])
     
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
                         indexPaths: [IndexPath],
-                        loadedImageDatas: [Data?],
                         imageURLs: [String?])
     
     func displayOldData()
@@ -233,7 +231,6 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         interactor?.scrollViewDidEndDecelerating(scrollView) { [weak self] in
             guard let self = self else { return }
             Analytics.logEvent("did_scroll", parameters: nil)
-            print("starting animation...")
             self.router?.routeToLoadingAlertVC()
         }
     }
@@ -244,13 +241,11 @@ extension ExploreVC: PresenterToExploreVCProtocol {
     func displayOldData() {
         interactor?.isLoadOldDataFunctionRunning = false
         self.dismiss(animated: false)
-        print("animation ending...")
     }
 
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
                         indexPaths: [IndexPath],
-                        loadedImageDatas: [Data?],
                         imageURLs: [String?]) {
         
         interactor?.loadedVMs.append(contentsOf: loadedVMs)
@@ -270,7 +265,6 @@ extension ExploreVC: PresenterToExploreVCProtocol {
     func displayInitialData(loadedVMs: [QuoteGardenQuoteVM],
                             loadedImages: [UIImage?],
                             indexPaths: [IndexPath],
-                            loadedImageDatas: [Data?],
                             imageURLs: [String?]) {
         
         interactor?.loadedVMs = loadedVMs
