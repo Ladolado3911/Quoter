@@ -233,6 +233,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         interactor?.scrollViewDidEndDecelerating(scrollView) { [weak self] in
             guard let self = self else { return }
             Analytics.logEvent("did_scroll", parameters: nil)
+            print("starting animation...")
             self.router?.routeToLoadingAlertVC()
         }
     }
@@ -241,7 +242,9 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 extension ExploreVC: PresenterToExploreVCProtocol {
     
     func displayOldData() {
+        interactor?.isLoadOldDataFunctionRunning = false
         self.dismiss(animated: false)
+        print("animation ending...")
     }
 
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],

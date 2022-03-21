@@ -158,10 +158,10 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
             // network call and fetch 10 old images between start and end indexes in loaded images array
             let oldImageURLs = Array(loadedImageURLs[startIndex...endIndex])
             isLoadOldDataFunctionRunning = true
+            print("starting downloading images")
             ImageDownloaderWorker.downloadImages(urls: oldImageURLs) { [weak self] images in
                 guard let self = self else { return }
                 self.loadedImages[startIndex...endIndex] = ArraySlice(images)
-                self.isLoadOldDataFunctionRunning = false
                 self.presenter?.formatOldData()
             }
 
@@ -203,7 +203,6 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         requestOldData()
         requestNewData(edges: (4, 14), offsetOfPage: 5)
         requestNewData(edges: (0, 10), offsetOfPage: 1)
-        print(selectedFilters)
         
         if currentPage == loadedVMs.count - 1 && isLoadNewDataFunctionRunning {
             completion()
