@@ -34,4 +34,21 @@ class ImageDownloaderWorker {
             print(error)
         }
     }
+    
+    static func downloadImages(urls: [String?], completion: @escaping ([UIImage?]) -> Void) {
+        let group = DispatchGroup()
+        var resultImages: [UIImage?] = []
+        for url in urls {
+            if let url = url {
+                group.enter()
+                downloadImage(urlString: url) { image in
+                    resultImages.append(image)
+                    group.leave()
+                }
+            }
+        }
+        group.notify(queue: .main) {
+            completion(resultImages)
+        }
+    }
 }

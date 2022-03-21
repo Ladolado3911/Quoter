@@ -27,6 +27,8 @@ class QuoteCell: UICollectionViewCell {
     var isVCLoaded: Bool = false
     var isFirstAppear: Bool = true
     
+    var mainImageStringURL: String?
+    
     var tapOnBookGesture: UITapGestureRecognizer?
     var tapOnFilterGesture: UITapGestureRecognizer?
     var tapOnIdeaGesture: UITapGestureRecognizer?
@@ -49,10 +51,8 @@ class QuoteCell: UICollectionViewCell {
     }
     
     private func configWithVM() {
+
         guard let quoteVM = quoteVM else {
-            return
-        }
-        guard let mainImage = mainImage else {
             return
         }
         guard let tapOnBookGesture = tapOnBookGesture else {
@@ -64,15 +64,23 @@ class QuoteCell: UICollectionViewCell {
         guard let tapOnIdeaGesture = tapOnIdeaGesture else {
             return
         }
+        
         quoteView.quotesOfAuthorButton.addGestureRecognizer(tapOnBookGesture)
         quoteView.filtersButton.addGestureRecognizer(tapOnFilterGesture)
         quoteView.ideaButton.addGestureRecognizer(tapOnIdeaGesture)
-        self.quoteView.mainImageView.image = mainImage
+        
         self.quoteView.quoteTextView.text = quoteVM.content
         self.quoteView.authorLabel.text = quoteVM.authorName
-        
         let fontSize = getFontSizeForQuote(stringCount: CGFloat(self.quoteView.quoteTextView.text?.count ?? 0))
         self.quoteView.quoteTextView.font = self.quoteView.quoteTextView.font?.withSize(fontSize)
-        //quoteView.layoutIfNeeded()
+        
+        if let mainImage = mainImage {
+            self.quoteView.mainImageView.image = mainImage
+        }
+        else {
+//            ImageDownloaderWorker.downloadImage(urlString: mainImageStringURL!) { image in
+//                self.quoteView.mainImageView.image = image
+//            }
+        }
     }
 }

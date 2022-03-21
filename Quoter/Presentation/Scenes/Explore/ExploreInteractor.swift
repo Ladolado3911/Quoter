@@ -24,8 +24,10 @@ protocol VCToExploreInteractorProtocol: AnyObject {
     var isCounterFirstLaunchForDeviceFirstLaunch: Bool { get set }
     var loadedVMs: [QuoteGardenQuoteVM] { get set }
     var loadedImages: [UIImage?] { get set }
+    var loadedImageURLs: [String?] { get set }
     var selectedFilters: [String] { get set }
     var isLoadNewDataFunctionRunning: Bool { get set }
+    var isLoadOldDataFunctionRunning: Bool { get set }
     var isDataLoaded: Bool  { get set }
     var currentPage: Int { get set }
     var capturedCurrentPage: Int { get set }
@@ -63,9 +65,13 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
     var isFirstLaunch: Bool = false
     var isCounterFirstLaunchForDeviceFirstLaunch: Bool = true
     var loadedVMs: [QuoteGardenQuoteVM] = []
+    
     var loadedImages: [UIImage?] = []
+    var loadedImageURLs: [String?] = []
+    
     var selectedFilters: [String] = [""]
     var isLoadNewDataFunctionRunning: Bool = false
+    var isLoadOldDataFunctionRunning: Bool = false
     var isDataLoaded = false {
         didSet {
             isDataLoadedSubject.send(isDataLoaded)
@@ -98,44 +104,26 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
                     CoreDataWorker.removePair(quoteVM: quoteVMM)
                 }
                 else {
-//                    Sound.idea.play(extensionString: .mp3)
                     CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
                 }
                 collectionViewUpdateSubject.send {}
-//                self.presenter?.formatIdeaChange()
             }
             else {
                 print("Could not unwrap")
             }
         }
-//
-//
-//        let image: UIImage? = networkAuthorImage == nil ? defaultImage : networkAuthorImage
-//        if let image = image {
-//            if isSwitchButtonSelected {
-//                CoreDataWorker.removePair(quoteVM: quoteVMM)
-//            }
-//            else {
-//                Sound.idea.play(extensionString: .mp3)
-//                CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
-//            }
-//            collectionViewUpdateSubject.send {}
-//            presenter?.formatIdeaChange()
-//        }
-//        else {
-//            print("Could not unwrap")
-//        }
     }
 
     func requestDisplayNewData(edges: (Int, Int)) {
         let contentWorker = ExploreContentWorker()
-        contentWorker.getContent(genres: selectedFilters) { [weak self] quoteModels, images in
+        contentWorker.getContent(genres: selectedFilters) { [weak self] quoteModels, images, imageURLs in
             guard let self = self else { return }
             self.presenter?.formatNewData(currentVMs: self.loadedVMs,
                                           capturedPage: self.capturedCurrentPage,
                                           edges: edges,
                                           quoteModels: quoteModels,
-                                          images: images)
+                                          images: images,
+                                          imageURLs: imageURLs)
         }
     }
     
@@ -143,9 +131,9 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         let contentWorker = ExploreContentWorker()
         currentPage = 0
         capturedCurrentPage = 0
-        contentWorker.getContent(genres: selectedFilters) { [weak self] quoteModels, images in
+        contentWorker.getContent(genres: selectedFilters) { [weak self] quoteModels, images, imageURLs in
             guard let self = self else { return }
-            self.presenter?.formatData(quoteModels: quoteModels, images: images)
+            self.presenter?.formatData(quoteModels: quoteModels, images: images, imageURLs: imageURLs)
         }
     }
     
@@ -159,10 +147,32 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         }
     }
     
+    func requestOldData() {
+        if currentPage == 0 {
+            return
+        }
+        if loadedImages[currentPage - 1] == nil {
+            let endIndex = currentPage - 1
+            let startIndex = currentPage - 10
+            
+            // network call and fetch 10 old images between start and end indexes in loaded images array
+            let oldImageURLs = Array(loadedImageURLs[startIndex...endIndex])
+            isLoadOldDataFunctionRunning = true
+            ImageDownloaderWorker.downloadImages(urls: oldImageURLs) { [weak self] images in
+                guard let self = self else { return }
+                self.loadedImages[startIndex...endIndex] = ArraySlice(images)
+                self.isLoadOldDataFunctionRunning = false
+                self.presenter?.formatOldData()
+            }
+
+        }
+    }
+    
     func resetInitialData() {
         isDataLoaded = false
         loadedVMs = []
         loadedImages = []
+        //CoreDataWorker.deleteAllImageDatas()
         selectedFilters.removeAll { $0 == "" }
         presenter?.startAnimating()
         requestDisplayInitialData()
@@ -176,6 +186,9 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? QuoteCell
         cell?.quoteVM = loadedVMs[indexPath.item]
+        //cell?.mainImage = CoreDataWorker.getLoadedImage(currentPage: indexPath.item)
+        
+        cell?.mainImageStringURL = loadedImageURLs[indexPath.item]
         cell?.mainImage = loadedImages[indexPath.item]
         cell?.tapOnBookGesture = bookGesture
         cell?.tapOnFilterGesture = filterGesture
@@ -185,11 +198,25 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView, completion: @escaping () -> Void) {
         currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+        print(currentPage)
+        print(loadedImages.map { $0?.size })
+        requestOldData()
         requestNewData(edges: (4, 14), offsetOfPage: 5)
         requestNewData(edges: (0, 10), offsetOfPage: 1)
         print(selectedFilters)
+        
         if currentPage == loadedVMs.count - 1 && isLoadNewDataFunctionRunning {
             completion()
         }
+        else if currentPage > 0 && loadedImages[currentPage - 1] == nil && isLoadOldDataFunctionRunning {
+            completion()
+        }
+        else {
+            
+        }
+        
+//        if (currentPage == loadedVMs.count - 1 && isLoadNewDataFunctionRunning) || (loadedImages[currentPage - 1] == nil && isLoadOldDataFunctionRunning && currentPage > 0) {
+//            completion()
+//        }
     }
 }

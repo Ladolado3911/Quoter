@@ -18,10 +18,19 @@ protocol PresenterToExploreVCProtocol: AnyObject {
     var interactor: VCToExploreInteractorProtocol? { get set }
     
     func startAnimating()
-    func displayInitialData(loadedVMs: [QuoteGardenQuoteVM], loadedImages: [UIImage?], indexPaths: [IndexPath])
+    func displayInitialData(loadedVMs: [QuoteGardenQuoteVM],
+                            loadedImages: [UIImage?],
+                            indexPaths: [IndexPath],
+                            loadedImageDatas: [Data?],
+                            imageURLs: [String?])
+    
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
-                        indexPaths: [IndexPath])
+                        indexPaths: [IndexPath],
+                        loadedImageDatas: [Data?],
+                        imageURLs: [String?])
+    
+    func displayOldData()
     func setTimer()
     func displayIdeaChange()
 }
@@ -220,7 +229,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         interactor?.invalidateTimer()
-        interactor?.requestToSetTimer()
+        //interactor?.requestToSetTimer()
         interactor?.scrollViewDidEndDecelerating(scrollView) { [weak self] in
             guard let self = self else { return }
             Analytics.logEvent("did_scroll", parameters: nil)
@@ -230,13 +239,25 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 }
 
 extension ExploreVC: PresenterToExploreVCProtocol {
+    
+    func displayOldData() {
+        self.dismiss(animated: false)
+    }
 
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
-                        indexPaths: [IndexPath]) {
+                        indexPaths: [IndexPath],
+                        loadedImageDatas: [Data?],
+                        imageURLs: [String?]) {
         
         interactor?.loadedVMs.append(contentsOf: loadedVMs)
+        //CoreDataWorker.saveLoadedImageDatasToCoreData(imageDatas: loadedImageDatas)
+        for imageCount in 0..<interactor!.loadedImages.count - 10 {
+            interactor?.loadedImages[imageCount] = nil
+        }
         interactor?.loadedImages.append(contentsOf: loadedImages)
+        interactor?.loadedImageURLs.append(contentsOf: imageURLs)
+        
         exploreView.collectionView.insertItems(at: indexPaths)
         exploreView.collectionView.isUserInteractionEnabled = true
         interactor?.isLoadNewDataFunctionRunning = false
@@ -245,10 +266,16 @@ extension ExploreVC: PresenterToExploreVCProtocol {
     
     func displayInitialData(loadedVMs: [QuoteGardenQuoteVM],
                             loadedImages: [UIImage?],
-                            indexPaths: [IndexPath]) {
+                            indexPaths: [IndexPath],
+                            loadedImageDatas: [Data?],
+                            imageURLs: [String?]) {
         
         interactor?.loadedVMs = loadedVMs
+        //CoreDataWorker.resetImageDatas(newData: loadedImageDatas)
+        
         interactor?.loadedImages = loadedImages
+        interactor?.loadedImageURLs = imageURLs
+        
         exploreView.collectionView.insertItems(at: indexPaths)
         if exploreView.lottieAnimation != nil {
             exploreView.stopLottieAnimation()

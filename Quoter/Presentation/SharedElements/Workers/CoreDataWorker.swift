@@ -14,6 +14,8 @@ class CoreDataWorker {
         return (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     }
     
+    static let unknownImageData = UIImage(named: "testUpperQuotism")?.pngData()
+    
     static func printCoreDataItems() {
         guard let context = context else { return }
         
@@ -212,6 +214,66 @@ class CoreDataWorker {
         }
         catch {
             completion(.failure(error))
+        }
+    }
+    
+    static func addImageData(imageData: Data) {
+        guard let context = context else { return }
+        
+        let imageCore = ImageCore(context: context)
+        imageCore.imageData = imageData
+        do {
+            try context.save()
+        }
+        catch {
+            print(error)
+        }
+    }
+    
+    static func getLoadedImage(currentPage: Int) -> UIImage? {
+        guard let context = context else { return nil }
+        let request = NSFetchRequest<ImageCore>(entityName: "ImageCore")
+        do {
+            let images = try context.fetch(request)
+            let imageCore = images[currentPage]
+            let image = UIImage(data: imageCore.imageData!)
+            return image
+        }
+        catch {
+            print(error)
+            return nil
+        }
+    }
+
+    static func saveLoadedImageDatasToCoreData(imageDatas: [Data?]) {
+        imageDatas.forEach {
+            if let data = $0 {
+                addImageData(imageData: data)
+            }
+            else {
+                addImageData(imageData: unknownImageData!)
+            }
+        }
+    }
+    
+    static func resetImageDatas(newData: [Data?]) {
+        deleteAllImageDatas()
+        saveLoadedImageDatasToCoreData(imageDatas: newData)
+    }
+    
+    static func deleteAllImageDatas() {
+        guard let context = context else { return }
+        let request = NSFetchRequest<ImageCore>(entityName: "ImageCore")
+        
+        do {
+            let imageDatas = try context.fetch(request)
+            imageDatas.forEach {
+                context.delete($0)
+            }
+            try context.save()
+        }
+        catch {
+            print(error)
         }
     }
     

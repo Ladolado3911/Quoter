@@ -14,15 +14,17 @@ class ExploreContentWorker {
     
     var resultQuoteModels: [QuoteGardenQuoteModel] = []
     var resultImages: [UIImage?] = []
+    var resultImageURLs: [String?] = []
     
     let group = DispatchGroup()
     
-    func getContent(genres: [String], completion: @escaping ([QuoteGardenQuoteModel], [UIImage?]) -> Void) {
+    func getContent(genres: [String], completion: @escaping ([QuoteGardenQuoteModel], [UIImage?], [String?]) -> Void) {
         group.enter()
         imageWorker.get10LandscapeImages { result in
             switch result {
-            case .success(let images):
+            case .success(let (images, imageURLs)):
                 self.resultImages.append(contentsOf: images)
+                self.resultImageURLs.append(contentsOf: imageURLs)
             case .failure(let error):
                 print(error)
             }
@@ -39,7 +41,7 @@ class ExploreContentWorker {
             self.group.leave()
         }
         group.notify(queue: .main) { 
-            completion(self.resultQuoteModels, self.resultImages)
+            completion(self.resultQuoteModels, self.resultImages, self.resultImageURLs)
         }
     }
 }
