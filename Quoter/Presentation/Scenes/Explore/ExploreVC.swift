@@ -172,14 +172,8 @@ class ExploreVC: MonitoredVC {
     
     @objc func onIdeaButton(sender: UIButton) {
         Analytics.logEvent("did_tap_on_Idea", parameters: nil)
-        //sender.isSelected.toggle()
         interactor?.requestToChangeIdeaState(isSwitchButtonSelected: sender.isSelected)
         sender.isSelected.toggle()
-        sender.layoutIfNeeded()
-//        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
-//            let ideaButton = currentCell.quoteView.ideaButton
-//            interactor?.requestToChangeIdeaState(isSwitchButtonSelected: ideaButton.isSelected)
-//        }
     }
     
     @objc func timerFire(sender: Timer) {
@@ -231,10 +225,6 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         0
-    }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        Sound.windTransition2.play(extensionString: .mp3)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

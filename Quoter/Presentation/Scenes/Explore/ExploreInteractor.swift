@@ -95,7 +95,10 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
     func requestToChangeIdeaState(isSwitchButtonSelected: Bool) {
         let quoteVMM = loadedVMs[currentPage]
         let modalAlertImageWorker = ModalAlertImageWorker()
-        Sound.idea.play(extensionString: .mp3)
+        
+        if !isSwitchButtonSelected {
+            Sound.idea.play(extensionString: .mp3)
+        }
         self.presenter?.formatIdeaChange()
         
         modalAlertImageWorker.getAuthorImage(authorName: quoteVMM.authorName) { (image, imageType) in
