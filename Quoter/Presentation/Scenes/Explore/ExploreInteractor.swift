@@ -38,7 +38,7 @@ protocol VCToExploreInteractorProtocol: AnyObject {
                         cellForItemAt indexPath: IndexPath,
                         bookGesture: UITapGestureRecognizer,
                         filterGesture: UITapGestureRecognizer,
-                        ideaGesture: UITapGestureRecognizer) -> UICollectionViewCell
+                        ideaTarget: ButtonTarget) -> UICollectionViewCell
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView, completion: @escaping () -> Void)
     func requestDisplayInitialData()
@@ -181,7 +181,7 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
                         cellForItemAt indexPath: IndexPath,
                         bookGesture: UITapGestureRecognizer,
                         filterGesture: UITapGestureRecognizer,
-                        ideaGesture: UITapGestureRecognizer) -> UICollectionViewCell {
+                        ideaTarget: ButtonTarget) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? QuoteCell
         cell?.quoteVM = loadedVMs[indexPath.item]
@@ -191,7 +191,8 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         cell?.mainImage = loadedImages[indexPath.item]
         cell?.tapOnBookGesture = bookGesture
         cell?.tapOnFilterGesture = filterGesture
-        cell?.tapOnIdeaGesture = ideaGesture
+        //cell?.tapOnIdeaGesture = ideaTarget
+        cell?.ideaButtonTarget = ideaTarget
         return cell!
     }
     

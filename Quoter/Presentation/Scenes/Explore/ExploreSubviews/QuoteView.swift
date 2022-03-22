@@ -7,6 +7,12 @@
 
 import UIKit
 
+struct ButtonTarget {
+    var target: UIViewController
+    var selector: Selector
+    var event: UIControl.Event
+}
+
 class QuoteView: LottieView {
     
     let mainImageView: UIImageView = {

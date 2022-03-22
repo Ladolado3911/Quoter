@@ -55,6 +55,13 @@ class ExploreVC: MonitoredVC {
                                                   action: #selector(onIdeaButton(sender:)))
         return tapOnGesture
     }
+    
+    var ideaButtonTarget: ButtonTarget {
+        let target = ButtonTarget(target: self,
+                                  selector: #selector(onIdeaButton(sender:)),
+                                  event: .touchUpInside)
+        return target
+    }
 
     lazy var exploreView: ExploreView = {
         let view = ExploreView(frame: view.bounds)
@@ -125,10 +132,11 @@ class ExploreVC: MonitoredVC {
         if isDataLoaded {
             interactor?.requestToSetTimer()
         }
-        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
-            let ideaButton = currentCell.quoteView.ideaButton
-            ideaButton.isSelected = CoreDataWorker.isQuoteInCoreData(quoteVM: interactor!.loadedVMs[interactor!.currentPage])
-        }
+//
+//        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
+//            let ideaButton = currentCell.quoteView.ideaButton
+//            ideaButton.isSelected = CoreDataWorker.isQuoteInCoreData(quoteVM: interactor!.loadedVMs[interactor!.currentPage])
+//        }
         //interactor?.requestToTrack()
     }
 
@@ -162,12 +170,16 @@ class ExploreVC: MonitoredVC {
         }
     }
     
-    @objc func onIdeaButton(sender: UITapGestureRecognizer) {
+    @objc func onIdeaButton(sender: UIButton) {
         Analytics.logEvent("did_tap_on_Idea", parameters: nil)
-        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
-            let ideaButton = currentCell.quoteView.ideaButton
-            interactor?.requestToChangeIdeaState(isSwitchButtonSelected: ideaButton.isSelected)
-        }
+        //sender.isSelected.toggle()
+        interactor?.requestToChangeIdeaState(isSwitchButtonSelected: sender.isSelected)
+        sender.isSelected.toggle()
+        sender.layoutIfNeeded()
+//        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
+//            let ideaButton = currentCell.quoteView.ideaButton
+//            interactor?.requestToChangeIdeaState(isSwitchButtonSelected: ideaButton.isSelected)
+//        }
     }
     
     @objc func timerFire(sender: Timer) {
@@ -205,7 +217,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = interactor?.collectionView(collectionView, cellForItemAt: indexPath, bookGesture: tapOnBookGesture, filterGesture: tapOnFilterGesture, ideaGesture: tapOnIdeaGesture)
+        let cell = interactor?.collectionView(collectionView, cellForItemAt: indexPath, bookGesture: tapOnBookGesture, filterGesture: tapOnFilterGesture, ideaTarget: ideaButtonTarget)
         return cell!
     }
 
@@ -249,7 +261,7 @@ extension ExploreVC: PresenterToExploreVCProtocol {
                         imageURLs: [String?]) {
         
         interactor?.loadedVMs.append(contentsOf: loadedVMs)
-        //CoreDataWorker.saveLoadedImageDatasToCoreData(imageDatas: loadedImageDatas)
+
         for imageCount in 0..<interactor!.loadedImages.count - 10 {
             interactor?.loadedImages[imageCount] = nil
         }
@@ -268,7 +280,6 @@ extension ExploreVC: PresenterToExploreVCProtocol {
                             imageURLs: [String?]) {
         
         interactor?.loadedVMs = loadedVMs
-        //CoreDataWorker.resetImageDatas(newData: loadedImageDatas)
         
         interactor?.loadedImages = loadedImages
         interactor?.loadedImageURLs = imageURLs
@@ -293,10 +304,10 @@ extension ExploreVC: PresenterToExploreVCProtocol {
     }
     
     func displayIdeaChange() {
-        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
-            let quoteView = currentCell.quoteView
-            quoteView.ideaButton.isSelected.toggle()
-        }
+//        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
+//            currentCell.updateIdeaButton()
+//        }
+        
         
     }
 }

@@ -32,6 +32,9 @@ class QuoteCell: UICollectionViewCell {
     var tapOnBookGesture: UITapGestureRecognizer?
     var tapOnFilterGesture: UITapGestureRecognizer?
     var tapOnIdeaGesture: UITapGestureRecognizer?
+    
+    var ideaButtonTarget: ButtonTarget?
+
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -40,6 +43,7 @@ class QuoteCell: UICollectionViewCell {
             make.left.right.top.bottom.equalTo(self)
         }
         configWithVM()
+        isFirstAppear = false
     }
     
     private func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {
@@ -51,7 +55,7 @@ class QuoteCell: UICollectionViewCell {
     }
     
     private func configWithVM() {
-
+        
         guard let quoteVM = quoteVM else {
             return
         }
@@ -61,13 +65,23 @@ class QuoteCell: UICollectionViewCell {
         guard let tapOnFilterGesture = tapOnFilterGesture else {
             return
         }
-        guard let tapOnIdeaGesture = tapOnIdeaGesture else {
+//        guard let tapOnIdeaGesture = tapOnIdeaGesture else {
+//            return
+//        }
+        guard let ideaButtonTarget = ideaButtonTarget else {
             return
         }
+
         
         quoteView.quotesOfAuthorButton.addGestureRecognizer(tapOnBookGesture)
         quoteView.filtersButton.addGestureRecognizer(tapOnFilterGesture)
-        quoteView.ideaButton.addGestureRecognizer(tapOnIdeaGesture)
+        //quoteView.ideaButton.addGestureRecognizer(tapOnIdeaGesture)
+        quoteView.ideaButton.addTarget(ideaButtonTarget.target, action: ideaButtonTarget.selector, for: ideaButtonTarget.event)
+        
+        //quoteView.ideaButton.isSelected = CoreDataWorker.isQuoteInCoreData(quoteVM: quoteVM)
+        if isFirstAppear {
+            quoteView.ideaButton.isSelected = CoreDataWorker.isQuoteInCoreData(quoteVM: quoteVM)
+        }
         
         self.quoteView.quoteTextView.text = quoteVM.content
         self.quoteView.authorLabel.text = quoteVM.authorName
@@ -76,11 +90,6 @@ class QuoteCell: UICollectionViewCell {
         
         if let mainImage = mainImage {
             self.quoteView.mainImageView.image = mainImage
-        }
-        else {
-//            ImageDownloaderWorker.downloadImage(urlString: mainImageStringURL!) { image in
-//                self.quoteView.mainImageView.image = image
-//            }
         }
     }
 }
