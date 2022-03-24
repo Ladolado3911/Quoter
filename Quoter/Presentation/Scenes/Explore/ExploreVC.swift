@@ -91,6 +91,7 @@ class ExploreVC: MonitoredVC {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .lightContent
         exploreView.startAnimating()
+        exploreView.collectionView.isUserInteractionEnabled = false
         interactor?.requestDisplayInitialData()
         configCollectionView()
 
@@ -153,6 +154,7 @@ class ExploreVC: MonitoredVC {
     @objc func didTapOnWifi(sender: UIButton) {
         presentPickModalAlert(title: "Network Error", text: "Want to reconnect?", mainButtonText: "Reconnect", mainButtonStyle: .default) { [weak self] in
             guard let self = self else { return }
+            self.exploreView.collectionView.isUserInteractionEnabled = false
             self.interactor?.requestDisplayInitialData()
         }
     }
@@ -252,8 +254,10 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 extension ExploreVC: PresenterToExploreVCProtocol {
     
     func displayNetworkErrorAlert() {
+        //dismiss(animated: true)
         presentAlert(title: "Network Error", text: "Could not connect", mainButtonText: "Ok", mainButtonStyle: .default) { [weak self] in
             guard let self = self else { return }
+            self.exploreView.collectionView.isUserInteractionEnabled = true
             self.dismiss(animated: true)
         }
     }
@@ -311,6 +315,7 @@ extension ExploreVC: PresenterToExploreVCProtocol {
         if interactor!.isFirstAppearanceOfExploreVC {
             interactor?.requestToSetTimer()
         }
+        exploreView.collectionView.isUserInteractionEnabled = true
     }
     
     func startAnimating() {
