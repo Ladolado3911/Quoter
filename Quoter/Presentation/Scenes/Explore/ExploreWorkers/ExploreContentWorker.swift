@@ -18,14 +18,18 @@ class ExploreContentWorker {
     
     let group = DispatchGroup()
     
-    func getContent(genres: [String], completion: @escaping ([QuoteGardenQuoteModel], [UIImage?], [String?]) -> Void) {
+    typealias Content = ([QuoteGardenQuoteModel], [UIImage?], [String?])
+    
+    func getContent(genres: [String], completion: @escaping (Result<Content, Error>) -> Void) {
         group.enter()
+        var isFail: Bool = false
         imageWorker.get10LandscapeImages { result in
             switch result {
             case .success(let (images, imageURLs)):
                 self.resultImages.append(contentsOf: images)
                 self.resultImageURLs.append(contentsOf: imageURLs)
             case .failure(let error):
+                isFail = true
                 print(error)
             }
             self.group.leave()
@@ -36,12 +40,18 @@ class ExploreContentWorker {
             case .success(let quoteModels):
                 self.resultQuoteModels.append(contentsOf: quoteModels)
             case .failure(let error):
+                isFail = true
                 print(error)
             }
             self.group.leave()
         }
-        group.notify(queue: .main) { 
-            completion(self.resultQuoteModels, self.resultImages, self.resultImageURLs)
+        group.notify(queue: .main) {
+            if isFail {
+                completion(.failure(CustomError.couldNotGetContent))
+            }
+            else {
+                completion(.success((self.resultQuoteModels, self.resultImages, self.resultImageURLs)))
+            }
         }
     }
 }

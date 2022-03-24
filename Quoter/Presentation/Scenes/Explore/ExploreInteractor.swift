@@ -119,14 +119,29 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
 
     func requestDisplayNewData(edges: (Int, Int)) {
         let contentWorker = ExploreContentWorker()
-        contentWorker.getContent(genres: selectedFilters) { [weak self] quoteModels, images, imageURLs in
+        contentWorker.getContent(genres: selectedFilters) { [weak self] result in
             guard let self = self else { return }
-            self.presenter?.formatNewData(currentVMs: self.loadedVMs,
-                                          capturedPage: self.capturedCurrentPage,
-                                          edges: edges,
-                                          quoteModels: quoteModels,
-                                          images: images,
-                                          imageURLs: imageURLs)
+            
+            switch result {
+                
+            case .success(let (quoteModels, images, imageURLs)):
+                self.presenter?.formatNewData(currentVMs: self.loadedVMs,
+                                              capturedPage: self.capturedCurrentPage,
+                                              edges: edges,
+                                              quoteModels: quoteModels,
+                                              images: images,
+                                              imageURLs: imageURLs)
+            case .failure(let error):
+                print(error)
+                // notify user and offer try again or cancel options
+            }
+            
+//            self.presenter?.formatNewData(currentVMs: self.loadedVMs,
+//                                          capturedPage: self.capturedCurrentPage,
+//                                          edges: edges,
+//                                          quoteModels: quoteModels,
+//                                          images: images,
+//                                          imageURLs: imageURLs)
         }
     }
     
@@ -134,9 +149,19 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         let contentWorker = ExploreContentWorker()
         currentPage = 0
         capturedCurrentPage = 0
-        contentWorker.getContent(genres: selectedFilters) { [weak self] quoteModels, images, imageURLs in
+        contentWorker.getContent(genres: selectedFilters) { [weak self] result in
             guard let self = self else { return }
-            self.presenter?.formatData(quoteModels: quoteModels, images: images, imageURLs: imageURLs)
+            switch result {
+                
+            case .success(let (quoteModels, images, imageURLs)):
+                self.presenter?.formatData(quoteModels: quoteModels, images: images, imageURLs: imageURLs)
+                
+            case .failure(let error):
+                print(error)
+                // notify user and offer try again or cancel options
+                
+            }
+//            self.presenter?.formatData(quoteModels: quoteModels, images: images, imageURLs: imageURLs)
         }
     }
     
@@ -150,31 +175,10 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         }
     }
     
-    func requestOldData() {
-        if currentPage == 0 {
-            return
-        }
-        if loadedImages[currentPage - 1] == nil {
-            let endIndex = currentPage - 1
-            let startIndex = currentPage - 10
-            
-            // network call and fetch 10 old images between start and end indexes in loaded images array
-            let oldImageURLs = Array(loadedImageURLs[startIndex...endIndex])
-            isLoadOldDataFunctionRunning = true
-            ImageDownloaderWorker.downloadImages(urls: oldImageURLs) { [weak self] images in
-                guard let self = self else { return }
-                self.loadedImages[startIndex...endIndex] = ArraySlice(images)
-                self.presenter?.formatOldData()
-            }
-
-        }
-    }
-    
     func resetInitialData() {
         isDataLoaded = false
         loadedVMs = []
         loadedImages = []
-        //CoreDataWorker.deleteAllImageDatas()
         selectedFilters.removeAll { $0 == "" }
         presenter?.startAnimating()
         requestDisplayInitialData()
@@ -188,27 +192,20 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? QuoteCell
         cell?.quoteVM = loadedVMs[indexPath.item]
-        //cell?.mainImage = CoreDataWorker.getLoadedImage(currentPage: indexPath.item)
-        
         cell?.mainImageStringURL = loadedImageURLs[indexPath.item]
         cell?.mainImage = loadedImages[indexPath.item]
         cell?.tapOnBookGesture = bookGesture
         cell?.tapOnFilterGesture = filterGesture
-        //cell?.tapOnIdeaGesture = ideaTarget
         cell?.ideaButtonTarget = ideaTarget
         return cell!
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView, completion: @escaping () -> Void) {
         currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        requestOldData()
         requestNewData(edges: (4, 14), offsetOfPage: 5)
         requestNewData(edges: (0, 10), offsetOfPage: 1)
         
         if currentPage == loadedVMs.count - 1 && isLoadNewDataFunctionRunning {
-            completion()
-        }
-        else if currentPage > 0 && loadedImages[currentPage - 1] == nil && isLoadOldDataFunctionRunning {
             completion()
         }
         else {

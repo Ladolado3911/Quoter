@@ -18,7 +18,6 @@ protocol InteractorToExplorePresenterProtocol: AnyObject {
                        quoteModels: [QuoteGardenQuoteModel],
                        images: [UIImage?],
                        imageURLs: [String?])
-    func formatOldData()
     func startAnimating()
     func setTimer()
     func formatIdeaChange()
@@ -40,9 +39,7 @@ class ExplorePresenter: InteractorToExplorePresenterProtocol {
         newCurrentVMs.append(contentsOf: additionalQuoteVMs)
         let indexPaths = newCurrentVMs.enumerated().map { IndexPath(item: $0.offset, section: 0) }
         let newIndexPaths = Array(indexPaths[(capturedPage + edges.0)...capturedPage + edges.1])
-        
         let shuffledImageURLs = imageURLs.shuffled()
-        
         vc?.displayNewData(loadedVMs: additionalQuoteVMs, loadedImages: shuffledImages, indexPaths: newIndexPaths, imageURLs: shuffledImageURLs)
     }
     
@@ -54,10 +51,6 @@ class ExplorePresenter: InteractorToExplorePresenterProtocol {
         let shuffledImageURLs = imageURLs.shuffled()
 
         vc?.displayInitialData(loadedVMs: quoteVMs, loadedImages: shuffledImages, indexPaths: indexPaths, imageURLs: shuffledImageURLs)
-    }
-    
-    func formatOldData() {
-        vc?.displayOldData()
     }
     
     func startAnimating() {

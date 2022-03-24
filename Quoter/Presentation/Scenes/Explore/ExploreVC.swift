@@ -28,7 +28,6 @@ protocol PresenterToExploreVCProtocol: AnyObject {
                         indexPaths: [IndexPath],
                         imageURLs: [String?])
     
-    func displayOldData()
     func setTimer()
     func displayIdeaChange()
 }
@@ -227,8 +226,14 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         0
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+      
+    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         interactor?.invalidateTimer()
+        print(interactor!.loadedVMs.count)
+        print("current page \(interactor!.currentPage)")
         //interactor?.requestToSetTimer()
         interactor?.scrollViewDidEndDecelerating(scrollView) { [weak self] in
             guard let self = self else { return }
@@ -240,25 +245,24 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 
 extension ExploreVC: PresenterToExploreVCProtocol {
     
-    func displayOldData() {
-        interactor?.isLoadOldDataFunctionRunning = false
-        self.dismiss(animated: false)
-    }
-
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
                         indexPaths: [IndexPath],
                         imageURLs: [String?]) {
-        
-        interactor?.loadedVMs.append(contentsOf: loadedVMs)
 
-        for imageCount in 0..<interactor!.loadedImages.count - 10 {
-            interactor?.loadedImages[imageCount] = nil
-        }
+        interactor?.loadedVMs.append(contentsOf: loadedVMs)
         interactor?.loadedImages.append(contentsOf: loadedImages)
         interactor?.loadedImageURLs.append(contentsOf: imageURLs)
-        
-        exploreView.collectionView.insertItems(at: indexPaths)
+
+        interactor?.loadedImages.removeSubrange(0..<interactor!.currentPage)
+        interactor?.loadedVMs.removeSubrange(0..<interactor!.currentPage)
+        interactor?.loadedImageURLs.removeSubrange(0..<interactor!.currentPage)
+
+        exploreView.collectionView.reloadData()
+        interactor?.currentPage = 0
+        interactor?.capturedCurrentPage = 0
+        exploreView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: false)
+
         exploreView.collectionView.isUserInteractionEnabled = true
         interactor?.isLoadNewDataFunctionRunning = false
         self.dismiss(animated: false)
@@ -294,10 +298,6 @@ extension ExploreVC: PresenterToExploreVCProtocol {
     }
     
     func displayIdeaChange() {
-//        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
-//            currentCell.updateIdeaButton()
-//        }
-        
-        
+    
     }
 }
