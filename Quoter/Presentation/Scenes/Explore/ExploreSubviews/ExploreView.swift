@@ -23,6 +23,18 @@ class ExploreView: LottieView {
         return collectionView
     }()
     
+    let wifiLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Tap on wifi icon to reconnect"
+        label.textAlignment = .center
+        label.textColor = .white
+        label.numberOfLines = 2
+        label.font = UIFont(name: "Arial", size: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        //label.sizeToFit()
+        return label
+    }()
+    
     let wifiButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "wifiOff"), for: .normal)
@@ -38,11 +50,19 @@ class ExploreView: LottieView {
     
     func addWifiButton() {
         collectionView.addSubview(wifiButton)
+        collectionView.addSubview(wifiLabel)
+        
         NSLayoutConstraint.activate([
-            wifiButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -150),
-            wifiButton.widthAnchor.constraint(equalToConstant: 100),
-            wifiButton.heightAnchor.constraint(equalToConstant: 100),
-            wifiButton.centerXAnchor.constraint(equalTo: centerXAnchor)
+            wifiButton.bottomAnchor.constraint(equalTo: wifiLabel.topAnchor, constant: -20),
+            wifiButton.widthAnchor.constraint(equalToConstant: PublicConstants.screenHeight * 0.1033),
+            wifiButton.heightAnchor.constraint(equalToConstant: PublicConstants.screenHeight * 0.1033),
+            wifiButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            wifiLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -PublicConstants.screenHeight * 0.258264),
+            wifiLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            wifiLabel.heightAnchor.constraint(equalToConstant: PublicConstants.screenHeight * 0.0517),
+            wifiLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            wifiLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
         
         ])
     }
