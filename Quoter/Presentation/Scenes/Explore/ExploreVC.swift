@@ -30,6 +30,8 @@ protocol PresenterToExploreVCProtocol: AnyObject {
     
     func setTimer()
     func displayIdeaChange()
+    func addWifiButton()
+    func displayNetworkErrorAlert()
 }
 
 class ExploreVC: MonitoredVC {
@@ -111,6 +113,8 @@ class ExploreVC: MonitoredVC {
         exploreView.collectionView.dataSource = self
         exploreView.collectionView.delegate = self
         exploreView.collectionView.register(QuoteCell.self, forCellWithReuseIdentifier: "cell")
+        
+        exploreView.wifiButton.addTarget(self, action: #selector(didTapOnWifi(sender:)), for: .touchUpInside)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -119,7 +123,7 @@ class ExploreVC: MonitoredVC {
             connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
         }
         else {
-            if !interactor!.isDataLoaded {
+            if !interactor!.isDataLoaded && !(exploreView.collectionView.subviews.map { $0.tag }.contains(1)) {
                 exploreView.startAnimating()
             }
         }
@@ -131,12 +135,7 @@ class ExploreVC: MonitoredVC {
         if isDataLoaded {
             interactor?.requestToSetTimer()
         }
-//
-//        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
-//            let ideaButton = currentCell.quoteView.ideaButton
-//            ideaButton.isSelected = CoreDataWorker.isQuoteInCoreData(quoteVM: interactor!.loadedVMs[interactor!.currentPage])
-//        }
-        //interactor?.requestToTrack()
+        //exploreView.collectionView.removeFromSuperview()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -149,6 +148,13 @@ class ExploreVC: MonitoredVC {
             interactor?.invalidateTimer()
         }
         interactor?.isFirstAppearanceOfExploreVC = false
+    }
+    
+    @objc func didTapOnWifi(sender: UIButton) {
+        presentPickModalAlert(title: "Network Error", text: "Want to reconnect?", mainButtonText: "Reconnect", mainButtonStyle: .default) { [weak self] in
+            guard let self = self else { return }
+            self.interactor?.requestDisplayInitialData()
+        }
     }
     
     @objc func didTapOnBook(sender: UITapGestureRecognizer) {
@@ -245,6 +251,24 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 
 extension ExploreVC: PresenterToExploreVCProtocol {
     
+    func displayNetworkErrorAlert() {
+        presentAlert(title: "Network Error", text: "Could not connect", mainButtonText: "Ok", mainButtonStyle: .default) { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+    }
+    
+    func addWifiButton() {
+        if exploreView.lottieAnimation != nil {
+            //exploreView.stopAnimating()
+            //exploreView.lottieAnimation = nil
+            exploreView.stopLottieAnimation()
+        }
+        if !exploreView.subviews.contains(exploreView.wifiButton) {
+            exploreView.addWifiButton()
+        }
+    }
+    
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
                         indexPaths: [IndexPath],
@@ -273,6 +297,7 @@ extension ExploreVC: PresenterToExploreVCProtocol {
                             indexPaths: [IndexPath],
                             imageURLs: [String?]) {
         
+        exploreView.removeWifiButton()
         interactor?.loadedVMs = loadedVMs
         
         interactor?.loadedImages = loadedImages
@@ -298,6 +323,6 @@ extension ExploreVC: PresenterToExploreVCProtocol {
     }
     
     func displayIdeaChange() {
-    
+ 
     }
 }

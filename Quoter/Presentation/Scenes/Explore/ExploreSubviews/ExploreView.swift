@@ -23,9 +23,32 @@ class ExploreView: LottieView {
         return collectionView
     }()
     
+    let wifiButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "wifiOff"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tag = 1
+        return button
+    }()
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         addSubview(collectionView)
+    }
+    
+    func addWifiButton() {
+        collectionView.addSubview(wifiButton)
+        NSLayoutConstraint.activate([
+            wifiButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -150),
+            wifiButton.widthAnchor.constraint(equalToConstant: 100),
+            wifiButton.heightAnchor.constraint(equalToConstant: 100),
+            wifiButton.centerXAnchor.constraint(equalTo: centerXAnchor)
+        
+        ])
+    }
+    
+    func removeWifiButton() {
+        wifiButton.removeFromSuperview()
     }
     
     func startAnimating() {

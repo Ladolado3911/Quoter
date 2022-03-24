@@ -149,6 +149,9 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         let contentWorker = ExploreContentWorker()
         currentPage = 0
         capturedCurrentPage = 0
+//        if !isDataLoaded {
+//            presenter?.startAnimating()
+//        }
         contentWorker.getContent(genres: selectedFilters) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -159,6 +162,9 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
             case .failure(let error):
                 print(error)
                 // notify user and offer try again or cancel options
+                self.presenter?.addWifiButtonIfNeeded()
+                self.presenter?.presentNetworkErrorAlert()
+                
                 
             }
 //            self.presenter?.formatData(quoteModels: quoteModels, images: images, imageURLs: imageURLs)

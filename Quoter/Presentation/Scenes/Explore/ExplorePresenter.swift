@@ -21,6 +21,8 @@ protocol InteractorToExplorePresenterProtocol: AnyObject {
     func startAnimating()
     func setTimer()
     func formatIdeaChange()
+    func addWifiButtonIfNeeded()
+    func presentNetworkErrorAlert()
 }
 
 class ExplorePresenter: InteractorToExplorePresenterProtocol {
@@ -63,5 +65,13 @@ class ExplorePresenter: InteractorToExplorePresenterProtocol {
     
     func formatIdeaChange() {
         vc?.displayIdeaChange()
+    }
+    
+    func addWifiButtonIfNeeded() {
+        vc?.addWifiButton()
+    }
+    
+    func presentNetworkErrorAlert() {
+        vc?.displayNetworkErrorAlert()
     }
 }
