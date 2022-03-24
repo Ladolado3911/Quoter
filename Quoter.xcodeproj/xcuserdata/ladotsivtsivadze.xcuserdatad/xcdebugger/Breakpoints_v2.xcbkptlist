@@ -844,8 +844,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "320"
             endingLineNumber = "320"
-            landmarkName = "startAnimating()"
-            landmarkType = "7">
+            landmarkName = "ExploreVC"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1064,8 +1064,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
             landmarkName = "requestDisplayInitialData()"
             landmarkType = "7">
          </BreakpointContent>

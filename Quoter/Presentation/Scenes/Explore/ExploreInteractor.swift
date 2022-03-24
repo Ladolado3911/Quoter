@@ -121,9 +121,7 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         let contentWorker = ExploreContentWorker()
         contentWorker.getContent(genres: selectedFilters) { [weak self] result in
             guard let self = self else { return }
-            
             switch result {
-                
             case .success(let (quoteModels, images, imageURLs)):
                 self.presenter?.formatNewData(currentVMs: self.loadedVMs,
                                               capturedPage: self.capturedCurrentPage,
@@ -138,13 +136,6 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
                 //self.presenter?.presentNetworkErrorAlert()
                 
             }
-            
-//            self.presenter?.formatNewData(currentVMs: self.loadedVMs,
-//                                          capturedPage: self.capturedCurrentPage,
-//                                          edges: edges,
-//                                          quoteModels: quoteModels,
-//                                          images: images,
-//                                          imageURLs: imageURLs)
         }
     }
     
@@ -152,26 +143,17 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         let contentWorker = ExploreContentWorker()
         currentPage = 0
         capturedCurrentPage = 0
-//        if !isDataLoaded {
-//            presenter?.startAnimating()
-//        }
-        
         contentWorker.getContent(genres: selectedFilters) { [weak self] result in
             guard let self = self else { return }
             switch result {
-                
             case .success(let (quoteModels, images, imageURLs)):
                 self.presenter?.formatData(quoteModels: quoteModels, images: images, imageURLs: imageURLs)
-                
             case .failure(let error):
                 print(error)
                 // notify user and offer try again or cancel options
                 self.presenter?.addWifiButtonIfNeeded()
                 self.presenter?.presentNetworkErrorAlert()
-                
-                
             }
-//            self.presenter?.formatData(quoteModels: quoteModels, images: images, imageURLs: imageURLs)
         }
     }
     
