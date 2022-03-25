@@ -47,6 +47,7 @@ class ExploreContentWorker {
         }
         group.notify(queue: .main) {
             if isFail {
+                print("isFail \(isFail)")
                 completion(.failure(CustomError.couldNotGetContent))
             }
             else {

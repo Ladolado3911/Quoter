@@ -133,6 +133,7 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
                 print(error)
                 // notify user and offer try again or cancel options
                 //self.presenter?.presentNetworkErrorAlert()
+                
                 self.presenter?.presentNetworkErrorAlert()
                 
                 

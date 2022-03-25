@@ -844,8 +844,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "330"
             endingLineNumber = "330"
-            landmarkName = "startAnimating()"
-            landmarkType = "7">
+            landmarkName = "ExploreVC"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1064,8 +1064,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "requestDisplayInitialData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1210,6 +1210,70 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
             endingLineNumber = "27"
+            landmarkName = "getContent(genres:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2A8B62BC-7E0E-4706-B46E-F66A591E580C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quoter/Presentation/Scenes/Explore/ExploreInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "requestDisplayInitialData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "111F74C0-B3E8-4C01-B275-559689F48AE3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quoter/Presentation/Scenes/Explore/ExploreInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
+            landmarkName = "requestDisplayNewData(edges:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "66EF730A-6AB9-4BBE-BB20-94EB7CAA50AF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quoter/Presentation/Scenes/Explore/ExploreInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "requestDisplayNewData(edges:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "924C3741-9396-484E-9674-157806BA6F1B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quoter/Presentation/Scenes/Explore/ExploreWorkers/ExploreContentWorker.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "getContent(genres:completion:)"
             landmarkType = "7">
          </BreakpointContent>
