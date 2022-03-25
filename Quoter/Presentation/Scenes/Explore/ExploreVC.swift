@@ -18,12 +18,21 @@ protocol PresenterToExploreVCProtocol: AnyObject {
     var interactor: VCToExploreInteractorProtocol? { get set }
     
     func startAnimating()
-    func displayInitialData(loadedVMs: [QuoteGardenQuoteVM], loadedImages: [UIImage?], indexPaths: [IndexPath])
+    func displayInitialData(loadedVMs: [QuoteGardenQuoteVM],
+                            loadedImages: [UIImage?],
+                            indexPaths: [IndexPath],
+                            imageURLs: [String?])
+    
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
-                        indexPaths: [IndexPath])
+                        indexPaths: [IndexPath],
+                        imageURLs: [String?])
+    
     func setTimer()
     func displayIdeaChange()
+    func addWifiButton()
+    func displayNetworkErrorAlert()
+    func displayInitialNetworkErrorAlert()
 }
 
 class ExploreVC: MonitoredVC {
@@ -47,6 +56,13 @@ class ExploreVC: MonitoredVC {
         let tapOnGesture = UITapGestureRecognizer(target: self,
                                                   action: #selector(onIdeaButton(sender:)))
         return tapOnGesture
+    }
+    
+    var ideaButtonTarget: ButtonTarget {
+        let target = ButtonTarget(target: self,
+                                  selector: #selector(onIdeaButton(sender:)),
+                                  event: .touchUpInside)
+        return target
     }
 
     lazy var exploreView: ExploreView = {
@@ -76,6 +92,7 @@ class ExploreVC: MonitoredVC {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .lightContent
         exploreView.startAnimating()
+        exploreView.collectionView.isUserInteractionEnabled = false
         interactor?.requestDisplayInitialData()
         configCollectionView()
 
@@ -98,6 +115,8 @@ class ExploreVC: MonitoredVC {
         exploreView.collectionView.dataSource = self
         exploreView.collectionView.delegate = self
         exploreView.collectionView.register(QuoteCell.self, forCellWithReuseIdentifier: "cell")
+        
+        exploreView.wifiButton.addTarget(self, action: #selector(didTapOnWifi(sender:)), for: .touchUpInside)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -106,7 +125,7 @@ class ExploreVC: MonitoredVC {
             connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
         }
         else {
-            if !interactor!.isDataLoaded {
+            if !interactor!.isDataLoaded && !(exploreView.collectionView.subviews.map { $0.tag }.contains(1)) {
                 exploreView.startAnimating()
             }
         }
@@ -118,11 +137,7 @@ class ExploreVC: MonitoredVC {
         if isDataLoaded {
             interactor?.requestToSetTimer()
         }
-        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
-            let ideaButton = currentCell.quoteView.ideaButton
-            ideaButton.isSelected = CoreDataWorker.isQuoteInCoreData(quoteVM: interactor!.loadedVMs[interactor!.currentPage])
-        }
-        //interactor?.requestToTrack()
+        //exploreView.collectionView.removeFromSuperview()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -135,6 +150,14 @@ class ExploreVC: MonitoredVC {
             interactor?.invalidateTimer()
         }
         interactor?.isFirstAppearanceOfExploreVC = false
+    }
+    
+    @objc func didTapOnWifi(sender: UIButton) {
+        presentPickModalAlert(title: "Network Error", text: "Want to reconnect?", mainButtonText: "Reconnect", mainButtonStyle: .default) { [weak self] in
+            guard let self = self else { return }
+            self.exploreView.collectionView.isUserInteractionEnabled = false
+            self.interactor?.requestDisplayInitialData()
+        }
     }
     
     @objc func didTapOnBook(sender: UITapGestureRecognizer) {
@@ -155,12 +178,10 @@ class ExploreVC: MonitoredVC {
         }
     }
     
-    @objc func onIdeaButton(sender: UITapGestureRecognizer) {
+    @objc func onIdeaButton(sender: UIButton) {
         Analytics.logEvent("did_tap_on_Idea", parameters: nil)
-        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
-            let ideaButton = currentCell.quoteView.ideaButton
-            interactor?.requestToChangeIdeaState(isSwitchButtonSelected: ideaButton.isSelected)
-        }
+        interactor?.requestToChangeIdeaState(isSwitchButtonSelected: sender.isSelected)
+        sender.isSelected.toggle()
     }
     
     @objc func timerFire(sender: Timer) {
@@ -198,7 +219,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = interactor?.collectionView(collectionView, cellForItemAt: indexPath, bookGesture: tapOnBookGesture, filterGesture: tapOnFilterGesture, ideaGesture: tapOnIdeaGesture)
+        let cell = interactor?.collectionView(collectionView, cellForItemAt: indexPath, bookGesture: tapOnBookGesture, filterGesture: tapOnFilterGesture, ideaTarget: ideaButtonTarget)
         return cell!
     }
 
@@ -214,13 +235,15 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         0
     }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        Sound.windTransition2.play(extensionString: .mp3)
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+      
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         interactor?.invalidateTimer()
-        interactor?.requestToSetTimer()
+        print(interactor!.loadedVMs.count)
+        print("current page \(interactor!.currentPage)")
+        //interactor?.requestToSetTimer()
         interactor?.scrollViewDidEndDecelerating(scrollView) { [weak self] in
             guard let self = self else { return }
             Analytics.logEvent("did_scroll", parameters: nil)
@@ -230,14 +253,54 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 }
 
 extension ExploreVC: PresenterToExploreVCProtocol {
-
+    
+    func displayInitialNetworkErrorAlert() {
+        presentAlert(title: "Network Error", text: "Could not connect", mainButtonText: "Ok", mainButtonStyle: .default) { [weak self] in
+            guard let self = self else { return }
+            self.exploreView.collectionView.isUserInteractionEnabled = true
+            self.dismiss(animated: true)
+        }
+    }
+    
+    func displayNetworkErrorAlert() {
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            self.presentAlert(title: "Network Error", text: "Could not connect", mainButtonText: "Ok", mainButtonStyle: .default) {
+                self.exploreView.collectionView.isUserInteractionEnabled = true
+                self.dismiss(animated: true)
+            }
+        }
+    }
+    
+    func addWifiButton() {
+        if exploreView.lottieAnimation != nil {
+            //exploreView.stopAnimating()
+            //exploreView.lottieAnimation = nil
+            exploreView.stopLottieAnimation()
+        }
+        if !exploreView.subviews.contains(exploreView.wifiButton) {
+            exploreView.addWifiButton()
+        }
+    }
+    
     func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
                         loadedImages: [UIImage?],
-                        indexPaths: [IndexPath]) {
-        
+                        indexPaths: [IndexPath],
+                        imageURLs: [String?]) {
+
         interactor?.loadedVMs.append(contentsOf: loadedVMs)
         interactor?.loadedImages.append(contentsOf: loadedImages)
-        exploreView.collectionView.insertItems(at: indexPaths)
+        interactor?.loadedImageURLs.append(contentsOf: imageURLs)
+
+        interactor?.loadedImages.removeSubrange(0..<interactor!.currentPage)
+        interactor?.loadedVMs.removeSubrange(0..<interactor!.currentPage)
+        interactor?.loadedImageURLs.removeSubrange(0..<interactor!.currentPage)
+
+        exploreView.collectionView.reloadData()
+        interactor?.currentPage = 0
+        interactor?.capturedCurrentPage = 0
+        exploreView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: false)
+
         exploreView.collectionView.isUserInteractionEnabled = true
         interactor?.isLoadNewDataFunctionRunning = false
         self.dismiss(animated: false)
@@ -245,10 +308,15 @@ extension ExploreVC: PresenterToExploreVCProtocol {
     
     func displayInitialData(loadedVMs: [QuoteGardenQuoteVM],
                             loadedImages: [UIImage?],
-                            indexPaths: [IndexPath]) {
+                            indexPaths: [IndexPath],
+                            imageURLs: [String?]) {
         
+        exploreView.removeWifiButton()
         interactor?.loadedVMs = loadedVMs
+        
         interactor?.loadedImages = loadedImages
+        interactor?.loadedImageURLs = imageURLs
+        
         exploreView.collectionView.insertItems(at: indexPaths)
         if exploreView.lottieAnimation != nil {
             exploreView.stopLottieAnimation()
@@ -257,6 +325,7 @@ extension ExploreVC: PresenterToExploreVCProtocol {
         if interactor!.isFirstAppearanceOfExploreVC {
             interactor?.requestToSetTimer()
         }
+        exploreView.collectionView.isUserInteractionEnabled = true
     }
     
     func startAnimating() {
@@ -269,10 +338,6 @@ extension ExploreVC: PresenterToExploreVCProtocol {
     }
     
     func displayIdeaChange() {
-        if let currentCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? QuoteCell {
-            let quoteView = currentCell.quoteView
-            quoteView.ideaButton.isSelected.toggle()
-        }
-        
+ 
     }
 }

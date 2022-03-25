@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AuthorCore" representedClassName="AuthorCore" syncable="YES" codeGenerationType="class">
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="relationship" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QuoteCore" inverseName="relationship" inverseEntity="QuoteCore"/>
+    </entity>
+    <entity name="ImageCore" representedClassName="ImageCore" syncable="YES" codeGenerationType="class">
+        <attribute name="imageData" optional="YES" attributeType="Binary"/>
     </entity>
     <entity name="QuoteCore" representedClassName="QuoteCore" syncable="YES" codeGenerationType="class">
         <attribute name="content" optional="YES" attributeType="String"/>
@@ -13,5 +16,6 @@
     <elements>
         <element name="AuthorCore" positionX="-54" positionY="9" width="128" height="74"/>
         <element name="QuoteCore" positionX="-63" positionY="-18" width="128" height="74"/>
+        <element name="ImageCore" positionX="-63" positionY="27" width="128" height="44"/>
     </elements>
 </model>

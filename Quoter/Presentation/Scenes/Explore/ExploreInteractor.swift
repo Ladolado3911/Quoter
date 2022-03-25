@@ -24,8 +24,10 @@ protocol VCToExploreInteractorProtocol: AnyObject {
     var isCounterFirstLaunchForDeviceFirstLaunch: Bool { get set }
     var loadedVMs: [QuoteGardenQuoteVM] { get set }
     var loadedImages: [UIImage?] { get set }
+    var loadedImageURLs: [String?] { get set }
     var selectedFilters: [String] { get set }
     var isLoadNewDataFunctionRunning: Bool { get set }
+    var isLoadOldDataFunctionRunning: Bool { get set }
     var isDataLoaded: Bool  { get set }
     var currentPage: Int { get set }
     var capturedCurrentPage: Int { get set }
@@ -36,7 +38,7 @@ protocol VCToExploreInteractorProtocol: AnyObject {
                         cellForItemAt indexPath: IndexPath,
                         bookGesture: UITapGestureRecognizer,
                         filterGesture: UITapGestureRecognizer,
-                        ideaGesture: UITapGestureRecognizer) -> UICollectionViewCell
+                        ideaTarget: ButtonTarget) -> UICollectionViewCell
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView, completion: @escaping () -> Void)
     func requestDisplayInitialData()
@@ -63,9 +65,13 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
     var isFirstLaunch: Bool = false
     var isCounterFirstLaunchForDeviceFirstLaunch: Bool = true
     var loadedVMs: [QuoteGardenQuoteVM] = []
+    
     var loadedImages: [UIImage?] = []
+    var loadedImageURLs: [String?] = []
+    
     var selectedFilters: [String] = [""]
     var isLoadNewDataFunctionRunning: Bool = false
+    var isLoadOldDataFunctionRunning: Bool = false
     var isDataLoaded = false {
         didSet {
             isDataLoadedSubject.send(isDataLoaded)
@@ -89,7 +95,10 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
     func requestToChangeIdeaState(isSwitchButtonSelected: Bool) {
         let quoteVMM = loadedVMs[currentPage]
         let modalAlertImageWorker = ModalAlertImageWorker()
-        Sound.idea.play(extensionString: .mp3)
+        
+        if !isSwitchButtonSelected {
+            Sound.idea.play(extensionString: .mp3)
+        }
         self.presenter?.formatIdeaChange()
         
         modalAlertImageWorker.getAuthorImage(authorName: quoteVMM.authorName) { (image, imageType) in
@@ -98,44 +107,37 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
                     CoreDataWorker.removePair(quoteVM: quoteVMM)
                 }
                 else {
-//                    Sound.idea.play(extensionString: .mp3)
                     CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
                 }
                 collectionViewUpdateSubject.send {}
-//                self.presenter?.formatIdeaChange()
             }
             else {
                 print("Could not unwrap")
             }
         }
-//
-//
-//        let image: UIImage? = networkAuthorImage == nil ? defaultImage : networkAuthorImage
-//        if let image = image {
-//            if isSwitchButtonSelected {
-//                CoreDataWorker.removePair(quoteVM: quoteVMM)
-//            }
-//            else {
-//                Sound.idea.play(extensionString: .mp3)
-//                CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
-//            }
-//            collectionViewUpdateSubject.send {}
-//            presenter?.formatIdeaChange()
-//        }
-//        else {
-//            print("Could not unwrap")
-//        }
     }
 
     func requestDisplayNewData(edges: (Int, Int)) {
         let contentWorker = ExploreContentWorker()
-        contentWorker.getContent(genres: selectedFilters) { [weak self] quoteModels, images in
+        contentWorker.getContent(genres: selectedFilters) { [weak self] result in
             guard let self = self else { return }
-            self.presenter?.formatNewData(currentVMs: self.loadedVMs,
-                                          capturedPage: self.capturedCurrentPage,
-                                          edges: edges,
-                                          quoteModels: quoteModels,
-                                          images: images)
+            switch result {
+            case .success(let (quoteModels, images, imageURLs)):
+                self.presenter?.formatNewData(currentVMs: self.loadedVMs,
+                                              capturedPage: self.capturedCurrentPage,
+                                              edges: edges,
+                                              quoteModels: quoteModels,
+                                              images: images,
+                                              imageURLs: imageURLs)
+            case .failure(let error):
+                print(error)
+                // notify user and offer try again or cancel options
+                //self.presenter?.presentNetworkErrorAlert()
+                
+                self.presenter?.presentNetworkErrorAlert()
+                
+                
+            }
         }
     }
     
@@ -143,9 +145,17 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         let contentWorker = ExploreContentWorker()
         currentPage = 0
         capturedCurrentPage = 0
-        contentWorker.getContent(genres: selectedFilters) { [weak self] quoteModels, images in
+        contentWorker.getContent(genres: selectedFilters) { [weak self] result in
             guard let self = self else { return }
-            self.presenter?.formatData(quoteModels: quoteModels, images: images)
+            switch result {
+            case .success(let (quoteModels, images, imageURLs)):
+                self.presenter?.formatData(quoteModels: quoteModels, images: images, imageURLs: imageURLs)
+            case .failure(let error):
+                print(error)
+                // notify user and offer try again or cancel options
+                self.presenter?.addWifiButtonIfNeeded()
+                self.presenter?.presentInitialNetworkErrorAlert()
+            }
         }
     }
     
@@ -172,14 +182,15 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
                         cellForItemAt indexPath: IndexPath,
                         bookGesture: UITapGestureRecognizer,
                         filterGesture: UITapGestureRecognizer,
-                        ideaGesture: UITapGestureRecognizer) -> UICollectionViewCell {
+                        ideaTarget: ButtonTarget) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? QuoteCell
         cell?.quoteVM = loadedVMs[indexPath.item]
+        cell?.mainImageStringURL = loadedImageURLs[indexPath.item]
         cell?.mainImage = loadedImages[indexPath.item]
         cell?.tapOnBookGesture = bookGesture
         cell?.tapOnFilterGesture = filterGesture
-        cell?.tapOnIdeaGesture = ideaGesture
+        cell?.ideaButtonTarget = ideaTarget
         return cell!
     }
     
@@ -187,9 +198,12 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
         currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
         requestNewData(edges: (4, 14), offsetOfPage: 5)
         requestNewData(edges: (0, 10), offsetOfPage: 1)
-        print(selectedFilters)
+        
         if currentPage == loadedVMs.count - 1 && isLoadNewDataFunctionRunning {
             completion()
+        }
+        else {
+            
         }
     }
 }

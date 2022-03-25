@@ -14,6 +14,8 @@ class CoreDataWorker {
         return (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     }
     
+    static let unknownImageData = UIImage(named: "testUpperQuotism")?.pngData()
+    
     static func printCoreDataItems() {
         guard let context = context else { return }
         

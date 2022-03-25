@@ -27,9 +27,14 @@ class QuoteCell: UICollectionViewCell {
     var isVCLoaded: Bool = false
     var isFirstAppear: Bool = true
     
+    var mainImageStringURL: String?
+    
     var tapOnBookGesture: UITapGestureRecognizer?
     var tapOnFilterGesture: UITapGestureRecognizer?
     var tapOnIdeaGesture: UITapGestureRecognizer?
+    
+    var ideaButtonTarget: ButtonTarget?
+
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -38,6 +43,7 @@ class QuoteCell: UICollectionViewCell {
             make.left.right.top.bottom.equalTo(self)
         }
         configWithVM()
+        isFirstAppear = false
     }
     
     private func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {
@@ -49,10 +55,8 @@ class QuoteCell: UICollectionViewCell {
     }
     
     private func configWithVM() {
+        
         guard let quoteVM = quoteVM else {
-            return
-        }
-        guard let mainImage = mainImage else {
             return
         }
         guard let tapOnBookGesture = tapOnBookGesture else {
@@ -61,18 +65,31 @@ class QuoteCell: UICollectionViewCell {
         guard let tapOnFilterGesture = tapOnFilterGesture else {
             return
         }
-        guard let tapOnIdeaGesture = tapOnIdeaGesture else {
+//        guard let tapOnIdeaGesture = tapOnIdeaGesture else {
+//            return
+//        }
+        guard let ideaButtonTarget = ideaButtonTarget else {
             return
         }
+
+        
         quoteView.quotesOfAuthorButton.addGestureRecognizer(tapOnBookGesture)
         quoteView.filtersButton.addGestureRecognizer(tapOnFilterGesture)
-        quoteView.ideaButton.addGestureRecognizer(tapOnIdeaGesture)
-        self.quoteView.mainImageView.image = mainImage
+        //quoteView.ideaButton.addGestureRecognizer(tapOnIdeaGesture)
+        quoteView.ideaButton.addTarget(ideaButtonTarget.target, action: ideaButtonTarget.selector, for: ideaButtonTarget.event)
+        
+        //quoteView.ideaButton.isSelected = CoreDataWorker.isQuoteInCoreData(quoteVM: quoteVM)
+        if isFirstAppear {
+            quoteView.ideaButton.isSelected = CoreDataWorker.isQuoteInCoreData(quoteVM: quoteVM)
+        }
+        
         self.quoteView.quoteTextView.text = quoteVM.content
         self.quoteView.authorLabel.text = quoteVM.authorName
-        
         let fontSize = getFontSizeForQuote(stringCount: CGFloat(self.quoteView.quoteTextView.text?.count ?? 0))
         self.quoteView.quoteTextView.font = self.quoteView.quoteTextView.font?.withSize(fontSize)
-        //quoteView.layoutIfNeeded()
+        
+        if let mainImage = mainImage {
+            self.quoteView.mainImageView.image = mainImage
+        }
     }
 }

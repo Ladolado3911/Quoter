@@ -13,6 +13,7 @@ enum CustomError: Error {
     case unwrapError
     case pageCountMismatchError
     case needsRecursion
+    case couldNotGetContent
 }
 
 enum ImageType {

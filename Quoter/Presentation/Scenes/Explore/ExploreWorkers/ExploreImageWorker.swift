@@ -31,11 +31,12 @@ class ExploreImageWorker {
         }
     }
     
-    func get10LandscapeImages(completion: @escaping (Result<[UIImage?], Error>) -> Void) {
+    func get10LandscapeImages(completion: @escaping (Result<(images: [UIImage?], urls: [String?]), Error>) -> Void) {
         get10LandscapeImageItems { result in
             switch result {
             case .success(let imageItems):
                 var images: [UIImage?] = []
+                var imageURLs: [String?] = []
                 let group = DispatchGroup()
                 let queue = DispatchQueue.global(qos: .background)
                 for item in imageItems {
@@ -44,13 +45,15 @@ class ExploreImageWorker {
                         // why is self nil here?
                         self.downloadImage(image: item) { image in
                             images.append(image)
+                            imageURLs.append(item.largeImageURL)
                             group.leave()
                         }
                     }
                 }
                 group.notify(queue: .main) {
                     
-                    completion(.success(images))
+                    //completion(.success(images))
+                    completion(.success((images: images, urls: imageURLs)))
                 }
             case .failure(let error):
                 completion(.failure(error))
