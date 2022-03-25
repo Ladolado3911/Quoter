@@ -69,6 +69,7 @@ class ExploreView: LottieView {
     
     func removeWifiButton() {
         wifiButton.removeFromSuperview()
+        wifiLabel.removeFromSuperview()
     }
     
     func startAnimating() {

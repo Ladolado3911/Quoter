@@ -23,6 +23,7 @@ protocol InteractorToExplorePresenterProtocol: AnyObject {
     func formatIdeaChange()
     func addWifiButtonIfNeeded()
     func presentNetworkErrorAlert()
+    func presentInitialNetworkErrorAlert()
 }
 
 class ExplorePresenter: InteractorToExplorePresenterProtocol {
@@ -73,5 +74,9 @@ class ExplorePresenter: InteractorToExplorePresenterProtocol {
     
     func presentNetworkErrorAlert() {
         vc?.displayNetworkErrorAlert()
+    }
+    
+    func presentInitialNetworkErrorAlert() {
+        vc?.displayInitialNetworkErrorAlert()
     }
 }

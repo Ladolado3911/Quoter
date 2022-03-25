@@ -132,8 +132,9 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
             case .failure(let error):
                 print(error)
                 // notify user and offer try again or cancel options
-                
                 //self.presenter?.presentNetworkErrorAlert()
+                self.presenter?.presentNetworkErrorAlert()
+                
                 
             }
         }
@@ -152,7 +153,7 @@ class ExploreInteractor: VCToExploreInteractorProtocol {
                 print(error)
                 // notify user and offer try again or cancel options
                 self.presenter?.addWifiButtonIfNeeded()
-                self.presenter?.presentNetworkErrorAlert()
+                self.presenter?.presentInitialNetworkErrorAlert()
             }
         }
     }

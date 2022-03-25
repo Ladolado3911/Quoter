@@ -32,6 +32,7 @@ protocol PresenterToExploreVCProtocol: AnyObject {
     func displayIdeaChange()
     func addWifiButton()
     func displayNetworkErrorAlert()
+    func displayInitialNetworkErrorAlert()
 }
 
 class ExploreVC: MonitoredVC {
@@ -253,12 +254,21 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 
 extension ExploreVC: PresenterToExploreVCProtocol {
     
-    func displayNetworkErrorAlert() {
-        //dismiss(animated: true)
+    func displayInitialNetworkErrorAlert() {
         presentAlert(title: "Network Error", text: "Could not connect", mainButtonText: "Ok", mainButtonStyle: .default) { [weak self] in
             guard let self = self else { return }
             self.exploreView.collectionView.isUserInteractionEnabled = true
             self.dismiss(animated: true)
+        }
+    }
+    
+    func displayNetworkErrorAlert() {
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            self.presentAlert(title: "Network Error", text: "Could not connect", mainButtonText: "Ok", mainButtonStyle: .default) {
+                self.exploreView.collectionView.isUserInteractionEnabled = true
+                self.dismiss(animated: true)
+            }
         }
     }
     
