@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         Thread.sleep(forTimeInterval: 2.0)
         FirebaseApp.configure()
-        Analytics.setAnalyticsCollectionEnabled(false)
+        //Analytics.setAnalyticsCollectionEnabled(false)
         guard let isFirstLaunch = UserDefaults.standard.value(forKey: "firstLaunch") as? Bool else { return true }
         print("first launch: \(isFirstLaunch)")
         isFirstLaunchSubject.send(isFirstLaunch)
