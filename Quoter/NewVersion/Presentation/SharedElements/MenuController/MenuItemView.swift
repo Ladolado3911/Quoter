@@ -14,6 +14,11 @@ class MenuItemView: UIView {
         return field
     }()
     
+    let iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        return imageView
+    }()
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -29,6 +34,7 @@ class MenuItemView: UIView {
     
     private func buildSubviews() {
         addSubview(titleField)
+        addSubview(iconImageView)
     }
     
     private func buildConstraints() {
