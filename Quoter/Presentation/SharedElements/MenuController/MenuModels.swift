@@ -7,17 +7,23 @@
 
 import UIKit
 
-class MenuModels {
+final class MenuModels {
     
-    let shared = MenuModels()
+    static let shared = MenuModels()
     
     let menuItems: [MenuItem] = [
-        
+        MenuItem(title: "Explore", icon: MenuIcons.exploreIcon, viewController: ExploreVC()),
+        MenuItem(title: "Test", icon: MenuIcons.defaultIcon, viewController: TestVC())
     
     
     ]
+    
+    lazy var menuItemViews: [MenuItemView] = {
+        return menuItems.map { MenuItemView(frame: .zero, with: $0) }
+    }()
     
     private init() {}
     
     
 }
+
