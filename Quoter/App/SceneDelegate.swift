@@ -50,18 +50,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func configureRootVC(with scene: UIWindowScene) {
         window = UIWindow(windowScene: scene)
-        CoreDataWorker.clearWhereverNeeded()
-        UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
-        let tabbarController = TabbarController()
-        tabbarController.addTabbarItem(item: TabbarItem(itemView: TabbarItemView(icon: UIImage(named: "explore2")!,
-                                                                                 itemName: "Explore"),
-                                                        controller: ExploreVC()))
-        tabbarController.addTabbarItem(item: TabbarItem(itemView: TabbarItemView(icon: UIImage(named: "IdeaTabbar")!,
-                                                                                 itemName: "Favorites"),
-                                                        controller: AuthorsVC()))
-        let vc = tabbarController
+        
+        // MARK: new revamped version
+        
+        let vc = MenuController()
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
+        
+        
+        
+        
+        // MARK: previous version
+        
+        
+//        CoreDataWorker.clearWhereverNeeded()
+//        UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+//        let tabbarController = TabbarController()
+//        tabbarController.addTabbarItem(item: TabbarItem(itemView: TabbarItemView(icon: UIImage(named: "explore2")!,
+//                                                                                 itemName: "Explore"),
+//                                                        controller: ExploreVC()))
+//        tabbarController.addTabbarItem(item: TabbarItem(itemView: TabbarItemView(icon: UIImage(named: "IdeaTabbar")!,
+//                                                                                 itemName: "Favorites"),
+//                                                        controller: AuthorsVC()))
+//        let vc = tabbarController
+//        window?.rootViewController = vc
+//        window?.makeKeyAndVisible()
     }
 }
 

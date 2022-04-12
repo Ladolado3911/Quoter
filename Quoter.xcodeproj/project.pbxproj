@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24138A172805719400044F5E /* ExploreVCTemp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24138A162805719400044F5E /* ExploreVCTemp.swift */; };
+		24138A1A280571CA00044F5E /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24138A19280571CA00044F5E /* MenuController.swift */; };
+		24138A1C2805726200044F5E /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24138A1B2805726200044F5E /* MenuView.swift */; };
+		24138A1E2805728300044F5E /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24138A1D2805728300044F5E /* MenuItemView.swift */; };
+		24138A202805739B00044F5E /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24138A1F2805739B00044F5E /* MenuItem.swift */; };
 		243B449A27BE29A800953AD3 /* pageFlip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 243B449927BE29A800953AD3 /* pageFlip.mp3 */; };
 		243B449C27BE29CC00953AD3 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243B449B27BE29CC00953AD3 /* Sound.swift */; };
 		243B449E27BE39EF00953AD3 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 243B449D27BE39EE00953AD3 /* pop.wav */; };
@@ -132,6 +137,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24138A162805719400044F5E /* ExploreVCTemp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVCTemp.swift; sourceTree = "<group>"; };
+		24138A19280571CA00044F5E /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		24138A1B2805726200044F5E /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		24138A1D2805728300044F5E /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
+		24138A1F2805739B00044F5E /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		243B449927BE29A800953AD3 /* pageFlip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pageFlip.mp3; sourceTree = "<group>"; };
 		243B449B27BE29CC00953AD3 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		243B449D27BE39EE00953AD3 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
@@ -289,6 +299,70 @@
 				247D1FA727B68F34001CABF9 /* AuthorCellOverlayView.swift */,
 			);
 			path = AuthorsSubviews;
+			sourceTree = "<group>";
+		};
+		24138A112805709700044F5E /* PreviousVersion */ = {
+			isa = PBXGroup;
+			children = (
+				24CB9FE527930C1700E9D49F /* Models */,
+				24CB9FE027930C0B00E9D49F /* Endpoints */,
+				24B0CEFF27D8C5EC0064F843 /* Resources */,
+				24D128952790490400AD7F3D /* Extensions */,
+				24D1288927903FE000AD7F3D /* Presentation */,
+			);
+			path = PreviousVersion;
+			sourceTree = "<group>";
+		};
+		24138A12280570AD00044F5E /* NewVersion */ = {
+			isa = PBXGroup;
+			children = (
+				24138A13280570BE00044F5E /* Presentation */,
+			);
+			path = NewVersion;
+			sourceTree = "<group>";
+		};
+		24138A13280570BE00044F5E /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				24138A18280571AB00044F5E /* SharedElements */,
+				24138A14280570C900044F5E /* Scenes */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		24138A14280570C900044F5E /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				24138A15280570DC00044F5E /* Explore */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		24138A15280570DC00044F5E /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+				24138A162805719400044F5E /* ExploreVCTemp.swift */,
+			);
+			path = Explore;
+			sourceTree = "<group>";
+		};
+		24138A18280571AB00044F5E /* SharedElements */ = {
+			isa = PBXGroup;
+			children = (
+				24138A21280573B500044F5E /* MenuController */,
+			);
+			path = SharedElements;
+			sourceTree = "<group>";
+		};
+		24138A21280573B500044F5E /* MenuController */ = {
+			isa = PBXGroup;
+			children = (
+				24138A19280571CA00044F5E /* MenuController.swift */,
+				24138A1B2805726200044F5E /* MenuView.swift */,
+				24138A1D2805728300044F5E /* MenuItemView.swift */,
+				24138A1F2805739B00044F5E /* MenuItem.swift */,
+			);
+			path = MenuController;
 			sourceTree = "<group>";
 		};
 		243B449627BE294C00953AD3 /* Sounds */ = {
@@ -503,11 +577,8 @@
 			isa = PBXGroup;
 			children = (
 				24D1288627903F5900AD7F3D /* App */,
-				24CB9FE527930C1700E9D49F /* Models */,
-				24CB9FE027930C0B00E9D49F /* Endpoints */,
-				24B0CEFF27D8C5EC0064F843 /* Resources */,
-				24D128952790490400AD7F3D /* Extensions */,
-				24D1288927903FE000AD7F3D /* Presentation */,
+				24138A12280570AD00044F5E /* NewVersion */,
+				24138A112805709700044F5E /* PreviousVersion */,
 				24D1287D27903ECE00AD7F3D /* LaunchScreen.storyboard */,
 				24D1288027903ECE00AD7F3D /* Info.plist */,
 				2497157F27D9E15F00968E08 /* GoogleService-Info.plist */,
@@ -830,6 +901,7 @@
 				248FC0D827A9548D00069FFF /* QuotesOfAuthorView.swift in Sources */,
 				24416B0627E3184C00B32745 /* ScrollIndicatorVC.swift in Sources */,
 				24FC97CD27CF8BDD00504361 /* ExploreQuoteWorker.swift in Sources */,
+				24138A1C2805726200044F5E /* MenuView.swift in Sources */,
 				24ED440727D61C4E00A3040C /* SwitchButton.swift in Sources */,
 				24FF8A0B27D5E313004E40B4 /* QoaCoreSetWorker.swift in Sources */,
 				24E289E427D2208700FDB6BB /* ModalAlertPresenter.swift in Sources */,
@@ -837,6 +909,7 @@
 				24F51F2F279EEB12003057F7 /* TabbarItemView.swift in Sources */,
 				24D128972790491500AD7F3D /* UIColor+Extension.swift in Sources */,
 				24D1287727903ECD00AD7F3D /* AuthorsVC.swift in Sources */,
+				24138A202805739B00044F5E /* MenuItem.swift in Sources */,
 				24B0CF0427D8D8980064F843 /* FilterButton.swift in Sources */,
 				24DEBF4D27ABB5BB00C40B29 /* LottieAnimations.swift in Sources */,
 				24C12BCC27AAAFCF0069684D /* UIViewController+Extension.swift in Sources */,
@@ -845,9 +918,11 @@
 				24D4108027B3FDAD00B5C899 /* QuoteGardenQuoteModel.swift in Sources */,
 				24D128A12790AD0500AD7F3D /* AuthorsContentView.swift in Sources */,
 				24D264F82791940F00614218 /* AuthorCellVM.swift in Sources */,
+				24138A1A280571CA00044F5E /* MenuController.swift in Sources */,
 				24D264F62791777500614218 /* AuthorCell.swift in Sources */,
 				24D0B25127A055C00050D3B4 /* TabbarController.swift in Sources */,
 				24E289EB27D2286300FDB6BB /* ModalAlertImageWorker.swift in Sources */,
+				24138A1E2805728300044F5E /* MenuItemView.swift in Sources */,
 				24E289F027D234A700FDB6BB /* ImageDownloaderWorker.swift in Sources */,
 				24C9A8E827BD2E25001C820F /* UIImage+Extension.swift in Sources */,
 				245409F827E0A49800A95E8E /* NotificationInteractor.swift in Sources */,
@@ -861,6 +936,7 @@
 				24C12BD127AABB800069684D /* ModalAlertVC.swift in Sources */,
 				245409FD27E0A74B00A95E8E /* NotificationWorker.swift in Sources */,
 				24C12BD427AABC8F0069684D /* ModalView.swift in Sources */,
+				24138A172805719400044F5E /* ExploreVCTemp.swift in Sources */,
 				24B0CEFB27D8C4E10064F843 /* FilterInteractor.swift in Sources */,
 				24E289ED27D228BC00FDB6BB /* ModalAlertContentWorker.swift in Sources */,
 				24B0CEF927D8C4750064F843 /* FilterGenreWorker.swift in Sources */,
