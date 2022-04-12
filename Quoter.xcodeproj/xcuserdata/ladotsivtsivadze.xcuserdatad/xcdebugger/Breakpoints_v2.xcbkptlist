@@ -843,9 +843,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "330"
-            endingLineNumber = "330"
-            landmarkName = "ExploreVC"
-            landmarkType = "21">
+            endingLineNumber = "330">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -889,9 +887,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "331"
-            endingLineNumber = "331"
-            landmarkName = "startAnimating()"
-            landmarkType = "7">
+            endingLineNumber = "331">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1081,9 +1077,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "configCollectionView()"
-            landmarkType = "7">
+            endingLineNumber = "119">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1097,9 +1091,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "277"
-            endingLineNumber = "277"
-            landmarkName = "addWifiButton()"
-            landmarkType = "7">
+            endingLineNumber = "277">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1113,9 +1105,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "viewWillAppear(_:)"
-            landmarkType = "7">
+            endingLineNumber = "129">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
