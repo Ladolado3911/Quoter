@@ -11,6 +11,7 @@ final class MenuIcons {
     
     static let defaultIcon = UIImage(named: "uncheck")!
     static let exploreIcon = UIImage(named: "Explore") ?? defaultIcon
+    static let menuIcon = UIImage(named: "MenuIcon") ?? defaultIcon
     
     private init() {}
 }

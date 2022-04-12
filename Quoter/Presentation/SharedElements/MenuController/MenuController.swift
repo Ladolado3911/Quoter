@@ -16,6 +16,13 @@ class MenuController: UIViewController {
         return view
     }()
     
+    let menuButton: UIButton = {
+        let menuButton = UIButton()
+        menuButton.setImage(MenuIcons.menuIcon, for: .normal)
+        menuButton.translatesAutoresizingMaskIntoConstraints = false
+        return menuButton
+    }()
+    
     override func loadView() {
         super.loadView()
         
@@ -24,6 +31,8 @@ class MenuController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        buildSubviews()
+        buildConstraints()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -35,6 +44,17 @@ class MenuController: UIViewController {
             addChild(firstItem.viewController)
             view.addSubview(firstItem.viewController.view)
         }
+    }
+    
+    private func buildSubviews() {
+        view.addSubview(menuButton)
+    }
+    
+    private func buildConstraints() {
+        NSLayoutConstraint.activate([
+            
+        
+        ])
     }
     
     
