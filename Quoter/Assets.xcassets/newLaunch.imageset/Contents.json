@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "EvenSmaller.jpeg",
+      "idiom" : "iphone"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

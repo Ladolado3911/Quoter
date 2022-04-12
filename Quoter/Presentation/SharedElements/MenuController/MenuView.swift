@@ -9,4 +9,8 @@ import UIKit
 
 class MenuView: UIView {
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+    }
 }
