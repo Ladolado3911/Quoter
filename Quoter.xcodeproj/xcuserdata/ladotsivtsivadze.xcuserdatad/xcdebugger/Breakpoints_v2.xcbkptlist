@@ -1294,8 +1294,8 @@
             filePath = "Quoter/Presentation/Scenes/Menu/MenuVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "didTapOnMenuVCButton(sender:)"
             landmarkType = "7">
          </BreakpointContent>

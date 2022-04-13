@@ -61,7 +61,7 @@ class MenuItemView: UIView {
             titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 5),
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
         
         ])
     }

@@ -13,7 +13,11 @@ final class MenuModels {
     
     let menuItems: [MenuItem] = [
         MenuItem(title: "Explore", icon: MenuIcons.exploreIcon, viewController: ExploreVC()),
-        MenuItem(title: "Test", icon: MenuIcons.defaultIcon, viewController: TestVC())
+        MenuItem(title: "Test", icon: MenuIcons.defaultIcon, viewController: TestVC()),
+        MenuItem(title: "Explore", icon: MenuIcons.exploreIcon, viewController: ExploreVC()),
+        MenuItem(title: "Test", icon: MenuIcons.defaultIcon, viewController: TestVC()),
+        MenuItem(title: "Explore", icon: MenuIcons.exploreIcon, viewController: ExploreVC()),
+        MenuItem(title: "Test", icon: MenuIcons.defaultIcon, viewController: TestVC()),
     
     
     ]
