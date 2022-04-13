@@ -10,5 +10,5 @@ import UIKit
 struct MenuItem {
     let title: String
     let icon: UIImage
-    let viewController: UIViewController
+    let viewController: BaseVC
 }

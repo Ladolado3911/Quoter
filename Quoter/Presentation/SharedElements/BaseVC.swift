@@ -9,6 +9,14 @@ import UIKit
 
 class BaseVC: UIViewController {
     
+    lazy var blurEffectView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.frame = view.bounds
+        blurView.alpha = 0
+        return blurView
+    }()
+    
     let statusRectView: UIView = {
         let view = UIView()
         view.backgroundColor = DarkModeColors.black.withAlphaComponent(0.5)
@@ -19,6 +27,7 @@ class BaseVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(statusRectView)
+        view.addSubview(blurEffectView)
         NSLayoutConstraint.activate([
             statusRectView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             statusRectView.topAnchor.constraint(equalTo: view.topAnchor),

@@ -12,10 +12,10 @@ class MenuVC: BaseVC {
     lazy var menuAppearTransform = CGAffineTransform(translationX: view.bounds.width * 0.521875, y: 0)
     
     var selectedItemIndex: Int = 0
-    var selectedVC: UIViewController {
+    var selectedVC: BaseVC {
         MenuModels.shared.menuItems[selectedItemIndex].viewController
     }
-    
+
     lazy var menuView: MenuView = {
         let width = view.bounds.width * 0.521875
         let frame = CGRect(x: -width, y: 0, width: width, height: view.bounds.height)
@@ -75,19 +75,21 @@ class MenuVC: BaseVC {
     }
     
     @objc func didTapOnMenuVCButton(sender: UIButton) {
-        UIView.animate(withDuration: 0.2, delay: 0) { [weak self] in
+        let selectedVC = selectedVC
+        UIView.animateKeyframes(withDuration: 0.3, delay: 0) { [weak self] in
             guard let self = self else { return }
-            self.menuView.transform = self.menuView.transform == .identity ? self.menuAppearTransform : .identity
-        }
-        UIView.animate(withDuration: 0.2, delay: 0) {[weak self] in
-            guard let self = self else { return }
-            self.selectedVC.view.transform = self.selectedVC.view.transform == .identity ? self.menuAppearTransform : .identity
-        }
-        UIView.animate(withDuration: 0.2, delay: 0) {[weak self] in
-            guard let self = self else { return }
-            self.menuVCButton.transform = self.menuVCButton.transform == .identity ? self.menuAppearTransform : .identity
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
+                self.menuView.transform = self.menuView.transform == .identity ? self.menuAppearTransform : .identity
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
+                selectedVC.view.transform = selectedVC.view.transform == .identity ? self.menuAppearTransform : .identity
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
+                self.menuVCButton.transform = self.menuVCButton.transform == .identity ? self.menuAppearTransform : .identity
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
+                selectedVC.blurEffectView.alpha = selectedVC.blurEffectView.alpha == 0 ? 1 : 0
+            }
         }
     }
-    
-    
 }

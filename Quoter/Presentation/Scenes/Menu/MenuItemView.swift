@@ -19,7 +19,7 @@ class MenuItemView: UIView {
         return imageView
     }()
     
-    var vc: UIViewController?
+    var vc: BaseVC?
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
