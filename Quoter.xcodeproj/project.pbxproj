@@ -35,6 +35,7 @@
 		24D1287F27903ECE00AD7F3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24D1287D27903ECE00AD7F3D /* LaunchScreen.storyboard */; };
 		24D1289C2790887A00AD7F3D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 24D1289B2790887A00AD7F3D /* SnapKit */; };
 		24D1289F2790AB4900AD7F3D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 24D1289E2790AB4900AD7F3D /* Kingfisher */; };
+		24D5BC272806C2C0003D14CD /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5BC262806C2C0003D14CD /* BaseVC.swift */; };
 		24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 24DEBF4527ABB1D400C40B29 /* Lottie */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		24D1287427903ECD00AD7F3D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		24D1287E27903ECE00AD7F3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		24D1288027903ECE00AD7F3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		24D5BC262806C2C0003D14CD /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		24138A14280570C900044F5E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				24138A21280573B500044F5E /* Menu */,
 				24138A15280570DC00044F5E /* Explore */,
 			);
 			path = Scenes;
@@ -113,12 +116,12 @@
 		24138A18280571AB00044F5E /* SharedElements */ = {
 			isa = PBXGroup;
 			children = (
-				24138A21280573B500044F5E /* MenuController */,
+				24D5BC262806C2C0003D14CD /* BaseVC.swift */,
 			);
 			path = SharedElements;
 			sourceTree = "<group>";
 		};
-		24138A21280573B500044F5E /* MenuController */ = {
+		24138A21280573B500044F5E /* Menu */ = {
 			isa = PBXGroup;
 			children = (
 				24138A19280571CA00044F5E /* MenuController.swift */,
@@ -128,7 +131,7 @@
 				24138A222805748200044F5E /* MenuModels.swift */,
 				24138A3A2805B16600044F5E /* MenuIcons.swift */,
 			);
-			path = MenuController;
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		24138A2A2805AD6E00044F5E /* Extensions */ = {
@@ -294,6 +297,7 @@
 				24138A3D2805B39F00044F5E /* Constants.swift in Sources */,
 				24138A232805748200044F5E /* MenuModels.swift in Sources */,
 				24138A292805AC7300044F5E /* Colors.swift in Sources */,
+				24D5BC272806C2C0003D14CD /* BaseVC.swift in Sources */,
 				24138A1C2805726200044F5E /* MenuView.swift in Sources */,
 				24138A362805AD6E00044F5E /* UIViewController+Extension.swift in Sources */,
 				24138A332805AD6E00044F5E /* UIColor+Extension.swift in Sources */,

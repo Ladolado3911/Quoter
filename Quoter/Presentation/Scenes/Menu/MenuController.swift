@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MenuController: UIViewController {
+class MenuController: BaseVC {
     
     lazy var menuView: MenuView = {
         let width = view.bounds.width * 0.521875
@@ -44,6 +44,11 @@ class MenuController: UIViewController {
             addChild(firstItem.viewController)
             view.addSubview(firstItem.viewController.view)
         }
+        bringSubviewsToFront()
+    }
+    
+    private func bringSubviewsToFront() {
+        view.bringSubviewToFront(statusRectView)
     }
     
     private func buildSubviews() {
@@ -52,8 +57,10 @@ class MenuController: UIViewController {
     
     private func buildConstraints() {
         NSLayoutConstraint.activate([
-            
-        
+            menuButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            menuButton.topAnchor.constraint(equalTo: statusRectView.bottomAnchor, constant: 20),
+            menuButton.widthAnchor.constraint(equalToConstant: 35),
+            menuButton.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
     
