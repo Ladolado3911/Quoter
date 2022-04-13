@@ -9,13 +9,17 @@ import UIKit
 
 class MenuItemView: UIView {
     
-    let titleField: UITextField = {
-        let field = UITextField()
+    let titleLabel: UILabel = {
+        let field = UILabel()
+        field.textColor = DarkModeColors.white
+        field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
     
     let iconImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = MenuIcons.exploreIcon
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -31,18 +35,35 @@ class MenuItemView: UIView {
     
     convenience init(frame: CGRect, with item: MenuItem) {
         self.init(frame: frame)
-        titleField.text = item.title
+        titleLabel.text = item.title
         iconImageView.image = item.icon
         vc = item.viewController
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        buildSubviews()
+        buildConstraints()
+    }
+    
     private func buildSubviews() {
-        addSubview(titleField)
+        addSubview(titleLabel)
         addSubview(iconImageView)
     }
     
     private func buildConstraints() {
+        NSLayoutConstraint.activate([
+            iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            iconImageView.topAnchor.constraint(equalTo: topAnchor),
+            iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            iconImageView.widthAnchor.constraint(equalTo: heightAnchor),
+            
+            titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 5),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         
+        ])
     }
 
 }

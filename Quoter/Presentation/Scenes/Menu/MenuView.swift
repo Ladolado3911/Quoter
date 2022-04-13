@@ -17,8 +17,17 @@ class MenuView: UIView {
     }
     
     private func buildSubviews() {
+        let width = bounds.width * 0.7
+        let height: CGFloat = 20
+        let spacing: CGFloat = 30
+        let x: CGFloat = 20
+        var currentY: CGFloat = 132
+    
         for itemView in MenuModels.shared.menuItemViews {
             addSubview(itemView)
+            let frame = CGRect(x: x, y: currentY, width: width, height: height)
+            itemView.frame = frame
+            currentY = currentY + spacing + height
         }
     }
     
