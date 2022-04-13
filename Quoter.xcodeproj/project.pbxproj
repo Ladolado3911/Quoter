@@ -37,6 +37,7 @@
 		24D1289F2790AB4900AD7F3D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 24D1289E2790AB4900AD7F3D /* Kingfisher */; };
 		24D5BC272806C2C0003D14CD /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5BC262806C2C0003D14CD /* BaseVC.swift */; };
 		24D5BC292806FA7A003D14CD /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5BC282806FA7A003D14CD /* MenuCell.swift */; };
+		24D5BC2B2806FE93003D14CD /* MenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5BC2A2806FE93003D14CD /* MenuHeaderView.swift */; };
 		24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 24DEBF4527ABB1D400C40B29 /* Lottie */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		24D1288027903ECE00AD7F3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24D5BC262806C2C0003D14CD /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		24D5BC282806FA7A003D14CD /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		24D5BC2A2806FE93003D14CD /* MenuHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				24138A222805748200044F5E /* MenuModels.swift */,
 				24138A3A2805B16600044F5E /* MenuIcons.swift */,
 				24D5BC282806FA7A003D14CD /* MenuCell.swift */,
+				24D5BC2A2806FE93003D14CD /* MenuHeaderView.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				24138A332805AD6E00044F5E /* UIColor+Extension.swift in Sources */,
 				24138A202805739B00044F5E /* MenuItem.swift in Sources */,
 				24138A1A280571CA00044F5E /* MenuVC.swift in Sources */,
+				24D5BC2B2806FE93003D14CD /* MenuHeaderView.swift in Sources */,
 				24138A342805AD6E00044F5E /* UIView+Extension.swift in Sources */,
 				24138A1E2805728300044F5E /* MenuItemCell.swift in Sources */,
 				24138A172805719400044F5E /* ExploreVC.swift in Sources */,

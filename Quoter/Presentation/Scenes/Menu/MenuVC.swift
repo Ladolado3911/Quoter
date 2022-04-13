@@ -60,6 +60,7 @@ class MenuVC: BaseVC {
         menuView.tableView.dataSource = self
         menuView.tableView.delegate = self
         menuView.tableView.register(MenuCell.self, forCellReuseIdentifier: "MenuCell")
+        menuView.tableView.register(MenuHeaderView.self, forHeaderFooterViewReuseIdentifier: "MenuHeader")
     }
     
     private func bringSubviewsToFront() {
@@ -115,5 +116,14 @@ extension MenuVC: UITableViewDataSource, UITableViewDelegate {
         if let cell = cell as? MenuCell {
             cell.menuItem = MenuModels.shared.menuItems[indexPath.row]
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "MenuHeader")
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        100
     }
 }
