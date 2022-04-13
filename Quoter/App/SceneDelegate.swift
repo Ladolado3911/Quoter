@@ -53,7 +53,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // MARK: new revamped version
         
-        let vc = MenuController()
+        let vc = MenuVC()
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
         
