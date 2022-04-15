@@ -9,17 +9,21 @@ import UIKit
 
 class ExploreVC: BaseVC {
     
-    lazy var gradientView: UIView = {
+    let testData: [UIImage] = [UIImage(named: "business")!, UIImage(named: "business2")!]
+    
+    lazy var exploreView: ExploreView = {
+        let explore = ExploreView(frame: view.bounds)
+        return explore
+    }()
+    
+    lazy var gradientLayer: CAGradientLayer = {
         let gradient = CAGradientLayer()
-        let view = UIView(frame: view.bounds)
-        view.backgroundColor = .clear
         gradient.frame = view.bounds
         gradient.colors = [DarkModeColors.black.cgColor, UIColor.clear.cgColor]
         gradient.startPoint = CGPoint(x: 0.5, y: 1)
         gradient.endPoint = CGPoint(x: 0.5, y: 0)
         gradient.locations = [0, 0.6161]
-        view.layer.addSublayer(gradient)
-        return view
+        return gradient
     }()
     
     lazy var tempImageView: UIImageView = {
@@ -29,18 +33,62 @@ class ExploreVC: BaseVC {
         return imgView
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //view.addSubview(gradientView)
-        //view.backgroundColor = .red
-        //view.layer.insertSublayer(gradientLayer, at: 0)
-        view.addSubview(tempImageView)
-        view.bringSubviewToFront(blurEffectView)
+    override func loadView() {
+        super.loadView()
+        view = exploreView
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configCollectionView()
+        //view.addSubview(tempImageView)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        view.layer.addSublayer(gradientLayer)
+        view.bringSubviewToFront(blurEffectView)
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        view.addSubview(gradientView)
+       
     }
+    
+    private func configCollectionView() {
+        exploreView.collectionView.dataSource = self
+        exploreView.collectionView.delegate = self
+        exploreView.collectionView.register(ExploreCell.self, forCellWithReuseIdentifier: "ExploreCell")
+    }
+    
+}
+
+extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        testData.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExploreCell", for: indexPath)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let cell = cell as? ExploreCell {
+            cell.imgView.image = testData[indexPath.item]
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        view.bounds.size
+    }
+    
     
 }
