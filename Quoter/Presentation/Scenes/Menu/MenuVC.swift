@@ -114,6 +114,7 @@ extension MenuVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? MenuCell {
+            print(MenuModels.shared.menuItems[indexPath.row].isSelected)
             cell.menuItem = MenuModels.shared.menuItems[indexPath.row]
         }
     }
@@ -125,5 +126,21 @@ extension MenuVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         100
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        50
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let indexesToDeselect = MenuModels.shared.menuItems.enumerated().filter { $0.offset != indexPath.row }.map { $0.offset }
+//        let indexesToDeselectIndexPaths = indexesToDeselect.map { IndexPath(row: $0, section: 0) }
+        for itemIndex in 0..<MenuModels.shared.menuItems.count {
+            MenuModels.shared.menuItems[itemIndex].deselect()
+        }
+        MenuModels.shared.menuItems[indexPath.row].select()
+        tableView.reloadData()
+//        tableView.reloadRows(at: indexesToDeselectIndexPaths, with: .none)
+//        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }

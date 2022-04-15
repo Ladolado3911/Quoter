@@ -32,7 +32,7 @@ class BaseVC: UIViewController {
             statusRectView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             statusRectView.topAnchor.constraint(equalTo: view.topAnchor),
             statusRectView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            statusRectView.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.06514)
+            statusRectView.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.05)
         ])
     }
 }

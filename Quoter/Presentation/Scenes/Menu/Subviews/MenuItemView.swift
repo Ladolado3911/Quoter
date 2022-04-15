@@ -11,7 +11,8 @@ class MenuItemView: UIView {
     
     let titleLabel: UILabel = {
         let field = UILabel()
-        field.textColor = DarkModeColors.white
+        field.textColor = DarkModeColors.grey
+        field.font = UIFont(name: "Arial", size: 14)
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
@@ -19,11 +20,13 @@ class MenuItemView: UIView {
     let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = MenuIcons.exploreIcon
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     var vc: BaseVC?
+    var isSelected: Bool = false
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -38,10 +41,12 @@ class MenuItemView: UIView {
         titleLabel.text = item.title
         iconImageView.image = item.icon
         vc = item.viewController
+        isSelected = item.isSelected
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        configView()
         buildSubviews()
         buildConstraints()
     }
@@ -54,16 +59,24 @@ class MenuItemView: UIView {
     private func buildConstraints() {
         NSLayoutConstraint.activate([
             iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            iconImageView.topAnchor.constraint(equalTo: topAnchor),
-            iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            iconImageView.widthAnchor.constraint(equalTo: heightAnchor),
+            iconImageView.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.04),
+            iconImageView.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.04),
+            iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 5),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 7),
+            titleLabel.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         
         ])
+    }
+    
+    private func configView() {
+        if isSelected {
+            titleLabel.textColor = DarkModeColors.white
+        }
+        else {
+            titleLabel.textColor = DarkModeColors.grey
+        }
     }
 
 }

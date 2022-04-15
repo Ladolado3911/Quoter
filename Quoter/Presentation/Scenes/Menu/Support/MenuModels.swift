@@ -11,7 +11,7 @@ final class MenuModels {
     
     static let shared = MenuModels()
     
-    let menuItems: [MenuItem] = [
+    var menuItems: [MenuItem] = [
         MenuItem(title: "Explore", icon: MenuIcons.exploreIcon, viewController: ExploreVC()),
         MenuItem(title: "Test", icon: MenuIcons.defaultIcon, viewController: TestVC()),
         MenuItem(title: "Explore", icon: MenuIcons.exploreIcon, viewController: ExploreVC()),

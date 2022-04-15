@@ -10,9 +10,10 @@ import UIKit
 class MenuView: UIView {
     
     lazy var tableView: UITableView = {
-        let table = UITableView(frame: bounds)
+        let table = UITableView()
         table.isScrollEnabled = false
         table.backgroundColor = DarkModeColors.mainBlack
+        table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
 
@@ -28,6 +29,12 @@ class MenuView: UIView {
     }
     
     private func buildConstraints() {
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            tableView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
         
+        ])
     }
 }

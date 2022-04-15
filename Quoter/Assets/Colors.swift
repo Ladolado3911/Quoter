@@ -13,6 +13,7 @@ final class DarkModeColors {
     static let lightBlack = UIColor(hex: "313235")
     static let white = UIColor.white
     static let black = UIColor.black
+    static let grey = UIColor(hex: "AEAEAE")
     
     private init() {}
 }

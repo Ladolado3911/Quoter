@@ -11,4 +11,13 @@ struct MenuItem {
     let title: String
     let icon: UIImage
     let viewController: BaseVC
+    var isSelected: Bool = false
+    
+    mutating func select() {
+        isSelected = true
+    }
+    
+    mutating func deselect() {
+        isSelected = false
+    }
 }
