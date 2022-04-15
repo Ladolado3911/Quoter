@@ -8,6 +8,36 @@
 import UIKit
 import AnimatedCollectionViewLayout
 
+enum Direction {
+    case left
+    case right
+    case up
+    case down
+}
+
+class ArrowButton: UIButton {
+    
+    var direction: Direction = .left
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+    }
+    
+    convenience override init(frame: CGRect, d) {
+        <#code#>
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+    }
+}
+
 class ExploreView: UIView {
     
     lazy var collectionView: UICollectionView = {

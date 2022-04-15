@@ -41,7 +41,6 @@ class ExploreVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         configCollectionView()
-        //view.addSubview(tempImageView)
     }
     
     override func viewDidLayoutSubviews() {
