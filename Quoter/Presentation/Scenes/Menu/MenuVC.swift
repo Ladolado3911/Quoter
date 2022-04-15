@@ -25,7 +25,7 @@ class MenuVC: BaseVC {
     
     let menuVCButton: UIButton = {
         let menuButton = UIButton()
-        menuButton.setImage(MenuIcons.menuIcon, for: .normal)
+        menuButton.setImage(MenuIcons.menuIcon.resizedImage(targetHeight: Constants.screenHeight * 0.06), for: .normal)
         menuButton.translatesAutoresizingMaskIntoConstraints = false
         return menuButton
     }()
@@ -91,14 +91,14 @@ class MenuVC: BaseVC {
     
     private func buildConstraints() {
         NSLayoutConstraint.activate([
-            menuVCButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            menuVCButton.topAnchor.constraint(equalTo: statusRectView.bottomAnchor, constant: 20),
-            menuVCButton.widthAnchor.constraint(equalToConstant: 35),
-            menuVCButton.heightAnchor.constraint(equalToConstant: 35),
+            menuVCButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.screenHeight * 0.04),
+            menuVCButton.topAnchor.constraint(equalTo: statusRectView.bottomAnchor, constant: Constants.screenHeight * 0.04),
+            menuVCButton.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.06),
+            menuVCButton.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.06),
         ])
     }
     
-    @objc func didTapOnMenuVCButton(sender: UIButton) {
+    private func didTapOnVC() {
         let selectedVC = selectedVC
         UIView.animateKeyframes(withDuration: 0.3, delay: 0) { [weak self] in
             guard let self = self else { return }
@@ -115,6 +115,10 @@ class MenuVC: BaseVC {
                 selectedVC.blurEffectView.alpha = selectedVC.blurEffectView.alpha == 0 ? 1 : 0
             }
         }
+    }
+    
+    @objc func didTapOnMenuVCButton(sender: UIButton) {
+        didTapOnVC()
     }
 }
 
@@ -140,11 +144,11 @@ extension MenuVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        100
+        Constants.screenHeight * 0.176
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        50
+        Constants.screenHeight * 0.088
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -154,5 +158,6 @@ extension MenuVC: UITableViewDataSource, UITableViewDelegate {
         MenuModels.shared.menuItems[indexPath.row].select()
         switchVC(index: indexPath.row)
         tableView.reloadData()
+        didTapOnVC()
     }
 }

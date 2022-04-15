@@ -23,8 +23,8 @@ class MenuHeaderView: UITableViewHeaderFooterView {
         NSLayoutConstraint.activate([
             logoIconView.leadingAnchor.constraint(equalTo: leadingAnchor),
             logoIconView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            logoIconView.heightAnchor.constraint(equalToConstant: 44),
-            logoIconView.widthAnchor.constraint(equalToConstant: 44)
+            logoIconView.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0774),
+            logoIconView.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0774)
         ])
     }
 }
