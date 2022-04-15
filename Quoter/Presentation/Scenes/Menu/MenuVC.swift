@@ -7,14 +7,26 @@
 
 import UIKit
 
+enum MenuViewVisibility {
+    case visible
+    case invisible
+}
+
+class TapOnBlurGesture: UITapGestureRecognizer {
+    
+}
+
 class MenuVC: BaseVC {
     
     lazy var menuAppearTransform = CGAffineTransform(translationX: view.bounds.width * 0.521875, y: 0)
+    lazy var tapGesture = TapOnBlurGesture(target: self, action: #selector(didTapOnVCGesture(sender:)))
+    lazy var leftSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeftOnMenuView(sender:)))
     
     var selectedItemIndex: Int = 0
     var selectedVC: BaseVC {
         MenuModels.shared.menuItems[selectedItemIndex].viewController
     }
+    var isMenuVisible: MenuViewVisibility = .invisible
 
     lazy var menuView: MenuView = {
         let width = view.bounds.width * 0.521875
@@ -47,6 +59,8 @@ class MenuVC: BaseVC {
     }
     
     private func setup() {
+        leftSwipeRecognizer.direction = .left
+        menuView.addGestureRecognizer(leftSwipeRecognizer)
         for childIndex in 0..<MenuModels.shared.menuItems.count {
             let vc = MenuModels.shared.menuItems[childIndex].viewController
             addChild(vc)
@@ -100,6 +114,21 @@ class MenuVC: BaseVC {
     
     private func didTapOnVC() {
         let selectedVC = selectedVC
+        switch isMenuVisible {
+        case .visible:
+            // remove gesture
+            guard let recognizers = selectedVC.blurEffectView.gestureRecognizers else { return }
+            for gesture in recognizers {
+                if let gesture = gesture as? TapOnBlurGesture {
+                    selectedVC.blurEffectView.removeGestureRecognizer(gesture)
+                }
+            }
+            
+        case .invisible:
+            // add gesture
+            selectedVC.blurEffectView.addGestureRecognizer(tapGesture)
+        }
+        isMenuVisible = isMenuVisible == .invisible ? .visible : .invisible
         UIView.animateKeyframes(withDuration: 0.3, delay: 0) { [weak self] in
             guard let self = self else { return }
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
@@ -115,6 +144,14 @@ class MenuVC: BaseVC {
                 selectedVC.blurEffectView.alpha = selectedVC.blurEffectView.alpha == 0 ? 1 : 0
             }
         }
+    }
+    
+    @objc func didSwipeLeftOnMenuView(sender: UISwipeGestureRecognizer) {
+        didTapOnVC()
+    }
+    
+    @objc func didTapOnVCGesture(sender: UITapGestureRecognizer) {
+        didTapOnVC()
     }
     
     @objc func didTapOnMenuVCButton(sender: UIButton) {
