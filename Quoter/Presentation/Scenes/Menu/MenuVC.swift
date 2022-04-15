@@ -47,13 +47,30 @@ class MenuVC: BaseVC {
     }
     
     private func setup() {
-        if let firstItem = MenuModels.shared.menuItems.first {
-            addChild(firstItem.viewController)
-            view.addSubview(firstItem.viewController.view)
+        for childIndex in 0..<MenuModels.shared.menuItems.count {
+            let vc = MenuModels.shared.menuItems[childIndex].viewController
+            addChild(vc)
+            if childIndex == 0 {
+                view.addSubview(vc.view)
+            }
         }
         menuVCButton.addTarget(self, action: #selector(didTapOnMenuVCButton(sender:)), for: .touchUpInside)
         bringSubviewsToFront()
         configTableView()
+    }
+    
+    private func switchVC(index: Int) {
+        for subview in view.subviews {
+            if subview is MenuView || subview is UIButton || subview is StatusRectView {
+                
+            }
+            else {
+                subview.removeFromSuperview()
+            }
+        }
+        let selectedVC = MenuModels.shared.menuItems[index].viewController
+        view.addSubview(selectedVC.view)
+        view.sendSubviewToBack(selectedVC.view)
     }
     
     private func configTableView() {
@@ -114,7 +131,6 @@ extension MenuVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? MenuCell {
-            print(MenuModels.shared.menuItems[indexPath.row].isSelected)
             cell.menuItem = MenuModels.shared.menuItems[indexPath.row]
         }
     }
@@ -133,14 +149,11 @@ extension MenuVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let indexesToDeselect = MenuModels.shared.menuItems.enumerated().filter { $0.offset != indexPath.row }.map { $0.offset }
-//        let indexesToDeselectIndexPaths = indexesToDeselect.map { IndexPath(row: $0, section: 0) }
         for itemIndex in 0..<MenuModels.shared.menuItems.count {
             MenuModels.shared.menuItems[itemIndex].deselect()
         }
         MenuModels.shared.menuItems[indexPath.row].select()
+        switchVC(index: indexPath.row)
         tableView.reloadData()
-//        tableView.reloadRows(at: indexesToDeselectIndexPaths, with: .none)
-//        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }

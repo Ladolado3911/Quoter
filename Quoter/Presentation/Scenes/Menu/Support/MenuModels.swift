@@ -13,11 +13,8 @@ final class MenuModels {
     
     var menuItems: [MenuItem] = [
         MenuItem(title: "Explore", icon: MenuIcons.exploreIcon, viewController: ExploreVC()),
-        MenuItem(title: "Test", icon: MenuIcons.defaultIcon, viewController: TestVC()),
-        MenuItem(title: "Explore", icon: MenuIcons.exploreIcon, viewController: ExploreVC()),
-        MenuItem(title: "Test", icon: MenuIcons.defaultIcon, viewController: TestVC()),
-        MenuItem(title: "Explore", icon: MenuIcons.exploreIcon, viewController: ExploreVC()),
-        MenuItem(title: "Test", icon: MenuIcons.defaultIcon, viewController: TestVC()),
+        MenuItem(title: "Gallery", icon: MenuIcons.defaultIcon, viewController: BlueVC()),
+        MenuItem(title: "Daily Quotes", icon: MenuIcons.exploreIcon, viewController: RedVC()),
     
     
     ]
@@ -28,6 +25,9 @@ final class MenuModels {
     
     private init() {}
     
+    func initialize() {
+        menuItems[0].select()
+    }
     
 }
 

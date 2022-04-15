@@ -7,6 +7,14 @@
 
 import UIKit
 
+class StatusRectView: UIView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        backgroundColor = DarkModeColors.black.withAlphaComponent(0.5)
+        translatesAutoresizingMaskIntoConstraints = false
+    }
+}
+
 class BaseVC: UIViewController {
     
     lazy var blurEffectView: UIVisualEffectView = {
@@ -17,10 +25,8 @@ class BaseVC: UIViewController {
         return blurView
     }()
     
-    let statusRectView: UIView = {
-        let view = UIView()
-        view.backgroundColor = DarkModeColors.black.withAlphaComponent(0.5)
-        view.translatesAutoresizingMaskIntoConstraints = false
+    let statusRectView: StatusRectView = {
+        let view = StatusRectView()
         return view
     }()
     
