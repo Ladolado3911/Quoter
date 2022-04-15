@@ -61,16 +61,15 @@ class MenuVC: BaseVC {
     
     private func switchVC(index: Int) {
         for subview in view.subviews {
-            if subview is MenuView || subview is UIButton || subview is StatusRectView {
-                
-            }
-            else {
+            if !(subview is MenuView || subview is UIButton || subview is StatusRectView) {
                 subview.removeFromSuperview()
             }
         }
         let selectedVC = MenuModels.shared.menuItems[index].viewController
         view.addSubview(selectedVC.view)
         view.sendSubviewToBack(selectedVC.view)
+        selectedVC.view.transform = menuAppearTransform
+        selectedItemIndex = index
     }
     
     private func configTableView() {
