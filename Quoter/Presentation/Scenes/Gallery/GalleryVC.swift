@@ -8,7 +8,7 @@
 import UIKit
 
 
-class BlueVC: BaseVC {
+class GalleryVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()

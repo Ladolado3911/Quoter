@@ -5,7 +5,7 @@
 //  Created by Lado Tsivtsivadze on 4/15/22.
 //
 
-class RedVC: BaseVC {
+class DailyQuotesVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()

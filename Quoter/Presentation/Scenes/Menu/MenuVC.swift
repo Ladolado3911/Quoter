@@ -117,10 +117,11 @@ class MenuVC: BaseVC {
         switch isMenuVisible {
         case .visible:
             // remove gesture
-            guard let recognizers = selectedVC.blurEffectView.gestureRecognizers else { return }
-            for gesture in recognizers {
-                if let gesture = gesture as? TapOnBlurGesture {
-                    selectedVC.blurEffectView.removeGestureRecognizer(gesture)
+            if let gestures = selectedVC.blurEffectView.gestureRecognizers {
+                for gesture in gestures {
+                    if let gesture = gesture as? TapOnBlurGesture {
+                        selectedVC.blurEffectView.removeGestureRecognizer(gesture)
+                    }
                 }
             }
             
