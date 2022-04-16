@@ -17,14 +17,6 @@ class StatusRectView: UIView {
 
 class BaseVC: UIViewController {
     
-    lazy var blurEffectView: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: .systemThinMaterialDark)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.frame = view.bounds
-        blurView.alpha = 0
-        return blurView
-    }()
-    
     let statusRectView: StatusRectView = {
         let view = StatusRectView()
         return view
@@ -33,7 +25,6 @@ class BaseVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(statusRectView)
-        view.addSubview(blurEffectView)
         NSLayoutConstraint.activate([
             statusRectView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             statusRectView.topAnchor.constraint(equalTo: view.topAnchor),

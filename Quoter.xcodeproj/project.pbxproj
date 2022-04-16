@@ -33,6 +33,8 @@
 		2497158927D9E40F00968E08 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2497158727D9E3FB00968E08 /* AdSupport.framework */; };
 		249EDC1827C770A6005F7A9B /* TTGTags in Frameworks */ = {isa = PBXBuildFile; productRef = 249EDC1727C770A6005F7A9B /* TTGTags */; };
 		24A8407527C3A0F400BCF304 /* AnimatedCollectionViewLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 24A8407427C3A0F400BCF304 /* AnimatedCollectionViewLayout */; };
+		24D018F6280ADE150031C14B /* ArrowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D018F5280ADE150031C14B /* ArrowButtonView.swift */; };
+		24D018F9280ADE880031C14B /* ExploreIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D018F8280ADE880031C14B /* ExploreIcons.swift */; };
 		24D0F08428080ACA0085FDEA /* MenuIconsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0F08328080ACA0085FDEA /* MenuIconsTests.swift */; };
 		24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1287227903ECD00AD7F3D /* AppDelegate.swift */; };
 		24D1287527903ECD00AD7F3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1287427903ECD00AD7F3D /* SceneDelegate.swift */; };
@@ -85,6 +87,8 @@
 		2458D2992809A51A0088C00E /* ExploreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCell.swift; sourceTree = "<group>"; };
 		2497157F27D9E15F00968E08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2497158727D9E3FB00968E08 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		24D018F5280ADE150031C14B /* ArrowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowButtonView.swift; sourceTree = "<group>"; };
+		24D018F8280ADE880031C14B /* ExploreIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreIcons.swift; sourceTree = "<group>"; };
 		24D0F069280809E80085FDEA /* QuoterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuoterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0F07628080A110085FDEA /* QuoterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuoterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0F08328080ACA0085FDEA /* MenuIconsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuIconsTests.swift; sourceTree = "<group>"; };
@@ -155,8 +159,8 @@
 			isa = PBXGroup;
 			children = (
 				24138A162805719400044F5E /* ExploreVC.swift */,
-				2458D2972809A25B0088C00E /* ExploreView.swift */,
-				2458D2992809A51A0088C00E /* ExploreCell.swift */,
+				24D018F7280ADE7A0031C14B /* Support */,
+				24D018F4280ADE020031C14B /* Subviews */,
 			);
 			path = Explore;
 			sourceTree = "<group>";
@@ -224,6 +228,24 @@
 				2497158727D9E3FB00968E08 /* AdSupport.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		24D018F4280ADE020031C14B /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				2458D2992809A51A0088C00E /* ExploreCell.swift */,
+				2458D2972809A25B0088C00E /* ExploreView.swift */,
+				24D018F5280ADE150031C14B /* ArrowButtonView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		24D018F7280ADE7A0031C14B /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				24D018F8280ADE880031C14B /* ExploreIcons.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		24D0F06A280809E80085FDEA /* QuoterTests */ = {
@@ -482,6 +504,8 @@
 				24138A362805AD6E00044F5E /* UIViewController+Extension.swift in Sources */,
 				24138A332805AD6E00044F5E /* UIColor+Extension.swift in Sources */,
 				24138A202805739B00044F5E /* MenuItem.swift in Sources */,
+				24D018F6280ADE150031C14B /* ArrowButtonView.swift in Sources */,
+				24D018F9280ADE880031C14B /* ExploreIcons.swift in Sources */,
 				2458D29A2809A51A0088C00E /* ExploreCell.swift in Sources */,
 				24138A1A280571CA00044F5E /* MenuVC.swift in Sources */,
 				24D5BC2B2806FE93003D14CD /* MenuHeaderView.swift in Sources */,

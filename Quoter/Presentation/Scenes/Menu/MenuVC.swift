@@ -23,8 +23,10 @@ class MenuVC: BaseVC {
     lazy var leftSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeftOnMenuView(sender:)))
     
     var selectedItemIndex: Int = 0
+    let viewControllers = MenuModels.shared.menuItems.map { $0.viewController }
+    var menuItems = MenuModels.shared.menuItems
     var selectedVC: BaseVC {
-        MenuModels.shared.menuItems[selectedItemIndex].viewController
+        viewControllers[selectedItemIndex]
     }
     var isMenuVisible: MenuViewVisibility = .invisible
 
@@ -33,6 +35,14 @@ class MenuVC: BaseVC {
         let frame = CGRect(x: -width, y: 0, width: width, height: view.bounds.height)
         let view = MenuView(frame: frame)
         return view
+    }()
+    
+    lazy var blurEffectView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .systemThinMaterialDark)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.frame = view.bounds
+        blurView.alpha = 0
+        return blurView
     }()
     
     let menuVCButton: UIButton = {
@@ -61,6 +71,7 @@ class MenuVC: BaseVC {
     private func setup() {
         leftSwipeRecognizer.direction = .left
         menuView.addGestureRecognizer(leftSwipeRecognizer)
+        blurEffectView.addGestureRecognizer(tapGesture)
         for childIndex in 0..<MenuModels.shared.menuItems.count {
             let vc = MenuModels.shared.menuItems[childIndex].viewController
             addChild(vc)
@@ -75,15 +86,14 @@ class MenuVC: BaseVC {
     
     private func switchVC(index: Int) {
         for subview in view.subviews {
-            if !(subview is MenuView || subview is UIButton || subview is StatusRectView) {
+            if !(subview is MenuView || subview is UIButton || subview is StatusRectView || subview is UIVisualEffectView) {
                 subview.removeFromSuperview()
             }
         }
-        let selectedVC = MenuModels.shared.menuItems[index].viewController
+        selectedItemIndex = index
+        selectedVC.view.transform = menuAppearTransform
         view.addSubview(selectedVC.view)
         view.sendSubviewToBack(selectedVC.view)
-        selectedVC.view.transform = menuAppearTransform
-        selectedItemIndex = index
     }
     
     private func configTableView() {
@@ -96,10 +106,12 @@ class MenuVC: BaseVC {
     private func bringSubviewsToFront() {
         view.bringSubviewToFront(statusRectView)
         view.bringSubviewToFront(menuView)
+        view.bringSubviewToFront(menuVCButton)
     }
     
     private func buildSubviews() {
         view.addSubview(menuView)
+        view.addSubview(blurEffectView)
         view.addSubview(menuVCButton)
     }
     
@@ -114,22 +126,6 @@ class MenuVC: BaseVC {
     
     private func didTapOnVC() {
         let selectedVC = selectedVC
-        switch isMenuVisible {
-        case .visible:
-            // remove gesture
-            if let gestures = selectedVC.blurEffectView.gestureRecognizers {
-                for gesture in gestures {
-                    if let gesture = gesture as? TapOnBlurGesture {
-                        selectedVC.blurEffectView.removeGestureRecognizer(gesture)
-                    }
-                }
-            }
-            
-        case .invisible:
-            // add gesture
-            selectedVC.blurEffectView.addGestureRecognizer(tapGesture)
-        }
-        isMenuVisible = isMenuVisible == .invisible ? .visible : .invisible
         UIView.animateKeyframes(withDuration: 0.3, delay: 0) { [weak self] in
             guard let self = self else { return }
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
@@ -142,7 +138,10 @@ class MenuVC: BaseVC {
                 self.menuVCButton.transform = self.menuVCButton.transform == .identity ? self.menuAppearTransform : .identity
             }
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
-                selectedVC.blurEffectView.alpha = selectedVC.blurEffectView.alpha == 0 ? 1 : 0
+                self.blurEffectView.alpha = self.blurEffectView.alpha == 0 ? 1 : 0
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
+                self.blurEffectView.transform = self.blurEffectView.transform == .identity ? self.menuAppearTransform : .identity
             }
         }
     }
@@ -162,7 +161,7 @@ class MenuVC: BaseVC {
 
 extension MenuVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        MenuModels.shared.menuItems.count
+        viewControllers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -172,7 +171,7 @@ extension MenuVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? MenuCell {
-            cell.menuItem = MenuModels.shared.menuItems[indexPath.row]
+            cell.menuItem = menuItems[indexPath.row]
         }
     }
     
@@ -190,10 +189,10 @@ extension MenuVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        for itemIndex in 0..<MenuModels.shared.menuItems.count {
-            MenuModels.shared.menuItems[itemIndex].deselect()
+        for itemIndex in 0..<menuItems.count {
+            menuItems[itemIndex].deselect()
         }
-        MenuModels.shared.menuItems[indexPath.row].select()
+        menuItems[indexPath.row].select()
         switchVC(index: indexPath.row)
         tableView.reloadData()
         didTapOnVC()
