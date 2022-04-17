@@ -7,6 +7,18 @@
 
 import UIKit
 
+final class AntiPasto {
+    
+    static let demiBold = UIFont(
+    
+    private init() {}
+}
+
+class BusinessFonts {
+    static let antiPasto: AntiPasto = AntiPasto()
+}
+
+
 class Fonts {
-    static let businessFont = UIFont(name: <#T##String#>, size: <#T##CGFloat#>)
+    static let businessFonts
 }
