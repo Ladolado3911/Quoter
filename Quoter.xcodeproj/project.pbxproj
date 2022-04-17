@@ -48,7 +48,7 @@
 		24D86354280C0A3E0060760A /* AntipastoPro-DemiBold_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D8634A280C0A3E0060760A /* AntipastoPro-DemiBold_trial.ttf */; };
 		24D86355280C0A3E0060760A /* AntipastoPro-ExtraBold_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D8634B280C0A3E0060760A /* AntipastoPro-ExtraBold_trial.ttf */; };
 		24D86356280C0A3E0060760A /* AntipastoPro-Extralight_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D8634C280C0A3E0060760A /* AntipastoPro-Extralight_trial.ttf */; };
-		24D86357280C0A3E0060760A /* AntipastoPro-Thin_trial 2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D8634D280C0A3E0060760A /* AntipastoPro-Thin_trial 2.ttf */; };
+		24D86357280C0A3E0060760A /* AntipastoPro-Thin_trial2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D8634D280C0A3E0060760A /* AntipastoPro-Thin_trial2.ttf */; };
 		24D86358280C0A3E0060760A /* AntipastoPro-Light_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D8634E280C0A3E0060760A /* AntipastoPro-Light_trial.ttf */; };
 		24D86359280C0A3E0060760A /* AntipastoPro-Medium_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D8634F280C0A3E0060760A /* AntipastoPro-Medium_trial.ttf */; };
 		24D8635A280C0A3E0060760A /* AntipastoPro-Hairline_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D86350280C0A3E0060760A /* AntipastoPro-Hairline_trial.ttf */; };
@@ -116,7 +116,7 @@
 		24D8634A280C0A3E0060760A /* AntipastoPro-DemiBold_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-DemiBold_trial.ttf"; sourceTree = "<group>"; };
 		24D8634B280C0A3E0060760A /* AntipastoPro-ExtraBold_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-ExtraBold_trial.ttf"; sourceTree = "<group>"; };
 		24D8634C280C0A3E0060760A /* AntipastoPro-Extralight_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-Extralight_trial.ttf"; sourceTree = "<group>"; };
-		24D8634D280C0A3E0060760A /* AntipastoPro-Thin_trial 2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-Thin_trial 2.ttf"; sourceTree = "<group>"; };
+		24D8634D280C0A3E0060760A /* AntipastoPro-Thin_trial2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-Thin_trial2.ttf"; sourceTree = "<group>"; };
 		24D8634E280C0A3E0060760A /* AntipastoPro-Light_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-Light_trial.ttf"; sourceTree = "<group>"; };
 		24D8634F280C0A3E0060760A /* AntipastoPro-Medium_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-Medium_trial.ttf"; sourceTree = "<group>"; };
 		24D86350280C0A3E0060760A /* AntipastoPro-Hairline_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-Hairline_trial.ttf"; sourceTree = "<group>"; };
@@ -377,7 +377,7 @@
 				24D8634A280C0A3E0060760A /* AntipastoPro-DemiBold_trial.ttf */,
 				24D8634B280C0A3E0060760A /* AntipastoPro-ExtraBold_trial.ttf */,
 				24D8634C280C0A3E0060760A /* AntipastoPro-Extralight_trial.ttf */,
-				24D8634D280C0A3E0060760A /* AntipastoPro-Thin_trial 2.ttf */,
+				24D8634D280C0A3E0060760A /* AntipastoPro-Thin_trial2.ttf */,
 				24D8634E280C0A3E0060760A /* AntipastoPro-Light_trial.ttf */,
 				24D8634F280C0A3E0060760A /* AntipastoPro-Medium_trial.ttf */,
 				24D86350280C0A3E0060760A /* AntipastoPro-Hairline_trial.ttf */,
@@ -528,7 +528,7 @@
 				24D1287F27903ECE00AD7F3D /* LaunchScreen.storyboard in Resources */,
 				24D86359280C0A3E0060760A /* AntipastoPro-Medium_trial.ttf in Resources */,
 				24D8635C280C0A3E0060760A /* AntipastoPro-Thin_trial.ttf in Resources */,
-				24D86357280C0A3E0060760A /* AntipastoPro-Thin_trial 2.ttf in Resources */,
+				24D86357280C0A3E0060760A /* AntipastoPro-Thin_trial2.ttf in Resources */,
 				2497158027D9E15F00968E08 /* GoogleService-Info.plist in Resources */,
 				24138A272805ABEE00044F5E /* Assets.xcassets in Resources */,
 				24D8635D280C0A3E0060760A /* AntipastoPro_trial.ttf in Resources */,

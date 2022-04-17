@@ -4,9 +4,16 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Roboto-Regular.ttf</string>
-		<string>Kalam-Regular.ttf</string>
-		<string>Roboto-Bold.ttf</string>
+		<string>AntipastoPro_trial.ttf</string>
+		<string>AntipastoPro-Thin_trial.ttf</string>
+		<string>AntipastoPro-Bold_trial.ttf</string>
+		<string>AntipastoPro-Hairline_trial.ttf</string>
+		<string>AntipastoPro-Medium_trial.ttf</string>
+		<string>AntipastoPro-Light_trial.ttf</string>
+		<string>AntipastoPro-Thin_trial2.ttf</string>
+		<string>AntipastoPro-ExtraLight_trial.ttf</string>
+		<string>AntipastoPro-ExtraBold_trial.ttf</string>
+		<string>AntipastoPro-DemiBold_trial.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
