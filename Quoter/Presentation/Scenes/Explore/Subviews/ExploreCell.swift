@@ -26,8 +26,47 @@ class ExploreCell: UICollectionViewCell {
         return imageView
     }()
     
+    let authorNameLabel: UILabel = {
+        let authorNameLabel = UILabel()
+        authorNameLabel.text = "Albert Einstein"
+        authorNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        return authorNameLabel
+    }()
+    
+    let quoteContentLabel: UILabel = {
+        // 28 char is min
+        // 56 char is max
+        let quoteContentLabel = UILabel()
+        quoteContentLabel.numberOfLines = 2
+        quoteContentLabel.addLineHeight(lineHeight: 35)
+        quoteContentLabel.font = UIFont(name: "Arial", size: 23)
+        quoteContentLabel.textColor = .white
+        quoteContentLabel.textAlignment = .center
+        quoteContentLabel.text = "The only real valuable thing is intuition"
+        quoteContentLabel.translatesAutoresizingMaskIntoConstraints = false
+        return quoteContentLabel
+    }()
+    
     override func layoutSubviews() {
         super.layoutSubviews()
+        buildSubviews()
+        buildConstraints()
+    }
+    
+    private func buildSubviews() {
         addSubview(imgView)
+        addSubview(authorNameLabel)
+        addSubview(quoteContentLabel)
+    }
+    
+    private func buildConstraints() {
+        NSLayoutConstraint.activate([
+            quoteContentLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
+            quoteContentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            quoteContentLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            
+            
+        
+        ])
     }
 }

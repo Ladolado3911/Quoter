@@ -15,14 +15,7 @@ class ExploreVC: BaseVC {
         let explore = ExploreView(frame: view.bounds)
         return explore
     }()
-    
-    lazy var tempImageView: UIImageView = {
-        let imgView = UIImageView(frame: view.bounds)
-        imgView.image = UIImage(named: "business")
-        imgView.contentMode = .scaleAspectFill
-        return imgView
-    }()
-    
+
     override func loadView() {
         super.loadView()
         view = exploreView
@@ -35,7 +28,7 @@ class ExploreVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        view.bringSubviewToFront(blurEffectView)
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

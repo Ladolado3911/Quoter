@@ -35,6 +35,7 @@
 		24A8407527C3A0F400BCF304 /* AnimatedCollectionViewLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 24A8407427C3A0F400BCF304 /* AnimatedCollectionViewLayout */; };
 		24D018F6280ADE150031C14B /* ArrowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D018F5280ADE150031C14B /* ArrowButtonView.swift */; };
 		24D018F9280ADE880031C14B /* ExploreIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D018F8280ADE880031C14B /* ExploreIcons.swift */; };
+		24D018FB280B1A460031C14B /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D018FA280B1A460031C14B /* UILabel+Extension.swift */; };
 		24D0F08428080ACA0085FDEA /* MenuIconsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0F08328080ACA0085FDEA /* MenuIconsTests.swift */; };
 		24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1287227903ECD00AD7F3D /* AppDelegate.swift */; };
 		24D1287527903ECD00AD7F3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1287427903ECD00AD7F3D /* SceneDelegate.swift */; };
@@ -89,6 +90,7 @@
 		2497158727D9E3FB00968E08 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		24D018F5280ADE150031C14B /* ArrowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowButtonView.swift; sourceTree = "<group>"; };
 		24D018F8280ADE880031C14B /* ExploreIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreIcons.swift; sourceTree = "<group>"; };
+		24D018FA280B1A460031C14B /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		24D0F069280809E80085FDEA /* QuoterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuoterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0F07628080A110085FDEA /* QuoterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuoterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0F08328080ACA0085FDEA /* MenuIconsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuIconsTests.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				24138A2E2805AD6E00044F5E /* UIImage+Extension.swift */,
 				24138A2F2805AD6E00044F5E /* UIViewController+Extension.swift */,
 				24138A302805AD6E00044F5E /* String+Extension.swift */,
+				24D018FA280B1A460031C14B /* UILabel+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				24138A1A280571CA00044F5E /* MenuVC.swift in Sources */,
 				24D5BC2B2806FE93003D14CD /* MenuHeaderView.swift in Sources */,
 				24138A342805AD6E00044F5E /* UIView+Extension.swift in Sources */,
+				24D018FB280B1A460031C14B /* UILabel+Extension.swift in Sources */,
 				24138A1E2805728300044F5E /* MenuItemView.swift in Sources */,
 				2458D29428097EBB0088C00E /* DailyQuotesVC.swift in Sources */,
 				24138A172805719400044F5E /* ExploreVC.swift in Sources */,
