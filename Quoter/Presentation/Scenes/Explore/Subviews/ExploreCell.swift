@@ -39,7 +39,7 @@ class ExploreCell: UICollectionViewCell {
         let quoteContentLabel = UILabel()
         quoteContentLabel.numberOfLines = 2
         quoteContentLabel.addLineHeight(lineHeight: Constants.screenHeight * 0.0616)
-        quoteContentLabel.font = UIFont(name: "Arial", size: Constants.screenHeight * 0.0404)
+        quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.italic(size: Constants.screenHeight * 0.0404)
         quoteContentLabel.textColor = .white
         quoteContentLabel.textAlignment = .center
         quoteContentLabel.text = "Play by the rules, but be ferocious"
