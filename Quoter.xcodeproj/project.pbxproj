@@ -45,6 +45,17 @@
 		24D5BC272806C2C0003D14CD /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5BC262806C2C0003D14CD /* BaseVC.swift */; };
 		24D5BC292806FA7A003D14CD /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5BC282806FA7A003D14CD /* MenuCell.swift */; };
 		24D5BC2B2806FE93003D14CD /* MenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5BC2A2806FE93003D14CD /* MenuHeaderView.swift */; };
+		24D86354280C0A3E0060760A /* AntipastoPro-DemiBold_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D8634A280C0A3E0060760A /* AntipastoPro-DemiBold_trial.ttf */; };
+		24D86355280C0A3E0060760A /* AntipastoPro-ExtraBold_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D8634B280C0A3E0060760A /* AntipastoPro-ExtraBold_trial.ttf */; };
+		24D86356280C0A3E0060760A /* AntipastoPro-Extralight_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D8634C280C0A3E0060760A /* AntipastoPro-Extralight_trial.ttf */; };
+		24D86357280C0A3E0060760A /* AntipastoPro-Thin_trial 2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D8634D280C0A3E0060760A /* AntipastoPro-Thin_trial 2.ttf */; };
+		24D86358280C0A3E0060760A /* AntipastoPro-Light_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D8634E280C0A3E0060760A /* AntipastoPro-Light_trial.ttf */; };
+		24D86359280C0A3E0060760A /* AntipastoPro-Medium_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D8634F280C0A3E0060760A /* AntipastoPro-Medium_trial.ttf */; };
+		24D8635A280C0A3E0060760A /* AntipastoPro-Hairline_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D86350280C0A3E0060760A /* AntipastoPro-Hairline_trial.ttf */; };
+		24D8635B280C0A3E0060760A /* AntipastoPro-Bold_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D86351280C0A3E0060760A /* AntipastoPro-Bold_trial.ttf */; };
+		24D8635C280C0A3E0060760A /* AntipastoPro-Thin_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D86352280C0A3E0060760A /* AntipastoPro-Thin_trial.ttf */; };
+		24D8635D280C0A3E0060760A /* AntipastoPro_trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D86353280C0A3E0060760A /* AntipastoPro_trial.ttf */; };
+		24D8635F280C0A550060760A /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D8635E280C0A550060760A /* Fonts.swift */; };
 		24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 24DEBF4527ABB1D400C40B29 /* Lottie */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +113,17 @@
 		24D5BC262806C2C0003D14CD /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		24D5BC282806FA7A003D14CD /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		24D5BC2A2806FE93003D14CD /* MenuHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderView.swift; sourceTree = "<group>"; };
+		24D8634A280C0A3E0060760A /* AntipastoPro-DemiBold_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-DemiBold_trial.ttf"; sourceTree = "<group>"; };
+		24D8634B280C0A3E0060760A /* AntipastoPro-ExtraBold_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-ExtraBold_trial.ttf"; sourceTree = "<group>"; };
+		24D8634C280C0A3E0060760A /* AntipastoPro-Extralight_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-Extralight_trial.ttf"; sourceTree = "<group>"; };
+		24D8634D280C0A3E0060760A /* AntipastoPro-Thin_trial 2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-Thin_trial 2.ttf"; sourceTree = "<group>"; };
+		24D8634E280C0A3E0060760A /* AntipastoPro-Light_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-Light_trial.ttf"; sourceTree = "<group>"; };
+		24D8634F280C0A3E0060760A /* AntipastoPro-Medium_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-Medium_trial.ttf"; sourceTree = "<group>"; };
+		24D86350280C0A3E0060760A /* AntipastoPro-Hairline_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-Hairline_trial.ttf"; sourceTree = "<group>"; };
+		24D86351280C0A3E0060760A /* AntipastoPro-Bold_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-Bold_trial.ttf"; sourceTree = "<group>"; };
+		24D86352280C0A3E0060760A /* AntipastoPro-Thin_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AntipastoPro-Thin_trial.ttf"; sourceTree = "<group>"; };
+		24D86353280C0A3E0060760A /* AntipastoPro_trial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AntipastoPro_trial.ttf; sourceTree = "<group>"; };
+		24D8635E280C0A550060760A /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,8 +225,10 @@
 		24138A392805AE9700044F5E /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				24D86347280C0A2F0060760A /* Fonts */,
 				24138A262805ABEE00044F5E /* Assets.xcassets */,
 				24138A282805AC7300044F5E /* Colors.swift */,
+				24D8635E280C0A550060760A /* Fonts.swift */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -329,6 +353,39 @@
 				24138A3A2805B16600044F5E /* MenuIcons.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		24D86347280C0A2F0060760A /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				24D86348280C0A350060760A /* Business */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		24D86348280C0A350060760A /* Business */ = {
+			isa = PBXGroup;
+			children = (
+				24D86349280C0A3E0060760A /* antipasto */,
+			);
+			path = Business;
+			sourceTree = "<group>";
+		};
+		24D86349280C0A3E0060760A /* antipasto */ = {
+			isa = PBXGroup;
+			children = (
+				24D8634A280C0A3E0060760A /* AntipastoPro-DemiBold_trial.ttf */,
+				24D8634B280C0A3E0060760A /* AntipastoPro-ExtraBold_trial.ttf */,
+				24D8634C280C0A3E0060760A /* AntipastoPro-Extralight_trial.ttf */,
+				24D8634D280C0A3E0060760A /* AntipastoPro-Thin_trial 2.ttf */,
+				24D8634E280C0A3E0060760A /* AntipastoPro-Light_trial.ttf */,
+				24D8634F280C0A3E0060760A /* AntipastoPro-Medium_trial.ttf */,
+				24D86350280C0A3E0060760A /* AntipastoPro-Hairline_trial.ttf */,
+				24D86351280C0A3E0060760A /* AntipastoPro-Bold_trial.ttf */,
+				24D86352280C0A3E0060760A /* AntipastoPro-Thin_trial.ttf */,
+				24D86353280C0A3E0060760A /* AntipastoPro_trial.ttf */,
+			);
+			path = antipasto;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -469,8 +526,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				24D1287F27903ECE00AD7F3D /* LaunchScreen.storyboard in Resources */,
+				24D86359280C0A3E0060760A /* AntipastoPro-Medium_trial.ttf in Resources */,
+				24D8635C280C0A3E0060760A /* AntipastoPro-Thin_trial.ttf in Resources */,
+				24D86357280C0A3E0060760A /* AntipastoPro-Thin_trial 2.ttf in Resources */,
 				2497158027D9E15F00968E08 /* GoogleService-Info.plist in Resources */,
 				24138A272805ABEE00044F5E /* Assets.xcassets in Resources */,
+				24D8635D280C0A3E0060760A /* AntipastoPro_trial.ttf in Resources */,
+				24D86358280C0A3E0060760A /* AntipastoPro-Light_trial.ttf in Resources */,
+				24D86355280C0A3E0060760A /* AntipastoPro-ExtraBold_trial.ttf in Resources */,
+				24D86354280C0A3E0060760A /* AntipastoPro-DemiBold_trial.ttf in Resources */,
+				24D86356280C0A3E0060760A /* AntipastoPro-Extralight_trial.ttf in Resources */,
+				24D8635B280C0A3E0060760A /* AntipastoPro-Bold_trial.ttf in Resources */,
+				24D8635A280C0A3E0060760A /* AntipastoPro-Hairline_trial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,6 +563,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24D8635F280C0A550060760A /* Fonts.swift in Sources */,
 				24138A352805AD6E00044F5E /* UIImage+Extension.swift in Sources */,
 				24138A3D2805B39F00044F5E /* Constants.swift in Sources */,
 				24138A232805748200044F5E /* MenuModels.swift in Sources */,

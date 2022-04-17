@@ -34,15 +34,15 @@ class ExploreCell: UICollectionViewCell {
     }()
     
     let quoteContentLabel: UILabel = {
-        // 28 char is min
+        // 32 char is min
         // 56 char is max
         let quoteContentLabel = UILabel()
         quoteContentLabel.numberOfLines = 2
-        quoteContentLabel.addLineHeight(lineHeight: 35)
-        quoteContentLabel.font = UIFont(name: "Arial", size: 23)
+        quoteContentLabel.addLineHeight(lineHeight: Constants.screenHeight * 0.0616)
+        quoteContentLabel.font = UIFont(name: "Arial", size: Constants.screenHeight * 0.0404)
         quoteContentLabel.textColor = .white
         quoteContentLabel.textAlignment = .center
-        quoteContentLabel.text = "The only real valuable thing is intuition"
+        quoteContentLabel.text = "Play by the rules, but be ferocious"
         quoteContentLabel.translatesAutoresizingMaskIntoConstraints = false
         return quoteContentLabel
     }()
@@ -61,9 +61,9 @@ class ExploreCell: UICollectionViewCell {
     
     private func buildConstraints() {
         NSLayoutConstraint.activate([
-            quoteContentLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
-            quoteContentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            quoteContentLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            quoteContentLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.screenHeight * 0.0563),
+            quoteContentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.screenWidth * 0.0468),
+            quoteContentLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.screenWidth * 0.0468),
             
             
         
