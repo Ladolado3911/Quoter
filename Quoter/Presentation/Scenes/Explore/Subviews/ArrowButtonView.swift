@@ -28,7 +28,7 @@ class ArrowButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setImage(ExploreIcons.arrowIconThin, for: .normal)
+        setImage(ExploreIcons.arrowIconThin.resizedImage(targetHeight: Constants.screenHeight * 0.114), for: .normal)
         imageView?.contentMode = .scaleAspectFill
     }
     

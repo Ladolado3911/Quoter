@@ -34,12 +34,12 @@ class ExploreCell: UICollectionViewCell {
     }()
     
     let quoteContentLabel: UILabel = {
-        // 32 char is min
+        // 30 char is min
         // 56 char is max
         let quoteContentLabel = UILabel()
         quoteContentLabel.numberOfLines = 2
         quoteContentLabel.addLineHeight(lineHeight: Constants.screenHeight * 0.0616)
-        quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.italic(size: Constants.screenHeight * 0.0404)
+        quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: Constants.screenHeight * 0.03)
         quoteContentLabel.textColor = .white
         quoteContentLabel.textAlignment = .center
         quoteContentLabel.text = "Play by the rules, but be ferocious"
