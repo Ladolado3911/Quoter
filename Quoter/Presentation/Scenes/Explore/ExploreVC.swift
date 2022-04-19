@@ -9,7 +9,7 @@ import UIKit
 
 class ExploreVC: BaseVC {
     
-    let testData: [UIImage] = [UIImage(named: "business")!, UIImage(named: "business2")!]
+    let testData: [UIImage] = [UIImage(named: "innovation1")!, UIImage(named: "innovation2")!, UIImage(named: "innovation3")!]
     
     lazy var exploreView: ExploreView = {
         let explore = ExploreView(frame: view.bounds)

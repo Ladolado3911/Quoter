@@ -16,6 +16,32 @@ class TapOnBlurGesture: UITapGestureRecognizer {
     
 }
 
+//class MenuButton: UIButton {
+//
+//    lazy var buttonRect: UIView = {
+//        let buttonRect = UIView(frame: bounds)
+//        //buttonRect.backgroundColor = .black.withAlphaComponent(0.1)
+//        return buttonRect
+//    }()
+//
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        setTitleShadowColor(.black, for: .normal)
+//
+////        addSubview(buttonRect)
+////        sendSubviewToBack(buttonRect)
+//    }
+//
+//    private func buildSubviews() {
+//
+//    }
+//
+//    private func buildConstraints() {
+//
+//    }
+//
+//}
+
 class MenuVC: BaseVC {
     
     lazy var menuAppearTransform = CGAffineTransform(translationX: view.bounds.width * 0.521875, y: 0)
@@ -104,7 +130,7 @@ class MenuVC: BaseVC {
     }
     
     private func bringSubviewsToFront() {
-        view.bringSubviewToFront(statusRectView)
+        //view.bringSubviewToFront(statusRectView)
         view.bringSubviewToFront(menuView)
         view.bringSubviewToFront(menuVCButton)
     }
@@ -118,7 +144,7 @@ class MenuVC: BaseVC {
     private func buildConstraints() {
         NSLayoutConstraint.activate([
             menuVCButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.screenHeight * 0.04),
-            menuVCButton.topAnchor.constraint(equalTo: statusRectView.bottomAnchor, constant: Constants.screenHeight * 0.04),
+            menuVCButton.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.screenHeight * 0.07),
             menuVCButton.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.06),
             menuVCButton.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.06),
         ])

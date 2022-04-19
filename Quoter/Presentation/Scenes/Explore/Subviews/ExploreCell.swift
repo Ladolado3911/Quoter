@@ -11,11 +11,12 @@ class ExploreCell: UICollectionViewCell {
     
     lazy var gradientLayer: CAGradientLayer = {
         let gradient = CAGradientLayer()
+        //let frame = CGRect(x: 0, y: 44, width: bounds.width, height: bounds.height * 0.8)
         gradient.frame = bounds
-        gradient.colors = [DarkModeColors.black.cgColor, UIColor.clear.cgColor]
+        gradient.colors = [DarkModeColors.black.cgColor, UIColor.clear.cgColor, DarkModeColors.black.cgColor]
         gradient.startPoint = CGPoint(x: 0.5, y: 1)
         gradient.endPoint = CGPoint(x: 0.5, y: 0)
-        gradient.locations = [0, 0.6161]
+        gradient.locations = [0, 0.6161, 1]
         return gradient
     }()
     
@@ -39,7 +40,7 @@ class ExploreCell: UICollectionViewCell {
         let quoteContentLabel = UILabel()
         quoteContentLabel.numberOfLines = 2
         quoteContentLabel.addLineHeight(lineHeight: Constants.screenHeight * 0.0616)
-        quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: Constants.screenHeight * 0.03)
+        quoteContentLabel.font = Fonts.businessFonts.goodTimes.regular(size: Constants.screenHeight * 0.03)
         quoteContentLabel.textColor = .white
         quoteContentLabel.textAlignment = .center
         quoteContentLabel.text = "Play by the rules, but be ferocious"
@@ -55,7 +56,7 @@ class ExploreCell: UICollectionViewCell {
     
     private func buildSubviews() {
         addSubview(imgView)
-        addSubview(authorNameLabel)
+        //addSubview(authorNameLabel)
         addSubview(quoteContentLabel)
     }
     
