@@ -42,7 +42,7 @@ class TapOnBlurGesture: UITapGestureRecognizer {
 //
 //}
 
-class MenuVC: BaseVC {
+class MenuVC: UIViewController {
     
     lazy var menuAppearTransform = CGAffineTransform(translationX: view.bounds.width * 0.521875, y: 0)
     lazy var tapGesture = TapOnBlurGesture(target: self, action: #selector(didTapOnVCGesture(sender:)))
@@ -51,7 +51,7 @@ class MenuVC: BaseVC {
     var selectedItemIndex: Int = 0
     let viewControllers = MenuModels.shared.menuItems.map { $0.viewController }
     var menuItems = MenuModels.shared.menuItems
-    var selectedVC: BaseVC {
+    var selectedVC: UIViewController {
         viewControllers[selectedItemIndex]
     }
     var isMenuVisible: MenuViewVisibility = .invisible

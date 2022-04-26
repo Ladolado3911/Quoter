@@ -17,19 +17,19 @@ class StatusRectView: UIView {
 
 class BaseVC: UIViewController {
     
-//    let statusRectView: StatusRectView = {
-//        let view = StatusRectView()
-//        return view
-//    }()
+    let statusRectView: StatusRectView = {
+        let view = StatusRectView()
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.addSubview(statusRectView)
-//        NSLayoutConstraint.activate([
-//            statusRectView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            statusRectView.topAnchor.constraint(equalTo: view.topAnchor),
-//            statusRectView.widthAnchor.constraint(equalTo: view.widthAnchor),
-//            statusRectView.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.05)
-//        ])
+        view.addSubview(statusRectView)
+        NSLayoutConstraint.activate([
+            statusRectView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            statusRectView.topAnchor.constraint(equalTo: view.topAnchor),
+            statusRectView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            statusRectView.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.05)
+        ])
     }
 }

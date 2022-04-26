@@ -25,7 +25,7 @@ class MenuItemView: UIView {
         return imageView
     }()
     
-    var vc: BaseVC?
+    var vc: UIViewController?
     var isSelected: Bool = false
     
     required init?(coder: NSCoder) {

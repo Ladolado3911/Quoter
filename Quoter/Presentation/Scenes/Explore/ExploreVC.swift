@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExploreVC: BaseVC {
+class ExploreVC: UIViewController {
     
     let testData: [UIImage] = [UIImage(named: "innovation1")!, UIImage(named: "innovation2")!, UIImage(named: "innovation3")!]
     
