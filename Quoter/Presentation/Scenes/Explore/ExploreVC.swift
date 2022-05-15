@@ -17,8 +17,6 @@ class ExploreVC: UIViewController {
     var interactor: ExploreInteractorProtocol?
     weak var router: ExploreRouterProtocol?
     
-    let testData: [UIImage] = [UIImage(named: "innovation1")!, UIImage(named: "innovation2")!, UIImage(named: "innovation3")!]
-    
     lazy var exploreView: ExploreView = {
         let explore = ExploreView(frame: view.bounds)
         return explore
@@ -64,9 +62,11 @@ class ExploreVC: UIViewController {
         let interactor = ExploreInteractor()
         let presenter = ExplorePresenter()
         let router = ExploreRouter()
+        let exploreNetworkWorker = ExploreNetworkWorker()
         vc.interactor = interactor
         vc.router = router
         interactor.presenter = presenter
+        interactor.exploreNetworkWorker = exploreNetworkWorker
         presenter.vc = vc
         router.vc = vc
     }
@@ -75,7 +75,7 @@ class ExploreVC: UIViewController {
 
 extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        testData.count
+        interactor?.loadedQuotes?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -85,7 +85,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? ExploreCell {
-            cell.imgView.image = testData[indexPath.item]
+            //cell.imgView.image = interactor?.loadedQuotes![indexPath.item]
         }
     }
     
