@@ -9,6 +9,9 @@ import Foundation
 
 protocol ExploreNetworkWorkerProtocol {
     var networkWorker: NetworkWorkerProtocol { get set }
+    
+    func getRandomQuote(genre: String) async throws -> QuoteModel
+    func getCategories() async throws -> [MainCategoryModel]
 }
 
 class ExploreNetworkWorker: ExploreNetworkWorkerProtocol {

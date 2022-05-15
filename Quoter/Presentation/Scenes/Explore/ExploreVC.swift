@@ -10,17 +10,21 @@ import UIKit
 protocol ExploreVCProtocol {
     var interactor: ExploreInteractorProtocol? { get set }
     var router: ExploreRouterProtocol? { get set }
+    var exploreView: ExploreView? { get set }
+    
+    func displayInitialQuotes(exploreQuotes: [ExploreQuoteProtocol])
 }
 
 class ExploreVC: UIViewController {
     
     var interactor: ExploreInteractorProtocol?
     weak var router: ExploreRouterProtocol?
+    var exploreView: ExploreView?
     
-    lazy var exploreView: ExploreView = {
-        let explore = ExploreView(frame: view.bounds)
-        return explore
-    }()
+//    lazy var exploreView: ExploreView = {
+//        let explore = ExploreView(frame: view.bounds)
+//        return explore
+//    }()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -52,9 +56,9 @@ class ExploreVC: UIViewController {
     }
     
     private func configCollectionView() {
-        exploreView.collectionView.dataSource = self
-        exploreView.collectionView.delegate = self
-        exploreView.collectionView.register(ExploreCell.self, forCellWithReuseIdentifier: "ExploreCell")
+        exploreView?.collectionView.dataSource = self
+        exploreView?.collectionView.delegate = self
+        exploreView?.collectionView.register(ExploreCell.self, forCellWithReuseIdentifier: "ExploreCell")
     }
     
     private func setup() {
@@ -63,8 +67,10 @@ class ExploreVC: UIViewController {
         let presenter = ExplorePresenter()
         let router = ExploreRouter()
         let exploreNetworkWorker = ExploreNetworkWorker()
+        let exploreView = ExploreView(frame: view.bounds)
         vc.interactor = interactor
         vc.router = router
+        vc.exploreView = exploreView
         interactor.presenter = presenter
         interactor.exploreNetworkWorker = exploreNetworkWorker
         presenter.vc = vc
@@ -103,10 +109,8 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 }
 
 extension ExploreVC: ExploreVCProtocol {
-    
-
-
-
-
-
+    func displayInitialQuotes(exploreQuotes: [ExploreQuoteProtocol]) {
+        interactor?.loadedQuotes = exploreQuotes
+        exploreView?.collectionView.reloadData()
+    }
 }
