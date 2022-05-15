@@ -27,6 +27,11 @@
 		2458D29428097EBB0088C00E /* DailyQuotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458D29328097EBB0088C00E /* DailyQuotesVC.swift */; };
 		2458D2982809A25B0088C00E /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458D2972809A25B0088C00E /* ExploreView.swift */; };
 		2458D29A2809A51A0088C00E /* ExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458D2992809A51A0088C00E /* ExploreCell.swift */; };
+		246B828A28311DBB00D44DF5 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B828428311DBB00D44DF5 /* Endpoints.swift */; };
+		246B828F28311DBB00D44DF5 /* QuotieRandomQuoteEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B828928311DBB00D44DF5 /* QuotieRandomQuoteEndpoint.swift */; };
+		246B829128311E9300D44DF5 /* QuotieCategoriesEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B829028311E9300D44DF5 /* QuotieCategoriesEndpoint.swift */; };
+		246B82942831200A00D44DF5 /* QuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B82932831200A00D44DF5 /* QuoteModel.swift */; };
+		246B82962831204E00D44DF5 /* NetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B82952831204E00D44DF5 /* NetworkWorker.swift */; };
 		2497158027D9E15F00968E08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2497157F27D9E15F00968E08 /* GoogleService-Info.plist */; };
 		2497158327D9E23400968E08 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158227D9E23400968E08 /* FirebaseAnalytics */; };
 		2497158527D9E23400968E08 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158427D9E23400968E08 /* FirebaseCrashlytics */; };
@@ -93,6 +98,11 @@
 		2458D29328097EBB0088C00E /* DailyQuotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuotesVC.swift; sourceTree = "<group>"; };
 		2458D2972809A25B0088C00E /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		2458D2992809A51A0088C00E /* ExploreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCell.swift; sourceTree = "<group>"; };
+		246B828428311DBB00D44DF5 /* Endpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		246B828928311DBB00D44DF5 /* QuotieRandomQuoteEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuotieRandomQuoteEndpoint.swift; sourceTree = "<group>"; };
+		246B829028311E9300D44DF5 /* QuotieCategoriesEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotieCategoriesEndpoint.swift; sourceTree = "<group>"; };
+		246B82932831200A00D44DF5 /* QuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteModel.swift; sourceTree = "<group>"; };
+		246B82952831204E00D44DF5 /* NetworkWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkWorker.swift; sourceTree = "<group>"; };
 		2497157F27D9E15F00968E08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2497158727D9E3FB00968E08 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		24D018F5280ADE150031C14B /* ArrowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowButtonView.swift; sourceTree = "<group>"; };
@@ -241,6 +251,34 @@
 			path = DailyQuotes;
 			sourceTree = "<group>";
 		};
+		246B828228311D8500D44DF5 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				246B82952831204E00D44DF5 /* NetworkWorker.swift */,
+				246B829228311FFE00D44DF5 /* Models */,
+				246B828328311DBB00D44DF5 /* Endpoints */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		246B828328311DBB00D44DF5 /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				246B828428311DBB00D44DF5 /* Endpoints.swift */,
+				246B828928311DBB00D44DF5 /* QuotieRandomQuoteEndpoint.swift */,
+				246B829028311E9300D44DF5 /* QuotieCategoriesEndpoint.swift */,
+			);
+			path = Endpoints;
+			sourceTree = "<group>";
+		};
+		246B829228311FFE00D44DF5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				246B82932831200A00D44DF5 /* QuoteModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		2497158627D9E3FA00968E08 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +346,7 @@
 			children = (
 				24D1288627903F5900AD7F3D /* App */,
 				24138A392805AE9700044F5E /* Assets */,
+				246B828228311D8500D44DF5 /* Network */,
 				24138A2A2805AD6E00044F5E /* Extensions */,
 				24138A13280570BE00044F5E /* Presentation */,
 				24D1287D27903ECE00AD7F3D /* LaunchScreen.storyboard */,
@@ -555,25 +594,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				246B828A28311DBB00D44DF5 /* Endpoints.swift in Sources */,
 				24D8635F280C0A550060760A /* Fonts.swift in Sources */,
 				24138A352805AD6E00044F5E /* UIImage+Extension.swift in Sources */,
 				24138A3D2805B39F00044F5E /* Constants.swift in Sources */,
 				24138A232805748200044F5E /* MenuModels.swift in Sources */,
 				24138A292805AC7300044F5E /* Colors.swift in Sources */,
+				246B828F28311DBB00D44DF5 /* QuotieRandomQuoteEndpoint.swift in Sources */,
 				24D5BC272806C2C0003D14CD /* BaseVC.swift in Sources */,
 				24138A1C2805726200044F5E /* MenuView.swift in Sources */,
 				24D5BC292806FA7A003D14CD /* MenuCell.swift in Sources */,
+				246B82942831200A00D44DF5 /* QuoteModel.swift in Sources */,
 				2458D2982809A25B0088C00E /* ExploreView.swift in Sources */,
 				24138A362805AD6E00044F5E /* UIViewController+Extension.swift in Sources */,
 				24138A332805AD6E00044F5E /* UIColor+Extension.swift in Sources */,
 				24138A202805739B00044F5E /* MenuItem.swift in Sources */,
 				24D018F6280ADE150031C14B /* ArrowButtonView.swift in Sources */,
 				24D018F9280ADE880031C14B /* ExploreIcons.swift in Sources */,
+				246B82962831204E00D44DF5 /* NetworkWorker.swift in Sources */,
 				2458D29A2809A51A0088C00E /* ExploreCell.swift in Sources */,
 				24138A1A280571CA00044F5E /* MenuVC.swift in Sources */,
 				24D5BC2B2806FE93003D14CD /* MenuHeaderView.swift in Sources */,
 				24138A342805AD6E00044F5E /* UIView+Extension.swift in Sources */,
 				24D018FB280B1A460031C14B /* UILabel+Extension.swift in Sources */,
+				246B829128311E9300D44DF5 /* QuotieCategoriesEndpoint.swift in Sources */,
 				24138A1E2805728300044F5E /* MenuItemView.swift in Sources */,
 				2458D29428097EBB0088C00E /* DailyQuotesVC.swift in Sources */,
 				24138A172805719400044F5E /* ExploreVC.swift in Sources */,

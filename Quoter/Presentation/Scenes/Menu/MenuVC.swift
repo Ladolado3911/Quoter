@@ -16,32 +16,6 @@ class TapOnBlurGesture: UITapGestureRecognizer {
     
 }
 
-//class MenuButton: UIButton {
-//
-//    lazy var buttonRect: UIView = {
-//        let buttonRect = UIView(frame: bounds)
-//        //buttonRect.backgroundColor = .black.withAlphaComponent(0.1)
-//        return buttonRect
-//    }()
-//
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        setTitleShadowColor(.black, for: .normal)
-//
-////        addSubview(buttonRect)
-////        sendSubviewToBack(buttonRect)
-//    }
-//
-//    private func buildSubviews() {
-//
-//    }
-//
-//    private func buildConstraints() {
-//
-//    }
-//
-//}
-
 class MenuVC: UIViewController {
     
     lazy var menuAppearTransform = CGAffineTransform(translationX: view.bounds.width * 0.521875, y: 0)
