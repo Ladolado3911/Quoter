@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol ExploreVCProtocol {
     var interactor: ExploreInteractorProtocol? { get set }
@@ -21,29 +22,20 @@ class ExploreVC: UIViewController {
     weak var router: ExploreRouterProtocol?
     var exploreView: ExploreView?
     
-//    lazy var exploreView: ExploreView = {
-//        let explore = ExploreView(frame: view.bounds)
-//        return explore
-//    }()
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
     }
 
-    override func loadView() {
-        super.loadView()
-        view = exploreView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configCollectionView()
+        interactor?.getInitialQuotes(genre: "politics")
     }
     
     override func viewDidLayoutSubviews() {
@@ -56,6 +48,7 @@ class ExploreVC: UIViewController {
     }
     
     private func configCollectionView() {
+        view = self.exploreView
         exploreView?.collectionView.dataSource = self
         exploreView?.collectionView.delegate = self
         exploreView?.collectionView.register(ExploreCell.self, forCellWithReuseIdentifier: "ExploreCell")
@@ -67,7 +60,7 @@ class ExploreVC: UIViewController {
         let presenter = ExplorePresenter()
         let router = ExploreRouter()
         let exploreNetworkWorker = ExploreNetworkWorker()
-        let exploreView = ExploreView(frame: view.bounds)
+        let exploreView = ExploreView(frame: UIScreen.main.bounds)
         vc.interactor = interactor
         vc.router = router
         vc.exploreView = exploreView
@@ -90,8 +83,13 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
         if let cell = cell as? ExploreCell {
             //cell.imgView.image = interactor?.loadedQuotes![indexPath.item]
+            let quote = interactor?.loadedQuotes?[indexPath.row]
+            cell.imgView.sd_setImage(with: URL(string: quote?.subCategory.randomImageURLString ?? ""))
+            cell.authorNameLabel.text = quote?.author.name
+            cell.quoteContentLabel.text = quote?.content
         }
     }
     
