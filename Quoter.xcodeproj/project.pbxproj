@@ -34,6 +34,9 @@
 		246B82962831204E00D44DF5 /* NetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B82952831204E00D44DF5 /* NetworkWorker.swift */; };
 		246B8298283121A600D44DF5 /* QuotieAPIWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B8297283121A600D44DF5 /* QuotieAPIWorker.swift */; };
 		246B829A283124A600D44DF5 /* CategoriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B8299283124A600D44DF5 /* CategoriesModel.swift */; };
+		246B829C283137B400D44DF5 /* ExploreInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B829B283137B400D44DF5 /* ExploreInteractor.swift */; };
+		246B829E283137C700D44DF5 /* ExplorePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B829D283137C700D44DF5 /* ExplorePresenter.swift */; };
+		246B82A0283137D800D44DF5 /* ExploreRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B829F283137D800D44DF5 /* ExploreRouter.swift */; };
 		2497158027D9E15F00968E08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2497157F27D9E15F00968E08 /* GoogleService-Info.plist */; };
 		2497158327D9E23400968E08 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158227D9E23400968E08 /* FirebaseAnalytics */; };
 		2497158527D9E23400968E08 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158427D9E23400968E08 /* FirebaseCrashlytics */; };
@@ -107,6 +110,9 @@
 		246B82952831204E00D44DF5 /* NetworkWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkWorker.swift; sourceTree = "<group>"; };
 		246B8297283121A600D44DF5 /* QuotieAPIWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotieAPIWorker.swift; sourceTree = "<group>"; };
 		246B8299283124A600D44DF5 /* CategoriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesModel.swift; sourceTree = "<group>"; };
+		246B829B283137B400D44DF5 /* ExploreInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreInteractor.swift; sourceTree = "<group>"; };
+		246B829D283137C700D44DF5 /* ExplorePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePresenter.swift; sourceTree = "<group>"; };
+		246B829F283137D800D44DF5 /* ExploreRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreRouter.swift; sourceTree = "<group>"; };
 		2497157F27D9E15F00968E08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2497158727D9E3FB00968E08 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		24D018F5280ADE150031C14B /* ArrowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowButtonView.swift; sourceTree = "<group>"; };
@@ -189,6 +195,9 @@
 			isa = PBXGroup;
 			children = (
 				24138A162805719400044F5E /* ExploreVC.swift */,
+				246B829B283137B400D44DF5 /* ExploreInteractor.swift */,
+				246B829D283137C700D44DF5 /* ExplorePresenter.swift */,
+				246B829F283137D800D44DF5 /* ExploreRouter.swift */,
 				24D018F7280ADE7A0031C14B /* Support */,
 				24D018F4280ADE020031C14B /* Subviews */,
 			);
@@ -604,7 +613,9 @@
 				24D8635F280C0A550060760A /* Fonts.swift in Sources */,
 				24138A352805AD6E00044F5E /* UIImage+Extension.swift in Sources */,
 				24138A3D2805B39F00044F5E /* Constants.swift in Sources */,
+				246B829C283137B400D44DF5 /* ExploreInteractor.swift in Sources */,
 				24138A232805748200044F5E /* MenuModels.swift in Sources */,
+				246B82A0283137D800D44DF5 /* ExploreRouter.swift in Sources */,
 				24138A292805AC7300044F5E /* Colors.swift in Sources */,
 				246B828F28311DBB00D44DF5 /* QuotieRandomQuoteEndpoint.swift in Sources */,
 				246B8298283121A600D44DF5 /* QuotieAPIWorker.swift in Sources */,
@@ -633,6 +644,7 @@
 				24138A322805AD6E00044F5E /* UIApplication+Extension.swift in Sources */,
 				24138A372805AD6E00044F5E /* String+Extension.swift in Sources */,
 				24138A3B2805B16600044F5E /* MenuIcons.swift in Sources */,
+				246B829E283137C700D44DF5 /* ExplorePresenter.swift in Sources */,
 				24138A3F2805B90800044F5E /* GalleryVC.swift in Sources */,
 				24D1287527903ECD00AD7F3D /* SceneDelegate.swift in Sources */,
 			);

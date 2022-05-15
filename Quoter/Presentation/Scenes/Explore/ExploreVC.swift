@@ -7,7 +7,15 @@
 
 import UIKit
 
+protocol ExploreVCProtocol {
+    var interactor: ExploreInteractorProtocol? { get set }
+    var router: ExploreRouterProtocol? { get set }
+}
+
 class ExploreVC: UIViewController {
+    
+    var interactor: ExploreInteractorProtocol?
+    weak var router: ExploreRouterProtocol?
     
     let testData: [UIImage] = [UIImage(named: "innovation1")!, UIImage(named: "innovation2")!, UIImage(named: "innovation3")!]
     
@@ -15,6 +23,16 @@ class ExploreVC: UIViewController {
         let explore = ExploreView(frame: view.bounds)
         return explore
     }()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
 
     override func loadView() {
         super.loadView()
@@ -39,6 +57,18 @@ class ExploreVC: UIViewController {
         exploreView.collectionView.dataSource = self
         exploreView.collectionView.delegate = self
         exploreView.collectionView.register(ExploreCell.self, forCellWithReuseIdentifier: "ExploreCell")
+    }
+    
+    private func setup() {
+        let vc = self
+        let interactor = ExploreInteractor()
+        let presenter = ExplorePresenter()
+        let router = ExploreRouter()
+        vc.interactor = interactor
+        vc.router = router
+        interactor.presenter = presenter
+        presenter.vc = vc
+        router.vc = vc
     }
     
 }
@@ -70,6 +100,13 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         view.bounds.size
     }
+}
+
+extension ExploreVC: ExploreVCProtocol {
     
-    
+
+
+
+
+
 }
