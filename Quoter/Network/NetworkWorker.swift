@@ -18,7 +18,7 @@ struct Resource<T: Codable> {
     var model: T.Type
 }
 
-class NetworkWorker {
+final class NetworkWorker {
     
     private init() {}
 
