@@ -36,9 +36,9 @@ class ExploreInteractor: ExploreInteractorProtocol {
     
     func getInitialQuotes(genre: String) {
         Task.init(priority: .high) {
-            async let firstQuote = exploreNetworkWorker?.getRandomQuote(genre: genre)
-            async let secondQuote = exploreNetworkWorker?.getRandomQuote(genre: genre)
-            async let thirdQuote = exploreNetworkWorker?.getRandomQuote(genre: genre)
+            async let firstQuote = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
+            async let secondQuote = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
+            async let thirdQuote = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
             let quotes = try await [firstQuote, secondQuote, thirdQuote].compactMap { $0 }
             DispatchQueue.main.async {
                 self.presenter?.formatInitialQuotes(rawQuotes: quotes)
@@ -78,6 +78,4 @@ class ExploreInteractor: ExploreInteractorProtocol {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         UIScreen.main.bounds.size
     }
-    
-    
 }

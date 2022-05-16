@@ -198,12 +198,12 @@
 		24138A15280570DC00044F5E /* Explore */ = {
 			isa = PBXGroup;
 			children = (
-				246B82A52831462F00D44DF5 /* Workers */,
 				24138A162805719400044F5E /* ExploreVC.swift */,
 				246B829B283137B400D44DF5 /* ExploreInteractor.swift */,
 				246B829D283137C700D44DF5 /* ExplorePresenter.swift */,
 				246B829F283137D800D44DF5 /* ExploreRouter.swift */,
 				246B82A62831464B00D44DF5 /* ExploreEntities.swift */,
+				246B82A52831462F00D44DF5 /* Workers */,
 				24D018F7280ADE7A0031C14B /* Support */,
 				24D018F4280ADE020031C14B /* Subviews */,
 			);
