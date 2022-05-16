@@ -10,39 +10,23 @@ import Foundation
 protocol ExploreQuoteProtocol {
     var content: String { get set }
     var author: ExploreAuthorProtocol { get set }
-    var subCategory: ExploreSubCategoryQuoteProtocol { get set }
+    var quoteImageURLString: String { get set }
 }
 
 protocol ExploreAuthorProtocol {
     var name: String { get set }
+    var slug: String { get set }
     var authorImageURLString: String { get set }
-    var bigQuotes: [ExploreBigQuoteProtocol] { get set }
-}
-
-protocol ExploreBigQuoteProtocol {
-    var content: String { get set }
-}
-
-protocol ExploreSubCategoryQuoteProtocol {
-    var randomImageURLString: String { get set }
 }
 
 struct ExploreQuote: ExploreQuoteProtocol {
+    var quoteImageURLString: String
     var content: String
     var author: ExploreAuthorProtocol
-    var subCategory: ExploreSubCategoryQuoteProtocol
 }
 
 struct ExploreAuthor: ExploreAuthorProtocol {
+    var slug: String
     var name: String
     var authorImageURLString: String
-    var bigQuotes: [ExploreBigQuoteProtocol]
-}
-
-struct ExploreBigQuote: ExploreBigQuoteProtocol {
-    var content: String
-}
-
-struct ExploreSubCategory: ExploreSubCategoryQuoteProtocol {
-    var randomImageURLString: String
 }

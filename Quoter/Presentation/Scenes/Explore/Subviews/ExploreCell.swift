@@ -42,7 +42,6 @@ class ExploreCell: UICollectionViewCell {
         quoteContentLabel.font = Fonts.businessFonts.goodTimes.regular(size: Constants.screenHeight * 0.03)
         quoteContentLabel.textColor = .white
         quoteContentLabel.textAlignment = .center
-        quoteContentLabel.text = "Play by the rules, but be ferocious Play by the rules, but be ferocious"
         quoteContentLabel.translatesAutoresizingMaskIntoConstraints = false
         return quoteContentLabel
     }()

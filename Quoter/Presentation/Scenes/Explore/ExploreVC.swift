@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 protocol ExploreVCProtocol {
     var interactor: ExploreInteractorProtocol? { get set }
@@ -35,7 +34,7 @@ class ExploreVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configCollectionView()
-        interactor?.getInitialQuotes(genre: "politics")
+        interactor?.getInitialQuotes(genre: "success")
     }
     
     override func viewDidLayoutSubviews() {
@@ -74,35 +73,27 @@ class ExploreVC: UIViewController {
 
 extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        interactor?.loadedQuotes?.count ?? 0
+        interactor?.collectionView(collectionView, numberOfItemsInSection: section) ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExploreCell", for: indexPath)
-        return cell
+        interactor?.collectionView(collectionView, cellForItemAt: indexPath) ?? ExploreCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        if let cell = cell as? ExploreCell {
-            //cell.imgView.image = interactor?.loadedQuotes![indexPath.item]
-            let quote = interactor?.loadedQuotes?[indexPath.row]
-            cell.imgView.sd_setImage(with: URL(string: quote?.subCategory.randomImageURLString ?? ""))
-            cell.authorNameLabel.text = quote?.author.name
-            cell.quoteContentLabel.text = quote?.content
-        }
+        interactor?.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        0
+        interactor?.collectionView(collectionView, layout: collectionViewLayout, minimumLineSpacingForSectionAt: section) ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        0
+        interactor?.collectionView(collectionView, layout: collectionViewLayout, minimumInteritemSpacingForSectionAt: section) ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        view.bounds.size
+        interactor?.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? view.bounds.size
     }
 }
 

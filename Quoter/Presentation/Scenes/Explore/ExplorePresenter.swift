@@ -19,14 +19,8 @@ class ExplorePresenter: ExplorePresenterProtocol {
     func formatInitialQuotes(rawQuotes: [QuoteModel]) {
         var result: [ExploreQuoteProtocol] = []
         for rawQuote in rawQuotes {
-            var exploreBigQuotes: [ExploreBigQuoteProtocol] = []
-            for item in rawQuote.author.bigQuotes {
-                let exploreBigQuote = ExploreBigQuote(content: item.content)
-                exploreBigQuotes.append(exploreBigQuote)
-            }
-            let exploreSubCategory = ExploreSubCategory(randomImageURLString: rawQuote.subCategory.randomImageURLString)
-            let exploreAuthor = ExploreAuthor(name: rawQuote.author.name, authorImageURLString: rawQuote.author.authorImageURLString, bigQuotes: exploreBigQuotes)
-            let exploreQuote = ExploreQuote(content: rawQuote.content, author: exploreAuthor, subCategory: exploreSubCategory)
+            let exploreAuthor = ExploreAuthor(slug: rawQuote.author.slug, name: rawQuote.author.name, authorImageURLString: rawQuote.author.authorImageURLString)
+            let exploreQuote = ExploreQuote(quoteImageURLString: rawQuote.quoteImageURLString, content: rawQuote.content, author: exploreAuthor)
             result.append(exploreQuote)
         }
         vc?.displayInitialQuotes(exploreQuotes: result)
