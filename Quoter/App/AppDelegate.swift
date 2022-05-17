@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UserDefaults.standard.value(forKey: "firstLaunch") as? Bool == nil {
             UserDefaults.standard.set(true, forKey: "firstLaunch")
         }
-        Thread.sleep(forTimeInterval: 2.0)
+        //Thread.sleep(forTimeInterval: 2.0)
         FirebaseApp.configure()
         Analytics.setAnalyticsCollectionEnabled(false)
         guard let _ = UserDefaults.standard.value(forKey: "firstLaunch") as? Bool else { return true }

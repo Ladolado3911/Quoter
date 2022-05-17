@@ -39,7 +39,13 @@ class ExploreInteractor: ExploreInteractorProtocol {
             async let firstQuote = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
             async let secondQuote = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
             async let thirdQuote = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
-            let quotes = try await [firstQuote, secondQuote, thirdQuote].compactMap { $0 }
+            async let four = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
+            async let five = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
+            async let six = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
+            async let seven = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
+            async let eight = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
+            async let nine = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
+            let quotes = try await [firstQuote, secondQuote, thirdQuote, four, five, six, seven, eight, nine].compactMap { $0 }
             DispatchQueue.main.async {
                 self.presenter?.formatInitialQuotes(rawQuotes: quotes)
             }

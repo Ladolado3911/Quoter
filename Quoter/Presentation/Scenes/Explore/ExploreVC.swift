@@ -48,6 +48,7 @@ class ExploreVC: UIViewController {
     
     private func configCollectionView() {
         view = self.exploreView
+        exploreView?.collectionView.prefetchDataSource = self
         exploreView?.collectionView.dataSource = self
         exploreView?.collectionView.delegate = self
         exploreView?.collectionView.register(ExploreCell.self, forCellWithReuseIdentifier: "ExploreCell")
@@ -71,7 +72,8 @@ class ExploreVC: UIViewController {
     
 }
 
-extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         interactor?.collectionView(collectionView, numberOfItemsInSection: section) ?? 0
     }
@@ -94,6 +96,10 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         interactor?.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? view.bounds.size
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        print("prefetching: \(indexPaths.map { $0.item })")
     }
 }
 
