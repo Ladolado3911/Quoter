@@ -10,17 +10,21 @@ import UIKit
 protocol ExplorePresenterProtocol {
     var vc: ExploreVCProtocol? { get set }
     
-    func formatInitialQuotes(rawQuotes: [QuoteModel])
+    func formatInitialQuotes(rawQuotes: [QuoteModel?]?)
 }
 
 class ExplorePresenter: ExplorePresenterProtocol {
     var vc: ExploreVCProtocol?
     
-    func formatInitialQuotes(rawQuotes: [QuoteModel]) {
+    func formatInitialQuotes(rawQuotes: [QuoteModel?]?) {
         var result: [ExploreQuoteProtocol] = []
-        for rawQuote in rawQuotes {
-            let exploreAuthor = ExploreAuthor(slug: rawQuote.author.slug, name: rawQuote.author.name, authorImageURLString: rawQuote.author.authorImageURLString)
-            let exploreQuote = ExploreQuote(quoteImageURLString: rawQuote.quoteImageURLString, content: rawQuote.content, author: exploreAuthor)
+        guard let rawQuotes = rawQuotes else {
+            return
+        }
+        let unwrappedQuotes = rawQuotes.compactMap { $0 }
+        for quote in unwrappedQuotes {
+            let exploreAuthor = ExploreAuthor(slug: quote.author.slug, name: quote.author.name, authorImageURLString: quote.author.authorImageURLString)
+            let exploreQuote = ExploreQuote(quoteImageURLString: quote.quoteImageURLString, content: quote.content, author: exploreAuthor)
             result.append(exploreQuote)
         }
         vc?.displayInitialQuotes(exploreQuotes: result)

@@ -34,7 +34,7 @@ class ExploreVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configCollectionView()
-        interactor?.getInitialQuotes(genre: "success")
+        interactor?.getInitialQuotes(genre: "business", limit: 20)
     }
     
     override func viewDidLayoutSubviews() {

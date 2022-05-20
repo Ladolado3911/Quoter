@@ -11,9 +11,10 @@ protocol ExploreNetworkWorkerProtocol {
     var networkWorker: NetworkWorkerProtocol { get set }
     var uniqueQuoteImageURLStrings: [String] { get set }
     var uniqueQuoteContents: [String] { get set }
-    
+
     func getUniqueRandomQuote(genre: String) async throws -> QuoteModel
     func getRandomQuote(genre: String) async throws -> QuoteModel
+    func getQuotes(genre: String, limit: Int) async throws -> [QuoteModel]
     func getCategories() async throws -> [MainCategoryModel]
 }
 
@@ -23,8 +24,15 @@ class ExploreNetworkWorker: ExploreNetworkWorkerProtocol {
     var uniqueQuoteImageURLStrings: [String] = []
     var uniqueQuoteContents: [String] = []
     
+    func getQuotes(genre: String, limit: Int) async throws -> [QuoteModel] {
+        let endpoint = QuotieEndpoint.getQuotes(genre: genre, limit: limit)
+        let model = Resource(model: [QuoteModel].self)
+        let content = try await networkWorker.fetchData(endpoint: endpoint, model: model)
+        return content
+    }
+    
     func getUniqueRandomQuote(genre: String) async throws -> QuoteModel {
-        let endpoint = QuotieRandomQuoteEndpoint.getRandomQuote(genre: genre)
+        let endpoint = QuotieEndpoint.getRandomQuote(genre: genre)
         let model = Resource(model: QuoteModel.self)
         let content = try await networkWorker.fetchData(endpoint: endpoint, model: model)
         if uniqueQuoteImageURLStrings.contains(content.quoteImageURLString) || uniqueQuoteContents.contains(content.content) {
@@ -38,7 +46,7 @@ class ExploreNetworkWorker: ExploreNetworkWorkerProtocol {
     }
     
     func getRandomQuote(genre: String) async throws -> QuoteModel {
-        let endpoint = QuotieRandomQuoteEndpoint.getRandomQuote(genre: genre)
+        let endpoint = QuotieEndpoint.getRandomQuote(genre: genre)
         let model = Resource(model: QuoteModel.self)
         let content = try await networkWorker.fetchData(endpoint: endpoint, model: model)
         return content

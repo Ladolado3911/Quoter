@@ -6,6 +6,12 @@
 //
 
 import UIKit
+import Lottie
+
+enum LottieAnimation: String {
+    case flyingPaper
+    case dots
+}
 
 extension UIView {
     
@@ -36,6 +42,49 @@ extension UIView {
         border.backgroundColor = color
         
         addSubview(border)
+    }
+    
+    func createAndStartLoadingLottieAnimation(animation: LottieAnimation,
+                                              animationSpeed: CGFloat = 1,
+                                              frame: CGRect = .zero,
+                                              loopMode: LottieLoopMode = .loop,
+                                              contentMode: UIView.ContentMode = .scaleAspectFit,
+                                              completion: ((Bool) -> Void)?) {
+        
+        let lottieAnimation = AnimationView(name: animation.rawValue)
+        lottieAnimation.frame = frame
+        lottieAnimation.contentMode = contentMode
+        lottieAnimation.loopMode = loopMode
+        lottieAnimation.animationSpeed = animationSpeed
+        // loading animation will always have tag of 1
+        lottieAnimation.tag = 1
+        addSubview(lottieAnimation)
+        if let completion = completion {
+            let lottieCompletion = completion
+            lottieAnimation.play(completion: lottieCompletion)
+        }
+        else {
+            lottieAnimation.play()
+        }
+    }
+    
+    func stopLoadingLottieAnimationIfExists() {
+        if let lottieAnimation = loadingLottieAnimationView {
+            lottieAnimation.removeFromSuperview()
+            lottieAnimation.stop()
+            lottieAnimation.isHidden = true
+        }
+    }
+    
+    private var loadingLottieAnimationView: AnimationView? {
+        for subview in subviews {
+            if let newSubview = subview as? AnimationView {
+                if subview.tag == 1 {
+                    return newSubview
+                }
+            }
+        }
+        return nil
     }
     
 }

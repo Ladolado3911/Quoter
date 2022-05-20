@@ -26,10 +26,18 @@ class ExploreCell: UICollectionViewCell {
         imageView.layer.addSublayer(gradientLayer)
         return imageView
     }()
+
+    let quoteButtonView: QuoteButtonView = {
+        let quoteButtonView = QuoteButtonView()
+        quoteButtonView.translatesAutoresizingMaskIntoConstraints = false
+        return quoteButtonView
+    }()
     
     let authorNameLabel: UILabel = {
         let authorNameLabel = UILabel()
-        authorNameLabel.text = "Albert Einstein"
+        authorNameLabel.textColor = DarkModeColors.white
+        authorNameLabel.textAlignment = .center
+        authorNameLabel.font = Fonts.businessFonts.libreBaskerville.bold(size: 20)
         authorNameLabel.translatesAutoresizingMaskIntoConstraints = false
         return authorNameLabel
     }()
@@ -38,8 +46,8 @@ class ExploreCell: UICollectionViewCell {
         // 55 char is max
         let quoteContentLabel = UILabel()
         quoteContentLabel.numberOfLines = 2
-        quoteContentLabel.addLineHeight(lineHeight: Constants.screenHeight * 0.05)
-        quoteContentLabel.font = Fonts.businessFonts.goodTimes.regular(size: Constants.screenHeight * 0.03)
+        quoteContentLabel.addLineHeight(lineHeight: Constants.screenHeight * 0.04)
+        quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: 23)
         quoteContentLabel.textColor = .white
         quoteContentLabel.textAlignment = .center
         quoteContentLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -48,24 +56,50 @@ class ExploreCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        startAnimating()
         buildSubviews()
         buildConstraints()
     }
     
+    private func startAnimating() {
+        createAndStartLoadingLottieAnimation(animation: .dots,
+                                             animationSpeed: 1,
+                                             frame: CGRect(x: bounds.width / 2 - 150,
+                                                           y: bounds.height / 2 - 150,
+                                                           width: 300,
+                                                           height: 300),
+                                             loopMode: .loop,
+                                             contentMode: .scaleAspectFill,
+                                             completion: nil)
+    }
+    
+    func stopAnimating() {
+        stopLoadingLottieAnimationIfExists()
+    }
+    
     private func buildSubviews() {
         addSubview(imgView)
-        //addSubview(authorNameLabel)
+        addSubview(authorNameLabel)
         addSubview(quoteContentLabel)
+        addSubview(quoteButtonView)
     }
     
     private func buildConstraints() {
         NSLayoutConstraint.activate([
-            quoteContentLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.screenHeight * 0.0563),
-            quoteContentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.screenWidth * 0.0468),
-            quoteContentLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.screenWidth * 0.0468),
+            quoteContentLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.screenHeight * 0.0352),
+            quoteContentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            quoteContentLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            quoteContentLabel.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.1232),
             
+            authorNameLabel.bottomAnchor.constraint(equalTo: quoteContentLabel.topAnchor, constant: -Constants.screenHeight * 0.0352),
+            authorNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            authorNameLabel.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0352),
             
-        
+            quoteButtonView.bottomAnchor.constraint(equalTo: authorNameLabel.topAnchor, constant: -Constants.screenHeight * 0.0088),
+            quoteButtonView.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
+            quoteButtonView.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
+            quoteButtonView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
 }

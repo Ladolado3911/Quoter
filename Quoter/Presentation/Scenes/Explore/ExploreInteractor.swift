@@ -17,7 +17,7 @@ protocol ExploreInteractorProtocol {
     
     //MARK: Explore Scene Network Methods
     //func getFirstQuote(genre: String)
-    func getInitialQuotes(genre: String)
+    func getInitialQuotes(genre: String, limit: Int)
     
     //MARK: collection view methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -34,19 +34,20 @@ class ExploreInteractor: ExploreInteractorProtocol {
     
     var loadedQuotes: [ExploreQuoteProtocol]? = []
     
-    func getInitialQuotes(genre: String) {
+    func getInitialQuotes(genre: String, limit: Int) {
+        
         Task.init(priority: .high) {
-            async let firstQuote = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
-            async let secondQuote = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
-            async let thirdQuote = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
-            async let four = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
-            async let five = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
-            async let six = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
-            async let seven = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
-            async let eight = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
-            async let nine = exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
-            let quotes = try await [firstQuote, secondQuote, thirdQuote, four, five, six, seven, eight, nine].compactMap { $0 }
-            DispatchQueue.main.async {
+            let quotes = try await self.exploreNetworkWorker?.getQuotes(genre: genre, limit: limit)
+//            let quotes = try await withThrowingTaskGroup(of: QuoteModel?.self, returning: [QuoteModel?].self) { [weak self] group in
+//                guard let self = self else { return [] }
+//                for _ in 0..<20 {
+//                    group.addTask {
+//                        return try await self.exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
+//                    }
+//                }
+//                return try await group.reduce(into: [QuoteModel?]()) { result, quote in result.append(quote) }
+//            }
+            await MainActor.run {
                 self.presenter?.formatInitialQuotes(rawQuotes: quotes)
             }
         }
@@ -69,6 +70,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
                                      options: [.continueInBackground, .highPriority, .scaleDownLargeImages, .retryFailed]) { _, _, _, _ in
                 cell.authorNameLabel.text = quote?.author.name
                 cell.quoteContentLabel.text = quote?.content
+                cell.stopAnimating()
             }
         }
     }

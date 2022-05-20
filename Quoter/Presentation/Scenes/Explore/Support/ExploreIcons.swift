@@ -11,6 +11,7 @@ final class ExploreIcons {
     
     static let defaultIcon = UIImage(named: "uncheck")!
     static let arrowIconThin = UIImage(named: "arrowThin") ?? defaultIcon
+    static let quoteSignIcon = UIImage(named: "QuoteSign") ?? defaultIcon
     
     private init() {}
 }

@@ -7,9 +7,10 @@
 
 import Foundation
 
-enum QuotieRandomQuoteEndpoint: EndpointProtocol {
+enum QuotieEndpoint: EndpointProtocol {
     
     case getRandomQuote(genre: String)
+    case getQuotes(genre: String, limit: Int)
     
     var scheme: Scheme {
         switch self {
@@ -27,18 +28,23 @@ enum QuotieRandomQuoteEndpoint: EndpointProtocol {
         switch self {
         case .getRandomQuote(let genre):
             return "/randomQuote/\(genre)/"
+        case .getQuotes(let genre, let limit):
+            return "/getQuotes/\(genre)/\(limit)"
         }
     }
     var parameters: [URLQueryItem] {
         switch self {
         case .getRandomQuote:
-            return [
-            ]
+            return []
+        case .getQuotes:
+            return []
         }
     }
     var method: HTTPMethod {
         switch self {
         case .getRandomQuote:
+            return .get
+        case .getQuotes:
             return .get
         }
     }
