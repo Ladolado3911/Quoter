@@ -56,12 +56,12 @@ class ExploreCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        startAnimating()
+//        startAnimating()
         buildSubviews()
         buildConstraints()
     }
     
-    private func startAnimating() {
+    func startAnimating() {
         createAndStartLoadingLottieAnimation(animation: .dots,
                                              animationSpeed: 1,
                                              frame: CGRect(x: bounds.width / 2 - 150,
