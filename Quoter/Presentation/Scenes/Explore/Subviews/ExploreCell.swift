@@ -56,7 +56,6 @@ class ExploreCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-//        startAnimating()
         buildSubviews()
         buildConstraints()
     }

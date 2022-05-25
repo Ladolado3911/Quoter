@@ -35,18 +35,8 @@ class ExploreInteractor: ExploreInteractorProtocol {
     var loadedQuotes: [ExploreQuoteProtocol]? = []
     
     func getInitialQuotes(genre: String, limit: Int) {
-        
         Task.init(priority: .high) {
             let quotes = try await self.exploreNetworkWorker?.getQuotes(genre: genre, limit: limit)
-//            let quotes = try await withThrowingTaskGroup(of: QuoteModel?.self, returning: [QuoteModel?].self) { [weak self] group in
-//                guard let self = self else { return [] }
-//                for _ in 0..<20 {
-//                    group.addTask {
-//                        return try await self.exploreNetworkWorker?.getUniqueRandomQuote(genre: genre)
-//                    }
-//                }
-//                return try await group.reduce(into: [QuoteModel?]()) { result, quote in result.append(quote) }
-//            }
             await MainActor.run {
                 self.presenter?.formatInitialQuotes(rawQuotes: quotes)
             }
