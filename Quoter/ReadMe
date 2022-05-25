@@ -1,0 +1,20 @@
+Use of UINavigationController - (created custom navigation controller using view controller containment)
+Use of UITabBarController - (created custom tabbar controller using view controller containment)
+Use of Modal Presentation Controller
+Use of UITableView or UICollectionView
+Use of at least one view animation
+Use of custom protocol/delegation
+Use of persistence - Core Data
+Use of at least one custom view
+Use of at least one extension for utility function/method
+Use of struct
+Use of enum
+Use of at least one gesture
+Use of closure
+Use of multithreading
+Use of UIScrollView
+Fetch data from the internet (networking)
+Use of custom/convenience init
+Use of Singleton pattern
+Use of try/catch mechanism
+Use of notification mechanism
