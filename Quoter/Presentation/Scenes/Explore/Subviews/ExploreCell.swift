@@ -54,12 +54,6 @@ class ExploreCell: UICollectionViewCell {
         return quoteContentLabel
     }()
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        buildSubviews()
-        buildConstraints()
-    }
-    
     func startAnimating() {
         createAndStartLoadingLottieAnimation(animation: .dots,
                                              animationSpeed: 1,
@@ -76,14 +70,14 @@ class ExploreCell: UICollectionViewCell {
         stopLoadingLottieAnimationIfExists()
     }
     
-    private func buildSubviews() {
+    func buildSubviews() {
         addSubview(imgView)
         addSubview(authorNameLabel)
         addSubview(quoteContentLabel)
         addSubview(quoteButtonView)
     }
     
-    private func buildConstraints() {
+    func buildConstraints() {
         NSLayoutConstraint.activate([
             quoteContentLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.screenHeight * 0.0352),
             quoteContentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),

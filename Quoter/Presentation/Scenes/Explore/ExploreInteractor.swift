@@ -55,6 +55,8 @@ class ExploreInteractor: ExploreInteractorProtocol {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? ExploreCell {
             cell.startAnimating()
+            cell.buildSubviews()
+            cell.buildConstraints()
             let quote = loadedQuotes?[indexPath.row]
             cell.imgView.sd_setImage(with: URL(string: quote?.quoteImageURLString ?? ""),
                                      placeholderImage: nil,
