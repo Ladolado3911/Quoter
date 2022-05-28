@@ -12,15 +12,16 @@ class ExploreView: UIView {
     
     lazy var collectionView: UICollectionView = {
         let layout = AnimatedCollectionViewLayout()
-         layout.animator = CrossFadeAttributesAnimator()
-         let collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
-         if let layout = collectionView.collectionViewLayout as? AnimatedCollectionViewLayout {
-             layout.scrollDirection = .horizontal
-         }
-         collectionView.backgroundColor = .clear
-         collectionView.showsHorizontalScrollIndicator = false
-         collectionView.isPagingEnabled = true
-         return collectionView
+        layout.animator = CrossFadeAttributesAnimator()
+        let collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
+        if let layout = collectionView.collectionViewLayout as? AnimatedCollectionViewLayout {
+            layout.scrollDirection = .horizontal
+        }
+        collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isPagingEnabled = true
+        collectionView.isPrefetchingEnabled = true
+        return collectionView
     }()
     
     let leftArrowButton: ArrowButton = {

@@ -10,13 +10,13 @@ import UIKit
 protocol ExplorePresenterProtocol {
     var vc: ExploreVCProtocol? { get set }
     
-    func formatInitialQuotes(rawQuotes: [QuoteModel?]?)
+    func formatQuotes(rawQuotes: [QuoteModel?]?, isInitial: Bool)
 }
 
 class ExplorePresenter: ExplorePresenterProtocol {
     var vc: ExploreVCProtocol?
     
-    func formatInitialQuotes(rawQuotes: [QuoteModel?]?) {
+    func formatQuotes(rawQuotes: [QuoteModel?]?, isInitial: Bool) {
         var result: [ExploreQuoteProtocol] = []
         guard let rawQuotes = rawQuotes else {
             return
@@ -27,6 +27,11 @@ class ExplorePresenter: ExplorePresenterProtocol {
             let exploreQuote = ExploreQuote(quoteImageURLString: quote.quoteImageURLString, content: quote.content, author: exploreAuthor)
             result.append(exploreQuote)
         }
-        vc?.displayInitialQuotes(exploreQuotes: result)
+        if isInitial {
+            vc?.displayInitialQuotes(exploreQuotes: result)
+        }
+        else {
+            vc?.displayNextQuotes(exploreQuotes: result)
+        }
     }
 }

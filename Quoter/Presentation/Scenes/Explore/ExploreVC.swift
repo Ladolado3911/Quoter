@@ -13,6 +13,7 @@ protocol ExploreVCProtocol {
     var exploreView: ExploreView? { get set }
     
     func displayInitialQuotes(exploreQuotes: [ExploreQuoteProtocol])
+    func displayNextQuotes(exploreQuotes: [ExploreQuoteProtocol])
 }
 
 class ExploreVC: UIViewController {
@@ -20,6 +21,10 @@ class ExploreVC: UIViewController {
     var interactor: ExploreInteractorProtocol?
     weak var router: ExploreRouterProtocol?
     var exploreView: ExploreView?
+    
+    var tempCurrentPage = 0
+    
+    var isInCorrectZone = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -34,7 +39,7 @@ class ExploreVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configCollectionView()
-        interactor?.getInitialQuotes(genre: "rich", limit: 5)
+        interactor?.loadQuotes(genre: "rich", limit: 5, priority: .high, isInitial: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -99,7 +104,11 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        print("prefetching: \(indexPaths.map { $0.item })")
+        print("prefetching: \(indexPaths.map { "\($0.item)" }.joined(separator: ", "))")
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        interactor?.scrollViewDidEndDecelerating(scrollView)
     }
 }
 
@@ -107,5 +116,12 @@ extension ExploreVC: ExploreVCProtocol {
     func displayInitialQuotes(exploreQuotes: [ExploreQuoteProtocol]) {
         interactor?.loadedQuotes = exploreQuotes
         exploreView?.collectionView.reloadData()
+    }
+    
+    func displayNextQuotes(exploreQuotes: [ExploreQuoteProtocol]) {
+        let lastIntIndex = interactor!.loadedQuotes!.count - 1
+        let indexPaths = exploreQuotes.enumerated().map { IndexPath(item: lastIntIndex + $0.offset + 1, section: 0) }
+        interactor?.loadedQuotes?.append(contentsOf: exploreQuotes)
+        exploreView?.collectionView.insertItems(at: indexPaths)
     }
 }
