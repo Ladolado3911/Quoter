@@ -37,7 +37,7 @@ class ExploreCell: UICollectionViewCell {
         let authorNameLabel = UILabel()
         authorNameLabel.textColor = DarkModeColors.white
         authorNameLabel.textAlignment = .center
-        authorNameLabel.font = Fonts.businessFonts.libreBaskerville.bold(size: Constants.screenHeight * 0.029)
+        authorNameLabel.font = Fonts.businessFonts.libreBaskerville.bold(size: Constants.screenHeight * 0.027)
         authorNameLabel.translatesAutoresizingMaskIntoConstraints = false
         return authorNameLabel
     }()
@@ -46,13 +46,21 @@ class ExploreCell: UICollectionViewCell {
         // 55 char is max
         let quoteContentLabel = UILabel()
         quoteContentLabel.numberOfLines = 2
-        quoteContentLabel.addLineHeight(lineHeight: Constants.screenHeight * 0.045)
-        quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: Constants.screenHeight * 0.027)
+        quoteContentLabel.addLineHeight(lineHeight: Constants.screenHeight * 0.043)
+        //quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: Constants.screenHeight * 0.02)
         quoteContentLabel.textColor = .white
         quoteContentLabel.textAlignment = .center
         quoteContentLabel.translatesAutoresizingMaskIntoConstraints = false
         return quoteContentLabel
     }()
+    
+    func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {
+        let lowerBound: CGFloat = Constants.screenHeight * 0.0185
+        let higherBound: CGFloat = Constants.screenHeight * 0.023
+        let boundRange = higherBound - lowerBound
+        let testResult = lowerBound + ((1 / (stringCount / 35)) * boundRange)
+        return testResult
+    }
     
     func startAnimating() {
         createAndStartLoadingLottieAnimation(animation: .dots,
@@ -79,7 +87,7 @@ class ExploreCell: UICollectionViewCell {
     
     func buildConstraints() {
         NSLayoutConstraint.activate([
-            quoteContentLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.screenHeight * 0.0352),
+            quoteContentLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.screenHeight * 0.04),
             quoteContentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             quoteContentLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             quoteContentLabel.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.1232),

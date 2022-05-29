@@ -14,6 +14,7 @@ protocol ExploreVCProtocol {
     
     func displayInitialQuotes(exploreQuotes: [ExploreQuoteProtocol])
     func displayNextQuotes(exploreQuotes: [ExploreQuoteProtocol])
+    func scroll(direction: ExploreDirection, indexPath: IndexPath)
 }
 
 class ExploreVC: UIViewController {
@@ -21,10 +22,6 @@ class ExploreVC: UIViewController {
     var interactor: ExploreInteractorProtocol?
     weak var router: ExploreRouterProtocol?
     var exploreView: ExploreView?
-    
-    var tempCurrentPage = 0
-    
-    var isInCorrectZone = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -39,24 +36,21 @@ class ExploreVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configCollectionView()
-        interactor?.loadQuotes(genre: "rich", limit: 5, priority: .high, isInitial: true)
+        configButtons()
+        interactor?.loadQuotes(genre: "rich", limit: 5, priority: .high, isInitial: true, size: .small)
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-       
-    }
-    
+
     private func configCollectionView() {
         view = self.exploreView
         exploreView?.collectionView.prefetchDataSource = self
         exploreView?.collectionView.dataSource = self
         exploreView?.collectionView.delegate = self
         exploreView?.collectionView.register(ExploreCell.self, forCellWithReuseIdentifier: "ExploreCell")
+    }
+    
+    private func configButtons() {
+        exploreView?.leftArrowButton.addTarget(self, action: #selector(scrollLeft), for: .touchUpInside)
+        exploreView?.rightArrowButton.addTarget(self, action: #selector(scrollRight), for: .touchUpInside)
     }
     
     private func setup() {
@@ -74,7 +68,16 @@ class ExploreVC: UIViewController {
         presenter.vc = vc
         router.vc = vc
     }
+}
+
+extension ExploreVC {
+    @objc func scrollLeft(sender: ArrowButton) {
+        interactor?.scroll(direction: .left)
+    }
     
+    @objc func scrollRight(sender: ArrowButton) {
+        interactor?.scroll(direction: .right)
+    }
 }
 
 extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching {
@@ -123,5 +126,9 @@ extension ExploreVC: ExploreVCProtocol {
         let indexPaths = exploreQuotes.enumerated().map { IndexPath(item: lastIntIndex + $0.offset + 1, section: 0) }
         interactor?.loadedQuotes?.append(contentsOf: exploreQuotes)
         exploreView?.collectionView.insertItems(at: indexPaths)
+    }
+    
+    func scroll(direction: ExploreDirection, indexPath: IndexPath) {
+        exploreView?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
 }

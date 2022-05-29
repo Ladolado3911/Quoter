@@ -11,6 +11,7 @@ protocol ExplorePresenterProtocol {
     var vc: ExploreVCProtocol? { get set }
     
     func formatQuotes(rawQuotes: [QuoteModel?]?, isInitial: Bool)
+    func scroll(direction: ExploreDirection, indexPath: IndexPath)
 }
 
 class ExplorePresenter: ExplorePresenterProtocol {
@@ -33,5 +34,9 @@ class ExplorePresenter: ExplorePresenterProtocol {
         else {
             vc?.displayNextQuotes(exploreQuotes: result)
         }
+    }
+    
+    func scroll(direction: ExploreDirection, indexPath: IndexPath) {
+        vc?.scroll(direction: direction, indexPath: indexPath)
     }
 }

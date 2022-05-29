@@ -14,7 +14,7 @@ protocol ExploreNetworkWorkerProtocol {
 
     func getUniqueRandomQuote(genre: String) async throws -> QuoteModel
     func getRandomQuote(genre: String) async throws -> QuoteModel
-    func getQuotes(genre: String, limit: Int) async throws -> [QuoteModel]
+    func getQuotes(genre: String, limit: Int, size: QuoteSize) async throws -> [QuoteModel]
     func getCategories() async throws -> [MainCategoryModel]
 }
 
@@ -24,8 +24,8 @@ class ExploreNetworkWorker: ExploreNetworkWorkerProtocol {
     var uniqueQuoteImageURLStrings: [String] = []
     var uniqueQuoteContents: [String] = []
     
-    func getQuotes(genre: String, limit: Int) async throws -> [QuoteModel] {
-        let endpoint = QuotieEndpoint.getQuotes(genre: genre, limit: limit)
+    func getQuotes(genre: String, limit: Int, size: QuoteSize) async throws -> [QuoteModel] {
+        let endpoint = QuotieEndpoint.getQuotes(genre: genre, limit: limit, size: size)
         let model = Resource(model: [QuoteModel].self)
         let content = try await networkWorker.fetchData(endpoint: endpoint, model: model)
         return content

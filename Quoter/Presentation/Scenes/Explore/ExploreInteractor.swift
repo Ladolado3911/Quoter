@@ -8,6 +8,11 @@
 import UIKit
 import SDWebImage
 
+enum ExploreDirection {
+    case left
+    case right
+}
+
 protocol ExploreInteractorProtocol {
     var presenter: ExplorePresenterProtocol? { get set }
     var exploreNetworkWorker: ExploreNetworkWorkerProtocol? { get set }
@@ -17,9 +22,8 @@ protocol ExploreInteractorProtocol {
     var isCurrentPageInCorrectZone: Bool { get set }
     var currentPage: Int { get set }
     
-    
     //MARK: Explore Scene Network Methods
-    func loadQuotes(genre: String, limit: Int, priority: TaskPriority, isInitial: Bool)
+    func loadQuotes(genre: String, limit: Int, priority: TaskPriority, isInitial: Bool, size: QuoteSize)
     
     //MARK: Collection View methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -31,6 +35,7 @@ protocol ExploreInteractorProtocol {
     
     //MARK: Scroll View methods
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView)
+    func scroll(direction: ExploreDirection)
 }
 
 class ExploreInteractor: ExploreInteractorProtocol {
@@ -42,9 +47,9 @@ class ExploreInteractor: ExploreInteractorProtocol {
     var isCurrentPageInCorrectZone = false
     var currentPage: Int = 0
     
-    func loadQuotes(genre: String, limit: Int, priority: TaskPriority, isInitial: Bool) {
+    func loadQuotes(genre: String, limit: Int, priority: TaskPriority, isInitial: Bool, size: QuoteSize) {
         Task.init(priority: priority) {
-            let quotes = try await self.exploreNetworkWorker?.getQuotes(genre: genre, limit: limit)
+            let quotes = try await self.exploreNetworkWorker?.getQuotes(genre: genre, limit: limit, size: size)
             await MainActor.run {
                 isLoadQuotesFunctionRunning = false
                 self.presenter?.formatQuotes(rawQuotes: quotes, isInitial: isInitial)
@@ -69,6 +74,8 @@ class ExploreInteractor: ExploreInteractorProtocol {
             let quote = loadedQuotes?[indexPath.row]
             cell.authorNameLabel.text = quote?.author.name
             cell.quoteContentLabel.text = quote?.content
+            let fontSize = cell.getFontSizeForQuote(stringCount: CGFloat(quote!.content.count))
+            cell.quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: fontSize)
             cell.imgView.sd_setImage(with: URL(string: quote?.quoteImageURLString ?? ""),
                                      placeholderImage: nil,
                                      options: [.continueInBackground, .highPriority, .scaleDownLargeImages, .retryFailed]) { _, _, _, _ in
@@ -101,7 +108,18 @@ class ExploreInteractor: ExploreInteractorProtocol {
         }
         if isCurrentPageInCorrectZone && !isLoadQuotesFunctionRunning  {
             isLoadQuotesFunctionRunning = true
-            loadQuotes(genre: "rich", limit: 5, priority: .medium, isInitial: false)
+            loadQuotes(genre: "rich", limit: 5, priority: .medium, isInitial: false, size: .small)
         }
+    }
+    
+    func scroll(direction: ExploreDirection) {
+        var indexPath: IndexPath
+        switch direction {
+        case .left:
+            indexPath = IndexPath(item: currentPage - 1, section: 0)
+        case .right:
+            indexPath = IndexPath(item: currentPage + 1, section: 0)
+        }
+        presenter?.scroll(direction: direction, indexPath: indexPath)
     }
 }
