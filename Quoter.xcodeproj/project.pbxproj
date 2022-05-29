@@ -28,6 +28,7 @@
 		2458D29428097EBB0088C00E /* DailyQuotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458D29328097EBB0088C00E /* DailyQuotesVC.swift */; };
 		2458D2982809A25B0088C00E /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458D2972809A25B0088C00E /* ExploreView.swift */; };
 		2458D29A2809A51A0088C00E /* ExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458D2992809A51A0088C00E /* ExploreCell.swift */; };
+		2459D5B12843B712001D1812 /* ExploreLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2459D5B02843B712001D1812 /* ExploreLayout.swift */; };
 		246B828A28311DBB00D44DF5 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B828428311DBB00D44DF5 /* Endpoints.swift */; };
 		246B828F28311DBB00D44DF5 /* QuotieEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B828928311DBB00D44DF5 /* QuotieEndpoint.swift */; };
 		246B829128311E9300D44DF5 /* QuotieCategoriesEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B829028311E9300D44DF5 /* QuotieCategoriesEndpoint.swift */; };
@@ -45,7 +46,6 @@
 		2497158527D9E23400968E08 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158427D9E23400968E08 /* FirebaseCrashlytics */; };
 		2497158927D9E40F00968E08 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2497158727D9E3FB00968E08 /* AdSupport.framework */; };
 		249EDC1827C770A6005F7A9B /* TTGTags in Frameworks */ = {isa = PBXBuildFile; productRef = 249EDC1727C770A6005F7A9B /* TTGTags */; };
-		24A8407527C3A0F400BCF304 /* AnimatedCollectionViewLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 24A8407427C3A0F400BCF304 /* AnimatedCollectionViewLayout */; };
 		24D018F6280ADE150031C14B /* ArrowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D018F5280ADE150031C14B /* ArrowButtonView.swift */; };
 		24D018F9280ADE880031C14B /* ExploreIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D018F8280ADE880031C14B /* ExploreIcons.swift */; };
 		24D018FB280B1A460031C14B /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D018FA280B1A460031C14B /* UILabel+Extension.swift */; };
@@ -109,6 +109,7 @@
 		2458D29328097EBB0088C00E /* DailyQuotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuotesVC.swift; sourceTree = "<group>"; };
 		2458D2972809A25B0088C00E /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		2458D2992809A51A0088C00E /* ExploreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCell.swift; sourceTree = "<group>"; };
+		2459D5B02843B712001D1812 /* ExploreLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreLayout.swift; sourceTree = "<group>"; };
 		246B828428311DBB00D44DF5 /* Endpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		246B828928311DBB00D44DF5 /* QuotieEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuotieEndpoint.swift; sourceTree = "<group>"; };
 		246B829028311E9300D44DF5 /* QuotieCategoriesEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotieCategoriesEndpoint.swift; sourceTree = "<group>"; };
@@ -166,7 +167,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24A8407527C3A0F400BCF304 /* AnimatedCollectionViewLayout in Frameworks */,
 				2497158927D9E40F00968E08 /* AdSupport.framework in Frameworks */,
 				24D1289F2790AB4900AD7F3D /* Kingfisher in Frameworks */,
 				2497158327D9E23400968E08 /* FirebaseAnalytics in Frameworks */,
@@ -337,6 +337,7 @@
 				2458D2972809A25B0088C00E /* ExploreView.swift */,
 				24D018F5280ADE150031C14B /* ArrowButtonView.swift */,
 				24484AD32837C07900D3BFA8 /* QuoteButtonView.swift */,
+				2459D5B02843B712001D1812 /* ExploreLayout.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -532,7 +533,6 @@
 				24D1289B2790887A00AD7F3D /* SnapKit */,
 				24D1289E2790AB4900AD7F3D /* Kingfisher */,
 				24DEBF4527ABB1D400C40B29 /* Lottie */,
-				24A8407427C3A0F400BCF304 /* AnimatedCollectionViewLayout */,
 				249EDC1727C770A6005F7A9B /* TTGTags */,
 				2497158227D9E23400968E08 /* FirebaseAnalytics */,
 				2497158427D9E23400968E08 /* FirebaseCrashlytics */,
@@ -580,7 +580,6 @@
 				24D1289A2790887A00AD7F3D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				24D1289D2790AB4900AD7F3D /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				24DEBF4427ABB1D400C40B29 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				24A8407327C3A0F400BCF304 /* XCRemoteSwiftPackageReference "AnimatedCollectionViewLayout" */,
 				249EDC1627C770A6005F7A9B /* XCRemoteSwiftPackageReference "TTGTagCollectionView" */,
 				2497158127D9E23400968E08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				246B82A228313DE000D44DF5 /* XCRemoteSwiftPackageReference "SDWebImage" */,
@@ -686,6 +685,7 @@
 				24138A172805719400044F5E /* ExploreVC.swift in Sources */,
 				24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */,
 				24138A322805AD6E00044F5E /* UIApplication+Extension.swift in Sources */,
+				2459D5B12843B712001D1812 /* ExploreLayout.swift in Sources */,
 				24138A372805AD6E00044F5E /* String+Extension.swift in Sources */,
 				24138A3B2805B16600044F5E /* MenuIcons.swift in Sources */,
 				246B829E283137C700D44DF5 /* ExplorePresenter.swift in Sources */,
@@ -1061,14 +1061,6 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		24A8407327C3A0F400BCF304 /* XCRemoteSwiftPackageReference "AnimatedCollectionViewLayout" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/KelvinJin/AnimatedCollectionViewLayout";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		24D1289A2790887A00AD7F3D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -1115,11 +1107,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 249EDC1627C770A6005F7A9B /* XCRemoteSwiftPackageReference "TTGTagCollectionView" */;
 			productName = TTGTags;
-		};
-		24A8407427C3A0F400BCF304 /* AnimatedCollectionViewLayout */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24A8407327C3A0F400BCF304 /* XCRemoteSwiftPackageReference "AnimatedCollectionViewLayout" */;
-			productName = AnimatedCollectionViewLayout;
 		};
 		24D1289B2790887A00AD7F3D /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

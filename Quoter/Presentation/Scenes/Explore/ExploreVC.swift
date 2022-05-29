@@ -14,7 +14,7 @@ protocol ExploreVCProtocol {
     
     func displayInitialQuotes(exploreQuotes: [ExploreQuoteProtocol])
     func displayNextQuotes(exploreQuotes: [ExploreQuoteProtocol])
-    func scroll(direction: ExploreDirection, indexPath: IndexPath)
+    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat)
 }
 
 class ExploreVC: UIViewController {
@@ -37,7 +37,7 @@ class ExploreVC: UIViewController {
         super.viewDidLoad()
         configCollectionView()
         configButtons()
-        interactor?.loadQuotes(genre: "rich", limit: 5, priority: .high, isInitial: true, size: .small)
+        interactor?.loadQuotes(genre: "actors", limit: 5, priority: .high, isInitial: true, size: .small)
     }
 
     private func configCollectionView() {
@@ -113,6 +113,10 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         interactor?.scrollViewDidEndDecelerating(scrollView)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print(scrollView.contentOffset)
+    }
 }
 
 extension ExploreVC: ExploreVCProtocol {
@@ -128,7 +132,9 @@ extension ExploreVC: ExploreVCProtocol {
         exploreView?.collectionView.insertItems(at: indexPaths)
     }
     
-    func scroll(direction: ExploreDirection, indexPath: IndexPath) {
-        exploreView?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat) {
+        let nextOffset = CGPoint(x: exploreView!.collectionView.contentOffset.x + contentOffsetX,
+                                 y: exploreView!.collectionView.contentOffset.y)
+        exploreView?.collectionView.setContentOffset(nextOffset, animated: true)
     }
 }

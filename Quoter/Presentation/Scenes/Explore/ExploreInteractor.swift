@@ -71,7 +71,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
             cell.startAnimating()
             cell.buildSubviews()
             cell.buildConstraints()
-            let quote = loadedQuotes?[indexPath.row]
+            let quote = loadedQuotes?[indexPath.item]
             cell.authorNameLabel.text = quote?.author.name
             cell.quoteContentLabel.text = quote?.content
             let fontSize = cell.getFontSizeForQuote(stringCount: CGFloat(quote!.content.count))
@@ -108,18 +108,23 @@ class ExploreInteractor: ExploreInteractorProtocol {
         }
         if isCurrentPageInCorrectZone && !isLoadQuotesFunctionRunning  {
             isLoadQuotesFunctionRunning = true
-            loadQuotes(genre: "rich", limit: 5, priority: .medium, isInitial: false, size: .small)
+            loadQuotes(genre: "actors", limit: 5, priority: .medium, isInitial: false, size: .small)
         }
     }
     
     func scroll(direction: ExploreDirection) {
-        var indexPath: IndexPath
+        var contentOffsetX: CGFloat? = nil
         switch direction {
         case .left:
-            indexPath = IndexPath(item: currentPage - 1, section: 0)
+            if currentPage - 1 < 0 {
+                return
+            }
+            currentPage -= 1
+            contentOffsetX = -Constants.screenWidth
         case .right:
-            indexPath = IndexPath(item: currentPage + 1, section: 0)
+            currentPage += 1
+            contentOffsetX = Constants.screenWidth
         }
-        presenter?.scroll(direction: direction, indexPath: indexPath)
+        presenter?.scroll(direction: direction, contentOffsetX: contentOffsetX!)
     }
 }

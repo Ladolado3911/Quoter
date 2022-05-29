@@ -11,14 +11,11 @@ import AnimatedCollectionViewLayout
 class ExploreView: UIView {
     
     lazy var collectionView: UICollectionView = {
-        let layout = AnimatedCollectionViewLayout()
-        layout.animator = CrossFadeAttributesAnimator()
+        let layout = ExploreLayout()
+        layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
-        if let layout = collectionView.collectionViewLayout as? AnimatedCollectionViewLayout {
-            layout.scrollDirection = .horizontal
-        }
         collectionView.backgroundColor = .clear
-        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = true
         collectionView.isPagingEnabled = true
         collectionView.isPrefetchingEnabled = true
         return collectionView
