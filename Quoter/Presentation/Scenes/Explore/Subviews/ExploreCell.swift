@@ -37,7 +37,7 @@ class ExploreCell: UICollectionViewCell {
         let authorNameLabel = UILabel()
         authorNameLabel.textColor = DarkModeColors.white
         authorNameLabel.textAlignment = .center
-        authorNameLabel.font = Fonts.businessFonts.libreBaskerville.bold(size: 20)
+        authorNameLabel.font = Fonts.businessFonts.libreBaskerville.bold(size: Constants.screenHeight * 0.029)
         authorNameLabel.translatesAutoresizingMaskIntoConstraints = false
         return authorNameLabel
     }()
@@ -46,8 +46,8 @@ class ExploreCell: UICollectionViewCell {
         // 55 char is max
         let quoteContentLabel = UILabel()
         quoteContentLabel.numberOfLines = 2
-        quoteContentLabel.addLineHeight(lineHeight: Constants.screenHeight * 0.04)
-        quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: 23)
+        quoteContentLabel.addLineHeight(lineHeight: Constants.screenHeight * 0.045)
+        quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: Constants.screenHeight * 0.027)
         quoteContentLabel.textColor = .white
         quoteContentLabel.textAlignment = .center
         quoteContentLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +87,7 @@ class ExploreCell: UICollectionViewCell {
             authorNameLabel.bottomAnchor.constraint(equalTo: quoteContentLabel.topAnchor, constant: -Constants.screenHeight * 0.0352),
             authorNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            authorNameLabel.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0352),
+            authorNameLabel.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.037),
             
             quoteButtonView.bottomAnchor.constraint(equalTo: authorNameLabel.topAnchor, constant: -Constants.screenHeight * 0.0088),
             quoteButtonView.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),

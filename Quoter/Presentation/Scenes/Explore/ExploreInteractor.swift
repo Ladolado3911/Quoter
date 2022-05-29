@@ -67,11 +67,11 @@ class ExploreInteractor: ExploreInteractorProtocol {
             cell.buildSubviews()
             cell.buildConstraints()
             let quote = loadedQuotes?[indexPath.row]
+            cell.authorNameLabel.text = quote?.author.name
+            cell.quoteContentLabel.text = quote?.content
             cell.imgView.sd_setImage(with: URL(string: quote?.quoteImageURLString ?? ""),
                                      placeholderImage: nil,
                                      options: [.continueInBackground, .highPriority, .scaleDownLargeImages, .retryFailed]) { _, _, _, _ in
-                cell.authorNameLabel.text = quote?.author.name
-                cell.quoteContentLabel.text = quote?.content
                 cell.stopAnimating()
             }
         }

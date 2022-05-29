@@ -51,23 +51,14 @@ class MenuVC: UIViewController {
         menuButton.translatesAutoresizingMaskIntoConstraints = false
         return menuButton
     }()
-    
-    override func loadView() {
-        super.loadView()
-        
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         buildSubviews()
         buildConstraints()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
+
     private func setup() {
         leftSwipeRecognizer.direction = .left
         menuView.addGestureRecognizer(leftSwipeRecognizer)
