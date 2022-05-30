@@ -108,11 +108,13 @@ class ExploreInteractor: ExploreInteractorProtocol {
         }
         if isCurrentPageInCorrectZone && !isLoadQuotesFunctionRunning  {
             isLoadQuotesFunctionRunning = true
-            loadQuotes(genre: "actors", limit: 5, priority: .medium, isInitial: false, size: .small)
+            loadQuotes(genre: "rich", limit: 5, priority: .medium, isInitial: false, size: .small)
         }
     }
     
     func scroll(direction: ExploreDirection) {
+        let indexes = loadedQuotes?.enumerated().map { $0.offset }
+        let correctZone = indexes![(indexes!.count - 5 - 1)...]
         var contentOffsetX: CGFloat? = nil
         switch direction {
         case .left:
@@ -124,6 +126,16 @@ class ExploreInteractor: ExploreInteractorProtocol {
         case .right:
             currentPage += 1
             contentOffsetX = Constants.screenWidth
+        }
+        if correctZone.contains(currentPage) {
+            isCurrentPageInCorrectZone = true
+        }
+        else {
+            isCurrentPageInCorrectZone = false
+        }
+        if isCurrentPageInCorrectZone && !isLoadQuotesFunctionRunning  {
+            isLoadQuotesFunctionRunning = true
+            loadQuotes(genre: "rich", limit: 5, priority: .medium, isInitial: false, size: .small)
         }
         presenter?.scroll(direction: direction, contentOffsetX: contentOffsetX!)
     }

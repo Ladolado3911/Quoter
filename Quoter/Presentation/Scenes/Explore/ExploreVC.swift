@@ -37,7 +37,7 @@ class ExploreVC: UIViewController {
         super.viewDidLoad()
         configCollectionView()
         configButtons()
-        interactor?.loadQuotes(genre: "actors", limit: 5, priority: .high, isInitial: true, size: .small)
+        interactor?.loadQuotes(genre: "rich", limit: 5, priority: .high, isInitial: true, size: .small)
     }
 
     private func configCollectionView() {
@@ -115,7 +115,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print(scrollView.contentOffset)
+        //print(scrollView.contentOffset)
     }
 }
 
