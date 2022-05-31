@@ -46,6 +46,8 @@
 		2497158527D9E23400968E08 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158427D9E23400968E08 /* FirebaseCrashlytics */; };
 		2497158927D9E40F00968E08 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2497158727D9E3FB00968E08 /* AdSupport.framework */; };
 		249EDC1827C770A6005F7A9B /* TTGTags in Frameworks */ = {isa = PBXBuildFile; productRef = 249EDC1727C770A6005F7A9B /* TTGTags */; };
+		24CD4C0C2844A6C300A63968 /* wakeup.json in Resources */ = {isa = PBXBuildFile; fileRef = 24CD4C0B2844A6C300A63968 /* wakeup.json */; };
+		24CD4C0E2844B23700A63968 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD4C0D2844B23700A63968 /* DeviceModel.swift */; };
 		24D018F6280ADE150031C14B /* ArrowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D018F5280ADE150031C14B /* ArrowButtonView.swift */; };
 		24D018F9280ADE880031C14B /* ExploreIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D018F8280ADE880031C14B /* ExploreIcons.swift */; };
 		24D018FB280B1A460031C14B /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D018FA280B1A460031C14B /* UILabel+Extension.swift */; };
@@ -123,6 +125,8 @@
 		246B82A62831464B00D44DF5 /* ExploreEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreEntities.swift; sourceTree = "<group>"; };
 		2497157F27D9E15F00968E08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2497158727D9E3FB00968E08 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		24CD4C0B2844A6C300A63968 /* wakeup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = wakeup.json; sourceTree = "<group>"; };
+		24CD4C0D2844B23700A63968 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		24D018F5280ADE150031C14B /* ArrowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowButtonView.swift; sourceTree = "<group>"; };
 		24D018F8280ADE880031C14B /* ExploreIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreIcons.swift; sourceTree = "<group>"; };
 		24D018FA280B1A460031C14B /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
@@ -300,6 +304,7 @@
 		246B829228311FFE00D44DF5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				24CD4C0D2844B23700A63968 /* DeviceModel.swift */,
 				246B82932831200A00D44DF5 /* QuoteModel.swift */,
 				246B8299283124A600D44DF5 /* CategoriesModel.swift */,
 			);
@@ -434,6 +439,7 @@
 		24D71D2C2835152000BF2505 /* AnimationJSONs */ = {
 			isa = PBXGroup;
 			children = (
+				24CD4C0B2844A6C300A63968 /* wakeup.json */,
 				24D71D2F2835203F00BF2505 /* dots.json */,
 				24D71D2D28351ABF00BF2505 /* flyingPaper.json */,
 			);
@@ -617,6 +623,7 @@
 				24F40214280DA33B007DF059 /* typodermic-eula-03-2020.pdf in Resources */,
 				24D86367280C0FDC0060760A /* OFL.txt in Resources */,
 				24D86368280C0FDC0060760A /* LibreBaskerville-Bold.ttf in Resources */,
+				24CD4C0C2844A6C300A63968 /* wakeup.json in Resources */,
 				24D86365280C0FDC0060760A /* LibreBaskerville-Italic.ttf in Resources */,
 				24D1287F27903ECE00AD7F3D /* LaunchScreen.storyboard in Resources */,
 				24D71D302835203F00BF2505 /* dots.json in Resources */,
@@ -673,6 +680,7 @@
 				24D018F9280ADE880031C14B /* ExploreIcons.swift in Sources */,
 				24484AD42837C07900D3BFA8 /* QuoteButtonView.swift in Sources */,
 				246B82962831204E00D44DF5 /* NetworkWorker.swift in Sources */,
+				24CD4C0E2844B23700A63968 /* DeviceModel.swift in Sources */,
 				2458D29A2809A51A0088C00E /* ExploreCell.swift in Sources */,
 				24138A1A280571CA00044F5E /* MenuVC.swift in Sources */,
 				24D5BC2B2806FE93003D14CD /* MenuHeaderView.swift in Sources */,

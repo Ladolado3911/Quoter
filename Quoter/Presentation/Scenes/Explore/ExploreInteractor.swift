@@ -21,9 +21,11 @@ protocol ExploreInteractorProtocol {
     var isLoadQuotesFunctionRunning: Bool { get set }
     var isCurrentPageInCorrectZone: Bool { get set }
     var currentPage: Int { get set }
+    var correctZone: [Int] { get set }
     
     //MARK: Explore Scene Network Methods
     func loadQuotes(genre: String, limit: Int, priority: TaskPriority, isInitial: Bool, size: QuoteSize)
+    func loadQuotesNegotiated(genre: String, priority: TaskPriority, isInitial: Bool, size: QuoteSize)
     
     //MARK: Collection View methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -46,6 +48,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
     var isLoadQuotesFunctionRunning = false
     var isCurrentPageInCorrectZone = false
     var currentPage: Int = 0
+    var correctZone: [Int] = []
     
     func loadQuotes(genre: String, limit: Int, priority: TaskPriority, isInitial: Bool, size: QuoteSize) {
         Task.init(priority: priority) {
@@ -56,6 +59,17 @@ class ExploreInteractor: ExploreInteractorProtocol {
             }
         }
     }
+    
+    func loadQuotesNegotiated(genre: String, priority: TaskPriority, isInitial: Bool, size: QuoteSize) {
+        Task.init(priority: priority) {
+            let quotes = try await self.exploreNetworkWorker?.getQuotesNegotiated(genre: genre, size: size)
+            await MainActor.run {
+                isLoadQuotesFunctionRunning = false
+                self.presenter?.formatQuotes(rawQuotes: quotes, isInitial: isInitial)
+            }
+        }
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         loadedQuotes?.count ?? 0
@@ -98,8 +112,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        let indexes = loadedQuotes?.enumerated().map { $0.offset }
-        let correctZone = indexes![(indexes!.count - 5 - 1)...]
+        print(currentPage)
         if correctZone.contains(currentPage) {
             isCurrentPageInCorrectZone = true
         }
@@ -108,13 +121,14 @@ class ExploreInteractor: ExploreInteractorProtocol {
         }
         if isCurrentPageInCorrectZone && !isLoadQuotesFunctionRunning  {
             isLoadQuotesFunctionRunning = true
-            loadQuotes(genre: "rich", limit: 5, priority: .medium, isInitial: false, size: .small)
+            let indexes = loadedQuotes?.enumerated().map { $0.offset }
+            correctZone = indexes!.compactMap { $0 }
+            loadQuotesNegotiated(genre: "rich", priority: .medium, isInitial: false, size: .small)
+            //loadQuotes(genre: "rich", limit: 5, priority: .medium, isInitial: false, size: .small)
         }
     }
     
     func scroll(direction: ExploreDirection) {
-        let indexes = loadedQuotes?.enumerated().map { $0.offset }
-        let correctZone = indexes![(indexes!.count - 5 - 1)...]
         var contentOffsetX: CGFloat? = nil
         switch direction {
         case .left:
@@ -127,6 +141,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
             currentPage += 1
             contentOffsetX = Constants.screenWidth
         }
+        print(currentPage)
         if correctZone.contains(currentPage) {
             isCurrentPageInCorrectZone = true
         }
@@ -135,7 +150,10 @@ class ExploreInteractor: ExploreInteractorProtocol {
         }
         if isCurrentPageInCorrectZone && !isLoadQuotesFunctionRunning  {
             isLoadQuotesFunctionRunning = true
-            loadQuotes(genre: "rich", limit: 5, priority: .medium, isInitial: false, size: .small)
+            let indexes = loadedQuotes?.enumerated().map { $0.offset }
+            correctZone = indexes!.compactMap { $0 }
+            loadQuotesNegotiated(genre: "rich", priority: .medium, isInitial: false, size: .small)
+            //loadQuotes(genre: "rich", limit: 5, priority: .medium, isInitial: false, size: .small)
         }
         presenter?.scroll(direction: direction, contentOffsetX: contentOffsetX!)
     }

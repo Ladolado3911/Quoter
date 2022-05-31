@@ -59,4 +59,20 @@ class ExploreView: UIView {
         
         ])
     }
+    
+    func startAnimating() {
+        createAndStartLoadingLottieAnimation(animation: .wakeup,
+                                             animationSpeed: 1,
+                                             frame: CGRect(x: bounds.width / 2 - 150,
+                                                           y: bounds.height / 2 - 150,
+                                                           width: 300,
+                                                           height: 300),
+                                             loopMode: .loop,
+                                             contentMode: .scaleAspectFill,
+                                             completion: nil)
+    }
+    
+    func stopAnimating() {
+        stopLoadingLottieAnimationIfExists()
+    }
 }

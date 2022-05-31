@@ -42,5 +42,11 @@ enum QuotieCategoriesEndpoint: EndpointProtocol {
             return .get
         }
     }
+    var body: Data? {
+        switch self {
+        default:
+            return nil
+        }
+    }
 }
 

@@ -34,8 +34,20 @@ class NetworkWorker: NetworkWorkerProtocol {
         guard let url = components.url else { throw NetworkError.noURL }
         
         do {
-            let request = URLRequest(url: url)
+            var request = URLRequest(url: url)
+            switch endpoint.method {
+            case .get:
+                break
+            case .post:
+                request.allHTTPHeaderFields = [
+                    "Content-Type": "application/json"
+                ]
+                request.httpMethod = endpoint.method.rawValue
+                request.httpBody = endpoint.body
+            }
+            //request.httpBody = endpoint.body
             let (data, response) = try await URLSession.shared.data(for: request)
+            
             print("HTTP head", response)
             let content = try JSONDecoder().decode(model.model, from: data)
             return content

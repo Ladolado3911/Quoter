@@ -37,7 +37,9 @@ class ExploreVC: UIViewController {
         super.viewDidLoad()
         configCollectionView()
         configButtons()
-        interactor?.loadQuotes(genre: "rich", limit: 5, priority: .high, isInitial: true, size: .small)
+        exploreView?.startAnimating()
+        interactor?.loadQuotesNegotiated(genre: "rich", priority: .high, isInitial: true, size: .small)
+        //interactor?.loadQuotes(genre: "rich", limit: 5, priority: .high, isInitial: true, size: .small)
     }
 
     private func configCollectionView() {
@@ -72,10 +74,14 @@ class ExploreVC: UIViewController {
 
 extension ExploreVC {
     @objc func scrollLeft(sender: ArrowButton) {
+        exploreView?.collectionView.isUserInteractionEnabled = false
+        exploreView?.leftArrowButton.isEnabled = false
         interactor?.scroll(direction: .left)
     }
     
     @objc func scrollRight(sender: ArrowButton) {
+        exploreView?.collectionView.isUserInteractionEnabled = false
+        exploreView?.rightArrowButton.isEnabled = false
         interactor?.scroll(direction: .right)
     }
 }
@@ -123,6 +129,7 @@ extension ExploreVC: ExploreVCProtocol {
     func displayInitialQuotes(exploreQuotes: [ExploreQuoteProtocol]) {
         interactor?.loadedQuotes = exploreQuotes
         exploreView?.collectionView.reloadData()
+        exploreView?.stopAnimating()
     }
     
     func displayNextQuotes(exploreQuotes: [ExploreQuoteProtocol]) {
@@ -136,5 +143,16 @@ extension ExploreVC: ExploreVCProtocol {
         let nextOffset = CGPoint(x: exploreView!.collectionView.contentOffset.x + contentOffsetX,
                                  y: exploreView!.collectionView.contentOffset.y)
         exploreView?.collectionView.setContentOffset(nextOffset, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self = self else { return }
+            switch direction {
+            case .left:
+                self.exploreView?.collectionView.isUserInteractionEnabled = true
+                self.exploreView?.leftArrowButton.isEnabled = true
+            case .right:
+                self.exploreView?.collectionView.isUserInteractionEnabled = true
+                self.exploreView?.rightArrowButton.isEnabled = true
+            }
+        }
     }
 }

@@ -14,8 +14,10 @@ protocol ExploreNetworkWorkerProtocol {
 
     func getUniqueRandomQuote(genre: String) async throws -> QuoteModel
     func getRandomQuote(genre: String) async throws -> QuoteModel
+    func getQuotesNegotiated(genre: String, size: QuoteSize) async throws -> [QuoteModel]
     func getQuotes(genre: String, limit: Int, size: QuoteSize) async throws -> [QuoteModel]
     func getCategories() async throws -> [MainCategoryModel]
+    func registerDevice() async throws
 }
 
 class ExploreNetworkWorker: ExploreNetworkWorkerProtocol {
@@ -29,6 +31,27 @@ class ExploreNetworkWorker: ExploreNetworkWorkerProtocol {
         let model = Resource(model: [QuoteModel].self)
         let content = try await networkWorker.fetchData(endpoint: endpoint, model: model)
         return content
+    }
+    
+    func getQuotesNegotiated(genre: String, size: QuoteSize) async throws -> [QuoteModel] {
+        try await registerDevice()
+        let body = [
+            "uuidString": UserDefaults.standard.string(forKey: "DeviceID")
+        ]
+        let endpoint = QuotieEndpoint.negotiateQuotes(genre: genre, size: size, body: body)
+        let model = Resource(model: [QuoteModel].self)
+        let content = try await networkWorker.fetchData(endpoint: endpoint, model: model)
+        
+        return content
+    }
+    
+    func registerDevice() async throws {
+        if UserDefaults.standard.string(forKey: "DeviceID") == nil {
+            let resource = Resource(model: DeviceModel.self)
+            let uniqueID = try await networkWorker.fetchData(endpoint: QuotieEndpoint.registerDevice, model: resource)
+            //print(uniqueID.uuidString)
+            UserDefaults.standard.setValue(uniqueID.uuidString.lowercased(), forKey: "DeviceID")
+        }
     }
     
     func getUniqueRandomQuote(genre: String) async throws -> QuoteModel {

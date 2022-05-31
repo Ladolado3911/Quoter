@@ -24,4 +24,5 @@ protocol EndpointProtocol {
     var path: String { get }
     var parameters: [URLQueryItem] { get }
     var method: HTTPMethod { get }
+    var body: Data? { get }
 }
