@@ -128,6 +128,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 extension ExploreVC: ExploreVCProtocol {
     func displayInitialQuotes(exploreQuotes: [ExploreQuoteProtocol]) {
         interactor?.loadedQuotes = exploreQuotes
+        print(exploreQuotes.count)
         exploreView?.collectionView.reloadData()
         exploreView?.stopAnimating()
     }
