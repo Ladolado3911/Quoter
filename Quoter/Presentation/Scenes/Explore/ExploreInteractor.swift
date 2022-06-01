@@ -141,7 +141,6 @@ class ExploreInteractor: ExploreInteractorProtocol {
             currentPage += 1
             contentOffsetX = Constants.screenWidth
         }
-        print(currentPage)
         if correctZone.contains(currentPage) {
             isCurrentPageInCorrectZone = true
         }
