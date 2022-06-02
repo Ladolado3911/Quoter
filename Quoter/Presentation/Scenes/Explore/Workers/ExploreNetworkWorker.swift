@@ -12,6 +12,7 @@ protocol ExploreNetworkWorkerProtocol {
     var uniqueQuoteImageURLStrings: [String] { get set }
     var uniqueQuoteContents: [String] { get set }
 
+    func getSmallQuote(genre: String) async throws -> QuoteModel
     func getUniqueRandomQuote(genre: String) async throws -> QuoteModel
     func getRandomQuote(genre: String) async throws -> QuoteModel
     func getQuotesNegotiated(genre: String, size: QuoteSize) async throws -> [QuoteModel]
@@ -25,6 +26,24 @@ class ExploreNetworkWorker: ExploreNetworkWorkerProtocol {
     var networkWorker: NetworkWorkerProtocol = NetworkWorker()
     var uniqueQuoteImageURLStrings: [String] = []
     var uniqueQuoteContents: [String] = []
+
+    func getSmallQuote(genre: String) async throws -> QuoteModel {
+        try await registerDevice()
+        let body = [
+            "uuidString": UserDefaults.standard.string(forKey: "DeviceID")
+        ]
+        let endpoint = QuotieEndpoint.getSmallQuote(genre: genre, body: body)
+        let model = Resource(model: QuoteModel.self)
+        var quoteModel: QuoteModel
+        do {
+            quoteModel = try await networkWorker.fetchData(endpoint: endpoint, model: model)
+        }
+        catch {
+            print(error)
+            throw error
+        }
+        return quoteModel
+    }
     
     func getQuotes(genre: String, limit: Int, size: QuoteSize) async throws -> [QuoteModel] {
         let endpoint = QuotieEndpoint.getQuotes(genre: genre, limit: limit, size: size)

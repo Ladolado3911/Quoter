@@ -18,6 +18,7 @@ enum QuotieEndpoint: EndpointProtocol {
     case getQuotes(genre: String, limit: Int, size: QuoteSize)
     case registerDevice
     case negotiateQuotes(genre: String, size: QuoteSize, body: [String: AnyHashable])
+    case getSmallQuote(genre: String, body: [String: AnyHashable])
     
     var scheme: Scheme {
         switch self {
@@ -41,17 +42,13 @@ enum QuotieEndpoint: EndpointProtocol {
             return "/registerDevice/"
         case .negotiateQuotes(let genre, let size, _):
             return "/getQuotesNegotiated/\(genre)/\(size.rawValue)"
+        case .getSmallQuote(let genre, _):
+            return "/getSmallQuote/\(genre)"
         }
     }
     var parameters: [URLQueryItem] {
         switch self {
-        case .getRandomQuote:
-            return []
-        case .getQuotes:
-            return []
-        case .registerDevice:
-            return []
-        case .negotiateQuotes:
+        default:
             return []
         }
     }
@@ -65,11 +62,15 @@ enum QuotieEndpoint: EndpointProtocol {
             return .get
         case .negotiateQuotes:
             return .post
+        case .getSmallQuote:
+            return .post
         }
     }
     var body: Data? {
         switch self {
         case .negotiateQuotes(_, _, let body):
+            return try? JSONSerialization.data(withJSONObject: body)
+        case .getSmallQuote(_, let body):
             return try? JSONSerialization.data(withJSONObject: body)
         default:
             return nil

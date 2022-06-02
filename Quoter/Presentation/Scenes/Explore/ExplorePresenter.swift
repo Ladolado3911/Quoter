@@ -11,7 +11,8 @@ protocol ExplorePresenterProtocol {
     var vc: ExploreVCProtocol? { get set }
     
     func formatQuotes(rawQuotes: [QuoteModel?]?, isInitial: Bool)
-    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat)
+    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath])
+    func addCellWhenSwiping(indexPaths: [IndexPath])
 }
 
 class ExplorePresenter: ExplorePresenterProtocol {
@@ -36,7 +37,11 @@ class ExplorePresenter: ExplorePresenterProtocol {
         }
     }
     
-    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat) {
-        vc?.scroll(direction: direction, contentOffsetX: contentOffsetX)
+    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath]) {
+        vc?.scroll(direction: direction, contentOffsetX: contentOffsetX, indexPaths: indexPaths)
+    }
+    
+    func addCellWhenSwiping(indexPaths: [IndexPath]) {
+        vc?.addCellWhenSwiping(indexPaths: indexPaths)
     }
 }

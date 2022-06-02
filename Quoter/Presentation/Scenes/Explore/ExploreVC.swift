@@ -14,7 +14,8 @@ protocol ExploreVCProtocol {
     
     func displayInitialQuotes(exploreQuotes: [ExploreQuoteProtocol])
     func displayNextQuotes(exploreQuotes: [ExploreQuoteProtocol])
-    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat)
+    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath])
+    func addCellWhenSwiping(indexPaths: [IndexPath])
 }
 
 class ExploreVC: UIViewController {
@@ -37,8 +38,8 @@ class ExploreVC: UIViewController {
         super.viewDidLoad()
         configCollectionView()
         configButtons()
-        exploreView?.startAnimating()
-        interactor?.loadQuotesNegotiated(genre: "rich", priority: .high, isInitial: true, size: .small)
+        //exploreView?.startAnimating()
+        //interactor?.loadQuotesNegotiated(genre: "rich", priority: .high, isInitial: true, size: .small)
         //interactor?.loadQuotes(genre: "rich", limit: 5, priority: .high, isInitial: true, size: .small)
     }
 
@@ -113,7 +114,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        print("prefetching: \(indexPaths.map { "\($0.item)" }.joined(separator: ", "))")
+        //interactor?.collectionView(collectionView, prefetchItemsAt: indexPaths)
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -130,7 +131,7 @@ extension ExploreVC: ExploreVCProtocol {
         interactor?.loadedQuotes = exploreQuotes
         print(exploreQuotes.count)
         exploreView?.collectionView.reloadData()
-        exploreView?.stopAnimating()
+        //exploreView?.stopAnimating()
     }
     
     func displayNextQuotes(exploreQuotes: [ExploreQuoteProtocol]) {
@@ -140,10 +141,11 @@ extension ExploreVC: ExploreVCProtocol {
         exploreView?.collectionView.insertItems(at: indexPaths)
     }
     
-    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat) {
+    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath]) {
         let nextOffset = CGPoint(x: exploreView!.collectionView.contentOffset.x + contentOffsetX,
                                  y: exploreView!.collectionView.contentOffset.y)
         exploreView?.collectionView.setContentOffset(nextOffset, animated: true)
+        exploreView?.collectionView.insertItems(at: indexPaths)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self = self else { return }
             switch direction {
@@ -155,5 +157,9 @@ extension ExploreVC: ExploreVCProtocol {
                 self.exploreView?.rightArrowButton.isEnabled = true
             }
         }
+    }
+    
+    func addCellWhenSwiping(indexPaths: [IndexPath]) {
+        exploreView?.collectionView.insertItems(at: indexPaths)
     }
 }
