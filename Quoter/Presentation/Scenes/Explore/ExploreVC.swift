@@ -12,8 +12,6 @@ protocol ExploreVCProtocol {
     var router: ExploreRouterProtocol? { get set }
     var exploreView: ExploreView? { get set }
     
-    func displayInitialQuotes(exploreQuotes: [ExploreQuoteProtocol])
-    func displayNextQuotes(exploreQuotes: [ExploreQuoteProtocol])
     func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath])
     func addCellWhenSwiping(indexPaths: [IndexPath])
 }
@@ -38,9 +36,6 @@ class ExploreVC: UIViewController {
         super.viewDidLoad()
         configCollectionView()
         configButtons()
-        //exploreView?.startAnimating()
-        //interactor?.loadQuotesNegotiated(genre: "rich", priority: .high, isInitial: true, size: .small)
-        //interactor?.loadQuotes(genre: "rich", limit: 5, priority: .high, isInitial: true, size: .small)
     }
 
     private func configCollectionView() {
@@ -115,6 +110,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         //interactor?.collectionView(collectionView, prefetchItemsAt: indexPaths)
+        print("prefetch at \(indexPaths.map { $0.item })")
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

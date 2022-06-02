@@ -17,16 +17,8 @@ protocol ExploreInteractorProtocol {
     var presenter: ExplorePresenterProtocol? { get set }
     var exploreNetworkWorker: ExploreNetworkWorkerProtocol? { get set }
     
-    var cellsCount: Int { get set }
     var loadedQuotes: [ExploreQuoteProtocol?]? { get set }
-    var isLoadQuotesFunctionRunning: Bool { get set }
-    var isCurrentPageInCorrectZone: Bool { get set }
     var currentPage: Int { get set }
-    var correctZone: [Int] { get set }
-    
-    //MARK: Explore Scene Network Methods
-    func loadQuotes(genre: String, limit: Int, priority: TaskPriority, isInitial: Bool, size: QuoteSize)
-    func loadQuotesNegotiated(genre: String, priority: TaskPriority, isInitial: Bool, size: QuoteSize)
     
     //MARK: Collection View methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -47,32 +39,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
     var exploreNetworkWorker: ExploreNetworkWorkerProtocol?
     
     var loadedQuotes: [ExploreQuoteProtocol?]? = Array(repeating: nil, count: 5)
-    var isLoadQuotesFunctionRunning = false
-    var isCurrentPageInCorrectZone = false
     var currentPage: Int = 0
-    var correctZone: [Int] = []
-    var cellsCount: Int = 5
-    
-    func loadQuotes(genre: String, limit: Int, priority: TaskPriority, isInitial: Bool, size: QuoteSize) {
-        Task.init(priority: priority) {
-            let quotes = try await self.exploreNetworkWorker?.getQuotes(genre: genre, limit: limit, size: size)
-            await MainActor.run {
-                isLoadQuotesFunctionRunning = false
-                self.presenter?.formatQuotes(rawQuotes: quotes, isInitial: isInitial)
-            }
-        }
-    }
-    
-    func loadQuotesNegotiated(genre: String, priority: TaskPriority, isInitial: Bool, size: QuoteSize) {
-        Task.init(priority: priority) {
-            let quotes = try await self.exploreNetworkWorker?.getQuotesNegotiated(genre: genre, size: size)
-            await MainActor.run {
-                isLoadQuotesFunctionRunning = false
-                self.presenter?.formatQuotes(rawQuotes: quotes, isInitial: isInitial)
-            }
-        }
-    }
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         loadedQuotes?.count ?? 0
@@ -84,6 +51,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        print("will display \(indexPath.item)")
         if let cell = cell as? ExploreCell {
             cell.startAnimating()
             cell.buildSubviews()
@@ -110,7 +78,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
                     cell.quoteContentLabel.text = quote.content
                     let fontSize = cell.getFontSizeForQuote(stringCount: CGFloat(quote.content.count))
                     cell.quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: fontSize)
-                    cell.imgView.sd_setImage(with: URL(string: quote.quoteImageURLString ?? ""),
+                    cell.imgView.sd_setImage(with: URL(string: quote.quoteImageURLString),
                                              placeholderImage: nil,
                                              options: [.continueInBackground, .highPriority, .scaleDownLargeImages, .retryFailed]) { _, _, _, _ in
                         cell.stopAnimating()
@@ -119,39 +87,6 @@ class ExploreInteractor: ExploreInteractorProtocol {
             }
         }
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-//        let cellsToPrefetch = indexPaths.map { collectionView.cellForItem(at: $0) }
-//        for cellIndex in 0..<cellsToPrefetch.count {
-//            let cell = cellsToPrefetch[cellIndex]
-//            if let cell = cell as? ExploreCell {
-//                cell.startAnimating()
-//                cell.buildSubviews()
-//                cell.buildConstraints()
-//                Task.init {
-//                    var quote: ExploreQuoteProtocol
-//                    if let arr = loadedQuotes,
-//                       let unwrapped = arr[indexPaths[cellIndex].item] {
-//                        quote = unwrapped
-//                    }
-//                    else {
-//                        quote = try await exploreNetworkWorker?.getSmallQuote(genre: "rich") as! ExploreQuoteProtocol
-//                    }
-//                    await MainActor.run { [quote] in
-//                        cell.authorNameLabel.text = quote.author.name
-//                        cell.quoteContentLabel.text = quote.content
-//                        let fontSize = cell.getFontSizeForQuote(stringCount: CGFloat(quote.content.count))
-//                        cell.quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: fontSize)
-//                        cell.imgView.sd_setImage(with: URL(string: quote.quoteImageURLString ?? ""),
-//                                                 placeholderImage: nil,
-//                                                 options: [.continueInBackground, .highPriority, .scaleDownLargeImages, .retryFailed]) { _, _, _, _ in
-//                            cell.stopAnimating()
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         0
