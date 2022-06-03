@@ -12,13 +12,8 @@ protocol ExploreNetworkWorkerProtocol {
     var uniqueQuoteImageURLStrings: [String] { get set }
     var uniqueQuoteContents: [String] { get set }
 
-    func getSmallQuote(genre: String) async throws -> QuoteModel
-    func getUniqueRandomQuote(genre: String) async throws -> QuoteModel
-    func getRandomQuote(genre: String) async throws -> QuoteModel
-    func getQuotesNegotiated(genre: String, size: QuoteSize) async throws -> [QuoteModel]
-    func getQuotes(genre: String, limit: Int, size: QuoteSize) async throws -> [QuoteModel]
+    func getSmallQuote(genre: Genre) async throws -> QuoteModel
     func getCategories() async throws -> [MainCategoryModel]
-    func registerDevice() async throws
 }
 
 class ExploreNetworkWorker: ExploreNetworkWorkerProtocol {
@@ -26,13 +21,10 @@ class ExploreNetworkWorker: ExploreNetworkWorkerProtocol {
     var networkWorker: NetworkWorkerProtocol = NetworkWorker()
     var uniqueQuoteImageURLStrings: [String] = []
     var uniqueQuoteContents: [String] = []
-
-    func getSmallQuote(genre: String) async throws -> QuoteModel {
-        try await registerDevice()
-        let body = [
-            "uuidString": UserDefaults.standard.string(forKey: "DeviceID")
-        ]
-        let endpoint = QuotieEndpoint.getSmallQuote(genre: genre, body: body)
+    
+    func getSmallQuote(genre: Genre) async throws -> QuoteModel {
+        //try await registerDevice()
+        let endpoint = genre == .general ? QuotieEndpoint.getSmallGeneralQuote : QuotieEndpoint.getSmallQuote(genre: genre.rawValue)
         let model = Resource(model: QuoteModel.self)
         var quoteModel: QuoteModel
         do {

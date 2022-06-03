@@ -13,12 +13,25 @@ enum ExploreDirection {
     case right
 }
 
+enum Genre: String {
+    case rich
+    case writers
+    case politicians
+    case artists
+    case sportsmen
+    case actors
+    case scientists
+    case ancients
+    case general
+}
+
 protocol ExploreInteractorProtocol {
     var presenter: ExplorePresenterProtocol? { get set }
     var exploreNetworkWorker: ExploreNetworkWorkerProtocol? { get set }
     
     var loadedQuotes: [ExploreQuoteProtocol?]? { get set }
     var currentPage: Int { get set }
+    var currentGenre: Genre { get set }
     
     //MARK: Collection View methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -40,6 +53,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
     
     var loadedQuotes: [ExploreQuoteProtocol?]? = Array(repeating: nil, count: 5)
     var currentPage: Int = 0
+    var currentGenre: Genre = .general
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         loadedQuotes?.count ?? 0
@@ -51,7 +65,6 @@ class ExploreInteractor: ExploreInteractorProtocol {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        print("will display \(indexPath.item)")
         if let cell = cell as? ExploreCell {
             cell.startAnimating()
             cell.buildSubviews()
@@ -63,7 +76,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
                     quote = unwrapped
                 }
                 else {
-                    let quoteModel = try await exploreNetworkWorker?.getSmallQuote(genre: "rich")
+                    let quoteModel = try await exploreNetworkWorker?.getSmallQuote(genre: currentGenre)
                     let exploreAuthor = ExploreAuthor(slug: quoteModel!.author.slug,
                                                       name: quoteModel!.author.name,
                                                       authorImageURLString: quoteModel!.author.authorImageURLString)
