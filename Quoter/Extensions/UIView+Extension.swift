@@ -88,6 +88,30 @@ extension UIView {
         return nil
     }
     
+    @objc func imageWasSaved(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+
+        print("Image was saved in the photo gallery")
+        UIApplication.shared.open(URL(string:"photos-redirect://")!)
+    }
+    
+    func takeScreenshot() {
+        UIGraphicsBeginImageContextWithOptions(
+            CGSize(width: bounds.width, height: bounds.height),
+            false,
+            2
+        )
+
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        UIImageWriteToSavedPhotosAlbum(screenshot, self, #selector(imageWasSaved), nil)
+    }
+    
 }
 
 extension CALayer {

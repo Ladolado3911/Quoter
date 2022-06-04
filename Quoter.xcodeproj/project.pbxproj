@@ -46,6 +46,7 @@
 		2497158527D9E23400968E08 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158427D9E23400968E08 /* FirebaseCrashlytics */; };
 		2497158927D9E40F00968E08 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2497158727D9E3FB00968E08 /* AdSupport.framework */; };
 		249EDC1827C770A6005F7A9B /* TTGTags in Frameworks */ = {isa = PBXBuildFile; productRef = 249EDC1727C770A6005F7A9B /* TTGTags */; };
+		24A8CEA5284B8EC000B5F6F2 /* ExploreScreenshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8CEA4284B8EC000B5F6F2 /* ExploreScreenshotView.swift */; };
 		24CD4C0C2844A6C300A63968 /* wakeup.json in Resources */ = {isa = PBXBuildFile; fileRef = 24CD4C0B2844A6C300A63968 /* wakeup.json */; };
 		24CD4C0E2844B23700A63968 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD4C0D2844B23700A63968 /* DeviceModel.swift */; };
 		24D018F6280ADE150031C14B /* ArrowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D018F5280ADE150031C14B /* ArrowButtonView.swift */; };
@@ -125,6 +126,7 @@
 		246B82A62831464B00D44DF5 /* ExploreEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreEntities.swift; sourceTree = "<group>"; };
 		2497157F27D9E15F00968E08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2497158727D9E3FB00968E08 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		24A8CEA4284B8EC000B5F6F2 /* ExploreScreenshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreScreenshotView.swift; sourceTree = "<group>"; };
 		24CD4C0B2844A6C300A63968 /* wakeup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = wakeup.json; sourceTree = "<group>"; };
 		24CD4C0D2844B23700A63968 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		24D018F5280ADE150031C14B /* ArrowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowButtonView.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				24D018F5280ADE150031C14B /* ArrowButtonView.swift */,
 				24484AD32837C07900D3BFA8 /* QuoteButtonView.swift */,
 				2459D5B02843B712001D1812 /* ExploreLayout.swift */,
+				24A8CEA4284B8EC000B5F6F2 /* ExploreScreenshotView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -661,6 +664,7 @@
 				24D8635F280C0A550060760A /* Fonts.swift in Sources */,
 				24138A352805AD6E00044F5E /* UIImage+Extension.swift in Sources */,
 				24138A3D2805B39F00044F5E /* Constants.swift in Sources */,
+				24A8CEA5284B8EC000B5F6F2 /* ExploreScreenshotView.swift in Sources */,
 				246B829C283137B400D44DF5 /* ExploreInteractor.swift in Sources */,
 				24138A232805748200044F5E /* MenuModels.swift in Sources */,
 				246B82A72831464B00D44DF5 /* ExploreEntities.swift in Sources */,

@@ -49,6 +49,7 @@ class ExploreVC: UIViewController {
     private func configButtons() {
         exploreView?.leftArrowButton.addTarget(self, action: #selector(scrollLeft), for: .touchUpInside)
         exploreView?.rightArrowButton.addTarget(self, action: #selector(scrollRight), for: .touchUpInside)
+        exploreView?.downloadQuotePictureButton.addTarget(self, action: #selector(onDownloadButton), for: .touchUpInside)
     }
     
     private func setup() {
@@ -79,6 +80,13 @@ extension ExploreVC {
         exploreView?.collectionView.isUserInteractionEnabled = false
         exploreView?.rightArrowButton.isEnabled = false
         interactor?.scroll(direction: .right)
+    }
+    
+    @objc func onDownloadButton(sender: UIButton) {
+        if let exploreView = exploreView {
+            let screenShotView = ExploreScreenshotView(exploreCollectionView: exploreView.collectionView, frame: exploreView.bounds)
+            screenShotView.takeScreenshot()
+        }
     }
 }
 

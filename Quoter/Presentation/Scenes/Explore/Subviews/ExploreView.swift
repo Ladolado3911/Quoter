@@ -31,6 +31,13 @@ class ExploreView: UIView {
         return rightButton
     }()
     
+    let downloadQuotePictureButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(ExploreIcons.downloadIcon.resizedImage(targetHeight: Constants.screenHeight * 0.05), for: .normal)
+        return button
+    }()
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         buildSubviews()
@@ -41,8 +48,10 @@ class ExploreView: UIView {
         addSubview(collectionView)
         addSubview(leftArrowButton)
         addSubview(rightArrowButton)
+        addSubview(downloadQuotePictureButton)
         bringSubviewToFront(leftArrowButton)
         bringSubviewToFront(rightArrowButton)
+        bringSubviewToFront(downloadQuotePictureButton)
     }
     
     private func buildConstraints() {
@@ -56,6 +65,12 @@ class ExploreView: UIView {
             rightArrowButton.widthAnchor.constraint(equalTo: leftArrowButton.widthAnchor),
             rightArrowButton.heightAnchor.constraint(equalTo: leftArrowButton.heightAnchor),
             rightArrowButton.centerYAnchor.constraint(equalTo: leftArrowButton.centerYAnchor),
+            
+            downloadQuotePictureButton.topAnchor.constraint(equalTo: topAnchor, constant: Constants.screenHeight * 0.072),
+            downloadQuotePictureButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.screenHeight * 0.01),
+            downloadQuotePictureButton.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.06),
+            downloadQuotePictureButton.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.06),
+            
         
         ])
     }

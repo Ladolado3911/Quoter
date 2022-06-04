@@ -21,7 +21,7 @@ class QuoteButtonView: UIView {
         super.layoutSubviews()
         layer.cornerRadius = bounds.width / 3
         backgroundColor = DarkModeColors.black
-        layer.borderWidth = 0.5
+        layer.borderWidth = 1
         layer.borderColor = DarkModeColors.white.cgColor
         buildSubviews()
         buildConstraints()
