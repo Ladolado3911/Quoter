@@ -34,6 +34,7 @@ protocol ExploreInteractorProtocol {
     var currentGenre: Genre { get set }
     
     func onDownloadButton()
+    func presentAlert(title: String, text: String, mainButtonText: String, mainButtonStyle: UIAlertAction.Style, action: (() -> Void)?)
     
     //MARK: Collection View methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -50,6 +51,7 @@ protocol ExploreInteractorProtocol {
 }
 
 class ExploreInteractor: ExploreInteractorProtocol {
+    
     var presenter: ExplorePresenterProtocol?
     var exploreNetworkWorker: ExploreNetworkWorkerProtocol?
     
@@ -58,20 +60,28 @@ class ExploreInteractor: ExploreInteractorProtocol {
     var currentGenre: Genre = .general
     
     func onDownloadButton() {
-        let isAllowed = loadedQuotes![currentPage]!.isScreenshotAllowed
-        if isAllowed {
-            // vc saves image
-            presenter?.screenShot()
+        if let loadedQuotes = loadedQuotes,
+           let quote = loadedQuotes[currentPage] {
+            let isAllowed = quote.isScreenshotAllowed
+            if isAllowed {
+                // vc saves image
+                presenter?.screenShot()
+            }
+            else {
+                // vc presents alert
+                presenter?.presentAlert(title: "Alert",
+                                        text: "Image is not yet loaded",
+                                        mainButtonText: "Ok",
+                                        mainButtonStyle: .default,
+                                        action: nil)
+            }
         }
         else {
-            // vc presents alert
             presenter?.presentAlert(title: "Alert",
                                     text: "Image is not yet loaded",
                                     mainButtonText: "Ok",
                                     mainButtonStyle: .default,
-                                    action: {
-                
-            })
+                                    action: nil)
         }
     }
 
@@ -158,5 +168,13 @@ class ExploreInteractor: ExploreInteractorProtocol {
         loadedQuotes?.append(nil)
         let indexPaths = [IndexPath(item: loadedQuotes!.count - 2, section: 0)]
         presenter?.scroll(direction: direction, contentOffsetX: contentOffsetX!, indexPaths: indexPaths)
+    }
+    
+    func presentAlert(title: String, text: String, mainButtonText: String, mainButtonStyle: UIAlertAction.Style, action: (() -> Void)?) {
+        presenter?.presentAlert(title: title,
+                                text: text,
+                                mainButtonText: mainButtonText,
+                                mainButtonStyle: mainButtonStyle,
+                                action: action)
     }
 }

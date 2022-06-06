@@ -17,7 +17,7 @@ protocol ExplorePresenterProtocol {
                       text: String,
                       mainButtonText: String,
                       mainButtonStyle: UIAlertAction.Style,
-                      action: @escaping () -> Void)
+                      action: (() -> Void)?)
 }
 
 class ExplorePresenter: ExplorePresenterProtocol {
@@ -39,7 +39,7 @@ class ExplorePresenter: ExplorePresenterProtocol {
                       text: String,
                       mainButtonText: String,
                       mainButtonStyle: UIAlertAction.Style,
-                      action: @escaping () -> Void) {
+                      action: (() -> Void)?) {
         vc?.presentAlert(title: title,
                          text: text,
                          mainButtonText: mainButtonText,

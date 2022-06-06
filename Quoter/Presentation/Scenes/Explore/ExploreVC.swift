@@ -19,7 +19,7 @@ protocol ExploreVCProtocol {
                       text: String,
                       mainButtonText: String,
                       mainButtonStyle: UIAlertAction.Style,
-                      action: @escaping () -> Void)
+                      action: (() -> Void)?)
 }
 
 class ExploreVC: UIViewController {
@@ -90,21 +90,6 @@ extension ExploreVC {
     
     @objc func onDownloadButton(sender: UIButton) {
         interactor?.onDownloadButton()
-//        let isAllowed = interactor!.loadedQuotes![interactor!.currentPage]!.isScreenshotAllowed
-//        if isAllowed {
-//            if let exploreView = exploreView {
-//                let screenShotView = ExploreScreenshotView(exploreCollectionView: exploreView.collectionView, frame: exploreView.bounds)
-//                screenShotView.takeScreenshot()
-//            }
-//        }
-//        else {
-//            presentAlert(title: "Alert",
-//                         text: "Image is not yet loaded",
-//                         mainButtonText: "Ok",
-//                         mainButtonStyle: .default) {
-//                
-//            }
-//        }
     }
 }
 
@@ -189,18 +174,33 @@ extension ExploreVC: ExploreVCProtocol {
                       text: String,
                       mainButtonText: String,
                       mainButtonStyle: UIAlertAction.Style,
-                      action: @escaping () -> Void) {
+                      action: (() -> Void)?) {
+        var newAction: () -> Void
+        if let action = action {
+            newAction = action
+        }
+        else {
+            newAction = { }
+        }
         presentAlert(title: title,
                      text: text,
                      mainButtonText: mainButtonText,
                      mainButtonStyle: mainButtonStyle,
-                     mainButtonAction: action)
+                     mainButtonAction: newAction)
     }
     
     func screenshot() {
         if let exploreView = exploreView {
             let screenShotView = ExploreScreenshotView(exploreCollectionView: exploreView.collectionView, frame: exploreView.bounds)
-            screenShotView.takeScreenshot()
+            screenShotView.takeScreenshot() { [weak self] in
+                guard let self = self else { return }
+                self.interactor?.presentAlert(title: "Alert",
+                                         text: "Image saved successfully",
+                                         mainButtonText: "Ok",
+                                         mainButtonStyle: .default,
+                                         action: nil)
+            }
+            
         }
     }
 }

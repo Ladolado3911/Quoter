@@ -97,19 +97,18 @@ extension UIView {
         print("Image was saved in the photo gallery")
         UIApplication.shared.open(URL(string:"photos-redirect://")!)
     }
-    
-    func takeScreenshot() {
+
+    func takeScreenshot(completion: @escaping () -> Void) {
         UIGraphicsBeginImageContextWithOptions(
             CGSize(width: bounds.width, height: bounds.height),
             false,
             2
         )
-
         layer.render(in: UIGraphicsGetCurrentContext()!)
         let screenshot = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-
-        UIImageWriteToSavedPhotosAlbum(screenshot, self, #selector(imageWasSaved), nil)
+        UIImageWriteToSavedPhotosAlbum(screenshot, self, nil, nil)
+        completion()
     }
     
 }
