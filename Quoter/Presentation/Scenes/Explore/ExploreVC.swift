@@ -190,17 +190,17 @@ extension ExploreVC: ExploreVCProtocol {
     }
     
     func screenshot() {
-        if let exploreView = exploreView {
-            let screenShotView = ExploreScreenshotView(exploreCollectionView: exploreView.collectionView, frame: exploreView.bounds)
-            screenShotView.takeScreenshot() { [weak self] in
+        if let exploreView = exploreView,
+           let exploreCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? ExploreCell {
+            let newCell = ExploreScreenshotCell(exploreCell: exploreCell, frame: exploreCell.bounds)
+            newCell.takeScreenshot { [weak self] in
                 guard let self = self else { return }
                 self.interactor?.presentAlert(title: "Alert",
-                                         text: "Image saved successfully",
-                                         mainButtonText: "Ok",
-                                         mainButtonStyle: .default,
-                                         action: nil)
+                                              text: "Image saved successfully",
+                                              mainButtonText: "Ok",
+                                              mainButtonStyle: .default,
+                                              action: nil)
             }
-            
         }
     }
 }

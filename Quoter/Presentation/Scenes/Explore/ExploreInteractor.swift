@@ -67,7 +67,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
             let isAllowed = quote.isScreenshotAllowed
             if isAllowed {
                 // vc saves image
-                if PHPhotoLibrary.authorizationStatus() == .authorized {
+                if PHPhotoLibrary.authorizationStatus(for: .addOnly) == .authorized {
                     presenter?.screenShot()
                 }
                 else {
