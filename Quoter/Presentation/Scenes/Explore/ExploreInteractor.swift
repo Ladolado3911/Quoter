@@ -7,6 +7,8 @@
 
 import UIKit
 import SDWebImage
+import AVFoundation
+import Photos
 
 enum ExploreDirection {
     case left
@@ -65,7 +67,16 @@ class ExploreInteractor: ExploreInteractorProtocol {
             let isAllowed = quote.isScreenshotAllowed
             if isAllowed {
                 // vc saves image
-                presenter?.screenShot()
+                if PHPhotoLibrary.authorizationStatus() == .authorized {
+                    presenter?.screenShot()
+                }
+                else {
+                    presenter?.presentAlert(title: "Alert",
+                                            text: "Acces to photos is denied",
+                                            mainButtonText: "Ok",
+                                            mainButtonStyle: .default,
+                                            action: nil)
+                }
             }
             else {
                 // vc presents alert
