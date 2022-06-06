@@ -53,7 +53,7 @@ class ExploreCell: UICollectionViewCell {
         quoteContentLabel.translatesAutoresizingMaskIntoConstraints = false
         return quoteContentLabel
     }()
-    
+
     func getFontSizeForQuote(stringCount: CGFloat) -> CGFloat {
         let lowerBound: CGFloat = Constants.screenHeight * 0.0185
         let higherBound: CGFloat = Constants.screenHeight * 0.023

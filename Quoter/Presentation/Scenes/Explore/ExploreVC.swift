@@ -14,6 +14,12 @@ protocol ExploreVCProtocol {
     
     func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath])
     func addCellWhenSwiping(indexPaths: [IndexPath])
+    func screenshot()
+    func presentAlert(title: String,
+                      text: String,
+                      mainButtonText: String,
+                      mainButtonStyle: UIAlertAction.Style,
+                      action: @escaping () -> Void)
 }
 
 class ExploreVC: UIViewController {
@@ -83,10 +89,22 @@ extension ExploreVC {
     }
     
     @objc func onDownloadButton(sender: UIButton) {
-        if let exploreView = exploreView {
-            let screenShotView = ExploreScreenshotView(exploreCollectionView: exploreView.collectionView, frame: exploreView.bounds)
-            screenShotView.takeScreenshot()
-        }
+        interactor?.onDownloadButton()
+//        let isAllowed = interactor!.loadedQuotes![interactor!.currentPage]!.isScreenshotAllowed
+//        if isAllowed {
+//            if let exploreView = exploreView {
+//                let screenShotView = ExploreScreenshotView(exploreCollectionView: exploreView.collectionView, frame: exploreView.bounds)
+//                screenShotView.takeScreenshot()
+//            }
+//        }
+//        else {
+//            presentAlert(title: "Alert",
+//                         text: "Image is not yet loaded",
+//                         mainButtonText: "Ok",
+//                         mainButtonStyle: .default) {
+//                
+//            }
+//        }
     }
 }
 
@@ -165,5 +183,24 @@ extension ExploreVC: ExploreVCProtocol {
     
     func addCellWhenSwiping(indexPaths: [IndexPath]) {
         exploreView?.collectionView.insertItems(at: indexPaths)
+    }
+    
+    func presentAlert(title: String,
+                      text: String,
+                      mainButtonText: String,
+                      mainButtonStyle: UIAlertAction.Style,
+                      action: @escaping () -> Void) {
+        presentAlert(title: title,
+                     text: text,
+                     mainButtonText: mainButtonText,
+                     mainButtonStyle: mainButtonStyle,
+                     mainButtonAction: action)
+    }
+    
+    func screenshot() {
+        if let exploreView = exploreView {
+            let screenShotView = ExploreScreenshotView(exploreCollectionView: exploreView.collectionView, frame: exploreView.bounds)
+            screenShotView.takeScreenshot()
+        }
     }
 }

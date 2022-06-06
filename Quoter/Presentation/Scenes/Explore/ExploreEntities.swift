@@ -11,6 +11,7 @@ protocol ExploreQuoteProtocol {
     var content: String { get set }
     var author: ExploreAuthorProtocol { get set }
     var quoteImageURLString: String { get set }
+    var isScreenshotAllowed: Bool { get set }
 }
 
 protocol ExploreAuthorProtocol {
@@ -23,6 +24,7 @@ struct ExploreQuote: ExploreQuoteProtocol {
     var quoteImageURLString: String
     var content: String
     var author: ExploreAuthorProtocol
+    var isScreenshotAllowed: Bool = false
 }
 
 struct ExploreAuthor: ExploreAuthorProtocol {

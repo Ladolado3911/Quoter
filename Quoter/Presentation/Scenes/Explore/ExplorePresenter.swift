@@ -12,6 +12,12 @@ protocol ExplorePresenterProtocol {
     
     func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath])
     func addCellWhenSwiping(indexPaths: [IndexPath])
+    func screenShot()
+    func presentAlert(title: String,
+                      text: String,
+                      mainButtonText: String,
+                      mainButtonStyle: UIAlertAction.Style,
+                      action: @escaping () -> Void)
 }
 
 class ExplorePresenter: ExplorePresenterProtocol {
@@ -23,5 +29,21 @@ class ExplorePresenter: ExplorePresenterProtocol {
     
     func addCellWhenSwiping(indexPaths: [IndexPath]) {
         vc?.addCellWhenSwiping(indexPaths: indexPaths)
+    }
+    
+    func screenShot() {
+        vc?.screenshot()
+    }
+    
+    func presentAlert(title: String,
+                      text: String,
+                      mainButtonText: String,
+                      mainButtonStyle: UIAlertAction.Style,
+                      action: @escaping () -> Void) {
+        vc?.presentAlert(title: title,
+                         text: text,
+                         mainButtonText: mainButtonText,
+                         mainButtonStyle: mainButtonStyle,
+                         action: action)
     }
 }

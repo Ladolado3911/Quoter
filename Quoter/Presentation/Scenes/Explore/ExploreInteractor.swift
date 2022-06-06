@@ -33,6 +33,8 @@ protocol ExploreInteractorProtocol {
     var currentPage: Int { get set }
     var currentGenre: Genre { get set }
     
+    func onDownloadButton()
+    
     //MARK: Collection View methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -55,6 +57,24 @@ class ExploreInteractor: ExploreInteractorProtocol {
     var currentPage: Int = 0
     var currentGenre: Genre = .general
     
+    func onDownloadButton() {
+        let isAllowed = loadedQuotes![currentPage]!.isScreenshotAllowed
+        if isAllowed {
+            // vc saves image
+            presenter?.screenShot()
+        }
+        else {
+            // vc presents alert
+            presenter?.presentAlert(title: "Alert",
+                                    text: "Image is not yet loaded",
+                                    mainButtonText: "Ok",
+                                    mainButtonStyle: .default,
+                                    action: {
+                
+            })
+        }
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         loadedQuotes?.count ?? 0
     }
@@ -85,7 +105,8 @@ class ExploreInteractor: ExploreInteractorProtocol {
                                                     author: exploreAuthor)
                     quote = exploreQuote
                 }
-                await MainActor.run { [quote] in
+                await MainActor.run { [weak self, quote] in
+                    guard let self = self else { return }
                     loadedQuotes![indexPath.item] = quote
                     cell.authorNameLabel.text = quote.author.name
                     cell.quoteContentLabel.text = quote.content
@@ -95,6 +116,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
                                              placeholderImage: nil,
                                              options: [.continueInBackground, .highPriority, .scaleDownLargeImages, .retryFailed]) { _, _, _, _ in
                         cell.stopAnimating()
+                        self.loadedQuotes![indexPath.item]?.isScreenshotAllowed = true
                     }
                 }
             }
