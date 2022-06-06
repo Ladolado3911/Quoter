@@ -38,6 +38,18 @@ class ExploreView: UIView {
         return button
     }()
     
+    lazy var filterButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("General", for: .normal)
+        button.setTitleColor(DarkModeColors.white, for: .normal)
+        button.backgroundColor = DarkModeColors.black
+        button.layer.borderWidth = 1
+        button.layer.borderColor = DarkModeColors.white.cgColor
+        button.titleLabel?.contentMode = .center
+        return button
+    }()
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         buildSubviews()
@@ -49,9 +61,11 @@ class ExploreView: UIView {
         addSubview(leftArrowButton)
         addSubview(rightArrowButton)
         addSubview(downloadQuotePictureButton)
+        addSubview(filterButton)
         bringSubviewToFront(leftArrowButton)
         bringSubviewToFront(rightArrowButton)
         bringSubviewToFront(downloadQuotePictureButton)
+        bringSubviewToFront(filterButton)
     }
     
     private func buildConstraints() {
@@ -71,8 +85,13 @@ class ExploreView: UIView {
             downloadQuotePictureButton.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.06),
             downloadQuotePictureButton.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.06),
             
+            filterButton.trailingAnchor.constraint(equalTo: downloadQuotePictureButton.leadingAnchor, constant: -Constants.screenHeight * 0.01),
+            filterButton.centerYAnchor.constraint(equalTo: downloadQuotePictureButton.centerYAnchor),
+            filterButton.heightAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 0.5),
+            filterButton.widthAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 2.5)
         
         ])
+        filterButton.layer.cornerRadius = filterButton.bounds.height * 0.4347
     }
     
     func startAnimating() {
