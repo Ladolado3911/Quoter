@@ -9,4 +9,8 @@ import UIKit
 
 class FilterView: UIView {
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        backgroundColor = DarkModeColors.mainBlack
+    }
 }

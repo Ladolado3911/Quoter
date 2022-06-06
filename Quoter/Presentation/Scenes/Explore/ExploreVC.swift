@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ExploreVCProtocol {
+protocol ExploreVCProtocol: AnyObject {
     var interactor: ExploreInteractorProtocol? { get set }
     var router: ExploreRouterProtocol? { get set }
     var exploreView: ExploreView? { get set }
@@ -25,7 +25,7 @@ protocol ExploreVCProtocol {
 class ExploreVC: UIViewController {
     
     var interactor: ExploreInteractorProtocol?
-    weak var router: ExploreRouterProtocol?
+    var router: ExploreRouterProtocol?
     var exploreView: ExploreView?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -56,6 +56,7 @@ class ExploreVC: UIViewController {
         exploreView?.leftArrowButton.addTarget(self, action: #selector(scrollLeft), for: .touchUpInside)
         exploreView?.rightArrowButton.addTarget(self, action: #selector(scrollRight), for: .touchUpInside)
         exploreView?.downloadQuotePictureButton.addTarget(self, action: #selector(onDownloadButton), for: .touchUpInside)
+        exploreView?.filterButton.addTarget(self, action: #selector(onFilterButton), for: .touchUpInside)
     }
     
     private func setup() {
@@ -66,8 +67,8 @@ class ExploreVC: UIViewController {
         let exploreNetworkWorker = ExploreNetworkWorker()
         let exploreView = ExploreView(frame: UIScreen.main.bounds)
         vc.interactor = interactor
-        vc.router = router
         vc.exploreView = exploreView
+        vc.router = router
         interactor.presenter = presenter
         interactor.exploreNetworkWorker = exploreNetworkWorker
         presenter.vc = vc
@@ -90,6 +91,11 @@ extension ExploreVC {
     
     @objc func onDownloadButton(sender: UIButton) {
         interactor?.onDownloadButton()
+    }
+    
+    @objc func onFilterButton(sender: UIButton) {
+        
+        router?.routeToFilterVC()
     }
 }
 
