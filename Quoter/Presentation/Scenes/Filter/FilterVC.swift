@@ -27,10 +27,10 @@ class FilterVC: UIViewController {
         return filter
     }()
     
-    lazy var panGesture: UIPanGestureRecognizer = {
-        let gesture = UIPanGestureRecognizer(target: self, action: #selector(panFunc))
-        return gesture
-    }()
+//    lazy var panGesture: UIPanGestureRecognizer = {
+//        let gesture = UIPanGestureRecognizer(target: self, action: #selector(panFunc))
+//        return gesture
+//    }()
     
     var startY: CGFloat?
     
@@ -44,40 +44,40 @@ class FilterVC: UIViewController {
         setup()
     }
     
+    override func loadView() {
+        super.loadView()
+        view = filterView
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        filterView.addGestureRecognizer(panGesture)
+//        filterView.addGestureRecognizer(panGesture)
+//        view.backgroundColor = UIColor(r: 0, g: 0, b: 0, alpha: 0.5)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         buildSubviews()
-        showView()
+        //showView()
     }
     
-    @objc func panFunc(sender: UIPanGestureRecognizer) {
-        guard let startY = startY else {
-            return
-        }
-        let velocityY = sender.velocity(in: filterView).y
-        if abs(velocityY) > 3000 {
-            return
-        }
-        let translationY = sender.translation(in: filterView).y
-        print("frame: \(filterView.frame.minY)")
-        print("start: \(startY)")
-        print("velocity: \(velocityY)")
-        if filterView.frame.minY == startY && velocityY < 0 {
-            return
-        }
-        
-        
-        //print(velocityY)
-        filterView.frame = CGRect(x: 0,
-                                  y: startY + translationY,
-                                  width: filterView.bounds.width,
-                                  height: filterView.bounds.height)
-        
-    }
+//    @objc func panFunc(sender: UIPanGestureRecognizer) {
+//        guard let startY = startY else {
+//            return
+//        }
+//        let velocityY = sender.velocity(in: filterView).y
+//        let translationY = sender.translation(in: filterView).y
+//        print("frame: \(filterView.frame.minY)")
+//        print("start: \(startY)")
+//        print("velocity: \(velocityY)")
+//        if filterView.frame.minY <= startY && velocityY < 0 {
+//            return
+//        }
+//        filterView.frame = CGRect(x: 0,
+//                                  y: startY + translationY,
+//                                  width: filterView.bounds.width,
+//                                  height: filterView.bounds.height)
+//
+//    }
     
     private func setup() {
         let vc = self
@@ -94,29 +94,29 @@ class FilterVC: UIViewController {
     }
     
     private func buildSubviews() {
-        view.addSubview(filterView)
-        view.bringSubviewToFront(filterView)
+//        view.addSubview(filterView)
+//        view.bringSubviewToFront(filterView)
     }
     
-    private func showView() {
-        let transform = CGAffineTransform(translationX: 0, y: -filterView.bounds.height)
-        UIView.animate(withDuration: 0.5, delay: 0, options: [.transitionFlipFromTop]) { [weak self] in
-            guard let self = self else { return }
-            self.filterView.transform = transform
-        } completion: { didFinish in
-            if didFinish {
-                self.startY = self.filterView.frame.minY
-            }
-        }
-
-    }
-    
-    private func hideView() {
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            guard let self = self else { return }
-            self.filterView.transform = .identity
-        }
-    }
+//    private func showView() {
+//        let transform = CGAffineTransform(translationX: 0, y: -filterView.bounds.height)
+//        UIView.animate(withDuration: 0.5, delay: 0, options: [.transitionFlipFromTop]) { [weak self] in
+//            guard let self = self else { return }
+//            self.filterView.transform = transform
+//        } completion: { didFinish in
+//            if didFinish {
+//                self.startY = self.filterView.frame.minY
+//            }
+//        }
+//
+//    }
+//
+//    private func hideView() {
+//        UIView.animate(withDuration: 0.5) { [weak self] in
+//            guard let self = self else { return }
+//            self.filterView.transform = .identity
+//        }
+//    }
     
 }
 

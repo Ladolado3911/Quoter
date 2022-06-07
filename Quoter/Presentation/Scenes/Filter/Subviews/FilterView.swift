@@ -11,6 +11,6 @@ class FilterView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        backgroundColor = DarkModeColors.mainBlack
+        backgroundColor = DarkModeColors.mainBlack.withAlphaComponent(0)
     }
 }
