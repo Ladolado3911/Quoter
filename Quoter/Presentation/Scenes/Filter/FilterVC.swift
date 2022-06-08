@@ -12,7 +12,7 @@ protocol FilterVCProtocol {
     var router: FilterRouterProtocol? { get set }
     
     func panFunc(sender: UIPanGestureRecognizer,
-                 targetView: ModalViewWithTopBorder,
+                 targetView: FilterView,
                  minY: CGFloat,
                  dragVelocity: CGPoint)
 
@@ -25,12 +25,12 @@ class FilterVC: UIViewController {
     var interactor: FilterInteractorProtocol?
     var router: FilterRouterProtocol?
     
-    lazy var filterView: ModalViewWithTopBorder = {
+    lazy var filterView: FilterView = {
         let frame = CGRect(x: -5,
                            y: view.bounds.height,
                            width: view.bounds.width + 10,
                            height: view.bounds.height * 0.8169)
-        let filter = ModalViewWithTopBorder(frame: frame)
+        let filter = FilterView(frame: frame)
         return filter
     }()
     
@@ -68,6 +68,10 @@ class FilterVC: UIViewController {
         super.viewDidAppear(animated)
         buildSubviews()
         showView()
+    }
+    
+    private func configCollectionView() {
+        
     }
     
     @objc func tapFunc(sender: UITapGestureRecognizer) {
@@ -114,7 +118,7 @@ enum MovementDirection {
 
 extension FilterVC: FilterVCProtocol {
     func panFunc(sender: UIPanGestureRecognizer,
-                 targetView: ModalViewWithTopBorder,
+                 targetView: FilterView,
                  minY: CGFloat,
                  dragVelocity: CGPoint) {
         interactor?.panFunc2(sender: sender, targetView: targetView, minY: minY, dragVelocity: dragVelocity)

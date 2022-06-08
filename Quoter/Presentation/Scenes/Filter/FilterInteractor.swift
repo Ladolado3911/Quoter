@@ -14,11 +14,11 @@ protocol FilterInteractorProtocol {
     var hasSetPointOrigin: Bool { get set }
     var pointOrigin: CGPoint? { get set }
     
-    func panFunc(sender: UIPanGestureRecognizer, targetView: ModalViewWithTopBorder)
-    func panFunc2(sender: UIPanGestureRecognizer, targetView: ModalViewWithTopBorder, minY: CGFloat, dragVelocity: CGPoint)
+    func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView)
+    func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView, minY: CGFloat, dragVelocity: CGPoint)
     func tapFunc(sender: UITapGestureRecognizer, targetView: UIView)
     func animatedDismiss()
-    func showView(targetView: ModalViewWithTopBorder)
+    func showView(targetView: FilterView)
     func hideView()
     
 }
@@ -28,11 +28,11 @@ class FilterInteractor: FilterInteractorProtocol {
     var hasSetPointOrigin: Bool = false
     var pointOrigin: CGPoint?
     
-    func panFunc(sender: UIPanGestureRecognizer, targetView: ModalViewWithTopBorder) {
+    func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView) {
         presenter?.panFunc(sender: sender, targetView: targetView)
     }
     
-    func panFunc2(sender: UIPanGestureRecognizer, targetView: ModalViewWithTopBorder, minY: CGFloat, dragVelocity: CGPoint) {
+    func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView, minY: CGFloat, dragVelocity: CGPoint) {
         let translation = sender.translation(in: targetView)
         guard translation.y >= 0 else { return }
         targetView.frame.origin = CGPoint(x: -5, y: pointOrigin!.y + translation.y)
@@ -70,7 +70,7 @@ class FilterInteractor: FilterInteractorProtocol {
         }
     }
     
-    func showView(targetView: ModalViewWithTopBorder) {
+    func showView(targetView: FilterView) {
         UIView.animateKeyframes(withDuration: 0.5, delay: 0) { [weak self] in
             guard let self = self else { return }
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {

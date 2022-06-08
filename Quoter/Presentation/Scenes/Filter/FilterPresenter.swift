@@ -10,8 +10,8 @@ import UIKit
 protocol FilterPresenterProtocol {
     var vc: FilterVCProtocol? { get set }
     
-    func panFunc(sender: UIPanGestureRecognizer, targetView: ModalViewWithTopBorder)
-    func panFunc2(sender: UIPanGestureRecognizer, targetView: ModalViewWithTopBorder)
+    func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView)
+    func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView)
 
     func animateMovement(direction: MovementDirection)
     func animateColor()
@@ -22,14 +22,13 @@ protocol FilterPresenterProtocol {
 class FilterPresenter: FilterPresenterProtocol {
     var vc: FilterVCProtocol?
     
-    func panFunc(sender: UIPanGestureRecognizer, targetView: ModalViewWithTopBorder) {
+    func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView) {
         let minY = targetView.frame.minY
         let dragVelocity = sender.velocity(in: targetView)
-        
         vc?.panFunc(sender: sender, targetView: targetView, minY: minY, dragVelocity: dragVelocity)
     }
     
-    func panFunc2(sender: UIPanGestureRecognizer, targetView: ModalViewWithTopBorder) {
+    func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView) {
         
     }
     
