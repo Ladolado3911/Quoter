@@ -20,30 +20,30 @@ extension UIView {
         CGRect(x: bounds.width / 2, y: bounds.height / 2, width: 0, height: 0)
     }
     
-    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
-        
-        let border = UIView()
-        
-        switch edge {
-        case UIRectEdge.top:
-            border.frame = CGRect(x: 0, y: 0, width: frame.width, height: thickness)
-            
-        case UIRectEdge.bottom:
-            border.frame = CGRect(x: 0, y: frame.height - thickness, width: frame.width, height: thickness)
-            
-        case UIRectEdge.left:
-            border.frame = CGRect(x: 0, y: 0, width: thickness, height: frame.height)
-            
-        case UIRectEdge.right:
-            border.frame = CGRect(x: frame.width - thickness, y: 0, width: thickness, height: frame.height)
-            
-        default: do {}
-        }
-        
-        border.backgroundColor = color
-        
-        addSubview(border)
-    }
+//    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
+//        
+//        let border = UIView()
+//        
+//        switch edge {
+//        case UIRectEdge.top:
+//            border.frame = CGRect(x: 0, y: 0, width: frame.width, height: thickness)
+//            
+//        case UIRectEdge.bottom:
+//            border.frame = CGRect(x: 0, y: frame.height - thickness, width: frame.width, height: thickness)
+//            
+//        case UIRectEdge.left:
+//            border.frame = CGRect(x: 0, y: 0, width: thickness, height: frame.height)
+//            
+//        case UIRectEdge.right:
+//            border.frame = CGRect(x: frame.width - thickness, y: 0, width: thickness, height: frame.height)
+//            
+//        default: do {}
+//        }
+//        
+//        border.backgroundColor = color
+//        
+//        addSubview(border)
+//    }
     
     func createAndStartLoadingLottieAnimation(animation: LottieAnimation,
                                               animationSpeed: CGFloat = 1,
@@ -113,30 +113,62 @@ extension UIView {
     
 }
 
-extension CALayer {
-    
-    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
+extension UIView {
+
+    func getTopBorderPath(lineWidth: CGFloat) -> UIBezierPath {
+        let path = UIBezierPath()
+        path.lineWidth = lineWidth
+
+        path.move(to: CGPoint(x: lineWidth, y: bounds.origin.y - layer.cornerRadius - lineWidth))
+        path.addArc(withCenter: CGPoint(x: path.currentPoint.x + layer.cornerRadius,
+                                        y: path.currentPoint.y),
+                    radius: layer.cornerRadius,
+                    startAngle: .pi,
+                    endAngle: (3 * .pi) / 2,
+                    clockwise: true)
         
-        let border = CALayer()
+        path.stroke()
         
-        switch edge {
-        case UIRectEdge.top:
-            border.frame = CGRect(x: 0, y: 0, width: frame.width, height: thickness)
-            
-        case UIRectEdge.bottom:
-            border.frame = CGRect(x: 0, y: frame.height - thickness, width: frame.width, height: thickness)
-            
-        case UIRectEdge.left:
-            border.frame = CGRect(x: 0, y: 0, width: thickness, height: frame.height)
-            
-        case UIRectEdge.right:
-            border.frame = CGRect(x: frame.width - thickness, y: 0, width: thickness, height: frame.height)
-            
-        default: do {}
-        }
+//        path.addLine(to: CGPoint(x: path.currentPoint.x, y: path.currentPoint.y - lineWidth))
+//        path.addArc(withCenter: CGPoint(x: path.currentPoint.x + layer.cornerRadius,
+//                                        y: path.currentPoint.y),
+//                    radius: layer.cornerRadius,
+//                    startAngle: (3 * .pi) / 2,
+//                    endAngle: .pi,
+//                    clockwise: false)
+        //path.close()
+        //path.addLine(to: CGPoint(x: path.currentPoint.x + lineWidth, y: path.currentPoint.y))
+        return path
         
-        border.backgroundColor = color.cgColor
-        
-        addSublayer(border)
     }
+    
+    
 }
+
+//extension CALayer {
+//    
+//    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
+//        
+//        let border = CALayer()
+//        
+//        switch edge {
+//        case UIRectEdge.top:
+//            border.frame = CGRect(x: 0, y: 0, width: frame.width, height: thickness)
+//            
+//        case UIRectEdge.bottom:
+//            border.frame = CGRect(x: 0, y: frame.height - thickness, width: frame.width, height: thickness)
+//            
+//        case UIRectEdge.left:
+//            border.frame = CGRect(x: 0, y: 0, width: thickness, height: frame.height)
+//            
+//        case UIRectEdge.right:
+//            border.frame = CGRect(x: frame.width - thickness, y: 0, width: thickness, height: frame.height)
+//            
+//        default: do {}
+//        }
+//        
+//        border.backgroundColor = color.cgColor
+//        
+//        addSublayer(border)
+//    }
+//}

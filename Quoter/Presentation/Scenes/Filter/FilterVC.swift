@@ -27,12 +27,14 @@ class FilterVC: UIViewController {
         return filter
     }()
     
-//    lazy var panGesture: UIPanGestureRecognizer = {
-//        let gesture = UIPanGestureRecognizer(target: self, action: #selector(panFunc))
-//        return gesture
-//    }()
+    lazy var panGesture: UIPanGestureRecognizer = {
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(panFunc))
+        return gesture
+    }()
     
-    var startY: CGFloat?
+    //var startY: CGFloat?
+    var hasSetPointOrigin = false
+    var pointOrigin: CGPoint?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -46,38 +48,57 @@ class FilterVC: UIViewController {
     
     override func loadView() {
         super.loadView()
-        view = filterView
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        filterView.addGestureRecognizer(panGesture)
-//        view.backgroundColor = UIColor(r: 0, g: 0, b: 0, alpha: 0.5)
+        filterView.addGestureRecognizer(panGesture)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         buildSubviews()
-        //showView()
+        showView()
     }
     
-//    @objc func panFunc(sender: UIPanGestureRecognizer) {
-//        guard let startY = startY else {
-//            return
-//        }
-//        let velocityY = sender.velocity(in: filterView).y
-//        let translationY = sender.translation(in: filterView).y
-//        print("frame: \(filterView.frame.minY)")
-//        print("start: \(startY)")
-//        print("velocity: \(velocityY)")
-//        if filterView.frame.minY <= startY && velocityY < 0 {
-//            return
-//        }
-//        filterView.frame = CGRect(x: 0,
-//                                  y: startY + translationY,
-//                                  width: filterView.bounds.width,
-//                                  height: filterView.bounds.height)
-//
-//    }
+    @objc func panFunc(sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: filterView)
+        let minY = self.filterView.frame.minY
+        // Not allowing the user to drag the view upward
+        guard translation.y >= 0 else { return }
+        
+        // setting x as 0 because we don't want users to move the frame side ways!! Only want straight up or down
+        self.filterView.frame.origin = CGPoint(x: 0, y: self.pointOrigin!.y + translation.y)
+        if sender.state == .ended {
+            let dragVelocity = sender.velocity(in: filterView)
+            if dragVelocity.y >= 1300 {
+                UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut]) { [weak self] in
+                    guard let self = self else { return }
+                    self.filterView.frame.origin = CGPoint(x: 0, y: Constants.screenHeight)
+                } completion: { didFinish in
+                    if didFinish {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
+            }
+            else if minY >= Constants.screenHeight * 0.55  {
+                UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut]) { [weak self] in
+                    guard let self = self else { return }
+                    self.filterView.frame.origin = CGPoint(x: 0, y: Constants.screenHeight)
+                } completion: { didFinish in
+                    if didFinish {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
+            }
+            else {
+                // Set back to original position of the view controller
+                UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut]) { [weak self] in
+                    guard let self = self else { return }
+                    self.filterView.frame.origin = self.pointOrigin ?? CGPoint(x: 0, y: self.view.bounds.height * 0.8169)
+                }
+            }
+        }
+    }
     
     private func setup() {
         let vc = self
@@ -94,29 +115,34 @@ class FilterVC: UIViewController {
     }
     
     private func buildSubviews() {
-//        view.addSubview(filterView)
-//        view.bringSubviewToFront(filterView)
+        view.addSubview(filterView)
+        view.bringSubviewToFront(filterView)
     }
     
-//    private func showView() {
-//        let transform = CGAffineTransform(translationX: 0, y: -filterView.bounds.height)
-//        UIView.animate(withDuration: 0.5, delay: 0, options: [.transitionFlipFromTop]) { [weak self] in
-//            guard let self = self else { return }
-//            self.filterView.transform = transform
-//        } completion: { didFinish in
-//            if didFinish {
-//                self.startY = self.filterView.frame.minY
-//            }
-//        }
-//
-//    }
-//
-//    private func hideView() {
-//        UIView.animate(withDuration: 0.5) { [weak self] in
-//            guard let self = self else { return }
-//            self.filterView.transform = .identity
-//        }
-//    }
+    private func showView() {
+        let transform = CGAffineTransform(translationX: 0, y: -filterView.bounds.height)
+        UIView.animateKeyframes(withDuration: 0.5, delay: 0) { [weak self] in
+            guard let self = self else { return }
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
+                self.view.backgroundColor = UIColor(r: 0, g: 0, b: 0, alpha: 0.5)
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
+                self.filterView.transform = transform
+            }
+        } completion: { [weak self] didFinish in
+            guard let self = self else { return }
+            if didFinish {
+                self.pointOrigin = self.filterView.frame.origin
+            }
+        }
+    }
+
+    private func hideView() {
+        UIView.animate(withDuration: 0.4) { [weak self] in
+            guard let self = self else { return }
+            self.filterView.transform = .identity
+        }
+    }
     
 }
 

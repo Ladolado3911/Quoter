@@ -47,6 +47,7 @@ class ExploreView: UIView {
         button.layer.borderWidth = 1
         button.layer.borderColor = DarkModeColors.white.cgColor
         button.titleLabel?.contentMode = .center
+        button.titleLabel?.font = button.titleLabel?.font.withSize(Constants.screenHeight * 0.020)
         return button
     }()
     

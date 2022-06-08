@@ -12,6 +12,15 @@ class FilterVCTransitionDelegate: NSObject, UIViewControllerTransitioningDelegat
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         FilterVCPresentationController(presentedViewController: presented, presenting: presenting)
     }
+
+    
+//    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        FilterVCTransitionAnimator()
+//    }
+//    
+//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        FilterVCTransitionAnimator()
+//    }
     
 }
 
