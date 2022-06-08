@@ -11,31 +11,39 @@ protocol FilterVCProtocol {
     var interactor: FilterInteractorProtocol? { get set }
     var router: FilterRouterProtocol? { get set }
     
-  
+    func panFunc(sender: UIPanGestureRecognizer,
+                 targetView: ModalViewWithTopBorder,
+                 minY: CGFloat,
+                 dragVelocity: CGPoint)
+
+    func animate(to point: CGPoint)
+    func animateColor()
+    func dismiss()
 }
 
 class FilterVC: UIViewController {
     var interactor: FilterInteractorProtocol?
     var router: FilterRouterProtocol?
     
-    lazy var filterView: FilterView = {
-        let frame = CGRect(x: 0,
+    lazy var filterView: ModalViewWithTopBorder = {
+        let frame = CGRect(x: -5,
                            y: view.bounds.height,
-                           width: view.bounds.width,
+                           width: view.bounds.width + 10,
                            height: view.bounds.height * 0.8169)
-        let filter = FilterView(frame: frame)
+        let filter = ModalViewWithTopBorder(frame: frame)
         return filter
     }()
     
     lazy var panGesture: UIPanGestureRecognizer = {
-        let gesture = UIPanGestureRecognizer(target: self, action: #selector(panFunc))
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(panFunc(sender:)))
         return gesture
     }()
     
-    //var startY: CGFloat?
-    var hasSetPointOrigin = false
-    var pointOrigin: CGPoint?
-    
+    lazy var tapGesture: UITapGestureRecognizer = {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(tapFunc(sender:)))
+        return gesture
+    }()
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -53,6 +61,8 @@ class FilterVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         filterView.addGestureRecognizer(panGesture)
+        view.addGestureRecognizer(tapGesture)
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -60,46 +70,14 @@ class FilterVC: UIViewController {
         showView()
     }
     
-    @objc func panFunc(sender: UIPanGestureRecognizer) {
-        let translation = sender.translation(in: filterView)
-        let minY = self.filterView.frame.minY
-        // Not allowing the user to drag the view upward
-        guard translation.y >= 0 else { return }
-        
-        // setting x as 0 because we don't want users to move the frame side ways!! Only want straight up or down
-        self.filterView.frame.origin = CGPoint(x: 0, y: self.pointOrigin!.y + translation.y)
-        if sender.state == .ended {
-            let dragVelocity = sender.velocity(in: filterView)
-            if dragVelocity.y >= 1300 {
-                UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut]) { [weak self] in
-                    guard let self = self else { return }
-                    self.filterView.frame.origin = CGPoint(x: 0, y: Constants.screenHeight)
-                } completion: { didFinish in
-                    if didFinish {
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                }
-            }
-            else if minY >= Constants.screenHeight * 0.55  {
-                UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut]) { [weak self] in
-                    guard let self = self else { return }
-                    self.filterView.frame.origin = CGPoint(x: 0, y: Constants.screenHeight)
-                } completion: { didFinish in
-                    if didFinish {
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                }
-            }
-            else {
-                // Set back to original position of the view controller
-                UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut]) { [weak self] in
-                    guard let self = self else { return }
-                    self.filterView.frame.origin = self.pointOrigin ?? CGPoint(x: 0, y: self.view.bounds.height * 0.8169)
-                }
-            }
-        }
+    @objc func tapFunc(sender: UITapGestureRecognizer) {
+        interactor?.tapFunc(sender: sender, targetView: view)
     }
     
+    @objc func panFunc(sender: UIPanGestureRecognizer) {
+        interactor?.panFunc(sender: sender, targetView: filterView)
+    }
+
     private func setup() {
         let vc = self
         let interactor = FilterInteractor()
@@ -120,32 +98,38 @@ class FilterVC: UIViewController {
     }
     
     private func showView() {
-        let transform = CGAffineTransform(translationX: 0, y: -filterView.bounds.height)
-        UIView.animateKeyframes(withDuration: 0.5, delay: 0) { [weak self] in
-            guard let self = self else { return }
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
-                self.view.backgroundColor = UIColor(r: 0, g: 0, b: 0, alpha: 0.5)
-            }
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
-                self.filterView.transform = transform
-            }
-        } completion: { [weak self] didFinish in
-            guard let self = self else { return }
-            if didFinish {
-                self.pointOrigin = self.filterView.frame.origin
-            }
-        }
+        interactor?.showView(targetView: filterView)
     }
 
     private func hideView() {
-        UIView.animate(withDuration: 0.4) { [weak self] in
-            guard let self = self else { return }
-            self.filterView.transform = .identity
-        }
+        self.interactor?.hideView()
     }
     
 }
 
+enum MovementDirection {
+    case up
+    case down
+}
+
 extension FilterVC: FilterVCProtocol {
+    func panFunc(sender: UIPanGestureRecognizer,
+                 targetView: ModalViewWithTopBorder,
+                 minY: CGFloat,
+                 dragVelocity: CGPoint) {
+        interactor?.panFunc2(sender: sender, targetView: targetView, minY: minY, dragVelocity: dragVelocity)
+    }
+
+    func animate(to point: CGPoint) {
+        filterView.frame.origin = point
+    }
+    
+    func animateColor() {
+        view.backgroundColor = UIColor(r: 0, g: 0, b: 0, alpha: 0.5)
+    }
+    
+    func dismiss() {
+        dismiss(animated: true)
+    }
     
 }

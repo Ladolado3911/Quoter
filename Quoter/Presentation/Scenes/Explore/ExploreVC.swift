@@ -94,7 +94,6 @@ extension ExploreVC {
     }
     
     @objc func onFilterButton(sender: UIButton) {
-        
         router?.routeToFilterVC()
     }
 }
@@ -210,42 +209,3 @@ extension ExploreVC: ExploreVCProtocol {
         }
     }
 }
-
-//extension ExploreVC: UIViewControllerTransitioningDelegate {
-//    
-//    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        transition
-//    }
-//    
-//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        nil
-//    }
-//    
-//}
-
-//class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-//    
-//    let duration = 3.0
-//    var presenting = true
-//    var originFrame = CGRect.zero
-//
-//    
-//    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-//        duration
-//    }
-//    
-//    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-//        let containerView = transitionContext.containerView
-//        let toView = transitionContext.view(forKey: .to)!
-//        
-//        containerView.addSubview(toView)
-//        toView.transform = CGAffineTransform(scaleX: 0, y: 0)
-//        UIView.animate(withDuration: duration) {
-//            toView.transform = CGAffineTransform(scaleX: 1, y: 1)
-//        } completion: { didFinish in
-//            if didFinish {
-//                transitionContext.completeTransition(true)
-//            }
-//        }
-//    }
-//}

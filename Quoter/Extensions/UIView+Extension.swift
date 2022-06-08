@@ -115,11 +115,11 @@ extension UIView {
 
 extension UIView {
 
-    func getTopBorderPath(lineWidth: CGFloat) -> UIBezierPath {
+    func drawTopBorder(lineWidth: CGFloat) {
         let path = UIBezierPath()
         path.lineWidth = lineWidth
 
-        path.move(to: CGPoint(x: lineWidth, y: bounds.origin.y - layer.cornerRadius - lineWidth))
+        path.move(to: CGPoint(x: lineWidth, y: bounds.origin.y + layer.cornerRadius + lineWidth))
         path.addArc(withCenter: CGPoint(x: path.currentPoint.x + layer.cornerRadius,
                                         y: path.currentPoint.y),
                     radius: layer.cornerRadius,
@@ -127,22 +127,18 @@ extension UIView {
                     endAngle: (3 * .pi) / 2,
                     clockwise: true)
         
+        path.addLine(to: CGPoint(x: bounds.width - layer.cornerRadius, y: path.currentPoint.y))
+        path.addArc(withCenter: CGPoint(x: path.currentPoint.x,
+                                        y: path.currentPoint.y + layer.cornerRadius),
+                    radius: layer.cornerRadius,
+                    startAngle: (3 * .pi) / 2,
+                    endAngle: 0,
+                    clockwise: true)
+        
+        
+        DarkModeColors.white.setStroke()
         path.stroke()
-        
-//        path.addLine(to: CGPoint(x: path.currentPoint.x, y: path.currentPoint.y - lineWidth))
-//        path.addArc(withCenter: CGPoint(x: path.currentPoint.x + layer.cornerRadius,
-//                                        y: path.currentPoint.y),
-//                    radius: layer.cornerRadius,
-//                    startAngle: (3 * .pi) / 2,
-//                    endAngle: .pi,
-//                    clockwise: false)
-        //path.close()
-        //path.addLine(to: CGPoint(x: path.currentPoint.x + lineWidth, y: path.currentPoint.y))
-        return path
-        
     }
-    
-    
 }
 
 //extension CALayer {
