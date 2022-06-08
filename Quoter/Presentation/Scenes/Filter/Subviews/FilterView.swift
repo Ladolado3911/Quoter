@@ -27,6 +27,8 @@ class FilterView: ModalViewWithTopBorder {
     
     let cancelButton: UIButton = {
         let button = UIButton()
+        button.setTitle("cancel", for: .normal)
+        button.setTitleColor(DarkModeColors.white, for: .normal)
         return button
     }()
     
@@ -37,16 +39,22 @@ class FilterView: ModalViewWithTopBorder {
     
     let filterButton: UIButton = {
         let button = UIButton()
+        button.setTitle("Filter", for: .normal)
+        button.setTitleColor(DarkModeColors.white, for: .normal)
         return button
     }()
     
     let mainTitleLabel: UILabel = {
         let mainLabel = UILabel()
+        mainLabel.text = "Categories"
+        mainLabel.textColor = DarkModeColors.white
         return mainLabel
     }()
     
     let subTitleLabel: UILabel = {
         let subLabel = UILabel()
+        subLabel.text = "General"
+        subLabel.textColor = DarkModeColors.subtitleGrey
         return subLabel
     }()
     
