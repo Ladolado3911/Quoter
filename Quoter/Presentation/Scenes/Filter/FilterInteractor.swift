@@ -13,12 +13,13 @@ protocol FilterInteractorProtocol {
     
     var hasSetPointOrigin: Bool { get set }
     var pointOrigin: CGPoint? { get set }
+    var backAlphaOrigin: CGFloat? { get set }
     
     func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView)
-    func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView, minY: CGFloat, dragVelocity: CGPoint)
+    func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView, backView: UIView, minY: CGFloat, dragVelocity: CGPoint)
     func tapFunc(sender: UITapGestureRecognizer, targetView: UIView)
     func animatedDismiss()
-    func showView(targetView: FilterView)
+    func showView(targetView: FilterView, backView: UIView)
     func hideView()
     
 }
@@ -27,15 +28,18 @@ class FilterInteractor: FilterInteractorProtocol {
 
     var hasSetPointOrigin: Bool = false
     var pointOrigin: CGPoint?
+    var backAlphaOrigin: CGFloat?
     
     func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView) {
         presenter?.panFunc(sender: sender, targetView: targetView)
     }
     
-    func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView, minY: CGFloat, dragVelocity: CGPoint) {
+    func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView, backView: UIView, minY: CGFloat, dragVelocity: CGPoint) {
         let translation = sender.translation(in: targetView)
         guard translation.y >= 0 else { return }
         targetView.frame.origin = CGPoint(x: -5, y: pointOrigin!.y + translation.y)
+        let alpha = 0.125 / ((targetView.frame.minY / targetView.frame.height) * 1)
+        backView.backgroundColor = UIColor(r: 0, g: 0, b: 0, alpha: alpha)
         if sender.state == .ended {
             if dragVelocity.y >= 1300 {
                 animatedDismiss()
@@ -70,7 +74,7 @@ class FilterInteractor: FilterInteractorProtocol {
         }
     }
     
-    func showView(targetView: FilterView) {
+    func showView(targetView: FilterView, backView: UIView) {
         UIView.animateKeyframes(withDuration: 0.5, delay: 0) { [weak self] in
             guard let self = self else { return }
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
@@ -83,6 +87,7 @@ class FilterInteractor: FilterInteractorProtocol {
             guard let self = self else { return }
             if didFinish {
                 self.pointOrigin = targetView.frame.origin
+                self.backAlphaOrigin = backView.backgroundColor?.alpha
             }
         }
     }

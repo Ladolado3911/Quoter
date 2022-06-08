@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TTGTags
 
 protocol FilterVCProtocol {
     var interactor: FilterInteractorProtocol? { get set }
@@ -67,12 +68,12 @@ class FilterVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         buildSubviews()
-        showView()
+        showView(backView: view)
     }
     
-    private func configCollectionView() {
-        
-    }
+//    private func configCollectionView() {
+//        filterView.collectionView.delegate = self
+//    }
     
     @objc func tapFunc(sender: UITapGestureRecognizer) {
         interactor?.tapFunc(sender: sender, targetView: view)
@@ -101,8 +102,8 @@ class FilterVC: UIViewController {
         view.bringSubviewToFront(filterView)
     }
     
-    private func showView() {
-        interactor?.showView(targetView: filterView)
+    private func showView(backView: UIView) {
+        interactor?.showView(targetView: filterView, backView: view)
     }
 
     private func hideView() {
@@ -121,7 +122,7 @@ extension FilterVC: FilterVCProtocol {
                  targetView: FilterView,
                  minY: CGFloat,
                  dragVelocity: CGPoint) {
-        interactor?.panFunc2(sender: sender, targetView: targetView, minY: minY, dragVelocity: dragVelocity)
+        interactor?.panFunc2(sender: sender, targetView: targetView, backView: view, minY: minY, dragVelocity: dragVelocity)
     }
 
     func animate(to point: CGPoint) {
@@ -135,5 +136,12 @@ extension FilterVC: FilterVCProtocol {
     func dismiss() {
         dismiss(animated: true)
     }
+}
+
+extension FilterVC: TTGTagCollectionViewDelegate {
+    func tagCollectionView(_ tagCollectionView: TTGTagCollectionView!, sizeForTagAt index: UInt) -> CGSize {
+        .zero
+    }
+    
     
 }

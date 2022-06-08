@@ -14,10 +14,13 @@ class FilterView: ModalViewWithTopBorder {
         let collectionView = TTGTextTagCollectionView()
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.alignment = .center
-        collectionView.verticalSpacing = 30
-        collectionView.horizontalSpacing = 30
+        collectionView.verticalSpacing = 20
+        collectionView.horizontalSpacing = 10
         collectionView.enableTagSelection = true
+        collectionView.scrollDirection = .vertical
+        collectionView.selectionLimit = 1
         collectionView.alpha = 0
         return collectionView
     }()
