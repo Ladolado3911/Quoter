@@ -59,22 +59,23 @@ class FilterVC: UIViewController {
         super.loadView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configCollectionView()
         filterView.addGestureRecognizer(panGesture)
         view.addGestureRecognizer(tapGesture)
         addTargets()
-        
+        buildSubviews()
     }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        buildSubviews()
         showView(backView: view)
     }
     
-//    private func configCollectionView() {
-//        filterView.collectionView.delegate = self
-//    }
+    private func configCollectionView() {
+        filterView.collectionView.delegate = self
+    }
     
     @objc func tapFunc(sender: UITapGestureRecognizer) {
         interactor?.tapFunc(sender: sender, targetView: view)
@@ -153,9 +154,6 @@ extension FilterVC: FilterVCProtocol {
 }
 
 extension FilterVC: TTGTagCollectionViewDelegate {
-    func tagCollectionView(_ tagCollectionView: TTGTagCollectionView!, sizeForTagAt index: UInt) -> CGSize {
-        .zero
-    }
-    
+
     
 }

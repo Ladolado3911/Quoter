@@ -10,9 +10,9 @@ import TTGTags
 
 class FilterView: ModalViewWithTopBorder {
     
-    lazy var collectionView: TTGTextTagCollectionView = {
-        let collectionView = TTGTextTagCollectionView()
-        collectionView.backgroundColor = .clear
+    lazy var collectionView: TTGTagCollectionView = {
+        let collectionView = TTGTagCollectionView()
+        collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,18 +51,22 @@ class FilterView: ModalViewWithTopBorder {
         return button
     }()
     
-    let mainTitleLabel: UILabel = {
+    lazy var mainTitleLabel: UILabel = {
         let mainLabel = UILabel()
         mainLabel.text = "Categories"
         mainLabel.textColor = DarkModeColors.white
+        mainLabel.font = mainLabel.font.withSize(bounds.height * 0.035)
+        mainLabel.textAlignment = .center
         mainLabel.translatesAutoresizingMaskIntoConstraints = false
         return mainLabel
     }()
     
-    let subTitleLabel: UILabel = {
+    lazy var subTitleLabel: UILabel = {
         let subLabel = UILabel()
         subLabel.text = "General"
         subLabel.textColor = DarkModeColors.subtitleGrey
+        subLabel.font = subLabel.font.withSize(bounds.height * 0.025)
+        subLabel.textAlignment = .center
         subLabel.translatesAutoresizingMaskIntoConstraints = false
         return subLabel
     }()
@@ -77,9 +81,9 @@ class FilterView: ModalViewWithTopBorder {
         addSubview(cancelButton)
         addSubview(arrowButton)
         addSubview(filterButton)
-//        addSubview(mainTitleLabel)
-//        addSubview(subTitleLabel)
-//        addSubview(collectionView)
+        addSubview(mainTitleLabel)
+        addSubview(subTitleLabel)
+        addSubview(collectionView)
     }
     
     private func buildConstraints() {
@@ -99,6 +103,20 @@ class FilterView: ModalViewWithTopBorder {
             filterButton.heightAnchor.constraint(equalToConstant: bounds.height * 0.0495),
             filterButton.widthAnchor.constraint(equalToConstant: bounds.height * 0.0495 * 2.913),
         
+            mainTitleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            mainTitleLabel.topAnchor.constraint(equalTo: arrowButton.bottomAnchor),
+            mainTitleLabel.heightAnchor.constraint(equalToConstant: bounds.height * 0.0841),
+            mainTitleLabel.widthAnchor.constraint(equalToConstant: bounds.height * 0.0841 * 4.428),
+            
+            subTitleLabel.centerXAnchor.constraint(equalTo: mainTitleLabel.centerXAnchor),
+            subTitleLabel.topAnchor.constraint(equalTo: mainTitleLabel.bottomAnchor),
+            subTitleLabel.heightAnchor.constraint(equalToConstant: bounds.height * 0.0841 * 0.3),
+            subTitleLabel.widthAnchor.constraint(equalToConstant: bounds.height * 0.0841 * 4.428),
+            
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            collectionView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 15),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 }
