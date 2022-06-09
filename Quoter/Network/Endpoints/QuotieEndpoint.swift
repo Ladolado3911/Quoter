@@ -20,6 +20,7 @@ enum QuotieEndpoint: EndpointProtocol {
     case negotiateQuotes(genre: String, size: QuoteSize, body: [String: AnyHashable])
     case getSmallQuote(genre: String)
     case getSmallGeneralQuote
+    case getCategories
     
     var scheme: Scheme {
         switch self {
@@ -47,6 +48,8 @@ enum QuotieEndpoint: EndpointProtocol {
             return "/getSmallQuote/\(genre)"
         case .getSmallGeneralQuote:
             return "/getSmallGeneralQuote/"
+        case .getCategories:
+            return "/categories/"
         }
     }
     var parameters: [URLQueryItem] {
@@ -57,17 +60,7 @@ enum QuotieEndpoint: EndpointProtocol {
     }
     var method: HTTPMethod {
         switch self {
-        case .getRandomQuote:
-            return .get
-        case .getQuotes:
-            return .get
-        case .registerDevice:
-            return .get
-        case .negotiateQuotes:
-            return .post
-        case .getSmallQuote:
-            return .get
-        case .getSmallGeneralQuote:
+        default:
             return .get
         }
     }

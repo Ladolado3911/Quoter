@@ -10,19 +10,13 @@ import TTGTags
 
 class FilterView: ModalViewWithTopBorder {
     
-    lazy var collectionView: TTGTagCollectionView = {
-        let collectionView = TTGTagCollectionView()
-        collectionView.backgroundColor = .white
-        collectionView.showsHorizontalScrollIndicator = false
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.alignment = .center
-        collectionView.verticalSpacing = 20
-        collectionView.horizontalSpacing = 10
-        collectionView.enableTagSelection = true
-        collectionView.scrollDirection = .vertical
-        collectionView.selectionLimit = 1
-        collectionView.alpha = 0
         return collectionView
     }()
     

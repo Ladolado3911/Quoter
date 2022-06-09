@@ -20,6 +20,8 @@ protocol FilterVCProtocol {
     func animate(to point: CGPoint)
     func animateColor()
     func dismiss()
+    
+    func reloadCollectionViewData()
 }
 
 class FilterVC: UIViewController {
@@ -70,11 +72,14 @@ class FilterVC: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showView(backView: view)
+        interactor?.showView(targetView: filterView, backView: view)
+        interactor?.getCategories()
     }
     
     private func configCollectionView() {
+        filterView.collectionView.dataSource = self
         filterView.collectionView.delegate = self
+        filterView.collectionView.register(FilterCell.self, forCellWithReuseIdentifier: "filterCell")
     }
     
     @objc func tapFunc(sender: UITapGestureRecognizer) {
@@ -98,11 +103,11 @@ class FilterVC: UIViewController {
         let interactor = FilterInteractor()
         let presenter = FilterPresenter()
         let router = FilterRouter()
-        let exploreNetworkWorker = ExploreNetworkWorker()
+        let filterNetworkWorker = FilterNetworkWorker()
         vc.interactor = interactor
         vc.router = router
         interactor.presenter = presenter
-        interactor.exploreNetworkWorker = exploreNetworkWorker
+        interactor.filterNetworkWorker = filterNetworkWorker
         presenter.vc = vc
         router.vc = vc
     }
@@ -116,15 +121,6 @@ class FilterVC: UIViewController {
         filterView.cancelButton.addTarget(self, action: #selector(cancelButton(sender:)), for: .touchUpInside)
         filterView.arrowButton.addTarget(self, action: #selector(arrowDownButton(sender:)), for: .touchUpInside)
     }
-    
-    private func showView(backView: UIView) {
-        interactor?.showView(targetView: filterView, backView: view)
-    }
-
-    private func hideView() {
-        self.interactor?.hideView()
-    }
-    
 }
 
 enum MovementDirection {
@@ -151,9 +147,34 @@ extension FilterVC: FilterVCProtocol {
     func dismiss() {
         dismiss(animated: true)
     }
+    
+    func reloadCollectionViewData() {
+        filterView.collectionView.reloadData()
+    }
 }
 
-extension FilterVC: TTGTagCollectionViewDelegate {
-
+extension FilterVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        interactor?.collectionView(collectionView, numberOfItemsInSection: section) ?? 0
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        interactor?.collectionView(collectionView, cellForItemAt: indexPath) ?? UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        interactor?.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        interactor?.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        0
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        0
+//    }
 }

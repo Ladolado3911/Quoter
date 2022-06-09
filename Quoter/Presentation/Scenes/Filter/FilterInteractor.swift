@@ -9,11 +9,12 @@ import UIKit
 
 protocol FilterInteractorProtocol {
     var presenter: FilterPresenterProtocol? { get set }
-    var exploreNetworkWorker: ExploreNetworkWorkerProtocol? { get set }
+    var filterNetworkWorker: FilterNetworkWorkerProtocol? { get set }
     
     var hasSetPointOrigin: Bool { get set }
     var pointOrigin: CGPoint? { get set }
     var backAlphaOrigin: CGFloat? { get set }
+    var categories: [String] { get set }
     
     func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView)
     func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView, backView: UIView, minY: CGFloat, dragVelocity: CGPoint)
@@ -22,13 +23,27 @@ protocol FilterInteractorProtocol {
     func showView(targetView: FilterView, backView: UIView)
     func hideView()
     
+    //MARK: Collection view delegate functions
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
+    
+    //MARK: Networking
+    func getCategories()
+    
 }
 
 class FilterInteractor: FilterInteractorProtocol {
+    
+    var presenter: FilterPresenterProtocol?
+    var filterNetworkWorker: FilterNetworkWorkerProtocol?
 
     var hasSetPointOrigin: Bool = false
     var pointOrigin: CGPoint?
     var backAlphaOrigin: CGFloat?
+    
+    var categories: [String] = []
     
     func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView) {
         presenter?.panFunc(sender: sender, targetView: targetView)
@@ -88,15 +103,63 @@ class FilterInteractor: FilterInteractorProtocol {
             if didFinish {
                 self.pointOrigin = targetView.frame.origin
                 self.backAlphaOrigin = backView.backgroundColor?.alpha
+                self.getCategories()
             }
         }
     }
     
+    func getCategories() {
+        guard let filterNetworkWorker = filterNetworkWorker else {
+            return
+        }
+        
+        Task.init { [weak self] in
+            var categories: [String] = []
+            guard let self = self else { return }
+            do {
+                categories = try await filterNetworkWorker.getCategories().map { $0.mainCategoryEnum }
+                await MainActor.run { [categories] in
+                    self.categories = categories
+                    self.presenter?.reloadCollectionViewData()
+                }
+            }
+            catch {
+                await MainActor.run { [categories] in
+                    self.categories = categories
+                    self.presenter?.reloadCollectionViewData()
+                }
+            }
+        }
+    }
+
     func hideView() {
         animatedDismiss()
     }
     
-    var presenter: FilterPresenterProtocol?
-    var exploreNetworkWorker: ExploreNetworkWorkerProtocol?
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        categories.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        collectionView.dequeueReusableCell(withReuseIdentifier: "filterCell", for: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let attributes = [
+            NSAttributedString.Key.font: LibreBaskerville.styles.regular(size: 20)
+        ]
+        let stringSize = categories[indexPath.item].size(withAttributes: attributes)
+        let cellSize = CGSize(width: stringSize.width * 2.157,
+                              height: stringSize.height * 3.92)
+        return cellSize
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let cell = cell as? FilterCell {
+            cell.buildSubviews()
+            cell.buildConstraints()
+            cell.titleLabel.text = categories[indexPath.item]
+        }
+    }
     
 }

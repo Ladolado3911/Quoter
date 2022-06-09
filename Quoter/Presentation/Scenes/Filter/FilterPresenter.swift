@@ -17,6 +17,8 @@ protocol FilterPresenterProtocol {
     func animateColor()
     func dismiss()
     
+    func reloadCollectionViewData()
+    
 }
 
 class FilterPresenter: FilterPresenterProtocol {
@@ -47,6 +49,10 @@ class FilterPresenter: FilterPresenterProtocol {
 
     func dismiss() {
         vc?.dismiss()
+    }
+    
+    func reloadCollectionViewData() {
+        vc?.reloadCollectionViewData()
     }
 
 }

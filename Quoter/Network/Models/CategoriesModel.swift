@@ -7,11 +7,7 @@
 
 import Foundation
 
-struct MainCategoryModel: Codable {
+struct MainCategoryModel: Codable, Equatable {
     var mainCategoryEnum: String
-    var subCategoryStrings: [SubCategoryModel]
 }
 
-struct SubCategoryModel: Codable {
-    var subCategoryString: String
-}
