@@ -77,6 +77,7 @@
 		24DAF6772852105B0046DC51 /* FilterNetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DAF6762852105B0046DC51 /* FilterNetworkWorker.swift */; };
 		24DAF6792852136D0046DC51 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DAF6782852136D0046DC51 /* FilterCell.swift */; };
 		24DAF67B285219AA0046DC51 /* FilterCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DAF67A285219AA0046DC51 /* FilterCategories.swift */; };
+		24DAF67D285229C00046DC51 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DAF67C285229C00046DC51 /* CALayer+Extension.swift */; };
 		24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 24DEBF4527ABB1D400C40B29 /* Lottie */; };
 		24EF3BC32851D4A800789F0E /* FilterIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EF3BC22851D4A800789F0E /* FilterIcons.swift */; };
 		24F40214280DA33B007DF059 /* typodermic-eula-03-2020.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 24F40212280DA33B007DF059 /* typodermic-eula-03-2020.pdf */; };
@@ -169,6 +170,7 @@
 		24DAF6762852105B0046DC51 /* FilterNetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterNetworkWorker.swift; sourceTree = "<group>"; };
 		24DAF6782852136D0046DC51 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		24DAF67A285219AA0046DC51 /* FilterCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCategories.swift; sourceTree = "<group>"; };
+		24DAF67C285229C00046DC51 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		24EF3BC22851D4A800789F0E /* FilterIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterIcons.swift; sourceTree = "<group>"; };
 		24F40212280DA33B007DF059 /* typodermic-eula-03-2020.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "typodermic-eula-03-2020.pdf"; sourceTree = "<group>"; };
 		24F40213280DA33B007DF059 /* goodtimesrg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = goodtimesrg.otf; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				24138A2F2805AD6E00044F5E /* UIViewController+Extension.swift */,
 				24138A302805AD6E00044F5E /* String+Extension.swift */,
 				24D018FA280B1A460031C14B /* UILabel+Extension.swift */,
+				24DAF67C285229C00046DC51 /* CALayer+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -751,6 +754,7 @@
 				24484AD42837C07900D3BFA8 /* QuoteButtonView.swift in Sources */,
 				246B82962831204E00D44DF5 /* NetworkWorker.swift in Sources */,
 				24CD4C0E2844B23700A63968 /* DeviceModel.swift in Sources */,
+				24DAF67D285229C00046DC51 /* CALayer+Extension.swift in Sources */,
 				24DAF67B285219AA0046DC51 /* FilterCategories.swift in Sources */,
 				2458D29A2809A51A0088C00E /* ExploreCell.swift in Sources */,
 				24138A1A280571CA00044F5E /* MenuVC.swift in Sources */,

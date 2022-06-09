@@ -19,32 +19,7 @@ extension UIView {
     var initialFrame: CGRect {
         CGRect(x: bounds.width / 2, y: bounds.height / 2, width: 0, height: 0)
     }
-    
-//    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
-//        
-//        let border = UIView()
-//        
-//        switch edge {
-//        case UIRectEdge.top:
-//            border.frame = CGRect(x: 0, y: 0, width: frame.width, height: thickness)
-//            
-//        case UIRectEdge.bottom:
-//            border.frame = CGRect(x: 0, y: frame.height - thickness, width: frame.width, height: thickness)
-//            
-//        case UIRectEdge.left:
-//            border.frame = CGRect(x: 0, y: 0, width: thickness, height: frame.height)
-//            
-//        case UIRectEdge.right:
-//            border.frame = CGRect(x: frame.width - thickness, y: 0, width: thickness, height: frame.height)
-//            
-//        default: do {}
-//        }
-//        
-//        border.backgroundColor = color
-//        
-//        addSubview(border)
-//    }
-    
+
     func createAndStartLoadingLottieAnimation(animation: LottieAnimation,
                                               animationSpeed: CGFloat = 1,
                                               frame: CGRect = .zero,
@@ -138,57 +113,5 @@ extension UIView {
         
         DarkModeColors.white.setStroke()
         path.stroke()
-    }
-}
-
-//extension CALayer {
-//    
-//    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
-//        
-//        let border = CALayer()
-//        
-//        switch edge {
-//        case UIRectEdge.top:
-//            border.frame = CGRect(x: 0, y: 0, width: frame.width, height: thickness)
-//            
-//        case UIRectEdge.bottom:
-//            border.frame = CGRect(x: 0, y: frame.height - thickness, width: frame.width, height: thickness)
-//            
-//        case UIRectEdge.left:
-//            border.frame = CGRect(x: 0, y: 0, width: thickness, height: frame.height)
-//            
-//        case UIRectEdge.right:
-//            border.frame = CGRect(x: frame.width - thickness, y: 0, width: thickness, height: frame.height)
-//            
-//        default: do {}
-//        }
-//        
-//        border.backgroundColor = color.cgColor
-//        
-//        addSublayer(border)
-//    }
-//}
-
-extension CALayer {
-    func applySketchShadow(
-        color: UIColor = .black,
-        alpha: Float = 0.5,
-        x: CGFloat = 0,
-        y: CGFloat = 2,
-        blur: CGFloat = 4,
-        spread: CGFloat = 0)
-    {
-        masksToBounds = false
-        shadowColor = color.cgColor
-        shadowOpacity = alpha
-        shadowOffset = CGSize(width: x, height: y)
-        shadowRadius = blur / 2.0
-        if spread == 0 {
-            shadowPath = nil
-        } else {
-            let dx = -spread
-            let rect = bounds.insetBy(dx: dx, dy: dx)
-            shadowPath = UIBezierPath(rect: rect).cgPath
-        }
     }
 }

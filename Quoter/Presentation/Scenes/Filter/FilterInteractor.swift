@@ -53,7 +53,7 @@ class FilterInteractor: FilterInteractorProtocol {
         let translation = sender.translation(in: targetView)
         guard translation.y >= 0 else { return }
         targetView.frame.origin = CGPoint(x: -5, y: pointOrigin!.y + translation.y)
-        let alpha = 0.8 / ((targetView.frame.minY / targetView.frame.height) * 1) - 1
+        let alpha = 1 / ((targetView.frame.minY / targetView.frame.height) * 1) - 1
         backView.backgroundColor = UIColor(r: 0, g: 0, b: 0, alpha: alpha)
         if sender.state == .ended {
             if dragVelocity.y >= 1300 {
@@ -66,6 +66,7 @@ class FilterInteractor: FilterInteractorProtocol {
                 UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut]) { [weak self] in
                     guard let self = self else { return }
                     targetView.frame.origin = self.pointOrigin ?? CGPoint(x: -5, y: UIScreen.main.bounds.height * 0.3819)
+                    self.presenter?.animateColor()
                 }
             }
         }

@@ -12,10 +12,10 @@ class FilterView: ModalViewWithTopBorder {
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
+        layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
-        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -24,14 +24,14 @@ class FilterView: ModalViewWithTopBorder {
         let button = UIButton()
         button.setTitle("cancel", for: .normal)
         button.setTitleColor(DarkModeColors.subtitleGrey, for: .normal)
-        button.titleLabel?.font = button.titleLabel?.font.withSize(bounds.height * 0.032)
+        button.titleLabel?.font = button.titleLabel?.font.withSize(bounds.height * 0.041)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     lazy var arrowButton: UIButton = {
         let button = UIButton()
-        button.setImage(FilterIcons.arrowDown.resizedImage(targetHeight: bounds.height * 0.077), for: .normal)
+        button.setImage(FilterIcons.arrowDown.resizedImage(targetHeight: bounds.height * 0.1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -40,7 +40,7 @@ class FilterView: ModalViewWithTopBorder {
         let button = UIButton()
         button.setTitle("Filter", for: .normal)
         button.setTitleColor(DarkModeColors.white, for: .normal)
-        button.titleLabel?.font = button.titleLabel?.font.withSize(bounds.height * 0.032)
+        button.titleLabel?.font = button.titleLabel?.font.withSize(bounds.height * 0.041)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -49,7 +49,7 @@ class FilterView: ModalViewWithTopBorder {
         let mainLabel = UILabel()
         mainLabel.text = "Categories"
         mainLabel.textColor = DarkModeColors.white
-        mainLabel.font = mainLabel.font.withSize(bounds.height * 0.035)
+        mainLabel.font = mainLabel.font.withSize(bounds.height * 0.04585)
         mainLabel.textAlignment = .center
         mainLabel.translatesAutoresizingMaskIntoConstraints = false
         return mainLabel
@@ -59,7 +59,7 @@ class FilterView: ModalViewWithTopBorder {
         let subLabel = UILabel()
         subLabel.text = "General"
         subLabel.textColor = DarkModeColors.subtitleGrey
-        subLabel.font = subLabel.font.withSize(bounds.height * 0.025)
+        subLabel.font = subLabel.font.withSize(bounds.height * 0.03275)
         subLabel.textAlignment = .center
         subLabel.translatesAutoresizingMaskIntoConstraints = false
         return subLabel
@@ -84,28 +84,28 @@ class FilterView: ModalViewWithTopBorder {
         NSLayoutConstraint.activate([
             cancelButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             cancelButton.bottomAnchor.constraint(equalTo: arrowButton.bottomAnchor, constant: -5),
-            cancelButton.heightAnchor.constraint(equalToConstant: bounds.height * 0.0495),
-            cancelButton.widthAnchor.constraint(equalToConstant: bounds.height * 0.0495 * 2.913),
+            cancelButton.heightAnchor.constraint(equalToConstant: bounds.height * 0.0648),
+            cancelButton.widthAnchor.constraint(equalToConstant: bounds.height * 0.0648 * 2.913),
             
             arrowButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             arrowButton.topAnchor.constraint(equalTo: topAnchor),
-            arrowButton.widthAnchor.constraint(equalToConstant: bounds.height * 0.09),
-            arrowButton.heightAnchor.constraint(equalToConstant: bounds.height * 0.09),
+            arrowButton.widthAnchor.constraint(equalToConstant: bounds.height * 0.1179),
+            arrowButton.heightAnchor.constraint(equalToConstant: bounds.height * 0.1179),
             
             filterButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             filterButton.bottomAnchor.constraint(equalTo: arrowButton.bottomAnchor, constant: -5),
-            filterButton.heightAnchor.constraint(equalToConstant: bounds.height * 0.0495),
-            filterButton.widthAnchor.constraint(equalToConstant: bounds.height * 0.0495 * 2.913),
+            filterButton.heightAnchor.constraint(equalToConstant: bounds.height * 0.0648),
+            filterButton.widthAnchor.constraint(equalToConstant: bounds.height * 0.0648 * 2.913),
         
             mainTitleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             mainTitleLabel.topAnchor.constraint(equalTo: arrowButton.bottomAnchor),
-            mainTitleLabel.heightAnchor.constraint(equalToConstant: bounds.height * 0.0841),
-            mainTitleLabel.widthAnchor.constraint(equalToConstant: bounds.height * 0.0841 * 4.428),
+            mainTitleLabel.heightAnchor.constraint(equalToConstant: bounds.height * 0.11),
+            mainTitleLabel.widthAnchor.constraint(equalToConstant: bounds.height * 0.11 * 4.428),
             
             subTitleLabel.centerXAnchor.constraint(equalTo: mainTitleLabel.centerXAnchor),
             subTitleLabel.topAnchor.constraint(equalTo: mainTitleLabel.bottomAnchor),
-            subTitleLabel.heightAnchor.constraint(equalToConstant: bounds.height * 0.0841 * 0.3),
-            subTitleLabel.widthAnchor.constraint(equalToConstant: bounds.height * 0.0841 * 4.428),
+            subTitleLabel.heightAnchor.constraint(equalToConstant: bounds.height * 0.11 * 0.3),
+            subTitleLabel.widthAnchor.constraint(equalToConstant: bounds.height * 0.11 * 4.428),
             
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),

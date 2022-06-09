@@ -32,7 +32,7 @@ class FilterVC: UIViewController {
         let frame = CGRect(x: -5,
                            y: view.bounds.height,
                            width: view.bounds.width + 10,
-                           height: view.bounds.height * 0.8169)
+                           height: view.bounds.height * 0.6181) 
         let filter = FilterView(frame: frame)
         return filter
     }()
@@ -170,11 +170,11 @@ extension FilterVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
         interactor?.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        0
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        0
-//    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+//
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
 }

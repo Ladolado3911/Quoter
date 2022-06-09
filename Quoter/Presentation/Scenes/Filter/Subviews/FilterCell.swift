@@ -21,7 +21,6 @@ class FilterCell: UICollectionViewCell {
         label.backgroundColor = .clear
         label.textColor = DarkModeColors.white
         label.font = LibreBaskerville.styles.regular(size: 20)
-        //label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
