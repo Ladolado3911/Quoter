@@ -53,7 +53,7 @@ class FilterInteractor: FilterInteractorProtocol {
         let translation = sender.translation(in: targetView)
         guard translation.y >= 0 else { return }
         targetView.frame.origin = CGPoint(x: -5, y: pointOrigin!.y + translation.y)
-        let alpha = 1 / ((targetView.frame.minY / targetView.frame.height) * 1) - 1
+        let alpha = 1.1 / ((targetView.frame.minY / targetView.frame.height) * 1) - 1
         backView.backgroundColor = UIColor(r: 0, g: 0, b: 0, alpha: alpha)
         if sender.state == .ended {
             if dragVelocity.y >= 1300 {
@@ -151,7 +151,7 @@ class FilterInteractor: FilterInteractorProtocol {
         ]
         let stringSize = categories[indexPath.item].size(withAttributes: attributes)
         let cellSize = CGSize(width: stringSize.width * 2.157,
-                              height: stringSize.height * 3.92)
+                              height: stringSize.height * 3)
         return cellSize
     }
 

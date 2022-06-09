@@ -15,7 +15,7 @@ class FilterView: ModalViewWithTopBorder {
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
-        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = true
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -107,9 +107,9 @@ class FilterView: ModalViewWithTopBorder {
             subTitleLabel.heightAnchor.constraint(equalToConstant: bounds.height * 0.11 * 0.3),
             subTitleLabel.widthAnchor.constraint(equalToConstant: bounds.height * 0.11 * 4.428),
             
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
-            collectionView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 15),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
