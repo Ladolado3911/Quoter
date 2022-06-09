@@ -75,6 +75,7 @@
 		24D86367280C0FDC0060760A /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 24D86363280C0FDC0060760A /* OFL.txt */; };
 		24D86368280C0FDC0060760A /* LibreBaskerville-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24D86364280C0FDC0060760A /* LibreBaskerville-Bold.ttf */; };
 		24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 24DEBF4527ABB1D400C40B29 /* Lottie */; };
+		24EF3BC32851D4A800789F0E /* FilterIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EF3BC22851D4A800789F0E /* FilterIcons.swift */; };
 		24F40214280DA33B007DF059 /* typodermic-eula-03-2020.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 24F40212280DA33B007DF059 /* typodermic-eula-03-2020.pdf */; };
 		24F40215280DA33B007DF059 /* goodtimesrg.otf in Resources */ = {isa = PBXBuildFile; fileRef = 24F40213280DA33B007DF059 /* goodtimesrg.otf */; };
 /* End PBXBuildFile section */
@@ -162,6 +163,7 @@
 		24D86362280C0FDC0060760A /* LibreBaskerville-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LibreBaskerville-Regular.ttf"; sourceTree = "<group>"; };
 		24D86363280C0FDC0060760A /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		24D86364280C0FDC0060760A /* LibreBaskerville-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LibreBaskerville-Bold.ttf"; sourceTree = "<group>"; };
+		24EF3BC22851D4A800789F0E /* FilterIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterIcons.swift; sourceTree = "<group>"; };
 		24F40212280DA33B007DF059 /* typodermic-eula-03-2020.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "typodermic-eula-03-2020.pdf"; sourceTree = "<group>"; };
 		24F40213280DA33B007DF059 /* goodtimesrg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = goodtimesrg.otf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -350,6 +352,7 @@
 				2470F658284E322800B6124D /* FilterInteractor.swift */,
 				2470F65A284E328400B6124D /* FilterPresenter.swift */,
 				2470F65C284E32DD00B6124D /* FilterRouter.swift */,
+				24EF3BC12851D49500789F0E /* Support */,
 				248C54152850E7180080FBBE /* Subviews */,
 			);
 			path = Filter;
@@ -509,6 +512,14 @@
 				24D86364280C0FDC0060760A /* LibreBaskerville-Bold.ttf */,
 			);
 			path = Libre_Baskerville;
+			sourceTree = "<group>";
+		};
+		24EF3BC12851D49500789F0E /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				24EF3BC22851D4A800789F0E /* FilterIcons.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		24F40211280DA33B007DF059 /* good-times */ = {
@@ -706,6 +717,7 @@
 				24138A292805AC7300044F5E /* Colors.swift in Sources */,
 				246B828F28311DBB00D44DF5 /* QuotieEndpoint.swift in Sources */,
 				246B8298283121A600D44DF5 /* ExploreNetworkWorker.swift in Sources */,
+				24EF3BC32851D4A800789F0E /* FilterIcons.swift in Sources */,
 				24D5BC272806C2C0003D14CD /* BaseVC.swift in Sources */,
 				24138A1C2805726200044F5E /* MenuView.swift in Sources */,
 				24D5BC292806FA7A003D14CD /* MenuCell.swift in Sources */,

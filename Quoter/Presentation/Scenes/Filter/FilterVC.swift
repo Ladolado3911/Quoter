@@ -63,6 +63,7 @@ class FilterVC: UIViewController {
         super.viewWillAppear(animated)
         filterView.addGestureRecognizer(panGesture)
         view.addGestureRecognizer(tapGesture)
+        addTargets()
         
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -82,6 +83,14 @@ class FilterVC: UIViewController {
     @objc func panFunc(sender: UIPanGestureRecognizer) {
         interactor?.panFunc(sender: sender, targetView: filterView)
     }
+    
+    @objc func cancelButton(sender: UIButton) {
+        interactor?.animatedDismiss()
+    }
+    
+    @objc func arrowDownButton(sender: UIButton) {
+        interactor?.animatedDismiss()
+    }
 
     private func setup() {
         let vc = self
@@ -100,6 +109,11 @@ class FilterVC: UIViewController {
     private func buildSubviews() {
         view.addSubview(filterView)
         view.bringSubviewToFront(filterView)
+    }
+    
+    private func addTargets() {
+        filterView.cancelButton.addTarget(self, action: #selector(cancelButton(sender:)), for: .touchUpInside)
+        filterView.arrowButton.addTarget(self, action: #selector(arrowDownButton(sender:)), for: .touchUpInside)
     }
     
     private func showView(backView: UIView) {
@@ -130,7 +144,7 @@ extension FilterVC: FilterVCProtocol {
     }
     
     func animateColor() {
-        view.backgroundColor = UIColor(r: 0, g: 0, b: 0, alpha: 0.5)
+        view.backgroundColor = UIColor(r: 0, g: 0, b: 0, alpha: 0.8)
     }
     
     func dismiss() {

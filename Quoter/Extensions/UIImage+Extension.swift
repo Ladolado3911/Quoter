@@ -27,4 +27,8 @@ extension UIImage {
         return newImage!
     }
     
+    func coloredSVG(color: UIColor) -> UIImage {
+        withRenderingMode(.alwaysTemplate)
+        return withTintColor(color)
+    }
 }

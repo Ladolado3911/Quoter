@@ -41,7 +41,7 @@ class ExploreView: UIView {
     lazy var filterButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("General", for: .normal)
+        button.setTitle("Politicians", for: .normal)
         button.setTitleColor(DarkModeColors.white, for: .normal)
         button.backgroundColor = DarkModeColors.black
         button.layer.borderWidth = 1
@@ -88,8 +88,8 @@ class ExploreView: UIView {
             
             filterButton.trailingAnchor.constraint(equalTo: downloadQuotePictureButton.leadingAnchor, constant: -Constants.screenHeight * 0.01),
             filterButton.centerYAnchor.constraint(equalTo: downloadQuotePictureButton.centerYAnchor),
-            filterButton.heightAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 0.5),
-            filterButton.widthAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 2.5)
+            filterButton.heightAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 0.6),
+            filterButton.widthAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 2)
         
         ])
         filterButton.layer.cornerRadius = filterButton.bounds.height * 0.4347

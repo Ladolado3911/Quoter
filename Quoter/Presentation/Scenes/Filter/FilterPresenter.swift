@@ -35,7 +35,7 @@ class FilterPresenter: FilterPresenterProtocol {
     func animateMovement(direction: MovementDirection) {
         switch direction {
         case .up:
-            vc?.animate(to: CGPoint(x: -5, y: Constants.screenHeight * 0.1831))
+            vc?.animate(to: CGPoint(x: -5, y: Constants.screenHeight * 0.3819))
         case .down:
             vc?.animate(to: CGPoint(x: -5, y: Constants.screenHeight))
         }

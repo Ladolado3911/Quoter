@@ -15,6 +15,7 @@ class FilterView: ModalViewWithTopBorder {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.alignment = .center
         collectionView.verticalSpacing = 20
         collectionView.horizontalSpacing = 10
@@ -25,22 +26,28 @@ class FilterView: ModalViewWithTopBorder {
         return collectionView
     }()
     
-    let cancelButton: UIButton = {
+    lazy var cancelButton: UIButton = {
         let button = UIButton()
         button.setTitle("cancel", for: .normal)
-        button.setTitleColor(DarkModeColors.white, for: .normal)
+        button.setTitleColor(DarkModeColors.subtitleGrey, for: .normal)
+        button.titleLabel?.font = button.titleLabel?.font.withSize(bounds.height * 0.032)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    let arrowButton: UIButton = {
+    lazy var arrowButton: UIButton = {
         let button = UIButton()
+        button.setImage(FilterIcons.arrowDown.resizedImage(targetHeight: bounds.height * 0.077), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    let filterButton: UIButton = {
+    lazy var filterButton: UIButton = {
         let button = UIButton()
         button.setTitle("Filter", for: .normal)
         button.setTitleColor(DarkModeColors.white, for: .normal)
+        button.titleLabel?.font = button.titleLabel?.font.withSize(bounds.height * 0.032)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -48,6 +55,7 @@ class FilterView: ModalViewWithTopBorder {
         let mainLabel = UILabel()
         mainLabel.text = "Categories"
         mainLabel.textColor = DarkModeColors.white
+        mainLabel.translatesAutoresizingMaskIntoConstraints = false
         return mainLabel
     }()
     
@@ -55,6 +63,7 @@ class FilterView: ModalViewWithTopBorder {
         let subLabel = UILabel()
         subLabel.text = "General"
         subLabel.textColor = DarkModeColors.subtitleGrey
+        subLabel.translatesAutoresizingMaskIntoConstraints = false
         return subLabel
     }()
     
@@ -68,12 +77,28 @@ class FilterView: ModalViewWithTopBorder {
         addSubview(cancelButton)
         addSubview(arrowButton)
         addSubview(filterButton)
-        addSubview(mainTitleLabel)
-        addSubview(subTitleLabel)
-        addSubview(collectionView)
+//        addSubview(mainTitleLabel)
+//        addSubview(subTitleLabel)
+//        addSubview(collectionView)
     }
     
     private func buildConstraints() {
+        NSLayoutConstraint.activate([
+            cancelButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            cancelButton.bottomAnchor.constraint(equalTo: arrowButton.bottomAnchor, constant: -5),
+            cancelButton.heightAnchor.constraint(equalToConstant: bounds.height * 0.0495),
+            cancelButton.widthAnchor.constraint(equalToConstant: bounds.height * 0.0495 * 2.913),
+            
+            arrowButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            arrowButton.topAnchor.constraint(equalTo: topAnchor),
+            arrowButton.widthAnchor.constraint(equalToConstant: bounds.height * 0.09),
+            arrowButton.heightAnchor.constraint(equalToConstant: bounds.height * 0.09),
+            
+            filterButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            filterButton.bottomAnchor.constraint(equalTo: arrowButton.bottomAnchor, constant: -5),
+            filterButton.heightAnchor.constraint(equalToConstant: bounds.height * 0.0495),
+            filterButton.widthAnchor.constraint(equalToConstant: bounds.height * 0.0495 * 2.913),
         
+        ])
     }
 }
