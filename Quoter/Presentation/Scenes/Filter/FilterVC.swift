@@ -77,8 +77,14 @@ class FilterVC: UIViewController {
     }
     
     private func configCollectionView() {
+        if let layout = filterView.collectionView.collectionViewLayout as? FilterLayout {
+            layout.dataSource = self
+            layout.delegate = self
+        }
+
+        
         filterView.collectionView.dataSource = self
-        filterView.collectionView.delegate = self
+//        filterView.collectionView.delegate = self
         filterView.collectionView.register(FilterCell.self, forCellWithReuseIdentifier: "filterCell")
     }
     
@@ -153,32 +159,57 @@ extension FilterVC: FilterVCProtocol {
     }
 }
 
+extension FilterVC: FilterLayoutDataSource, FilterLayoutDelegate {
+
+    func heightOfAllItems() -> CGFloat {
+        interactor?.heightOfAllItems() ?? 0
+    }
+
+//    func numOfItems() -> Int {
+//        //interactor?.numOfItems() ?? 0
+//    }
+
+    func horizontalSpacing() -> CGFloat {
+        10
+    }
+
+    func verticalSpacing() -> CGFloat {
+        10
+    }
+
+    func widthForItem(indexPath: IndexPath) -> CGFloat {
+        interactor?.widthForItem(indexPath: indexPath) ?? 0
+    }
+
+
+}
+//
 extension FilterVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         interactor?.collectionView(collectionView, numberOfItemsInSection: section) ?? 0
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         interactor?.collectionView(collectionView, cellForItemAt: indexPath) ?? UICollectionViewCell()
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        interactor?.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        interactor?.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        10
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        10
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-    }
 }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        interactor?.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        interactor?.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        10
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        10
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+//    }
+//}

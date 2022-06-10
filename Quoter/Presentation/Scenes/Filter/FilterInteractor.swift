@@ -23,6 +23,10 @@ protocol FilterInteractorProtocol {
     func showView(targetView: FilterView, backView: UIView)
     func hideView()
     
+    func widthForItem(indexPath: IndexPath) -> CGFloat
+    //func numOfItems() -> Int
+    func heightOfAllItems() -> CGFloat
+    
     //MARK: Collection view delegate functions
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -153,6 +157,26 @@ class FilterInteractor: FilterInteractorProtocol {
         let cellSize = CGSize(width: stringSize.width * 2.157,
                               height: stringSize.height * 3)
         return cellSize
+    }
+    
+    func widthForItem(indexPath: IndexPath) -> CGFloat {
+        let attributes = [
+            NSAttributedString.Key.font: LibreBaskerville.styles.regular(size: 20)
+        ]
+        let stringSize = categories[indexPath.item].size(withAttributes: attributes)
+        let cellSize = CGSize(width: stringSize.width * 2.157,
+                              height: stringSize.height * 3)
+        return cellSize.width
+    }
+    
+//    func numOfItems() -> Int {
+//        categories.count
+//    }
+    
+    func heightOfAllItems() -> CGFloat {
+        let stringHeight: CGFloat = 30
+        let cellHeight = stringHeight * 3
+        return cellHeight
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

@@ -11,8 +11,8 @@ import TTGTags
 class FilterView: ModalViewWithTopBorder {
     
     lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
+        let layout = FilterLayout()
+        //layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = true
@@ -109,8 +109,8 @@ class FilterView: ModalViewWithTopBorder {
             
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 10),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
         ])
     }
 }
