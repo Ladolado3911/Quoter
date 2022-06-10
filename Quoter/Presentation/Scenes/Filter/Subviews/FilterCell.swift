@@ -9,8 +9,10 @@ import UIKit
 
 class FilterCell: UICollectionViewCell {
     
-    let iconImageView: UIImageView = {
+    lazy var iconImageView: UIImageView = {
         let imgView = UIImageView()
+        imgView.layer.cornerRadius = bounds.height * 0.2941
+        imgView.contentMode = .scaleAspectFit
         imgView.translatesAutoresizingMaskIntoConstraints = false
         return imgView
     }()
@@ -20,10 +22,27 @@ class FilterCell: UICollectionViewCell {
         label.textAlignment = .center
         label.backgroundColor = .clear
         label.textColor = DarkModeColors.white
-        label.font = LibreBaskerville.styles.regular(size: 20)
+        label.font = label.font.withSize(20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    var state: State = .off {
+        didSet {
+            if oldValue != state {
+                if state == .on {
+                    iconImageView.image = iconImageView.image?.coloredSVG(color: DarkModeColors.black)
+                    titleLabel.textColor = DarkModeColors.black
+                    backgroundColor = DarkModeColors.white
+                }
+                else {
+                    iconImageView.image = iconImageView.image?.coloredSVG(color: DarkModeColors.white)
+                    titleLabel.textColor = DarkModeColors.white
+                    backgroundColor = DarkModeColors.lightBlack
+                }
+            }
+        }
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -38,16 +57,21 @@ class FilterCell: UICollectionViewCell {
     }
     
     func buildSubviews() {
-        //addSubview(iconImageView)
+        addSubview(iconImageView)
         addSubview(titleLabel)
     }
     
     func buildConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            iconImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            iconImageView.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -5),
+            
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor),
         ])
     }
 }

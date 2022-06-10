@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum State {
+    case on
+    case off
+}
+
 protocol FilterInteractorProtocol {
     var presenter: FilterPresenterProtocol? { get set }
     var filterNetworkWorker: FilterNetworkWorkerProtocol? { get set }
@@ -15,6 +20,7 @@ protocol FilterInteractorProtocol {
     var pointOrigin: CGPoint? { get set }
     var backAlphaOrigin: CGFloat? { get set }
     var categories: [String] { get set }
+    var states: [State] { get set }
     
     func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView)
     func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView, backView: UIView, minY: CGFloat, dragVelocity: CGPoint)
@@ -24,14 +30,14 @@ protocol FilterInteractorProtocol {
     func hideView()
     
     func widthForItem(indexPath: IndexPath) -> CGFloat
-    //func numOfItems() -> Int
-    func heightOfAllItems() -> CGFloat
+    func heightOfAllItems(collectionView: UICollectionView) -> CGFloat
     
     //MARK: Collection view delegate functions
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     
     //MARK: Networking
     func getCategories()
@@ -48,6 +54,7 @@ class FilterInteractor: FilterInteractorProtocol {
     var backAlphaOrigin: CGFloat?
     
     var categories: [String] = []
+    var states: [State] = Array(repeating: .off, count: FilterCategories.allCases.count)
     
     func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView) {
         presenter?.panFunc(sender: sender, targetView: targetView)
@@ -114,27 +121,8 @@ class FilterInteractor: FilterInteractorProtocol {
     }
     
     func getCategories() {
-        guard let filterNetworkWorker = filterNetworkWorker else {
-            return
-        }
-        
-        Task.init { [weak self] in
-            var categories: [String] = []
-            guard let self = self else { return }
-            do {
-                categories = try await filterNetworkWorker.getCategories().map { $0.mainCategoryEnum }
-                await MainActor.run { [categories] in
-                    self.categories = categories
-                    self.presenter?.reloadCollectionViewData()
-                }
-            }
-            catch {
-                await MainActor.run { [categories] in
-                    self.categories = categories
-                    self.presenter?.reloadCollectionViewData()
-                }
-            }
-        }
+        self.categories = FilterCategories.allCases.map { $0.rawValue }
+        self.presenter?.reloadCollectionViewData()
     }
 
     func hideView() {
@@ -164,27 +152,36 @@ class FilterInteractor: FilterInteractorProtocol {
             NSAttributedString.Key.font: LibreBaskerville.styles.regular(size: 20)
         ]
         let stringSize = categories[indexPath.item].size(withAttributes: attributes)
-        let cellSize = CGSize(width: stringSize.width * 2.157,
+        guard let consequentIcon = categories[indexPath.item].getNeededIcon() else { return stringSize.width * 1.8 }
+        let cellSize = CGSize(width: stringSize.width * 1.8 + consequentIcon.size.width,
                               height: stringSize.height * 3)
         return cellSize.width
     }
     
-//    func numOfItems() -> Int {
-//        categories.count
-//    }
-    
-    func heightOfAllItems() -> CGFloat {
-        let stringHeight: CGFloat = 30
-        let cellHeight = stringHeight * 3
-        return cellHeight
+    func heightOfAllItems(collectionView: UICollectionView) -> CGFloat {
+        Constants.screenHeight * 0.08978873
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? FilterCell {
             cell.buildSubviews()
             cell.buildConstraints()
-            cell.titleLabel.text = categories[indexPath.item]
+            let item = categories[indexPath.item]
+            cell.titleLabel.text = item
+            cell.iconImageView.image = item.getNeededIcon()
+            cell.state = states[indexPath.item]
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = states[indexPath.item]
+        switch item {
+        case .on:
+            states[indexPath.item] = .off
+        case .off:
+            states[indexPath.item] = .on
+        }
+        collectionView.reloadItems(at: [indexPath])
+    }
 }
+

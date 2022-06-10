@@ -12,8 +12,11 @@ class FilterView: ModalViewWithTopBorder {
     
     lazy var collectionView: UICollectionView = {
         let layout = FilterLayout()
+        layout.scrollDirection = .horizontal
         //layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.allowsSelection = true
+        collectionView.isUserInteractionEnabled = true
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = true
         collectionView.translatesAutoresizingMaskIntoConstraints = false

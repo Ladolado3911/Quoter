@@ -10,7 +10,7 @@ import UIKit
 final class FilterIcons {
     
     static let defaultIcon = UIImage(named: "uncheck")!
-    static let richIcon = UIImage(named: "richIcon") ?? defaultIcon
+    static let billionairesIcon = UIImage(named: "billionairesIcon") ?? defaultIcon
     static let actorIcon = UIImage(named: "actorIcon") ?? defaultIcon
     static let politicIcon = UIImage(named: "politicIcon") ?? defaultIcon
     static let writeIcon = UIImage(named: "writeIcon") ?? defaultIcon

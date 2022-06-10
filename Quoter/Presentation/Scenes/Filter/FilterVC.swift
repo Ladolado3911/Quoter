@@ -37,13 +37,22 @@ class FilterVC: UIViewController {
         return filter
     }()
     
+    let dimmingView: UIView = {
+        let dimming = UIView()
+        dimming.backgroundColor = .clear
+        dimming.translatesAutoresizingMaskIntoConstraints = false
+        return dimming
+    }()
+    
     lazy var panGesture: UIPanGestureRecognizer = {
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panFunc(sender:)))
+        gesture.delegate = self
         return gesture
     }()
     
     lazy var tapGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(tapFunc(sender:)))
+        gesture.delegate = self
         return gesture
     }()
 
@@ -65,9 +74,11 @@ class FilterVC: UIViewController {
         super.viewDidLoad()
         configCollectionView()
         filterView.addGestureRecognizer(panGesture)
-        view.addGestureRecognizer(tapGesture)
+        dimmingView.addGestureRecognizer(tapGesture)
+        //view.addGestureRecognizer(tapGesture)
         addTargets()
         buildSubviews()
+        buildConstraints()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -84,7 +95,7 @@ class FilterVC: UIViewController {
 
         
         filterView.collectionView.dataSource = self
-//        filterView.collectionView.delegate = self
+        filterView.collectionView.delegate = self
         filterView.collectionView.register(FilterCell.self, forCellWithReuseIdentifier: "filterCell")
     }
     
@@ -120,7 +131,18 @@ class FilterVC: UIViewController {
     
     private func buildSubviews() {
         view.addSubview(filterView)
+        view.addSubview(dimmingView)
         view.bringSubviewToFront(filterView)
+        view.bringSubviewToFront(dimmingView)
+    }
+    
+    private func buildConstraints() {
+        NSLayoutConstraint.activate([
+            dimmingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dimmingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dimmingView.topAnchor.constraint(equalTo: view.topAnchor),
+            dimmingView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.3819)
+        ])
     }
     
     private func addTargets() {
@@ -161,20 +183,19 @@ extension FilterVC: FilterVCProtocol {
 
 extension FilterVC: FilterLayoutDataSource, FilterLayoutDelegate {
 
-    func heightOfAllItems() -> CGFloat {
-        interactor?.heightOfAllItems() ?? 0
+    func heightOfAllItems(collectionView: UICollectionView) -> CGFloat {
+        interactor?.heightOfAllItems(collectionView: collectionView) ?? 0
     }
-
-//    func numOfItems() -> Int {
-//        //interactor?.numOfItems() ?? 0
-//    }
 
     func horizontalSpacing() -> CGFloat {
-        10
+        15
     }
 
-    func verticalSpacing() -> CGFloat {
-        10
+    func verticalSpacing(collectionView: UICollectionView) -> CGFloat {
+        let height = collectionView.bounds.height
+        let itemHeight = interactor?.heightOfAllItems(collectionView: collectionView) ?? 0
+        let numOfRows = (height / itemHeight).rounded(.down)
+        return (height - (numOfRows * itemHeight)) / (numOfRows - 1)
     }
 
     func widthForItem(indexPath: IndexPath) -> CGFloat {
@@ -183,7 +204,7 @@ extension FilterVC: FilterLayoutDataSource, FilterLayoutDelegate {
 
 
 }
-//
+
 extension FilterVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         interactor?.collectionView(collectionView, numberOfItemsInSection: section) ?? 0
@@ -192,24 +213,17 @@ extension FilterVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         interactor?.collectionView(collectionView, cellForItemAt: indexPath) ?? UICollectionViewCell()
     }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        interactor?.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        interactor?.collectionView(collectionView, didSelectItemAt: indexPath)
+    }
 }
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        interactor?.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        interactor?.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        10
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        10
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-//    }
-//}
+
+extension FilterVC: UIGestureRecognizerDelegate {
+    
+}
