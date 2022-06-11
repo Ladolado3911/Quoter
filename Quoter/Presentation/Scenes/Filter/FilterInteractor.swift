@@ -26,9 +26,9 @@ protocol FilterInteractorProtocol {
     func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView)
     func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView, backView: UIView, minY: CGFloat, dragVelocity: CGPoint)
     func tapFunc(sender: UITapGestureRecognizer, targetView: UIView)
-    func animatedDismiss()
+    func animatedDismiss(delegate: FilterToExploreProtocol?)
     func showView(targetView: FilterView, backView: UIView)
-    func hideView()
+    //func hideView()
     
     func widthForItem(indexPath: IndexPath) -> CGFloat
     func heightOfAllItems(collectionView: UICollectionView) -> CGFloat
@@ -80,10 +80,10 @@ class FilterInteractor: FilterInteractorProtocol {
         backView.backgroundColor = UIColor(r: 0, g: 0, b: 0, alpha: alpha)
         if sender.state == .ended {
             if dragVelocity.y >= 1300 {
-                animatedDismiss()
+                animatedDismiss(delegate: nil)
             }
             else if minY >= Constants.screenHeight * 0.7  {
-                animatedDismiss()
+                animatedDismiss(delegate: nil)
             }
             else {
                 UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut]) { [weak self] in
@@ -97,17 +97,20 @@ class FilterInteractor: FilterInteractorProtocol {
     
     func tapFunc(sender: UITapGestureRecognizer, targetView: UIView) {
         if sender.location(in: targetView).y < Constants.screenHeight * 0.3819 {
-            animatedDismiss()
+            animatedDismiss(delegate: nil)
         }
     }
     
-    func animatedDismiss() {
+    func animatedDismiss(delegate: FilterToExploreProtocol?) {
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut]) { [weak self] in
             guard let self = self else { return }
             self.presenter?.animateMovement(direction: .down)
         } completion: { [weak self] didFinish in
             guard let self = self else { return }
             if didFinish {
+                if let delegate = delegate {
+                    delegate.sendBackGenre(genre: self.currentChosenCategory)
+                }
                 self.presenter?.dismiss()
             }
         }
@@ -137,9 +140,9 @@ class FilterInteractor: FilterInteractorProtocol {
         self.presenter?.reloadCollectionViewData()
     }
 
-    func hideView() {
-        animatedDismiss()
-    }
+//    func hideView() {
+//        animatedDismiss()
+//    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         categories.count

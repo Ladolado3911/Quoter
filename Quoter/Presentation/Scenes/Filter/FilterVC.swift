@@ -8,9 +8,14 @@
 import UIKit
 import TTGTags
 
+protocol FilterToExploreProtocol {
+    func sendBackGenre(genre: String)
+}
+
 protocol FilterVCProtocol {
     var interactor: FilterInteractorProtocol? { get set }
     var router: FilterRouterProtocol? { get set }
+    var filterToExploreDelegate: FilterToExploreProtocol? { get set }
     
     func panFunc(sender: UIPanGestureRecognizer,
                  targetView: FilterView,
@@ -29,6 +34,7 @@ protocol FilterVCProtocol {
 class FilterVC: UIViewController {
     var interactor: FilterInteractorProtocol?
     var router: FilterRouterProtocol?
+    var filterToExploreDelegate: FilterToExploreProtocol?
     
     lazy var filterView: FilterView = {
         let frame = CGRect(x: -5,
@@ -105,11 +111,15 @@ class FilterVC: UIViewController {
     }
     
     @objc func cancelButton(sender: UIButton) {
-        interactor?.animatedDismiss()
+        interactor?.animatedDismiss(delegate: nil)
     }
     
     @objc func arrowDownButton(sender: UIButton) {
-        interactor?.animatedDismiss()
+        interactor?.animatedDismiss(delegate: nil)
+    }
+    
+    @objc func onFilterButton(sender: UIButton) {
+        interactor?.animatedDismiss(delegate: filterToExploreDelegate)
     }
 
     private func setup() {
@@ -145,6 +155,7 @@ class FilterVC: UIViewController {
     private func addTargets() {
         filterView.cancelButton.addTarget(self, action: #selector(cancelButton(sender:)), for: .touchUpInside)
         filterView.arrowButton.addTarget(self, action: #selector(arrowDownButton(sender:)), for: .touchUpInside)
+        filterView.filterButton.addTarget(self, action: #selector(onFilterButton(sender:)), for: .touchUpInside)
     }
 }
 
@@ -189,13 +200,6 @@ extension FilterVC: FilterLayoutDataSource, FilterLayoutDelegate {
     }
 
     func verticalSpacing(collectionView: UICollectionView) -> CGFloat {
-//        let height = collectionView.bounds.height
-//        let itemHeight = interactor?.heightOfAllItems(collectionView: collectionView) ?? 0
-//        let numOfRows = (height / itemHeight).rounded(.down)
-//        print(height)
-//        print(itemHeight)
-//        print(numOfRows)
-//        return ((height - (numOfRows * itemHeight)) / (numOfRows - 1)) * 2
         Constants.screenWidth * 0.046875
     }
 
@@ -206,8 +210,6 @@ extension FilterVC: FilterLayoutDataSource, FilterLayoutDelegate {
     func setCurrentGenreToLabel(genre: String) {
         filterView.subTitleLabel.text = genre
     }
-
-
 }
 
 extension FilterVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -224,7 +226,6 @@ extension FilterVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         interactor?.collectionView(collectionView, didSelectItemAt: indexPath)
     }
 }

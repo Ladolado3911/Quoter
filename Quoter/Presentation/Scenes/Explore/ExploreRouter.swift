@@ -22,6 +22,7 @@ class ExploreRouter: ExploreRouterProtocol {
         if let vc = vc {
             filterVC.modalPresentationStyle = .custom
             filterVC.modalTransitionStyle = .crossDissolve
+            filterVC.filterToExploreDelegate = vc
             vc.present(filterVC, animated: false)
         }
     }
