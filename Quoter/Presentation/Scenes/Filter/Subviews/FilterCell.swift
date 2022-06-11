@@ -29,15 +29,18 @@ class FilterCell: UICollectionViewCell {
     
     var state: State = .off {
         didSet {
-            if oldValue != state {
-                if state == .on {
-                    iconImageView.image = iconImageView.image?.coloredSVG(color: DarkModeColors.black)
-                    titleLabel.textColor = DarkModeColors.black
-                    backgroundColor = DarkModeColors.white
-                }
-                else {
-                    iconImageView.image = iconImageView.image?.coloredSVG(color: DarkModeColors.white)
-                    titleLabel.textColor = DarkModeColors.white
+            if state == .on {
+                iconImageView.image = iconImageView.image?.coloredSVG(color: DarkModeColors.black)
+                titleLabel.textColor = DarkModeColors.black
+                backgroundColor = DarkModeColors.white
+            }
+            else {
+                iconImageView.image = iconImageView.image?.coloredSVG(color: DarkModeColors.white)
+                titleLabel.textColor = DarkModeColors.white
+                backgroundColor = DarkModeColors.lightBlack
+            }
+            if oldValue == state {
+                if state == .off {
                     backgroundColor = DarkModeColors.lightBlack
                 }
             }
@@ -46,7 +49,7 @@ class FilterCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        backgroundColor = DarkModeColors.lightBlack
+//        backgroundColor = DarkModeColors.lightBlack
         layer.cornerRadius = bounds.height * 0.2941
         layer.applySketchShadow(color: DarkModeColors.black,
                                 alpha: 0.7,

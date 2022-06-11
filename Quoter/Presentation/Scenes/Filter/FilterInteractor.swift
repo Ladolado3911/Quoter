@@ -181,7 +181,15 @@ class FilterInteractor: FilterInteractorProtocol {
         case .off:
             states[indexPath.item] = .on
         }
-        collectionView.reloadItems(at: [indexPath])
+        var otherIndexPaths: [IndexPath] = []
+        for stateIndex in 0..<states.count {
+            if stateIndex != indexPath.item {
+                states[stateIndex] = .off
+                let otherIndexPath = IndexPath(item: stateIndex, section: 0)
+                otherIndexPaths.append(otherIndexPath)
+            }
+        }
+        collectionView.reloadData()
     }
 }
 
