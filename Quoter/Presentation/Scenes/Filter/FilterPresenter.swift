@@ -19,6 +19,8 @@ protocol FilterPresenterProtocol {
     
     func reloadCollectionViewData()
     
+    func setCurrentGenreToLabel(genre: String)
+    
 }
 
 class FilterPresenter: FilterPresenterProtocol {
@@ -53,6 +55,10 @@ class FilterPresenter: FilterPresenterProtocol {
     
     func reloadCollectionViewData() {
         vc?.reloadCollectionViewData()
+    }
+    
+    func setCurrentGenreToLabel(genre: String) {
+        vc?.setCurrentGenreToLabel(genre: genre)
     }
 
 }

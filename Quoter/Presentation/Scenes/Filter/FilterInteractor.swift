@@ -21,6 +21,7 @@ protocol FilterInteractorProtocol {
     var backAlphaOrigin: CGFloat? { get set }
     var categories: [String] { get set }
     var states: [State] { get set }
+    var currentChosenCategory: String { get set }
     
     func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView)
     func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView, backView: UIView, minY: CGFloat, dragVelocity: CGPoint)
@@ -54,7 +55,18 @@ class FilterInteractor: FilterInteractorProtocol {
     var backAlphaOrigin: CGFloat?
     
     var categories: [String] = []
-    var states: [State] = Array(repeating: .off, count: FilterCategories.allCases.count)
+    var states: [State] = Array(repeating: .off, count: FilterCategories.allCases.count) {
+        didSet {
+            if !states.contains(.on) {
+                currentChosenCategory = "General"
+            }
+        }
+    }
+    var currentChosenCategory: String = "General" {
+        didSet {
+            presenter?.setCurrentGenreToLabel(genre: currentChosenCategory)
+        }
+    }
     
     func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView) {
         presenter?.panFunc(sender: sender, targetView: targetView)
@@ -181,6 +193,7 @@ class FilterInteractor: FilterInteractorProtocol {
         case .off:
             states[indexPath.item] = .on
         }
+        currentChosenCategory = categories[indexPath.item].capitalized
         var otherIndexPaths: [IndexPath] = []
         for stateIndex in 0..<states.count {
             if stateIndex != indexPath.item {

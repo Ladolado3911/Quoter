@@ -22,6 +22,8 @@ protocol FilterVCProtocol {
     func dismiss()
     
     func reloadCollectionViewData()
+    
+    func setCurrentGenreToLabel(genre: String)
 }
 
 class FilterVC: UIViewController {
@@ -199,6 +201,10 @@ extension FilterVC: FilterLayoutDataSource, FilterLayoutDelegate {
 
     func widthForItem(indexPath: IndexPath) -> CGFloat {
         interactor?.widthForItem(indexPath: indexPath) ?? 0
+    }
+    
+    func setCurrentGenreToLabel(genre: String) {
+        filterView.subTitleLabel.text = genre
     }
 
 
