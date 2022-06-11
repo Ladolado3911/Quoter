@@ -46,13 +46,11 @@ class FilterVC: UIViewController {
     
     lazy var panGesture: UIPanGestureRecognizer = {
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panFunc(sender:)))
-        gesture.delegate = self
         return gesture
     }()
     
     lazy var tapGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(tapFunc(sender:)))
-        gesture.delegate = self
         return gesture
     }()
 
@@ -75,7 +73,6 @@ class FilterVC: UIViewController {
         configCollectionView()
         filterView.addGestureRecognizer(panGesture)
         dimmingView.addGestureRecognizer(tapGesture)
-        //view.addGestureRecognizer(tapGesture)
         addTargets()
         buildSubviews()
         buildConstraints()
@@ -92,8 +89,6 @@ class FilterVC: UIViewController {
             layout.dataSource = self
             layout.delegate = self
         }
-
-        
         filterView.collectionView.dataSource = self
         filterView.collectionView.delegate = self
         filterView.collectionView.register(FilterCell.self, forCellWithReuseIdentifier: "filterCell")
@@ -188,14 +183,18 @@ extension FilterVC: FilterLayoutDataSource, FilterLayoutDelegate {
     }
 
     func horizontalSpacing() -> CGFloat {
-        15
+        Constants.screenWidth * 0.046875
     }
 
     func verticalSpacing(collectionView: UICollectionView) -> CGFloat {
-        let height = collectionView.bounds.height
-        let itemHeight = interactor?.heightOfAllItems(collectionView: collectionView) ?? 0
-        let numOfRows = (height / itemHeight).rounded(.down)
-        return (height - (numOfRows * itemHeight)) / (numOfRows - 1)
+//        let height = collectionView.bounds.height
+//        let itemHeight = interactor?.heightOfAllItems(collectionView: collectionView) ?? 0
+//        let numOfRows = (height / itemHeight).rounded(.down)
+//        print(height)
+//        print(itemHeight)
+//        print(numOfRows)
+//        return ((height - (numOfRows * itemHeight)) / (numOfRows - 1)) * 2
+        Constants.screenWidth * 0.046875
     }
 
     func widthForItem(indexPath: IndexPath) -> CGFloat {
@@ -222,8 +221,4 @@ extension FilterVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
         
         interactor?.collectionView(collectionView, didSelectItemAt: indexPath)
     }
-}
-
-extension FilterVC: UIGestureRecognizerDelegate {
-    
 }

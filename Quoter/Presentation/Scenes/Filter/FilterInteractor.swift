@@ -153,13 +153,13 @@ class FilterInteractor: FilterInteractorProtocol {
         ]
         let stringSize = categories[indexPath.item].size(withAttributes: attributes)
         guard let consequentIcon = categories[indexPath.item].getNeededIcon() else { return stringSize.width * 1.8 }
-        let cellSize = CGSize(width: stringSize.width * 1.8 + consequentIcon.size.width,
+        let cellSize = CGSize(width: stringSize.width * 1.375 + consequentIcon.size.width * 1.375,
                               height: stringSize.height * 3)
         return cellSize.width
     }
     
     func heightOfAllItems(collectionView: UICollectionView) -> CGFloat {
-        Constants.screenHeight * 0.08978873
+        Constants.screenHeight * 0.0686619
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -167,8 +167,8 @@ class FilterInteractor: FilterInteractorProtocol {
             cell.buildSubviews()
             cell.buildConstraints()
             let item = categories[indexPath.item]
-            cell.titleLabel.text = item
-            cell.iconImageView.image = item.getNeededIcon()
+            cell.titleLabel.text = item.capitalized
+            cell.iconImageView.image = item.getNeededIcon()?.resizedImage(targetHeight: 30)
             cell.state = states[indexPath.item]
         }
     }

@@ -64,9 +64,9 @@ class FilterCell: UICollectionViewCell {
     func buildConstraints() {
         NSLayoutConstraint.activate([
             iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            iconImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            iconImageView.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -5),
+            iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: (-bounds.height * (1 - 0.769)) / 2),
+            iconImageView.widthAnchor.constraint(equalToConstant: bounds.height * 0.769),
+            iconImageView.heightAnchor.constraint(equalToConstant: bounds.height * 0.769),
             
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             titleLabel.topAnchor.constraint(equalTo: topAnchor),

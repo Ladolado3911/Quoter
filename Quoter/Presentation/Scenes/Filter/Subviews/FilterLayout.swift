@@ -27,29 +27,33 @@ class FilterLayout: UICollectionViewFlowLayout {
     var delegate: FilterLayoutDelegate?
     
     var cache: [UICollectionViewLayoutAttributes] = []
+    var rowsCount: Int = 0
     
     override var collectionViewContentSize: CGSize {
         guard let delegate = delegate else { return .zero }
         guard let collectionView = collectionView else { return .zero }
         
-        let heightOfCollectionView = collectionView.bounds.height
+        //let heightOfCollectionView = collectionView.bounds.height
         let widthOfCollectionView = collectionView.bounds.width
-        let horizontalSpacing = delegate.horizontalSpacing()
-        
-        var accumulatedWidth: CGFloat = 0
-        var accumulatedWidths: [CGFloat] = []
-        
-        for attributeIndex in 0..<cache.count {
-            let attribute = cache[attributeIndex]
-            accumulatedWidth = accumulatedWidth + attribute.size.width + horizontalSpacing
-            if accumulatedWidth - horizontalSpacing > widthOfCollectionView {
-                accumulatedWidths.append(accumulatedWidth)
-                accumulatedWidth = 0
-            }
-        }
-        let contentWidth = (accumulatedWidths.max() ?? 0)
-        return CGSize(width: contentWidth,
-                      height: heightOfCollectionView)
+//        let horizontalSpacing = delegate.horizontalSpacing()
+//
+//        var accumulatedWidth: CGFloat = 0
+//        var accumulatedWidths: [CGFloat] = []
+//
+//        for attributeIndex in 0..<cache.count {
+//            let attribute = cache[attributeIndex]
+//            accumulatedWidth = accumulatedWidth + attribute.size.width + horizontalSpacing
+//            if accumulatedWidth - horizontalSpacing > widthOfCollectionView {
+//                accumulatedWidths.append(accumulatedWidth)
+//                accumulatedWidth = 0
+//            }
+//        }
+//        let contentWidth = (accumulatedWidths.max() ?? 0)
+        let heightOfItem: CGFloat = delegate.heightOfAllItems(collectionView: collectionView)
+        let verticalSpacing = delegate.verticalSpacing(collectionView: collectionView)
+        let contentHeight = CGFloat(rowsCount) * (heightOfItem + verticalSpacing) / 2
+        return CGSize(width: widthOfCollectionView,
+                      height: contentHeight)
     }
     
     override func prepare() {
@@ -57,33 +61,87 @@ class FilterLayout: UICollectionViewFlowLayout {
         guard let delegate = delegate else { return }
         guard let collectionView = collectionView else { return }
 
+        let collectionViewWidth = collectionView.bounds.width
         let increment: CGFloat = delegate.horizontalSpacing()
         let verticalIncrement: CGFloat = delegate.verticalSpacing(collectionView: collectionView)
         let numberOfElements = collectionView.numberOfItems(inSection: 0)
         let heightOfAllItems = delegate.heightOfAllItems(collectionView: collectionView)
         var minX: CGFloat = 15
         var currentY: CGFloat = 15
-    
+        
+        var widthsOfItems: [CGFloat] = []
+        var accumulatedWidth: CGFloat = 0
+        
+        var minXesForRows: [CGFloat] = []
+        var itemCounts: [Int] = []
+        
+        var itemCounter = 0
+        
+        // populate minXes and widths
         for item in 0..<numberOfElements {
+            itemCounter += 1
             let indexPath = IndexPath(item: item, section: 0)
             let widthOfItem = delegate.widthForItem(indexPath: indexPath)
+            widthsOfItems.append(widthOfItem)
+            accumulatedWidth = accumulatedWidth + widthOfItem + increment
+            if accumulatedWidth + increment + widthOfItem > collectionViewWidth {
+                minX = (collectionViewWidth - accumulatedWidth + increment) / 2
+                minXesForRows.append(minX)
+                itemCounts.append(itemCounter)
+                itemCounter = 0
+                accumulatedWidth = 0
+                rowsCount += 1
+            }
             
-            if [2, 5, 8].contains(item) {
+        }
+        
+        var widthsIndex = 0
+        for minXRowIndex in 0..<minXesForRows.count {
+            var minX = minXesForRows[minXRowIndex]
+            for _ in 0..<itemCounts[minXRowIndex] {
+                let indexPath = IndexPath(item: widthsIndex, section: 0)
                 let attribute = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-                let frame = CGRect(x: minX, y: currentY, width: widthOfItem, height: heightOfAllItems)
+                let width = widthsOfItems[widthsIndex]
+                let frame = CGRect(x: minX, y: currentY, width: width, height: heightOfAllItems)
                 attribute.frame = frame
                 cache.append(attribute)
-                print(verticalIncrement)
-                currentY = currentY + heightOfAllItems + verticalIncrement
-                minX = 15
-                continue
+                minX = minX + width + increment
+                widthsIndex += 1
             }
-            let attribute = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-            let frame = CGRect(x: minX, y: currentY, width: widthOfItem, height: heightOfAllItems)
-            attribute.frame = frame
-            cache.append(attribute)
-            minX = minX + increment + widthOfItem
+            currentY = currentY + heightOfAllItems + verticalIncrement
         }
+    
+//        for item in 0..<numberOfElements {
+//
+//
+//
+//
+//            if [2, 5, 8].contains(item) {
+//                let attribute = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+//                let frame = CGRect(x: minX, y: currentY, width: widthOfItem, height: heightOfAllItems)
+//                attribute.frame = frame
+//                cache.append(attribute)
+//                print(verticalIncrement)
+//                currentY = currentY + heightOfAllItems + verticalIncrement
+//                minX = 15
+//                continue
+//            }
+//            let attribute = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+//            let frame = CGRect(x: minX, y: currentY, width: widthOfItem, height: heightOfAllItems)
+//            attribute.frame = frame
+//            cache.append(attribute)
+//            minX = minX + increment + widthOfItem
+//        }
+        
+//        var accumulatedWidth: CGFloat = 0
+//
+//        for (index, width) in widthsOfItems.enumerated() {
+//            accumulatedWidth = accumulatedWidth + width + increment
+//            if accumulatedWidth - increment > collectionViewWidth {
+//                minX = (collectionViewWidth - accumulatedWidth - increment) / 2
+//
+//            }
+//        }
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
