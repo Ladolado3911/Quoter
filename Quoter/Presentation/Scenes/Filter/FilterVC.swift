@@ -9,7 +9,7 @@ import UIKit
 import TTGTags
 
 protocol FilterToExploreProtocol {
-    func sendBackGenre(genre: String)
+    func sendBackGenre(genre: Genre)
 }
 
 protocol FilterVCProtocol {
@@ -28,7 +28,7 @@ protocol FilterVCProtocol {
     
     func reloadCollectionViewData()
     
-    func setCurrentGenreToLabel(genre: String)
+    func setCurrentGenreToLabel(genre: Genre)
 }
 
 class FilterVC: UIViewController {
@@ -207,8 +207,8 @@ extension FilterVC: FilterLayoutDataSource, FilterLayoutDelegate {
         interactor?.widthForItem(indexPath: indexPath) ?? 0
     }
     
-    func setCurrentGenreToLabel(genre: String) {
-        filterView.subTitleLabel.text = genre
+    func setCurrentGenreToLabel(genre: Genre) {
+        filterView.subTitleLabel.text = genre.rawValue.capitalized
     }
 }
 

@@ -7,24 +7,11 @@
 
 import UIKit
 import SDWebImage
-import AVFoundation
 import Photos
 
 enum ExploreDirection {
     case left
     case right
-}
-
-enum Genre: String {
-    case rich
-    case writers
-    case politicians
-    case artists
-    case sportsmen
-    case actors
-    case scientists
-    case ancients
-    case general
 }
 
 protocol ExploreInteractorProtocol {

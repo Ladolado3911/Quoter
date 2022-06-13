@@ -19,9 +19,9 @@ protocol FilterInteractorProtocol {
     var hasSetPointOrigin: Bool { get set }
     var pointOrigin: CGPoint? { get set }
     var backAlphaOrigin: CGFloat? { get set }
-    var categories: [String] { get set }
+    var categories: [Genre] { get set }
     var states: [State] { get set }
-    var currentChosenCategory: String { get set }
+    var currentChosenCategory: Genre { get set }
     
     func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView)
     func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView, backView: UIView, minY: CGFloat, dragVelocity: CGPoint)
@@ -54,15 +54,15 @@ class FilterInteractor: FilterInteractorProtocol {
     var pointOrigin: CGPoint?
     var backAlphaOrigin: CGFloat?
     
-    var categories: [String] = []
-    var states: [State] = Array(repeating: .off, count: FilterCategories.allCases.count) {
+    var categories: [Genre] = []
+    var states: [State] = Array(repeating: .off, count: Genre.allCases.count) {
         didSet {
             if !states.contains(.on) {
-                currentChosenCategory = "General"
+                currentChosenCategory = .general
             }
         }
     }
-    var currentChosenCategory: String = "General" {
+    var currentChosenCategory: Genre = .general {
         didSet {
             presenter?.setCurrentGenreToLabel(genre: currentChosenCategory)
         }
@@ -136,7 +136,7 @@ class FilterInteractor: FilterInteractorProtocol {
     }
     
     func getCategories() {
-        self.categories = FilterCategories.allCases.map { $0.rawValue }
+        self.categories = Genre.allCases
         self.presenter?.reloadCollectionViewData()
     }
 
@@ -156,7 +156,7 @@ class FilterInteractor: FilterInteractorProtocol {
         let attributes = [
             NSAttributedString.Key.font: LibreBaskerville.styles.regular(size: 20)
         ]
-        let stringSize = categories[indexPath.item].size(withAttributes: attributes)
+        let stringSize = categories[indexPath.item].rawValue.size(withAttributes: attributes)
         let cellSize = CGSize(width: stringSize.width * 2.157,
                               height: stringSize.height * 3)
         return cellSize
@@ -166,8 +166,8 @@ class FilterInteractor: FilterInteractorProtocol {
         let attributes = [
             NSAttributedString.Key.font: LibreBaskerville.styles.regular(size: 20)
         ]
-        let stringSize = categories[indexPath.item].size(withAttributes: attributes)
-        guard let consequentIcon = categories[indexPath.item].getNeededIcon() else { return stringSize.width * 1.8 }
+        let stringSize = categories[indexPath.item].rawValue.size(withAttributes: attributes)
+        guard let consequentIcon = categories[indexPath.item].rawValue.getNeededIcon() else { return stringSize.width * 1.8 }
         let cellSize = CGSize(width: stringSize.width * 1.375 + consequentIcon.size.width * 1.375,
                               height: stringSize.height * 3)
         return cellSize.width
@@ -182,8 +182,8 @@ class FilterInteractor: FilterInteractorProtocol {
             cell.buildSubviews()
             cell.buildConstraints()
             let item = categories[indexPath.item]
-            cell.titleLabel.text = item.capitalized
-            cell.iconImageView.image = item.getNeededIcon()?.resizedImage(targetHeight: 30)
+            cell.titleLabel.text = item.rawValue.capitalized
+            cell.iconImageView.image = item.rawValue.getNeededIcon()?.resizedImage(targetHeight: 30)
             cell.state = states[indexPath.item]
         }
     }
@@ -196,7 +196,7 @@ class FilterInteractor: FilterInteractorProtocol {
         case .off:
             states[indexPath.item] = .on
         }
-        currentChosenCategory = categories[indexPath.item].capitalized
+        currentChosenCategory = categories[indexPath.item]
         var otherIndexPaths: [IndexPath] = []
         for stateIndex in 0..<states.count {
             if stateIndex != indexPath.item {

@@ -211,7 +211,7 @@ extension ExploreVC: ExploreVCProtocol {
 }
 
 extension ExploreVC: FilterToExploreProtocol {
-    func sendBackGenre(genre: String) {
-        print("genre: \(genre) is at explore vc")
+    func sendBackGenre(genre: Genre) {
+        print("genre: \(genre.rawValue.capitalized) is at explore vc")
     }
 }

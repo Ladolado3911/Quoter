@@ -7,13 +7,14 @@
 
 import UIKit
 
-enum FilterCategories: String, CaseIterable {
+enum Genre: String, CaseIterable {
     case rich
-    case actors
-    case ancients
     case writers
     case politicians
     case artists
-    case scientists
     case sportsmen
+    case actors
+    case scientists
+    case ancients
+    case general
 }

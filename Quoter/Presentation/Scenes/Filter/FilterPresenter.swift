@@ -19,7 +19,7 @@ protocol FilterPresenterProtocol {
     
     func reloadCollectionViewData()
     
-    func setCurrentGenreToLabel(genre: String)
+    func setCurrentGenreToLabel(genre: Genre)
     
 }
 
@@ -57,7 +57,7 @@ class FilterPresenter: FilterPresenterProtocol {
         vc?.reloadCollectionViewData()
     }
     
-    func setCurrentGenreToLabel(genre: String) {
+    func setCurrentGenreToLabel(genre: Genre) {
         vc?.setCurrentGenreToLabel(genre: genre)
     }
 
