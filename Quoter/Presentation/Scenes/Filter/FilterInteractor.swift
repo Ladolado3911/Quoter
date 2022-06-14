@@ -28,6 +28,7 @@ protocol FilterInteractorProtocol {
     func tapFunc(sender: UITapGestureRecognizer, targetView: UIView)
     func animatedDismiss(delegate: FilterToExploreProtocol?)
     func showView(targetView: FilterView, backView: UIView)
+    func selectCell()
     //func hideView()
     
     func widthForItem(indexPath: IndexPath) -> CGFloat
@@ -135,15 +136,20 @@ class FilterInteractor: FilterInteractorProtocol {
         }
     }
     
+    func selectCell() {
+        guard let indexPathInt = categories.enumerated().filter { $0.element == currentChosenCategory }.first?.offset else { return }
+        let indexPath = IndexPath(item: indexPathInt, section: 0)
+        self.presenter?.selectCell(indexPath: indexPath)
+    }
+    
     func getCategories() {
         self.categories = Genre.allCases
+        self.categories.removeAll { genre in
+            genre == .general
+        }
         self.presenter?.reloadCollectionViewData()
     }
 
-//    func hideView() {
-//        animatedDismiss()
-//    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         categories.count
     }

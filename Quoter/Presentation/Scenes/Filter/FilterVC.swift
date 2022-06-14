@@ -29,12 +29,15 @@ protocol FilterVCProtocol {
     func reloadCollectionViewData()
     
     func setCurrentGenreToLabel(genre: Genre)
+    func selectCell(indexPath: IndexPath)
 }
 
 class FilterVC: UIViewController {
     var interactor: FilterInteractorProtocol?
     var router: FilterRouterProtocol?
     var filterToExploreDelegate: FilterToExploreProtocol?
+    
+    var currentGenre: Genre = .general
     
     lazy var filterView: FilterView = {
         let frame = CGRect(x: -5,
@@ -84,12 +87,14 @@ class FilterVC: UIViewController {
         addTargets()
         buildSubviews()
         buildConstraints()
+        interactor?.currentChosenCategory = currentGenre
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         interactor?.showView(targetView: filterView, backView: view)
         interactor?.getCategories()
+        interactor?.selectCell()
     }
     
     private func configCollectionView() {
@@ -209,6 +214,10 @@ extension FilterVC: FilterLayoutDataSource, FilterLayoutDelegate {
     
     func setCurrentGenreToLabel(genre: Genre) {
         filterView.subTitleLabel.text = genre.rawValue.capitalized
+    }
+    
+    func selectCell(indexPath: IndexPath) {
+        filterView.collectionView.delegate?.collectionView?(filterView.collectionView, didSelectItemAt: indexPath)
     }
 }
 

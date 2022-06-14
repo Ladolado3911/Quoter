@@ -103,7 +103,7 @@ extension ExploreVC {
     }
     
     @objc func onFilterButton(sender: UIButton) {
-        router?.routeToFilterVC()
+        router?.routeToFilterVC(with: interactor?.currentGenre ?? .general)
     }
 }
 
