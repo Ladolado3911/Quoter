@@ -50,10 +50,37 @@ class ExploreView: UIView {
         return button
     }()
     
+    lazy var filterButtonCopy: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("General", for: .normal)
+        button.setTitleColor(DarkModeColors.white, for: .normal)
+        button.backgroundColor = DarkModeColors.black
+        button.layer.borderWidth = 1
+        button.layer.borderColor = DarkModeColors.white.cgColor
+        button.titleLabel?.contentMode = .center
+        button.titleLabel?.font = button.titleLabel?.font.withSize(Constants.screenHeight * 0.020)
+        return button
+    }()
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         buildSubviews()
         buildConstraints()
+    }
+    
+    func animateFilterButton() {
+        UIView.animate(withDuration: 1, delay: 0) { [weak self] in
+            guard let self = self else { return }
+            self.filterButtonCopy.alpha = 0
+            self.filterButtonCopy.transform = CGAffineTransform(scaleX: 1.2, y: 1.4)
+        } completion: { [weak self] didFinish in
+            guard let self = self else { return }
+            if didFinish {
+                self.filterButtonCopy.alpha = 1
+                self.filterButtonCopy.transform = .identity
+            }
+        }
     }
     
     private func buildSubviews() {
@@ -61,10 +88,12 @@ class ExploreView: UIView {
         addSubview(leftArrowButton)
         addSubview(rightArrowButton)
         addSubview(downloadQuotePictureButton)
+        addSubview(filterButtonCopy)
         addSubview(filterButton)
         bringSubviewToFront(leftArrowButton)
         bringSubviewToFront(rightArrowButton)
         bringSubviewToFront(downloadQuotePictureButton)
+        bringSubviewToFront(filterButtonCopy)
         bringSubviewToFront(filterButton)
     }
     
@@ -88,9 +117,15 @@ class ExploreView: UIView {
             filterButton.trailingAnchor.constraint(equalTo: downloadQuotePictureButton.leadingAnchor, constant: -Constants.screenHeight * 0.01),
             filterButton.centerYAnchor.constraint(equalTo: downloadQuotePictureButton.centerYAnchor),
             filterButton.heightAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 0.6),
-            filterButton.widthAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 2)
+            filterButton.widthAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 2),
+            
+            filterButtonCopy.trailingAnchor.constraint(equalTo: downloadQuotePictureButton.leadingAnchor, constant: -Constants.screenHeight * 0.01),
+            filterButtonCopy.centerYAnchor.constraint(equalTo: downloadQuotePictureButton.centerYAnchor),
+            filterButtonCopy.heightAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 0.6),
+            filterButtonCopy.widthAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 2)
         
         ])
+        filterButtonCopy.layer.cornerRadius = filterButton.bounds.height * 0.4347
         filterButton.layer.cornerRadius = filterButton.bounds.height * 0.4347
     }
     

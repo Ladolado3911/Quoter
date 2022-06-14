@@ -44,6 +44,7 @@ class ExploreVC: UIViewController {
         configCollectionView()
         configButtons()
         configWebsocket()
+        configTimer()
     }
 
     private func configCollectionView() {
@@ -66,6 +67,14 @@ class ExploreVC: UIViewController {
         let url = URL(string: "wss://quotie-quoter-api.herokuapp.com/getSmallQuote")
         interactor?.websocketTask = session.webSocketTask(with: url!)
         interactor?.websocketTask?.resume()
+    }
+    
+    private func configTimer() {
+        interactor?.timer = Timer.scheduledTimer(timeInterval: 5,
+                                                 target: self,
+                                                 selector: #selector(buttonAnimationTimerFire(sender:)),
+                                                 userInfo: nil,
+                                                 repeats: true)
     }
     
     private func setup() {
@@ -104,6 +113,11 @@ extension ExploreVC {
     
     @objc func onFilterButton(sender: UIButton) {
         router?.routeToFilterVC(with: interactor?.currentGenre ?? .general)
+    }
+    
+    @objc func buttonAnimationTimerFire(sender: Timer) {
+        interactor?.buttonAnimationTimerFire(collectionView: exploreView?.collectionView)
+        exploreView?.animateFilterButton()
     }
 }
 
