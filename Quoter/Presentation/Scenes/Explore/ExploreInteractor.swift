@@ -50,14 +50,11 @@ class ExploreInteractor: ExploreInteractorProtocol {
     var presenter: ExplorePresenterProtocol?
     var exploreNetworkWorker: ExploreNetworkWorkerProtocol?
     
-    var loadedQuotes: [ExploreQuoteProtocol?]? = Array(repeating: nil, count: 5)
+    var loadedQuotes: [ExploreQuoteProtocol?]? = [nil, nil, nil, nil, nil]
     var currentPage: Int = 0
     var currentGenre: Genre = .general {
         didSet {
-            self.loadedQuotes = Array(repeating: nil, count: 5)
-            SDImageCache.shared.clearMemory()
-            SDImageCache.shared.clearDisk()
-            
+            self.loadedQuotes = [nil, nil, nil, nil, nil]
             self.presenter?.reloadCollectionView()
         }
     }

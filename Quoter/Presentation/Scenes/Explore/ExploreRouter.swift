@@ -18,7 +18,6 @@ class ExploreRouter: ExploreRouterProtocol {
     
     func routeToFilterVC() {
         let filterVC = FilterVC()
-        //let delegate = FilterVCTransitionDelegate()
         if let vc = vc {
             filterVC.modalPresentationStyle = .custom
             filterVC.modalTransitionStyle = .crossDissolve

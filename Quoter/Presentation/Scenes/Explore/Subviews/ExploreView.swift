@@ -40,7 +40,7 @@ class ExploreView: UIView {
     lazy var filterButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Politicians", for: .normal)
+        button.setTitle("General", for: .normal)
         button.setTitleColor(DarkModeColors.white, for: .normal)
         button.backgroundColor = DarkModeColors.black
         button.layer.borderWidth = 1

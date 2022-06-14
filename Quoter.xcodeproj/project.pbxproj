@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		240028272858B34F005220D7 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240028262858B34F005220D7 /* UICollectionView+Extension.swift */; };
 		24138A172805719400044F5E /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24138A162805719400044F5E /* ExploreVC.swift */; };
 		24138A1A280571CA00044F5E /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24138A19280571CA00044F5E /* MenuVC.swift */; };
 		24138A1C2805726200044F5E /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24138A1B2805726200044F5E /* MenuView.swift */; };
@@ -104,6 +105,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		240028262858B34F005220D7 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		24138A162805719400044F5E /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		24138A19280571CA00044F5E /* MenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
 		24138A1B2805726200044F5E /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 				24D018FA280B1A460031C14B /* UILabel+Extension.swift */,
 				24DAF67C285229C00046DC51 /* CALayer+Extension.swift */,
 				242E31ED285361BC00AB4C22 /* UIImageView+Extension.swift */,
+				240028262858B34F005220D7 /* UICollectionView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -785,6 +788,7 @@
 				24138A3B2805B16600044F5E /* MenuIcons.swift in Sources */,
 				246B829E283137C700D44DF5 /* ExplorePresenter.swift in Sources */,
 				2470F65B284E328400B6124D /* FilterPresenter.swift in Sources */,
+				240028272858B34F005220D7 /* UICollectionView+Extension.swift in Sources */,
 				24138A3F2805B90800044F5E /* GalleryVC.swift in Sources */,
 				24D1287527903ECD00AD7F3D /* SceneDelegate.swift in Sources */,
 			);

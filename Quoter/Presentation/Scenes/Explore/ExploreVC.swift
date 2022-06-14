@@ -219,17 +219,28 @@ extension ExploreVC: ExploreVCProtocol {
     }
     
     func reloadCollectionView() {
-        //exploreView?.collectionView.deleteSections(IndexSet(integer: 0))
-        
-        //exploreView?.collectionView.deleteItems(at: [0, 1, 2, 3, 4].map { IndexPath(item: $0, section: 0) })
-        exploreView?.collectionView.reloadData()
+        exploreView?.collectionView.reloadData {
+            UIView.animate(withDuration: 1, delay: 0) { [weak self] in
+                guard let self = self else { return }
+                self.exploreView?.collectionView.alpha = 1
+            }
+        }
     }
 }
 
 extension ExploreVC: FilterToExploreProtocol {
     func sendBackGenre(genre: Genre) {
-        print("genre: \(genre.rawValue.capitalized) is at explore vc")
-        interactor?.currentGenre = genre
+        exploreView?.filterButton.setTitle(genre.rawValue.capitalized, for: .normal)
+        exploreView?.stopAnimating()
+        UIView.animate(withDuration: 1, delay: 0) { [weak self] in
+            guard let self = self else { return }
+            self.exploreView?.collectionView.alpha = 0
+        } completion: { [weak self] didFinish in
+            guard let self = self else { return }
+            if didFinish {
+                self.interactor?.currentGenre = genre
+            }
+        }
     }
 }
 
