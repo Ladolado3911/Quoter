@@ -18,6 +18,7 @@ protocol ExplorePresenterProtocol {
                       mainButtonText: String,
                       mainButtonStyle: UIAlertAction.Style,
                       action: (() -> Void)?)
+    func reloadCollectionView()
 }
 
 class ExplorePresenter: ExplorePresenterProtocol {
@@ -45,5 +46,9 @@ class ExplorePresenter: ExplorePresenterProtocol {
                          mainButtonText: mainButtonText,
                          mainButtonStyle: mainButtonStyle,
                          action: action)
+    }
+    
+    func reloadCollectionView() {
+        vc?.reloadCollectionView()
     }
 }

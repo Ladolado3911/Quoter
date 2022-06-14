@@ -21,9 +21,15 @@ protocol ExploreInteractorProtocol {
     var loadedQuotes: [ExploreQuoteProtocol?]? { get set }
     var currentPage: Int { get set }
     var currentGenre: Genre { get set }
+    var websocketTask: URLSessionWebSocketTask? { get set }
     
     func onDownloadButton()
     func presentAlert(title: String, text: String, mainButtonText: String, mainButtonStyle: UIAlertAction.Style, action: (() -> Void)?)
+    
+    func ping()
+    func close()
+    func send(genre: Genre)
+    func receive() async throws -> QuoteModel?
     
     //MARK: Collection View methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -46,7 +52,16 @@ class ExploreInteractor: ExploreInteractorProtocol {
     
     var loadedQuotes: [ExploreQuoteProtocol?]? = Array(repeating: nil, count: 5)
     var currentPage: Int = 0
-    var currentGenre: Genre = .general
+    var currentGenre: Genre = .general {
+        didSet {
+            self.loadedQuotes = Array(repeating: nil, count: 5)
+            SDImageCache.shared.clearMemory()
+            SDImageCache.shared.clearDisk()
+            
+            self.presenter?.reloadCollectionView()
+        }
+    }
+    var websocketTask: URLSessionWebSocketTask?
     
     func onDownloadButton() {
         if let loadedQuotes = loadedQuotes,
@@ -104,7 +119,10 @@ class ExploreInteractor: ExploreInteractorProtocol {
                     quote = unwrapped
                 }
                 else {
-                    let quoteModel = try await exploreNetworkWorker?.getSmallQuote(genre: currentGenre)
+                    print("call")
+                    send(genre: currentGenre)
+                    let quoteModel = try await receive()
+                    //let quoteModel = try await exploreNetworkWorker?.getSmallQuote(genre: currentGenre)
                     let exploreAuthor = ExploreAuthor(slug: quoteModel!.author.slug,
                                                       name: quoteModel!.author.name,
                                                       authorImageURLString: quoteModel!.author.authorImageURLString)
@@ -175,4 +193,42 @@ class ExploreInteractor: ExploreInteractorProtocol {
                                 mainButtonStyle: mainButtonStyle,
                                 action: action)
     }
+    
+    func ping() {
+        websocketTask?.sendPing(pongReceiveHandler: { error in
+            if let error = error {
+                print(error)
+            }
+        })
+    }
+    
+    func close() {
+        websocketTask?.cancel()
+    }
+    
+    func send(genre: Genre) {
+        websocketTask?.send(.string("\(genre.rawValue)"), completionHandler: { error in
+            if let error = error {
+                print(error)
+            }
+        })
+    }
+    
+    func receive() async throws -> QuoteModel? {
+        let message = try await websocketTask?.receive()
+        switch message {
+        case .data(let data):
+            let decoded = try JSONDecoder().decode(QuoteModel.self, from: data)
+            print("content is \(decoded.content)")
+            return decoded
+        case .string(let str):
+            print("string in \(str)")
+            return nil
+        @unknown default:
+            return nil
+            //break
+        }
+    
+    }
 }
+

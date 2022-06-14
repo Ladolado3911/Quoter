@@ -20,6 +20,7 @@ protocol ExploreVCProtocol: AnyObject {
                       mainButtonText: String,
                       mainButtonStyle: UIAlertAction.Style,
                       action: (() -> Void)?)
+    func reloadCollectionView()
 }
 
 class ExploreVC: UIViewController {
@@ -42,6 +43,7 @@ class ExploreVC: UIViewController {
         super.viewDidLoad()
         configCollectionView()
         configButtons()
+        configWebsocket()
     }
 
     private func configCollectionView() {
@@ -57,6 +59,13 @@ class ExploreVC: UIViewController {
         exploreView?.rightArrowButton.addTarget(self, action: #selector(scrollRight), for: .touchUpInside)
         exploreView?.downloadQuotePictureButton.addTarget(self, action: #selector(onDownloadButton), for: .touchUpInside)
         exploreView?.filterButton.addTarget(self, action: #selector(onFilterButton), for: .touchUpInside)
+    }
+    
+    private func configWebsocket() {
+        let session = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
+        let url = URL(string: "wss://quotie-quoter-api.herokuapp.com/getSmallQuote")
+        interactor?.websocketTask = session.webSocketTask(with: url!)
+        interactor?.websocketTask?.resume()
     }
     
     private func setup() {
@@ -208,10 +217,31 @@ extension ExploreVC: ExploreVCProtocol {
             }
         }
     }
+    
+    func reloadCollectionView() {
+        //exploreView?.collectionView.deleteSections(IndexSet(integer: 0))
+        
+        //exploreView?.collectionView.deleteItems(at: [0, 1, 2, 3, 4].map { IndexPath(item: $0, section: 0) })
+        exploreView?.collectionView.reloadData()
+    }
 }
 
 extension ExploreVC: FilterToExploreProtocol {
     func sendBackGenre(genre: Genre) {
         print("genre: \(genre.rawValue.capitalized) is at explore vc")
+        interactor?.currentGenre = genre
     }
 }
+
+extension ExploreVC: URLSessionWebSocketDelegate {
+
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+        print("did connect to socket")
+        
+    }
+    
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
+        print("did lose connection with socket")
+    }
+}
+
