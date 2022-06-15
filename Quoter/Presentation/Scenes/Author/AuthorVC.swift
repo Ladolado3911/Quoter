@@ -11,16 +11,20 @@ import UIKit
 protocol AuthorVCProtocol: AnyObject {
     var interactor: AuthorInteractorProtocol? { get set }
     var router: AuthorRouterProtocol? { get set }
-    var authorView: AuthorView? { get set }
     
-  
+    func showView()
 }
 
 class AuthorVC: UIViewController {
     var interactor: AuthorInteractorProtocol?
     var router: AuthorRouterProtocol?
-    var authorView: AuthorView?
     
+    lazy var authorView: AuthorView = {
+        let autView = AuthorView(frame: view.initialFrame)
+        autView.alpha = 0
+        return autView
+    }()
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -31,14 +35,27 @@ class AuthorVC: UIViewController {
         setup()
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .clear
+        buildSubviews()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        interactor?.showView()
+    }
+    
+    private func buildSubviews() {
+        view.addSubview(authorView)
+    }
+    
     private func setup() {
         let vc = self
         let interactor = AuthorInteractor()
         let presenter = AuthorPresenter()
         let router = AuthorRouter()
-        let authorView = AuthorView(frame: UIScreen.main.bounds)
         vc.interactor = interactor
-        vc.authorView = authorView
         vc.router = router
         interactor.presenter = presenter
         presenter.vc = vc
@@ -49,6 +66,9 @@ class AuthorVC: UIViewController {
 }
 
 extension AuthorVC: AuthorVCProtocol {
-    
+    func showView() {
+        authorView.frame = view.bounds
+        authorView.alpha = 1
+    }
 }
 

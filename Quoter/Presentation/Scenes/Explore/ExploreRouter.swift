@@ -11,6 +11,7 @@ protocol ExploreRouterProtocol {
     var vc: ExploreVC? { get set }
     
     func routeToFilterVC(with currentGenre: Genre)
+    func routeToAuthorVC()
 }
 
 class ExploreRouter: ExploreRouterProtocol {
@@ -24,6 +25,15 @@ class ExploreRouter: ExploreRouterProtocol {
             filterVC.filterToExploreDelegate = vc
             filterVC.currentGenre = currentGenre
             vc.present(filterVC, animated: false)
+        }
+    }
+    
+    func routeToAuthorVC() {
+        let authorVC = AuthorVC()
+        if let vc = vc {
+            authorVC.modalPresentationStyle = .custom
+            authorVC.modalTransitionStyle = .crossDissolve
+            vc.present(authorVC, animated: false)
         }
     }
 }

@@ -63,12 +63,38 @@ class ExploreView: UIView {
         return button
     }()
     
+    let quoteButtonView: QuoteButtonView = {
+        let quoteButtonView = QuoteButtonView()
+        quoteButtonView.translatesAutoresizingMaskIntoConstraints = false
+        return quoteButtonView
+    }()
+    
+    let quoteButtonViewCopy: QuoteButtonView = {
+        let quoteButtonView = QuoteButtonView()
+        quoteButtonView.translatesAutoresizingMaskIntoConstraints = false
+        return quoteButtonView
+    }()
+
     override func layoutSubviews() {
         super.layoutSubviews()
         buildSubviews()
         buildConstraints()
     }
     
+    func animateQuoteButton() {
+        UIView.animate(withDuration: 1, delay: 0) { [weak self] in
+            guard let self = self else { return }
+            self.quoteButtonViewCopy.alpha = 0
+            self.quoteButtonViewCopy.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        } completion: { [weak self] didFinish in
+            guard let self = self else { return }
+            if didFinish {
+                self.quoteButtonViewCopy.alpha = 1
+                self.quoteButtonViewCopy.transform = .identity
+            }
+        }
+    }
+
     func animateFilterButton() {
         UIView.animate(withDuration: 1.5, delay: 0) { [weak self] in
             guard let self = self else { return }
@@ -90,11 +116,15 @@ class ExploreView: UIView {
         addSubview(downloadQuotePictureButton)
         addSubview(filterButtonCopy)
         addSubview(filterButton)
+        addSubview(quoteButtonViewCopy)
+        addSubview(quoteButtonView)
         bringSubviewToFront(leftArrowButton)
         bringSubviewToFront(rightArrowButton)
         bringSubviewToFront(downloadQuotePictureButton)
         bringSubviewToFront(filterButtonCopy)
         bringSubviewToFront(filterButton)
+        bringSubviewToFront(quoteButtonViewCopy)
+        bringSubviewToFront(quoteButtonView)
     }
     
     private func buildConstraints() {
@@ -122,8 +152,17 @@ class ExploreView: UIView {
             filterButtonCopy.trailingAnchor.constraint(equalTo: downloadQuotePictureButton.leadingAnchor, constant: -Constants.screenHeight * 0.01),
             filterButtonCopy.centerYAnchor.constraint(equalTo: downloadQuotePictureButton.centerYAnchor),
             filterButtonCopy.heightAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 0.6),
-            filterButtonCopy.widthAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 2)
-        
+            filterButtonCopy.widthAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 2),
+            
+            quoteButtonView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.screenHeight * 0.245),
+            quoteButtonView.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
+            quoteButtonView.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
+            quoteButtonView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            quoteButtonViewCopy.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.screenHeight * 0.245),
+            quoteButtonViewCopy.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
+            quoteButtonViewCopy.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
+            quoteButtonViewCopy.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
         filterButtonCopy.layer.cornerRadius = filterButton.bounds.height * 0.4347
         filterButton.layer.cornerRadius = filterButton.bounds.height * 0.4347

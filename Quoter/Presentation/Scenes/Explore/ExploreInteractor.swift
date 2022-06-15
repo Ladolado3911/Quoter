@@ -24,7 +24,7 @@ protocol ExploreInteractorProtocol {
     var websocketTask: URLSessionWebSocketTask? { get set }
     var timer: Timer? { get set }
     
-    func buttonAnimationTimerFire(collectionView: UICollectionView?)
+    //func buttonAnimationTimerFire(collectionView: UICollectionView?)
     func onDownloadButton()
     func presentAlert(title: String, text: String, mainButtonText: String, mainButtonStyle: UIAlertAction.Style, action: (() -> Void)?)
     
@@ -57,6 +57,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
     var currentGenre: Genre = .general {
         didSet {
             self.loadedQuotes = [nil, nil, nil, nil, nil]
+            print("cancel all downloads")
             SDWebImageDownloader.shared.cancelAllDownloads()
             currentPage = 0
             self.presenter?.reloadCollectionView()
@@ -65,14 +66,14 @@ class ExploreInteractor: ExploreInteractorProtocol {
     var websocketTask: URLSessionWebSocketTask?
     var timer: Timer?
     
-    func buttonAnimationTimerFire(collectionView: UICollectionView?) {
-        guard let collectionView = collectionView else {
-            return
-        }
-        if let currentCell = collectionView.cellForItem(at: IndexPath(item: currentPage, section: 0)) as? ExploreCell {
-            currentCell.animateButton()
-        }
-    }
+//    func buttonAnimationTimerFire(collectionView: UICollectionView?) {
+//        guard let collectionView = collectionView else {
+//            return
+//        }
+//        if let currentCell = collectionView.cellForItem(at: IndexPath(item: currentPage, section: 0)) as? ExploreCell {
+//            currentCell.animateButton()
+//        }
+//    }
     
     func onDownloadButton() {
         if let loadedQuotes = loadedQuotes,

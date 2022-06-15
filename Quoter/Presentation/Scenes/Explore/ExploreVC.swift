@@ -29,6 +29,11 @@ class ExploreVC: UIViewController {
     var router: ExploreRouterProtocol?
     var exploreView: ExploreView?
     
+    lazy var quoteButtonTapGesture: UITapGestureRecognizer = {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(onQuoteButton(sender:)))
+        return gesture
+    }()
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -60,6 +65,7 @@ class ExploreVC: UIViewController {
         exploreView?.rightArrowButton.addTarget(self, action: #selector(scrollRight), for: .touchUpInside)
         exploreView?.downloadQuotePictureButton.addTarget(self, action: #selector(onDownloadButton), for: .touchUpInside)
         exploreView?.filterButton.addTarget(self, action: #selector(onFilterButton), for: .touchUpInside)
+        exploreView?.quoteButtonView.addGestureRecognizer(quoteButtonTapGesture)
     }
     
     private func configWebsocket() {
@@ -115,8 +121,17 @@ extension ExploreVC {
         router?.routeToFilterVC(with: interactor?.currentGenre ?? .general)
     }
     
+    @objc func onQuoteButton(sender: UIButton) {
+        router?.routeToAuthorVC()
+//        exploreView?.animateQuoteButton(completion: { [weak self] frameOfFinalState in
+//            guard let self = self else { return }
+//            self.router?.routeToAuthorVC(frameOfFinalState: frameOfFinalState)
+//        })
+    }
+    
     @objc func buttonAnimationTimerFire(sender: Timer) {
-        interactor?.buttonAnimationTimerFire(collectionView: exploreView?.collectionView)
+        //interactor?.buttonAnimationTimerFire(collectionView: exploreView?.collectionView)
+        exploreView?.animateQuoteButton()
         exploreView?.animateFilterButton()
     }
 }
@@ -222,15 +237,25 @@ extension ExploreVC: ExploreVCProtocol {
     func reloadCollectionView() {
         exploreView?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: false)
         exploreView?.collectionView.reloadData()
-        UIView.animate(withDuration: 1, delay: 1) { [weak self] in
+        UIView.animate(withDuration: 1, delay: 1.5) { [weak self] in
             guard let self = self else { return }
             self.exploreView?.collectionView.alpha = 1
+        } completion: { [weak self] didFinish in
+            guard let self = self else { return }
+            if didFinish {
+                self.exploreView?.collectionView.isUserInteractionEnabled = true
+                self.exploreView?.rightArrowButton.isEnabled = true
+                self.exploreView?.leftArrowButton.isEnabled = true
+            }
         }
     }
 }
 
 extension ExploreVC: FilterToExploreProtocol {
     func sendBackGenre(genre: Genre) {
+        exploreView?.collectionView.isUserInteractionEnabled = false
+        exploreView?.rightArrowButton.isEnabled = false
+        exploreView?.leftArrowButton.isEnabled = false
         exploreView?.filterButton.setTitle(genre.rawValue.capitalized, for: .normal)
         exploreView?.stopAnimating()
         UIView.animate(withDuration: 1, delay: 0) { [weak self] in

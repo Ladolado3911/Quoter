@@ -27,17 +27,17 @@ class ExploreCell: UICollectionViewCell {
         return imageView
     }()
 
-    let quoteButtonView: QuoteButtonView = {
-        let quoteButtonView = QuoteButtonView()
-        quoteButtonView.translatesAutoresizingMaskIntoConstraints = false
-        return quoteButtonView
-    }()
-    
-    let quoteButtonViewCopy: QuoteButtonView = {
-        let quoteButtonView = QuoteButtonView()
-        quoteButtonView.translatesAutoresizingMaskIntoConstraints = false
-        return quoteButtonView
-    }()
+//    let quoteButtonView: QuoteButtonView = {
+//        let quoteButtonView = QuoteButtonView()
+//        quoteButtonView.translatesAutoresizingMaskIntoConstraints = false
+//        return quoteButtonView
+//    }()
+//    
+//    let quoteButtonViewCopy: QuoteButtonView = {
+//        let quoteButtonView = QuoteButtonView()
+//        quoteButtonView.translatesAutoresizingMaskIntoConstraints = false
+//        return quoteButtonView
+//    }()
     
     let authorNameLabel: UILabel = {
         let authorNameLabel = UILabel()
@@ -80,19 +80,19 @@ class ExploreCell: UICollectionViewCell {
                                              completion: nil)
     }
     
-    func animateButton() {
-        UIView.animate(withDuration: 1, delay: 0) { [weak self] in
-            guard let self = self else { return }
-            self.quoteButtonViewCopy.alpha = 0
-            self.quoteButtonViewCopy.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-        } completion: { [weak self] didFinish in
-            guard let self = self else { return }
-            if didFinish {
-                self.quoteButtonViewCopy.alpha = 1
-                self.quoteButtonViewCopy.transform = .identity
-            }
-        }
-    }
+//    func animateButton() {
+//        UIView.animate(withDuration: 1, delay: 0) { [weak self] in
+//            guard let self = self else { return }
+//            self.quoteButtonViewCopy.alpha = 0
+//            self.quoteButtonViewCopy.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+//        } completion: { [weak self] didFinish in
+//            guard let self = self else { return }
+//            if didFinish {
+//                self.quoteButtonViewCopy.alpha = 1
+//                self.quoteButtonViewCopy.transform = .identity
+//            }
+//        }
+//    }
     
     func stopAnimating() {
         stopLoadingLottieAnimationIfExists()
@@ -102,8 +102,8 @@ class ExploreCell: UICollectionViewCell {
         addSubview(imgView)
         addSubview(authorNameLabel)
         addSubview(quoteContentLabel)
-        addSubview(quoteButtonViewCopy)
-        addSubview(quoteButtonView)
+//        addSubview(quoteButtonViewCopy)
+//        addSubview(quoteButtonView)
     }
     
     func buildConstraints() {
@@ -118,15 +118,15 @@ class ExploreCell: UICollectionViewCell {
             authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             authorNameLabel.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.037),
             
-            quoteButtonView.bottomAnchor.constraint(equalTo: authorNameLabel.topAnchor, constant: -Constants.screenHeight * 0.0088),
-            quoteButtonView.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
-            quoteButtonView.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
-            quoteButtonView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            quoteButtonViewCopy.bottomAnchor.constraint(equalTo: authorNameLabel.topAnchor, constant: -Constants.screenHeight * 0.0088),
-            quoteButtonViewCopy.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
-            quoteButtonViewCopy.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
-            quoteButtonViewCopy.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            quoteButtonView.bottomAnchor.constraint(equalTo: authorNameLabel.topAnchor, constant: -Constants.screenHeight * 0.0088),
+//            quoteButtonView.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
+//            quoteButtonView.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
+//            quoteButtonView.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            
+//            quoteButtonViewCopy.bottomAnchor.constraint(equalTo: authorNameLabel.topAnchor, constant: -Constants.screenHeight * 0.0088),
+//            quoteButtonViewCopy.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
+//            quoteButtonViewCopy.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
+//            quoteButtonViewCopy.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
 }
