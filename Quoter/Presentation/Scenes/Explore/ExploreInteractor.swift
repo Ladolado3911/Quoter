@@ -57,6 +57,8 @@ class ExploreInteractor: ExploreInteractorProtocol {
     var currentGenre: Genre = .general {
         didSet {
             self.loadedQuotes = [nil, nil, nil, nil, nil]
+            SDWebImageDownloader.shared.cancelAllDownloads()
+            currentPage = 0
             self.presenter?.reloadCollectionView()
         }
     }
@@ -117,6 +119,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        print("will display")
         if let cell = cell as? ExploreCell {
             cell.startAnimating()
             cell.buildSubviews()
@@ -149,10 +152,15 @@ class ExploreInteractor: ExploreInteractorProtocol {
                     cell.quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: fontSize)
                     cell.imgView.sd_setImage(with: URL(string: quote.quoteImageURLString),
                                              placeholderImage: nil,
-                                             options: [.continueInBackground, .highPriority, .scaleDownLargeImages, .retryFailed]) { _, _, _, _ in
-                        cell.stopAnimating()
-                        self.loadedQuotes![indexPath.item]?.isScreenshotAllowed = true
-                        
+                                             options: [.continueInBackground, .highPriority, .scaleDownLargeImages]) { _, error, _, _ in
+                        if let error = error {
+                            print("sd web error: \(error.localizedDescription)")
+                            cell.stopAnimating()
+                        }
+                        else {
+                            cell.stopAnimating()
+                            self.loadedQuotes![indexPath.item]?.isScreenshotAllowed = true
+                        }
                     }
                 }
             }

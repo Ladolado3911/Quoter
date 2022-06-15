@@ -53,7 +53,6 @@
 		2497158327D9E23400968E08 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158227D9E23400968E08 /* FirebaseAnalytics */; };
 		2497158527D9E23400968E08 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158427D9E23400968E08 /* FirebaseCrashlytics */; };
 		2497158927D9E40F00968E08 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2497158727D9E3FB00968E08 /* AdSupport.framework */; };
-		249EDC1827C770A6005F7A9B /* TTGTags in Frameworks */ = {isa = PBXBuildFile; productRef = 249EDC1727C770A6005F7A9B /* TTGTags */; };
 		24A8CEA5284B8EC000B5F6F2 /* ExploreScreenshotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8CEA4284B8EC000B5F6F2 /* ExploreScreenshotCell.swift */; };
 		24CD4C0C2844A6C300A63968 /* wakeup.json in Resources */ = {isa = PBXBuildFile; fileRef = 24CD4C0B2844A6C300A63968 /* wakeup.json */; };
 		24CD4C0E2844B23700A63968 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD4C0D2844B23700A63968 /* DeviceModel.swift */; };
@@ -64,8 +63,6 @@
 		24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1287227903ECD00AD7F3D /* AppDelegate.swift */; };
 		24D1287527903ECD00AD7F3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D1287427903ECD00AD7F3D /* SceneDelegate.swift */; };
 		24D1287F27903ECE00AD7F3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24D1287D27903ECE00AD7F3D /* LaunchScreen.storyboard */; };
-		24D1289C2790887A00AD7F3D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 24D1289B2790887A00AD7F3D /* SnapKit */; };
-		24D1289F2790AB4900AD7F3D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 24D1289E2790AB4900AD7F3D /* Kingfisher */; };
 		24D5BC272806C2C0003D14CD /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5BC262806C2C0003D14CD /* BaseVC.swift */; };
 		24D5BC292806FA7A003D14CD /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5BC282806FA7A003D14CD /* MenuCell.swift */; };
 		24D5BC2B2806FE93003D14CD /* MenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D5BC2A2806FE93003D14CD /* MenuHeaderView.swift */; };
@@ -202,13 +199,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2497158927D9E40F00968E08 /* AdSupport.framework in Frameworks */,
-				24D1289F2790AB4900AD7F3D /* Kingfisher in Frameworks */,
 				2497158327D9E23400968E08 /* FirebaseAnalytics in Frameworks */,
 				2497158527D9E23400968E08 /* FirebaseCrashlytics in Frameworks */,
-				24D1289C2790887A00AD7F3D /* SnapKit in Frameworks */,
 				246B82A428313DE000D44DF5 /* SDWebImage in Frameworks */,
 				24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */,
-				249EDC1827C770A6005F7A9B /* TTGTags in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,10 +607,7 @@
 			);
 			name = Quoter;
 			packageProductDependencies = (
-				24D1289B2790887A00AD7F3D /* SnapKit */,
-				24D1289E2790AB4900AD7F3D /* Kingfisher */,
 				24DEBF4527ABB1D400C40B29 /* Lottie */,
-				249EDC1727C770A6005F7A9B /* TTGTags */,
 				2497158227D9E23400968E08 /* FirebaseAnalytics */,
 				2497158427D9E23400968E08 /* FirebaseCrashlytics */,
 				246B82A328313DE000D44DF5 /* SDWebImage */,
@@ -660,10 +651,7 @@
 			);
 			mainGroup = 24D1286627903ECD00AD7F3D;
 			packageReferences = (
-				24D1289A2790887A00AD7F3D /* XCRemoteSwiftPackageReference "SnapKit" */,
-				24D1289D2790AB4900AD7F3D /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				24DEBF4427ABB1D400C40B29 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				249EDC1627C770A6005F7A9B /* XCRemoteSwiftPackageReference "TTGTagCollectionView" */,
 				2497158127D9E23400968E08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				246B82A228313DE000D44DF5 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
@@ -1153,30 +1141,6 @@
 				minimumVersion = 8.0.0;
 			};
 		};
-		249EDC1627C770A6005F7A9B /* XCRemoteSwiftPackageReference "TTGTagCollectionView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/zekunyan/TTGTagCollectionView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		24D1289A2790887A00AD7F3D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		24D1289D2790AB4900AD7F3D /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
 		24DEBF4427ABB1D400C40B29 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/LottieFiles/lottie-ios";
@@ -1202,21 +1166,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2497158127D9E23400968E08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
-		};
-		249EDC1727C770A6005F7A9B /* TTGTags */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 249EDC1627C770A6005F7A9B /* XCRemoteSwiftPackageReference "TTGTagCollectionView" */;
-			productName = TTGTags;
-		};
-		24D1289B2790887A00AD7F3D /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D1289A2790887A00AD7F3D /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		24D1289E2790AB4900AD7F3D /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24D1289D2790AB4900AD7F3D /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
 		};
 		24DEBF4527ABB1D400C40B29 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;

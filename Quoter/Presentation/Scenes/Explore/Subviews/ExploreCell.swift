@@ -84,7 +84,7 @@ class ExploreCell: UICollectionViewCell {
         UIView.animate(withDuration: 1, delay: 0) { [weak self] in
             guard let self = self else { return }
             self.quoteButtonViewCopy.alpha = 0
-            self.quoteButtonViewCopy.transform = CGAffineTransform(scaleX: 1.6, y: 1.6)
+            self.quoteButtonViewCopy.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         } completion: { [weak self] didFinish in
             guard let self = self else { return }
             if didFinish {

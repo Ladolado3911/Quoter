@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import TTGTags
 
 class FilterView: ModalViewWithTopBorder {
     

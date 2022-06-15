@@ -10,8 +10,6 @@ import UIKit
 extension UICollectionView {
     func reloadData(_ completion: @escaping () -> Void) {
         reloadData()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            completion()
-        }
+        completion()
     }
 }

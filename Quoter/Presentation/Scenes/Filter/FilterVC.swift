@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import TTGTags
 
 protocol FilterToExploreProtocol {
     func sendBackGenre(genre: Genre)

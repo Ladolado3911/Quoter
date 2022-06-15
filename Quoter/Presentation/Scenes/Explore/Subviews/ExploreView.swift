@@ -14,7 +14,7 @@ class ExploreView: UIView {
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
-        collectionView.showsHorizontalScrollIndicator = true
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.isPagingEnabled = true
         collectionView.isPrefetchingEnabled = true
         return collectionView
@@ -70,7 +70,7 @@ class ExploreView: UIView {
     }
     
     func animateFilterButton() {
-        UIView.animate(withDuration: 1, delay: 0) { [weak self] in
+        UIView.animate(withDuration: 1.5, delay: 0) { [weak self] in
             guard let self = self else { return }
             self.filterButtonCopy.alpha = 0
             self.filterButtonCopy.transform = CGAffineTransform(scaleX: 1.2, y: 1.4)

@@ -162,20 +162,7 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 }
 
 extension ExploreVC: ExploreVCProtocol {
-    func displayInitialQuotes(exploreQuotes: [ExploreQuoteProtocol]) {
-        interactor?.loadedQuotes = exploreQuotes
-        print(exploreQuotes.count)
-        exploreView?.collectionView.reloadData()
-        //exploreView?.stopAnimating()
-    }
-    
-    func displayNextQuotes(exploreQuotes: [ExploreQuoteProtocol]) {
-        let lastIntIndex = interactor!.loadedQuotes!.count - 1
-        let indexPaths = exploreQuotes.enumerated().map { IndexPath(item: lastIntIndex + $0.offset + 1, section: 0) }
-        interactor?.loadedQuotes?.append(contentsOf: exploreQuotes)
-        exploreView?.collectionView.insertItems(at: indexPaths)
-    }
-    
+
     func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath]) {
         let nextOffset = CGPoint(x: exploreView!.collectionView.contentOffset.x + contentOffsetX,
                                  y: exploreView!.collectionView.contentOffset.y)
@@ -233,11 +220,11 @@ extension ExploreVC: ExploreVCProtocol {
     }
     
     func reloadCollectionView() {
-        exploreView?.collectionView.reloadData {
-            UIView.animate(withDuration: 1, delay: 0) { [weak self] in
-                guard let self = self else { return }
-                self.exploreView?.collectionView.alpha = 1
-            }
+        exploreView?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: false)
+        exploreView?.collectionView.reloadData()
+        UIView.animate(withDuration: 1, delay: 1) { [weak self] in
+            guard let self = self else { return }
+            self.exploreView?.collectionView.alpha = 1
         }
     }
 }
