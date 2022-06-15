@@ -13,6 +13,7 @@ protocol AuthorVCProtocol: AnyObject {
     var router: AuthorRouterProtocol? { get set }
     
     func showView()
+    func showContent()
     func hideView()
     func hideContent()
     func dismissView()
@@ -84,6 +85,11 @@ extension AuthorVC: AuthorVCProtocol {
         authorView.frame = view.bounds
     }
     
+    func showContent() {
+        authorView.backView.alpha = 1
+        authorView.backButton.alpha = 1
+    }
+    
     func hideView() {
         authorView.frame = CGRect(x: Constants.screenWidth / 2,
                                   y: Constants.screenHeight / 2,
@@ -93,6 +99,7 @@ extension AuthorVC: AuthorVCProtocol {
     
     func hideContent() {
         authorView.backButton.alpha = 0
+        authorView.backView.alpha = 0
     }
     
     func dismissView() {

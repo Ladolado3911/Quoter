@@ -11,7 +11,24 @@ class AuthorView: UIView {
     
     let backButton: ArrowButton = {
         let button = ArrowButton(direction: .up, arrowIcon: FilterIcons.arrowDown)
+        button.alpha = 0
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    
+    let backView: UIView = {
+        let back = UIView()
+        back.backgroundColor = DarkModeColors.lightBlack
+        back.alpha = 0
+        back.layer.cornerRadius = 25
+        back.layer.applySketchShadow(color: DarkModeColors.black,
+                                     alpha: 0.4,
+                                     x: 1,
+                                     y: 2,
+                                     blur: 2,
+                                     spread: 0)
+        back.translatesAutoresizingMaskIntoConstraints = false
+        return back
     }()
     
     override init(frame: CGRect) {
@@ -30,15 +47,21 @@ class AuthorView: UIView {
     }
     
     private func buildSubviews() {
+        addSubview(backView)
         addSubview(backButton)
     }
     
     private func buildConstraints() {
         NSLayoutConstraint.activate([
-            backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            backButton.topAnchor.constraint(equalTo: topAnchor, constant: 64),
+            backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.screenWidth * 0.078),
+            backButton.topAnchor.constraint(equalTo: topAnchor, constant: Constants.screenHeight * 0.114),
             backButton.heightAnchor.constraint(equalToConstant: Constants.screenWidth * 0.1093),
-            backButton.widthAnchor.constraint(equalToConstant: Constants.screenWidth * 0.1093)
+            backButton.widthAnchor.constraint(equalToConstant: Constants.screenWidth * 0.1093),
+            
+            backView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            backView.widthAnchor.constraint(equalToConstant: Constants.screenWidth * 0.928),
+            backView.heightAnchor.constraint(equalToConstant: Constants.screenWidth * 0.1093 * 1.742),
+            backView.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
         ])
     }
 }

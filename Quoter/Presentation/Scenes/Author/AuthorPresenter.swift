@@ -12,6 +12,7 @@ protocol AuthorPresenterProtocol {
     var vc: AuthorVCProtocol? { get set }
     
     func showView()
+    func showContent()
     func hideView()
     func hideContent()
     func dismissView()
@@ -22,6 +23,10 @@ class AuthorPresenter: AuthorPresenterProtocol {
     
     func showView() {
         vc?.showView()
+    }
+    
+    func showContent() {
+        vc?.showContent()
     }
     
     func hideView() {

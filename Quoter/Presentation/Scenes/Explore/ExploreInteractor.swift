@@ -153,7 +153,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
                     cell.quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: fontSize)
                     cell.imgView.sd_setImage(with: URL(string: quote.quoteImageURLString),
                                              placeholderImage: nil,
-                                             options: [.continueInBackground, .highPriority, .scaleDownLargeImages]) { _, error, _, _ in
+                                             options: [.continueInBackground, .highPriority, .scaleDownLargeImages, .retryFailed, .refreshCached]) { _, error, _, _ in
                         if let error = error {
                             print("sd web error: \(error.localizedDescription)")
                             cell.stopAnimating()
