@@ -28,12 +28,14 @@ class ArrowButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setImage(ExploreIcons.arrowIconThin.resizedImage(targetHeight: Constants.screenHeight * 0.114), for: .normal)
-        imageView?.contentMode = .scaleAspectFill
+//        setImage(ExploreIcons.arrowIconThin.resizedImage(targetHeight: Constants.screenHeight * 0.114), for: .normal)
+//        imageView?.contentMode = .scaleAspectFill
     }
     
-    convenience init(direction: Direction) {
+    convenience init(direction: Direction, arrowIcon: UIImage) {
         self.init(frame: .zero)
+        setImage(arrowIcon.resizedImage(targetHeight: Constants.screenHeight * 0.114), for: .normal)
+        imageView?.contentMode = .scaleAspectFill
         switch direction {
         case .left:
             break

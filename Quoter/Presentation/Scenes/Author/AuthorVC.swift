@@ -13,6 +13,9 @@ protocol AuthorVCProtocol: AnyObject {
     var router: AuthorRouterProtocol? { get set }
     
     func showView()
+    func hideView()
+    func hideContent()
+    func dismissView()
 }
 
 class AuthorVC: UIViewController {
@@ -20,8 +23,11 @@ class AuthorVC: UIViewController {
     var router: AuthorRouterProtocol?
     
     lazy var authorView: AuthorView = {
-        let autView = AuthorView(frame: view.initialFrame)
-        autView.alpha = 0
+        let frame = CGRect(x: Constants.screenWidth / 2,
+                           y: Constants.screenHeight * 0.74,
+                           width: 0,
+                           height: 0)
+        let autView = AuthorView(frame: frame)
         return autView
     }()
 
@@ -39,6 +45,7 @@ class AuthorVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .clear
         buildSubviews()
+        configButtons()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,6 +55,10 @@ class AuthorVC: UIViewController {
     
     private func buildSubviews() {
         view.addSubview(authorView)
+    }
+    
+    private func configButtons() {
+        authorView.backButton.addTarget(self, action: #selector(onBackButton(sender:)), for: .touchUpInside)
     }
     
     private func setup() {
@@ -62,13 +73,30 @@ class AuthorVC: UIViewController {
         router.vc = vc
     }
     
+    @objc func onBackButton(sender: UIButton) {
+        interactor?.hideView()
+    }
     
 }
 
 extension AuthorVC: AuthorVCProtocol {
     func showView() {
         authorView.frame = view.bounds
-        authorView.alpha = 1
+    }
+    
+    func hideView() {
+        authorView.frame = CGRect(x: Constants.screenWidth / 2,
+                                  y: Constants.screenHeight / 2,
+                                  width: 0,
+                                  height: 0)
+    }
+    
+    func hideContent() {
+        authorView.backButton.alpha = 0
+    }
+    
+    func dismissView() {
+        dismiss(animated: false)
     }
 }
 

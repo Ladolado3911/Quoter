@@ -21,12 +21,12 @@ class ExploreView: UIView {
     }()
     
     let leftArrowButton: ArrowButton = {
-        let leftButton = ArrowButton(direction: .left)
+        let leftButton = ArrowButton(direction: .left, arrowIcon: ExploreIcons.arrowIconThin)
         return leftButton
     }()
     
     let rightArrowButton: ArrowButton = {
-        let rightButton = ArrowButton(direction: .right)
+        let rightButton = ArrowButton(direction: .right, arrowIcon: ExploreIcons.arrowIconThin)
         return rightButton
     }()
     
