@@ -8,14 +8,14 @@
 import UIKit
 
 protocol ExploreRouterProtocol {
-    var vc: ExploreVC? { get set }
+    var vc: ExploreVCProtocol? { get set }
     
     func routeToFilterVC(with currentGenre: Genre)
     func routeToAuthorVC()
 }
 
 class ExploreRouter: ExploreRouterProtocol {
-    weak var vc: ExploreVC?
+    weak var vc: ExploreVCProtocol?
     
     func routeToFilterVC(with currentGenre: Genre) {
         let filterVC = FilterVC()
@@ -24,7 +24,7 @@ class ExploreRouter: ExploreRouterProtocol {
             filterVC.modalTransitionStyle = .crossDissolve
             filterVC.filterToExploreDelegate = vc
             filterVC.currentGenre = currentGenre
-            vc.present(filterVC, animated: false)
+            vc.present(vc: filterVC, animated: false)
         }
     }
     
@@ -33,7 +33,7 @@ class ExploreRouter: ExploreRouterProtocol {
         if let vc = vc {
             authorVC.modalPresentationStyle = .custom
             authorVC.modalTransitionStyle = .crossDissolve
-            vc.present(authorVC, animated: false)
+            vc.present(vc: authorVC, animated: false)
         }
     }
 }

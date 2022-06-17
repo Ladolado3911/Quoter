@@ -11,7 +11,7 @@ protocol FilterToExploreProtocol {
     func sendBackGenre(genre: Genre)
 }
 
-protocol FilterVCProtocol {
+protocol FilterVCProtocol: AnyObject {
     var interactor: FilterInteractorProtocol? { get set }
     var router: FilterRouterProtocol? { get set }
     var filterToExploreDelegate: FilterToExploreProtocol? { get set }

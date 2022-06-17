@@ -31,6 +31,32 @@ class AuthorView: UIView {
         return back
     }()
     
+    let tableView: UITableView = {
+        let table = UITableView()
+        table.translatesAutoresizingMaskIntoConstraints = false
+        return table
+    }()
+    
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+//
+//    let aboutLabel: UILabel = {
+//        let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
+//
+//    let descLabel: UILabel = {
+//        let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
+    
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -49,6 +75,7 @@ class AuthorView: UIView {
     private func buildSubviews() {
         addSubview(backView)
         addSubview(backButton)
+        addSubview(tableView)
     }
     
     private func buildConstraints() {
@@ -62,6 +89,12 @@ class AuthorView: UIView {
             backView.widthAnchor.constraint(equalToConstant: Constants.screenWidth * 0.928),
             backView.heightAnchor.constraint(equalToConstant: Constants.screenWidth * 0.1093 * 1.742),
             backView.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
+            
+            tableView.topAnchor.constraint(equalTo: backView.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
         ])
     }
 }

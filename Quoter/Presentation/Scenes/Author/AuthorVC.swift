@@ -47,6 +47,7 @@ class AuthorVC: UIViewController {
         view.backgroundColor = .clear
         buildSubviews()
         configButtons()
+        configTableView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,14 +63,22 @@ class AuthorVC: UIViewController {
         authorView.backButton.addTarget(self, action: #selector(onBackButton(sender:)), for: .touchUpInside)
     }
     
+    private func configTableView() {
+        authorView.tableView.dataSource = self
+        authorView.tableView.delegate = self
+        authorView.tableView.register(AuthorAboutCell.self, forCellReuseIdentifier: "authorAboutCell")
+    }
+    
     private func setup() {
         let vc = self
         let interactor = AuthorInteractor()
         let presenter = AuthorPresenter()
         let router = AuthorRouter()
+        let authorNetworkWorker = AuthorNetworkWorker()
         vc.interactor = interactor
         vc.router = router
         interactor.presenter = presenter
+        interactor.authorNetworkWorker = authorNetworkWorker
         presenter.vc = vc
         router.vc = vc
     }
@@ -104,6 +113,16 @@ extension AuthorVC: AuthorVCProtocol {
     
     func dismissView() {
         dismiss(animated: false)
+    }
+}
+
+extension AuthorVC: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        interactor?.tableView(tableView, numberOfRowsInSection: section) ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        interactor?.tableView(tableView, cellForRowAt: indexPath) ?? UITableViewCell()
     }
 }
 

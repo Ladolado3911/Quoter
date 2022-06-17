@@ -25,6 +25,9 @@
 		24138A3B2805B16600044F5E /* MenuIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24138A3A2805B16600044F5E /* MenuIcons.swift */; };
 		24138A3D2805B39F00044F5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24138A3C2805B39F00044F5E /* Constants.swift */; };
 		24138A3F2805B90800044F5E /* GalleryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24138A3E2805B90800044F5E /* GalleryVC.swift */; };
+		241A2A22285B4655005681C5 /* AuthorAboutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A2A21285B4655005681C5 /* AuthorAboutCell.swift */; };
+		241A2A24285B4902005681C5 /* AuthorEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A2A23285B4902005681C5 /* AuthorEntities.swift */; };
+		241A2A27285B5D34005681C5 /* AuthorNetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A2A26285B5D34005681C5 /* AuthorNetworkWorker.swift */; };
 		242E31EE285361BC00AB4C22 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242E31ED285361BC00AB4C22 /* UIImageView+Extension.swift */; };
 		24484AD42837C07900D3BFA8 /* QuoteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24484AD32837C07900D3BFA8 /* QuoteButtonView.swift */; };
 		2458D29428097EBB0088C00E /* DailyQuotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458D29328097EBB0088C00E /* DailyQuotesVC.swift */; };
@@ -125,6 +128,9 @@
 		24138A3A2805B16600044F5E /* MenuIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuIcons.swift; sourceTree = "<group>"; };
 		24138A3C2805B39F00044F5E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		24138A3E2805B90800044F5E /* GalleryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryVC.swift; sourceTree = "<group>"; };
+		241A2A21285B4655005681C5 /* AuthorAboutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorAboutCell.swift; sourceTree = "<group>"; };
+		241A2A23285B4902005681C5 /* AuthorEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorEntities.swift; sourceTree = "<group>"; };
+		241A2A26285B5D34005681C5 /* AuthorNetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorNetworkWorker.swift; sourceTree = "<group>"; };
 		242E31ED285361BC00AB4C22 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		24484AD32837C07900D3BFA8 /* QuoteButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteButtonView.swift; sourceTree = "<group>"; };
 		2458D29328097EBB0088C00E /* DailyQuotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuotesVC.swift; sourceTree = "<group>"; };
@@ -305,6 +311,14 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		241A2A25285B5D1F005681C5 /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				241A2A26285B5D34005681C5 /* AuthorNetworkWorker.swift */,
+			);
+			path = Workers;
+			sourceTree = "<group>";
+		};
 		2458D295280999270088C00E /* Gallery */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,6 +342,8 @@
 				246700B32859D1B7004C64EB /* AuthorInteractor.swift */,
 				246700B52859D1C2004C64EB /* AuthorPresenter.swift */,
 				246700B72859D1CD004C64EB /* AuthorRouter.swift */,
+				241A2A23285B4902005681C5 /* AuthorEntities.swift */,
+				241A2A25285B5D1F005681C5 /* Workers */,
 				246700B92859D1D5004C64EB /* Subviews */,
 			);
 			path = Author;
@@ -337,6 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				246700BA2859D1EA004C64EB /* AuthorView.swift */,
+				241A2A21285B4655005681C5 /* AuthorAboutCell.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -783,6 +800,7 @@
 				24138A202805739B00044F5E /* MenuItem.swift in Sources */,
 				2470F654284E316800B6124D /* FilterVC.swift in Sources */,
 				24D018F6280ADE150031C14B /* ArrowButtonView.swift in Sources */,
+				241A2A22285B4655005681C5 /* AuthorAboutCell.swift in Sources */,
 				24D018F9280ADE880031C14B /* ExploreIcons.swift in Sources */,
 				24484AD42837C07900D3BFA8 /* QuoteButtonView.swift in Sources */,
 				246B82962831204E00D44DF5 /* NetworkWorker.swift in Sources */,
@@ -791,6 +809,7 @@
 				24DAF67D285229C00046DC51 /* CALayer+Extension.swift in Sources */,
 				24DAF67B285219AA0046DC51 /* FilterCategories.swift in Sources */,
 				2458D29A2809A51A0088C00E /* ExploreCell.swift in Sources */,
+				241A2A24285B4902005681C5 /* AuthorEntities.swift in Sources */,
 				24138A1A280571CA00044F5E /* MenuVC.swift in Sources */,
 				24D5BC2B2806FE93003D14CD /* MenuHeaderView.swift in Sources */,
 				24138A342805AD6E00044F5E /* UIView+Extension.swift in Sources */,
@@ -810,6 +829,7 @@
 				24138A372805AD6E00044F5E /* String+Extension.swift in Sources */,
 				24DAF67F285235200046DC51 /* FilterLayout.swift in Sources */,
 				24138A3B2805B16600044F5E /* MenuIcons.swift in Sources */,
+				241A2A27285B5D34005681C5 /* AuthorNetworkWorker.swift in Sources */,
 				246B829E283137C700D44DF5 /* ExplorePresenter.swift in Sources */,
 				2470F65B284E328400B6124D /* FilterPresenter.swift in Sources */,
 				240028272858B34F005220D7 /* UICollectionView+Extension.swift in Sources */,

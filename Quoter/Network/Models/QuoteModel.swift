@@ -9,11 +9,11 @@ import Foundation
 
 struct QuoteModel: Codable {
     var content: String
-    var author: AuthorModel
+    var author: AuthorModelForQuote
     var quoteImageURLString: String
 }
 
-struct AuthorModel: Codable {
+struct AuthorModelForQuote: Codable {
     var name: String
     var slug: String
     var authorImageURLString: String

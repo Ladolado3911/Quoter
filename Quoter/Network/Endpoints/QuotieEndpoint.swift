@@ -22,6 +22,10 @@ enum QuotieEndpoint: EndpointProtocol {
     case getSmallGeneralQuote
     case getCategories
     
+    case getAboutAuthor(authorID: String)
+    case getAuthorQuotesForSection(authorID: String)
+    case getOtherAuthorsForSection(categoryName: String)
+    
     var scheme: Scheme {
         switch self {
         default:
@@ -50,6 +54,13 @@ enum QuotieEndpoint: EndpointProtocol {
             return "/getSmallGeneralQuote/"
         case .getCategories:
             return "/categories/"
+            
+        case .getAboutAuthor(let id):
+            return "/getAuthorAbout/\(id)/"
+        case .getAuthorQuotesForSection(let id):
+            return "/getAuthorQuotesSection/\(id)/"
+        case .getOtherAuthorsForSection(let name):
+            return "/getOtherAuthorsInCategory/\(name)/"
         }
     }
     var parameters: [URLQueryItem] {

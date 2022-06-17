@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ExploreVCProtocol: AnyObject {
+protocol ExploreVCProtocol: AnyObject, FilterToExploreProtocol {
     var interactor: ExploreInteractorProtocol? { get set }
     var router: ExploreRouterProtocol? { get set }
     var exploreView: ExploreView? { get set }
@@ -21,6 +21,7 @@ protocol ExploreVCProtocol: AnyObject {
                       mainButtonStyle: UIAlertAction.Style,
                       action: (() -> Void)?)
     func reloadCollectionView()
+    func present(vc: UIViewController, animated: Bool)
 }
 
 class ExploreVC: UIViewController {
@@ -248,6 +249,10 @@ extension ExploreVC: ExploreVCProtocol {
                 self.exploreView?.leftArrowButton.isEnabled = true
             }
         }
+    }
+    
+    func present(vc: UIViewController, animated: Bool) {
+        present(vc, animated: animated)
     }
 }
 

@@ -7,10 +7,10 @@
 
 import UIKit
 
-protocol FilterRouterProtocol: AnyObject {
+protocol FilterRouterProtocol {
     var vc: FilterVCProtocol? { get set }
 }
 
 class FilterRouter: FilterRouterProtocol {
-    var vc: FilterVCProtocol?
+    weak var vc: FilterVCProtocol?
 }
