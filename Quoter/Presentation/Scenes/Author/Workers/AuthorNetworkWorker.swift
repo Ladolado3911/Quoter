@@ -7,10 +7,15 @@
 
 import UIKit
 
+protocol GetContentForSectionProtocol {
+    func getContent()
+}
+
 protocol AuthorNetworkWorkerProtocol {
     var networkWorker: NetworkWorkerProtocol { get set }
 
     func getSections(authorID: String, categoryName: String) async throws -> [SectionProtocol]
+    func getDataSourceInfo() async throws -> AuthorDataSourceInfoProtocol
     
     func getAboutAuthor(authorID: String) async throws -> AuthorAboutProtocol
     func getAuthorQuotesForSection(authorID: String) async throws -> AuthorQuotesForSectionProtocol
@@ -42,6 +47,13 @@ class AuthorNetworkWorker: AuthorNetworkWorkerProtocol {
             }
         }
         return content?.compactMap { $0 } ?? []
+    }
+    
+    func getDataSourceInfo() async throws -> AuthorDataSourceInfoProtocol {
+        let endpoint = QuotieEndpoint.getDataSourceInfo
+        let model = Resource(model: AuthorDataSourceInfoEntity.self)
+        let entity = try await networkWorker.fetchData(endpoint: endpoint, model: model)
+        return entity
     }
     
     func getAboutAuthor(authorID: String) async throws -> AuthorAboutProtocol {

@@ -66,7 +66,10 @@ class AuthorVC: UIViewController {
     private func configTableView() {
         authorView.tableView.dataSource = self
         authorView.tableView.delegate = self
-        authorView.tableView.register(AuthorAboutCell.self, forCellReuseIdentifier: "authorAboutCell")
+        for object in AuthorCellsManager.shared.everyCellObjects {
+            object.registerCell(authorView.tableView)
+        }
+        //authorView.tableView.register(AuthorAboutCell.self, forCellReuseIdentifier: "authorAboutCell")
     }
     
     private func setup() {
@@ -117,12 +120,25 @@ extension AuthorVC: AuthorVCProtocol {
 }
 
 extension AuthorVC: UITableViewDataSource, UITableViewDelegate {
+    
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        //interactor?.numberOfSections(in: tableView)
+//    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         interactor?.tableView(tableView, numberOfRowsInSection: section) ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         interactor?.tableView(tableView, cellForRowAt: indexPath) ?? UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        interactor?.tableView(tableView, willDisplay: cell, forRowAt: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        interactor?.tableView(tableView, willDisplayHeaderView: view, forSection: section)
     }
 }
 

@@ -14,15 +14,20 @@ protocol AuthorInteractorProtocol {
     var tableViewItems: [SectionProtocol] { get set }
     var authorID: String? { get set }
     var categoryName: String? { get set }
+    var dataSourceInfo: AuthorDataSourceInfoProtocol? { get set }
     
     func showView()
     func hideView()
     
+    func getDataSourceInfo()
     func getTableViewItems()
     
     //MARK: UITableview datasource and delegate functions
+    func numberOfSections(in tableView: UITableView) -> Int
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
 }
 
 class AuthorInteractor: AuthorInteractorProtocol {
@@ -32,6 +37,7 @@ class AuthorInteractor: AuthorInteractorProtocol {
     var tableViewItems: [SectionProtocol] = []
     var authorID: String?
     var categoryName: String?
+    var dataSourceInfo: AuthorDataSourceInfoProtocol?
     
     func showView() {
         UIView.animateKeyframes(withDuration: 1, delay: 0) { [weak self] in
@@ -63,6 +69,18 @@ class AuthorInteractor: AuthorInteractorProtocol {
         }
     }
     
+    func getDataSourceInfo() {
+//        Task.init {  [weak self] in
+//            guard let self = self else { return }
+//            let dataSourceInfo = try await self.authorNetworkWorker?.getDataSourceInfo()
+//            let content = try await self.authorNetworkWorker.
+//            await MainActor.run {
+//                self.dataSourceInfo = dataSourceInfo
+//
+//            }
+//        }
+    }
+    
     func getTableViewItems() {
         guard let authorID = authorID else {
             return
@@ -80,12 +98,36 @@ class AuthorInteractor: AuthorInteractorProtocol {
         }
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+//        guard let dataSourceInfo = dataSourceInfo else {
+//            return 0
+//        }
+//        return dataSourceInfo.sectionCount
+        0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+//        guard let dataSourceInfo = dataSourceInfo else {
+//            return 0
+//        }
+//        return dataSourceInfo.sectionCount
+        AuthorCellsManager.shared.everyCellObjects.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "authorAboutCell")
-        return cell!
+//        guard let dataSourceInfo = dataSourceInfo else {
+//            return UITableViewCell()
+//        }
+//        let cell = tableView.dequeueReusableCell(withIdentifier: dataSourceInfo.cellIdentifiers[indexPath.row])
+//        return cell!
+        AuthorCellsManager.shared.everyCellObjects[indexPath.row].dequeCell(tableView)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
     }
 }

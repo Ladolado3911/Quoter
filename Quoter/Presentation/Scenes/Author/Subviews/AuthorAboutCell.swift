@@ -7,19 +7,19 @@
 
 import UIKit
 
-class AuthorAboutCell: UITableViewCell {
-    
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-    }
-    
-    func buildSubviews() {
-        
-    }
-    
-    func buildConstraints() {
-        
-    }
-}
+//class AuthorAboutCell: UITableViewCell {
+//    
+//    
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        
+//    }
+//    
+//    func buildSubviews() {
+//        
+//    }
+//    
+//    func buildConstraints() {
+//        
+//    }
+//}

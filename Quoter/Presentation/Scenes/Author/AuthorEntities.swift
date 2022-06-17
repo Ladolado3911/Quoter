@@ -29,6 +29,11 @@ protocol AuthorForSectionProtocol: Codable {
     var name: String { get set }
 }
 
+protocol AuthorDataSourceInfoProtocol: Codable {
+    var sectionCount: Int { get set }
+    var cellIdentifiers: [String] { get set }
+}
+
 struct AuthorAboutEntity: Codable, AuthorAboutProtocol {
     var authorImageURLString: String
     var description: String
@@ -67,5 +72,9 @@ struct AuthorForSectionEntity: Codable, AuthorForSectionProtocol {
         self.imageURL = try container.decode(String.self, forKey: .imageURL)
         self.name = try container.decode(String.self, forKey: .name)
     }
+}
 
+struct AuthorDataSourceInfoEntity: Codable, AuthorDataSourceInfoProtocol {
+    var sectionCount: Int
+    var cellIdentifiers: [String]
 }

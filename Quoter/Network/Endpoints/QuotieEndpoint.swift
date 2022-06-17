@@ -25,6 +25,7 @@ enum QuotieEndpoint: EndpointProtocol {
     case getAboutAuthor(authorID: String)
     case getAuthorQuotesForSection(authorID: String)
     case getOtherAuthorsForSection(categoryName: String)
+    case getDataSourceInfo
     
     var scheme: Scheme {
         switch self {
@@ -61,6 +62,8 @@ enum QuotieEndpoint: EndpointProtocol {
             return "/getAuthorQuotesSection/\(id)/"
         case .getOtherAuthorsForSection(let name):
             return "/getOtherAuthorsInCategory/\(name)/"
+        case .getDataSourceInfo:
+            return "/getSectionCountAndCellIdentifiers/"
         }
     }
     var parameters: [URLQueryItem] {
