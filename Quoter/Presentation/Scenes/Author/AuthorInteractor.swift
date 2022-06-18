@@ -24,10 +24,11 @@ protocol AuthorInteractorProtocol {
     
     //MARK: UITableview datasource and delegate functions
     func numberOfSections(in tableView: UITableView) -> Int
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath, target: UIViewController)
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     
 }
@@ -104,6 +105,10 @@ class AuthorInteractor: AuthorInteractorProtocol {
         AuthorCellsManager.shared.everyCellObjects.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        AuthorCellsManager.shared.everyCellObjects[indexPath.section][indexPath.row].rowHeight
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         AuthorCellsManager.shared.everyCellObjects[section].first!.sectionNameOfCell
     }
@@ -116,8 +121,8 @@ class AuthorInteractor: AuthorInteractorProtocol {
         AuthorCellsManager.shared.everyCellObjects[indexPath.section][indexPath.row].dequeCell(tableView)
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        AuthorCellsManager.shared.everyCellObjects[indexPath.section][indexPath.row].willDisplay(cell)
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath, target: UIViewController) {
+        AuthorCellsManager.shared.everyCellObjects[indexPath.section][indexPath.row].willDisplay(cell, target: target)
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {

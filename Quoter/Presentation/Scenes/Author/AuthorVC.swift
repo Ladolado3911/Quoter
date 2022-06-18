@@ -122,6 +122,10 @@ extension AuthorVC: UITableViewDataSource, UITableViewDelegate {
         interactor?.numberOfSections(in: tableView) ?? 0
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        interactor?.tableView(tableView, heightForRowAt: indexPath) ?? 0
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         interactor?.tableView(tableView, titleForHeaderInSection: section)
     }
@@ -135,7 +139,7 @@ extension AuthorVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        interactor?.tableView(tableView, willDisplay: cell, forRowAt: indexPath)
+        interactor?.tableView(tableView, willDisplay: cell, forRowAt: indexPath, target: self)
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -143,3 +147,14 @@ extension AuthorVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+extension AuthorVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        UICollectionViewCell()
+    }
+    
+    
+}

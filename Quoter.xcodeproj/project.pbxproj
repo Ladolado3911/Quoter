@@ -324,8 +324,6 @@
 			isa = PBXGroup;
 			children = (
 				241A2A26285B5D34005681C5 /* AuthorNetworkWorker.swift */,
-				24A71A32285C972800835E8C /* AuthorCellObjects */,
-				24A71A30285C96F800835E8C /* AuthorCellsManager.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -355,6 +353,7 @@
 				246700B72859D1CD004C64EB /* AuthorRouter.swift */,
 				241A2A23285B4902005681C5 /* AuthorEntities.swift */,
 				241A2A25285B5D1F005681C5 /* Workers */,
+				24A71A32285C972800835E8C /* AuthorCellObjects */,
 				246700B92859D1D5004C64EB /* Subviews */,
 			);
 			path = Author;
@@ -447,11 +446,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		24A71A32285C972800835E8C /* AuthorCellObjects */ = {
+		249BE4AD285DDAED00D30127 /* AuthorObjects */ = {
 			isa = PBXGroup;
 			children = (
 				24A71A35285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift */,
 				24A71A37285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift */,
+			);
+			path = AuthorObjects;
+			sourceTree = "<group>";
+		};
+		24A71A32285C972800835E8C /* AuthorCellObjects */ = {
+			isa = PBXGroup;
+			children = (
+				24A71A30285C96F800835E8C /* AuthorCellsManager.swift */,
+				249BE4AD285DDAED00D30127 /* AuthorObjects */,
 			);
 			path = AuthorCellObjects;
 			sourceTree = "<group>";

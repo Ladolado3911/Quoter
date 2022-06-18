@@ -10,7 +10,12 @@ import UIKit
 protocol CellProtocol {
     var sectionNameOfCell: String { get }
     var cellIdentifier: String { get }
+    var rowHeight: CGFloat { get }
+    var insideCollectionView: UICollectionView { get }
+
+    func configureInnerCollectionView(target: UIViewController)
     
+    //MARK: functions on cell
     func registerCell(_ tableView: UITableView)
     func dequeCell(_ tableView: UITableView) -> UITableViewCell
     func willDisplay(_ cell: UITableViewCell)
