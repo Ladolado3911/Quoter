@@ -24,6 +24,10 @@ class OtherAuthorsForSectionCellObject: CellProtocol {
         OtherAuthorsForSectionCell.collectionView
     }
     
+    var innerCollectionViewDataCount: Int {
+        5
+    }
+    
     class OtherAuthorsForSectionCell: UITableViewCell {
         
         static let cellIdentifier: String = String(describing: OtherAuthorsForSectionCellObject.OtherAuthorsForSectionCell.self)
@@ -70,11 +74,23 @@ class OtherAuthorsForSectionCellObject: CellProtocol {
     }
     
     func configureInnerCollectionView(target: UIViewController) {
-        if let vc = target as? ExploreVC {
+        if let vc = target as? AuthorVC {
             OtherAuthorsForSectionCell.collectionView.dataSource = vc
             OtherAuthorsForSectionCell.collectionView.delegate = vc
             OtherAuthorsForSectionCell.collectionView.register(ChildCell.self, forCellWithReuseIdentifier: ChildCell.cellIdentifier)
         }
+    }
+    
+    func dequeInnerCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell {
+        OtherAuthorsForSectionCell.collectionView.dequeueReusableCell(withReuseIdentifier: ChildCell.cellIdentifier, for: indexPath)
+    }
+    
+    func didSelectInnerCollectionViewCell() {
+        
+    }
+    
+    func sizeForItemAt() -> CGSize {
+        CGSize(width: 100, height: OtherAuthorsForSectionCell.collectionView.bounds.height)
     }
     
     func registerCell(_ tableView: UITableView) {

@@ -12,8 +12,13 @@ protocol CellProtocol {
     var cellIdentifier: String { get }
     var rowHeight: CGFloat { get }
     var innerCollectionView: UICollectionView { get }
+    var innerCollectionViewDataCount: Int { get }
 
+    //MARK: functions on inner collection view cell
     func configureInnerCollectionView(target: UIViewController)
+    func dequeInnerCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell
+    func didSelectInnerCollectionViewCell()
+    func sizeForItemAt() -> CGSize
     
     //MARK: functions on cell
     func registerCell(_ tableView: UITableView)

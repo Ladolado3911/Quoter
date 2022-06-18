@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 protocol AuthorInteractorProtocol {
     var presenter: AuthorPresenterProtocol? { get set }
@@ -141,15 +142,15 @@ extension AuthorInteractor {
 
 extension AuthorInteractor {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        0
+        collectionView.pickRelevantCellObject()?.innerCollectionViewDataCount ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        UICollectionViewCell()
+        collectionView.pickRelevantCellObject()?.dequeInnerCollectionViewCell(indexPath: indexPath) ?? UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("did select \(indexPath.item)")
+        collectionView.pickRelevantCellObject()?.didSelectInnerCollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -161,6 +162,6 @@ extension AuthorInteractor {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: 50, height: 50)
+        collectionView.pickRelevantCellObject()?.sizeForItemAt() ?? .zero
     }
 }
