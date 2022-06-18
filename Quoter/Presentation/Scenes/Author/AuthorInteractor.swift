@@ -32,6 +32,8 @@ protocol AuthorInteractorProtocol {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath, target: UIViewController)
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    
     //MARK: UICollectionview datasource and delegate functions
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -138,19 +140,28 @@ extension AuthorInteractor {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
     }
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        tableView.dequeueReusableCell(withIdentifier: AuthorTableHeaderView.identifier)
+//    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        50
+    }
+
 }
 
 extension AuthorInteractor {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        collectionView.pickRelevantCellObject()?.innerCollectionViewDataCount ?? 0
+        collectionView.pickRelevantCellObject(using: AuthorCellsManager.shared)?.innerCollectionViewDataCount ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        collectionView.pickRelevantCellObject()?.dequeInnerCollectionViewCell(indexPath: indexPath) ?? UICollectionViewCell()
+        collectionView.pickRelevantCellObject(using: AuthorCellsManager.shared)?.dequeInnerCollectionViewCell(indexPath: indexPath) ?? UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.pickRelevantCellObject()?.didSelectInnerCollectionViewCell()
+        collectionView.pickRelevantCellObject(using: AuthorCellsManager.shared)?.didSelectInnerCollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -162,6 +173,6 @@ extension AuthorInteractor {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        collectionView.pickRelevantCellObject()?.sizeForItemAt() ?? .zero
+        collectionView.pickRelevantCellObject(using: AuthorCellsManager.shared)?.sizeForItemAt() ?? .zero
     }
 }

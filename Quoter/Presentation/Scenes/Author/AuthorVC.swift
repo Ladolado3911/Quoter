@@ -67,6 +67,10 @@ class AuthorVC: UIViewController {
         authorView.tableView.dataSource = self
         authorView.tableView.delegate = self
         authorView.tableView.registerCells(using: AuthorCellsManager.shared, target: self)
+        authorView.tableView.tableHeaderView = AuthorTableHeaderView(frame: CGRect(x: 0,
+                                                                                   y: 0,
+                                                                                   width: Constants.screenWidth,
+                                                                                   height: 200))
     }
     
     private func setup() {
@@ -144,6 +148,14 @@ extension AuthorVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         interactor?.tableView(tableView, willDisplayHeaderView: view, forSection: section)
+    }
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        interactor?.tableView(tableView, viewForHeaderInSection: section)
+//    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        interactor?.tableView(tableView, heightForHeaderInSection: section) ?? 0
     }
 }
 

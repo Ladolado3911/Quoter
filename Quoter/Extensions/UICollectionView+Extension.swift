@@ -13,8 +13,8 @@ extension UICollectionView {
         completion()
     }
 
-    func pickRelevantCellObject() -> CellProtocol? {
-        for object in AuthorCellsManager.shared.everyCellObjects.flatMap({ $0 }) {
+    func pickRelevantCellObject(using manager: CellsManagerProtocol) -> CellProtocol? {
+        for object in manager.everyCellObjects.flatMap({ $0 }) {
             if self == object.innerCollectionView {
                 return object
             }
