@@ -10,6 +10,8 @@ import UIKit
 
 class OtherAuthorsForSectionCellObject: CellProtocol {
     
+    var sectionNameOfCell: String = "Other authors"
+    
     var cellIdentifier: String {
         OtherAuthorsForSectionCell.cellIdentifier
     }
@@ -38,6 +40,10 @@ class OtherAuthorsForSectionCellObject: CellProtocol {
     
     func dequeCell(_ tableView: UITableView) -> UITableViewCell {
         tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! OtherAuthorsForSectionCell
+    }
+    
+    func willDisplay(_ cell: UITableViewCell) {
+        
     }
 }
 

@@ -8,21 +8,27 @@
 import UIKit
 
 protocol CellProtocol {
+    var sectionNameOfCell: String { get }
     var cellIdentifier: String { get }
     
     func registerCell(_ tableView: UITableView)
     func dequeCell(_ tableView: UITableView) -> UITableViewCell
+    func willDisplay(_ cell: UITableViewCell)
 }
 
-final class AuthorCellsManager {
+protocol CellsManagerProtocol {
+    var everyCellObjects: [[CellProtocol]] { get }
+}
+
+final class AuthorCellsManager: CellsManagerProtocol {
     
     static let shared = AuthorCellsManager()
     
     private init() {}
     
-    let everyCellObjects: [CellProtocol] = [
-        AuthorQuotesForSectionCellObject(),
-        OtherAuthorsForSectionCellObject(),
+    var everyCellObjects: [[CellProtocol]] = [
+        [AuthorQuotesForSectionCellObject()],
+        [OtherAuthorsForSectionCellObject()],
         
     ]
     

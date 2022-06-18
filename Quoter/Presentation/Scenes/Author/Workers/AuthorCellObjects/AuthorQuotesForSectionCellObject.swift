@@ -10,6 +10,8 @@ import UIKit
 
 class AuthorQuotesForSectionCellObject: CellProtocol {
     
+    var sectionNameOfCell: String = "Other quotes"
+    
     var cellIdentifier: String {
         AuthorQuotesForSectionCell.cellIdentifier
     }
@@ -38,5 +40,11 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
     
     func dequeCell(_ tableView: UITableView) -> UITableViewCell {
         tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! AuthorQuotesForSectionCell
+    }
+
+    func willDisplay(_ cell: UITableViewCell) {
+        if let cell = cell as? AuthorQuotesForSectionCell {
+            
+        }
     }
 }

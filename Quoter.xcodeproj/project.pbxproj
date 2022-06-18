@@ -61,7 +61,8 @@
 		2497158327D9E23400968E08 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158227D9E23400968E08 /* FirebaseAnalytics */; };
 		2497158527D9E23400968E08 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158427D9E23400968E08 /* FirebaseCrashlytics */; };
 		2497158927D9E40F00968E08 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2497158727D9E3FB00968E08 /* AdSupport.framework */; };
-		24A71A31285C96F800835E8C /* CellStrategyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A71A30285C96F800835E8C /* CellStrategyProtocol.swift */; };
+		249BE4AC285DCBF600D30127 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249BE4AB285DCBF600D30127 /* UITableView+Extension.swift */; };
+		24A71A31285C96F800835E8C /* AuthorCellsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A71A30285C96F800835E8C /* AuthorCellsManager.swift */; };
 		24A71A36285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A71A35285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift */; };
 		24A71A38285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A71A37285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift */; };
 		24A8CEA5284B8EC000B5F6F2 /* ExploreScreenshotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8CEA4284B8EC000B5F6F2 /* ExploreScreenshotCell.swift */; };
@@ -164,7 +165,8 @@
 		248C54162850E7280080FBBE /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		2497157F27D9E15F00968E08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2497158727D9E3FB00968E08 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		24A71A30285C96F800835E8C /* CellStrategyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStrategyProtocol.swift; sourceTree = "<group>"; };
+		249BE4AB285DCBF600D30127 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		24A71A30285C96F800835E8C /* AuthorCellsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCellsManager.swift; sourceTree = "<group>"; };
 		24A71A35285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorQuotesForSectionCellObject.swift; sourceTree = "<group>"; };
 		24A71A37285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherAuthorsForSectionCellObject.swift; sourceTree = "<group>"; };
 		24A8CEA4284B8EC000B5F6F2 /* ExploreScreenshotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreScreenshotCell.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				24DAF67C285229C00046DC51 /* CALayer+Extension.swift */,
 				242E31ED285361BC00AB4C22 /* UIImageView+Extension.swift */,
 				240028262858B34F005220D7 /* UICollectionView+Extension.swift */,
+				249BE4AB285DCBF600D30127 /* UITableView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -322,7 +325,7 @@
 			children = (
 				241A2A26285B5D34005681C5 /* AuthorNetworkWorker.swift */,
 				24A71A32285C972800835E8C /* AuthorCellObjects */,
-				24A71A30285C96F800835E8C /* CellStrategyProtocol.swift */,
+				24A71A30285C96F800835E8C /* AuthorCellsManager.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -804,6 +807,7 @@
 				246B828F28311DBB00D44DF5 /* QuotieEndpoint.swift in Sources */,
 				246700BB2859D1EA004C64EB /* AuthorView.swift in Sources */,
 				246B8298283121A600D44DF5 /* ExploreNetworkWorker.swift in Sources */,
+				249BE4AC285DCBF600D30127 /* UITableView+Extension.swift in Sources */,
 				24EF3BC32851D4A800789F0E /* FilterIcons.swift in Sources */,
 				24D5BC272806C2C0003D14CD /* BaseVC.swift in Sources */,
 				24138A1C2805726200044F5E /* MenuView.swift in Sources */,
@@ -836,7 +840,7 @@
 				246B829128311E9300D44DF5 /* QuotieCategoriesEndpoint.swift in Sources */,
 				246B829A283124A600D44DF5 /* CategoriesModel.swift in Sources */,
 				248C54142850BD600080FBBE /* ModalViewWithTopBorder.swift in Sources */,
-				24A71A31285C96F800835E8C /* CellStrategyProtocol.swift in Sources */,
+				24A71A31285C96F800835E8C /* AuthorCellsManager.swift in Sources */,
 				248C54172850E7280080FBBE /* FilterView.swift in Sources */,
 				24138A1E2805728300044F5E /* MenuItemView.swift in Sources */,
 				2458D29428097EBB0088C00E /* DailyQuotesVC.swift in Sources */,

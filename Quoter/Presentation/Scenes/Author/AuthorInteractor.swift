@@ -24,10 +24,12 @@ protocol AuthorInteractorProtocol {
     
     //MARK: UITableview datasource and delegate functions
     func numberOfSections(in tableView: UITableView) -> Int
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    
 }
 
 class AuthorInteractor: AuthorInteractorProtocol {
@@ -99,35 +101,27 @@ class AuthorInteractor: AuthorInteractorProtocol {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-//        guard let dataSourceInfo = dataSourceInfo else {
-//            return 0
-//        }
-//        return dataSourceInfo.sectionCount
-        0
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        guard let dataSourceInfo = dataSourceInfo else {
-//            return 0
-//        }
-//        return dataSourceInfo.sectionCount
         AuthorCellsManager.shared.everyCellObjects.count
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        AuthorCellsManager.shared.everyCellObjects[section].first!.sectionNameOfCell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let dataSourceInfo = dataSourceInfo else {
-//            return UITableViewCell()
-//        }
-//        let cell = tableView.dequeueReusableCell(withIdentifier: dataSourceInfo.cellIdentifiers[indexPath.row])
-//        return cell!
-        AuthorCellsManager.shared.everyCellObjects[indexPath.row].dequeCell(tableView)
+        AuthorCellsManager.shared.everyCellObjects[indexPath.section][indexPath.row].dequeCell(tableView)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
+        AuthorCellsManager.shared.everyCellObjects[indexPath.section][indexPath.row].willDisplay(cell)
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
     }
+
 }
