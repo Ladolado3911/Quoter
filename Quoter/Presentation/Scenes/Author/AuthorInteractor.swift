@@ -31,6 +31,13 @@ protocol AuthorInteractorProtocol {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath, target: UIViewController)
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     
+    //MARK: UICollectionview datasource and delegate functions
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
 }
 
 class AuthorInteractor: AuthorInteractorProtocol {
@@ -100,7 +107,9 @@ class AuthorInteractor: AuthorInteractorProtocol {
             }
         }
     }
-    
+}
+
+extension AuthorInteractor {
     func numberOfSections(in tableView: UITableView) -> Int {
         AuthorCellsManager.shared.everyCellObjects.count
     }
@@ -122,11 +131,36 @@ class AuthorInteractor: AuthorInteractorProtocol {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath, target: UIViewController) {
-        AuthorCellsManager.shared.everyCellObjects[indexPath.section][indexPath.row].willDisplay(cell, target: target)
+        AuthorCellsManager.shared.everyCellObjects[indexPath.section][indexPath.row].willDisplay(cell)
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
     }
+}
 
+extension AuthorInteractor {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("did select \(indexPath.item)")
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        20
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        20
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: 50, height: 50)
+    }
 }

@@ -20,7 +20,7 @@ class OtherAuthorsForSectionCellObject: CellProtocol {
         Constants.screenHeight * 0.2306
     }
     
-    var insideCollectionView: UICollectionView {
+    var innerCollectionView: UICollectionView {
         OtherAuthorsForSectionCell.collectionView
     }
     

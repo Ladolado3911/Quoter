@@ -11,7 +11,7 @@ protocol CellProtocol {
     var sectionNameOfCell: String { get }
     var cellIdentifier: String { get }
     var rowHeight: CGFloat { get }
-    var insideCollectionView: UICollectionView { get }
+    var innerCollectionView: UICollectionView { get }
 
     func configureInnerCollectionView(target: UIViewController)
     

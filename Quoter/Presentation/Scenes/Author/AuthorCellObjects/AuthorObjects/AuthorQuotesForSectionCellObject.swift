@@ -20,7 +20,7 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
         Constants.screenHeight * 0.27992
     }
     
-    var insideCollectionView: UICollectionView {
+    var innerCollectionView: UICollectionView {
         AuthorQuotesForSectionCell.collectionView
     }
     
@@ -58,11 +58,23 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
         }
     }
     
+    class ChildCell: UICollectionViewCell {
+        
+        static let cellIdentifier: String = String(describing: ChildCell.self)
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            backgroundColor = .brown
+        }
+        
+        
+    }
+    
     func configureInnerCollectionView(target: UIViewController) {
         if let vc = target as? ExploreVC {
             AuthorQuotesForSectionCell.collectionView.dataSource = vc
             AuthorQuotesForSectionCell.collectionView.delegate = vc
-            AuthorQuotesForSectionCell.collectionView.register(<#T##cellClass: AnyClass?##AnyClass?#>, forCellWithReuseIdentifier: <#T##String#>)
+            AuthorQuotesForSectionCell.collectionView.register(ChildCell.self, forCellWithReuseIdentifier: ChildCell.cellIdentifier)
         }
     }
 

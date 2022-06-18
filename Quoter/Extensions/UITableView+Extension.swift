@@ -8,9 +8,10 @@
 import UIKit
 
 extension UITableView {
-    func registerCells(using manager: CellsManagerProtocol) {
+    func registerCells(using manager: CellsManagerProtocol, target: UIViewController) {
         for object in manager.everyCellObjects.flatMap({ $0 }) {
             object.registerCell(self)
+            object.configureInnerCollectionView(target: target)
         }
     }
 //    
