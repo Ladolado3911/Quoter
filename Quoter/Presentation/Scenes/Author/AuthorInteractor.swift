@@ -108,6 +108,12 @@ extension AuthorInteractor {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
+        if let view = view as? UITableViewHeaderFooterView {
+            view.textLabel?.text = AuthorCellsManager.shared.everyCellObjects[section].first!.sectionNameOfCell
+            view.textLabel?.textColor = DarkModeColors.white
+            view.textLabel?.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        }
+        
         if let view = tableView.tableHeaderView as? AuthorTableHeaderView,
            let desc = AuthorCellsManager.shared.authorDesc,
            let imageString = AuthorCellsManager.shared.authorImageURLString,
@@ -130,9 +136,18 @@ extension AuthorInteractor {
         }
     }
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        tableView.dequeueReusableCell(withIdentifier: AuthorTableHeaderView.identifier)
-//    }
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: SectionTitleView.identifier) as? SectionTitleView {
+            view.titleLabel.text = AuthorCellsManager.shared.everyCellObjects[section].first!.sectionNameOfCell
+            return view
+        }
+        else {
+            return nil
+        }
+    }
+    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         50

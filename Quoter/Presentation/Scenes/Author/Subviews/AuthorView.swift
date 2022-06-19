@@ -45,7 +45,7 @@ class AuthorView: UIView {
         label.textColor = DarkModeColors.white
         label.textAlignment = .center
         label.numberOfLines = 2
-        label.font = UIFont.systemFont(ofSize: Constants.screenHeight * 0.021598272, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         //label.font = LibreBaskerville.styles.defaultFont(size: backView.bounds.height / 5)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

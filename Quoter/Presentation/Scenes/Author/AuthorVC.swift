@@ -73,6 +73,7 @@ class AuthorVC: UIViewController {
         authorView.tableView.dataSource = self
         authorView.tableView.delegate = self
         authorView.tableView.registerCells(using: AuthorCellsManager.shared, target: self)
+        authorView.tableView.register(SectionTitleView.self, forHeaderFooterViewReuseIdentifier: SectionTitleView.identifier)
         authorView.tableView.tableHeaderView = AuthorTableHeaderView(frame: CGRect(x: 0,
                                                                                    y: 0,
                                                                                    width: Constants.screenWidth,

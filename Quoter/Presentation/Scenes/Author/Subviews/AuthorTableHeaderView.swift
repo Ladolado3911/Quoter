@@ -22,6 +22,8 @@ class AuthorTableHeaderView: UIView {
         let aboutLabel = UILabel()
         //aboutLabel.text = "About"
         aboutLabel.textAlignment = .center
+        aboutLabel.textColor = DarkModeColors.white
+        aboutLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         aboutLabel.translatesAutoresizingMaskIntoConstraints = false
         return aboutLabel
     }()
@@ -29,6 +31,7 @@ class AuthorTableHeaderView: UIView {
     let descLabel: UILabel = {
         let descLabel = UILabel()
         descLabel.numberOfLines = 5
+        descLabel.textColor = DarkModeColors.white
         descLabel.textAlignment = .center
         descLabel.translatesAutoresizingMaskIntoConstraints = false
         return descLabel
@@ -54,14 +57,19 @@ class AuthorTableHeaderView: UIView {
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             imageView.widthAnchor.constraint(equalToConstant: Constants.screenWidth * 0.39),
             
-            aboutLabel.topAnchor.constraint(equalTo: imageView.topAnchor),
+            //aboutLabel.
+            aboutLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 20),
+            //aboutLabel.bottomAnchor.constraint(equalTo: descLabel.topAnchor, constant: -5),
             aboutLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.screenWidth * 0.0468),
             aboutLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: Constants.screenWidth * 0.0468),
+            aboutLabel.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.2),
             
             descLabel.leadingAnchor.constraint(equalTo: aboutLabel.leadingAnchor),
             descLabel.trailingAnchor.constraint(equalTo: aboutLabel.trailingAnchor),
-            descLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
-            descLabel.topAnchor.constraint(equalTo: aboutLabel.bottomAnchor, constant: Constants.screenWidth * 0.0468)
+            descLabel.topAnchor.constraint(equalTo: aboutLabel.bottomAnchor, constant: 10),
+            //descLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
+            //descLabel.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+            //descLabel.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.6),
 
         ])
     }

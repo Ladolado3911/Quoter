@@ -74,8 +74,18 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
             let label = UILabel()
             label.numberOfLines = 3
             label.textAlignment = .center
+            label.textColor = DarkModeColors.white
+            label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
+        }()
+        
+        let iconImageView: UIImageView = {
+            let iconView = UIImageView()
+            iconView.contentMode = .scaleAspectFit
+            iconView.image = UIImage(named: "quoteSign2")
+            iconView.translatesAutoresizingMaskIntoConstraints = false
+            return iconView
         }()
         
         override func layoutSubviews() {
@@ -93,18 +103,23 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
         }
         
         private func buildSubviews() {
+            addSubview(iconImageView)
             addSubview(quoteLabel)
         }
         
         private func buildConstraints() {
             NSLayoutConstraint.activate([
+                iconImageView.topAnchor.constraint(equalTo: topAnchor, constant: bounds.height * 0.111),
+                iconImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                iconImageView.widthAnchor.constraint(equalToConstant: 34),
+                iconImageView.heightAnchor.constraint(equalToConstant: 26),
+                
                 quoteLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: bounds.width * 0.0937),
                 quoteLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -bounds.width * 0.0937),
                 quoteLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bounds.height * 0.111),
+                quoteLabel.topAnchor.constraint(equalTo: iconImageView.bottomAnchor),
             ])
         }
-        
-        
     }
     
     func configureInnerCollectionView(target: UIViewController) {
@@ -164,6 +179,9 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
                     self.dataForInnerCollectionView = quotesForSectionContentResponse.quotes
                     self.sectionNameOfCell = quotesForSectionContentResponse.sectionName
                     AuthorQuotesForSectionCell.collectionView.reloadData()
+//                    if let tableView = self.tableView {
+//                        tableView.reloadSections(<#T##sections: IndexSet##IndexSet#>, with: .fade)
+//                    }
                     //AuthorCellsManager.shared.dispatchGroup.leave()
                     cell.stopLoadingLottieAnimationIfExists()
                 }
