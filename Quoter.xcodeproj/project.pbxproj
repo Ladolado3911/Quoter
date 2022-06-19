@@ -262,7 +262,6 @@
 				71D01ECC9F264369B2C6B17A /* Pods-QuoterTests.debug.xcconfig */,
 				B12C486978A3E3B46694629F /* Pods-QuoterTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -279,11 +278,9 @@
 			isa = PBXGroup;
 			children = (
 				24138A21280573B500044F5E /* Menu */,
-				24138A15280570DC00044F5E /* Explore */,
-				2470F652284E313C00B6124D /* Filter */,
-				246700B02859D18A004C64EB /* Author */,
-				2458D295280999270088C00E /* Gallery */,
-				2458D296280999350088C00E /* DailyQuotes */,
+				2477CC83285F84FF00662176 /* ExploreScene */,
+				2458D295280999270088C00E /* GalleryScene */,
+				2458D296280999350088C00E /* DailyQuotesScene */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -361,20 +358,20 @@
 			path = Workers;
 			sourceTree = "<group>";
 		};
-		2458D295280999270088C00E /* Gallery */ = {
+		2458D295280999270088C00E /* GalleryScene */ = {
 			isa = PBXGroup;
 			children = (
 				24138A3E2805B90800044F5E /* GalleryVC.swift */,
 			);
-			path = Gallery;
+			path = GalleryScene;
 			sourceTree = "<group>";
 		};
-		2458D296280999350088C00E /* DailyQuotes */ = {
+		2458D296280999350088C00E /* DailyQuotesScene */ = {
 			isa = PBXGroup;
 			children = (
 				2458D29328097EBB0088C00E /* DailyQuotesVC.swift */,
 			);
-			path = DailyQuotes;
+			path = DailyQuotesScene;
 			sourceTree = "<group>";
 		};
 		246700B02859D18A004C64EB /* Author */ = {
@@ -460,6 +457,16 @@
 				248C54152850E7180080FBBE /* Subviews */,
 			);
 			path = Filter;
+			sourceTree = "<group>";
+		};
+		2477CC83285F84FF00662176 /* ExploreScene */ = {
+			isa = PBXGroup;
+			children = (
+				24138A15280570DC00044F5E /* Explore */,
+				2470F652284E313C00B6124D /* Filter */,
+				246700B02859D18A004C64EB /* Author */,
+			);
+			path = ExploreScene;
 			sourceTree = "<group>";
 		};
 		248C54152850E7180080FBBE /* Subviews */ = {

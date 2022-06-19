@@ -135,14 +135,14 @@ class ExploreInteractor: ExploreInteractorProtocol {
             if item.isLoading {
                 cell.startAnimating()
             }
-            if !item.isLoading && cell.imgView.image == nil {
-                cell.startAnimating()
-                
-                cell.imgView.sd_setImage(with: URL(string: item.quoteImageURLString ?? "")) {_,_,_,_ in
-                    
-                    cell.stopAnimating()
-                }
-            }
+//            if !item.isLoading && cell.imgView.image == nil {
+//                cell.startAnimating()
+//
+//                cell.imgView.sd_setImage(with: URL(string: item.quoteImageURLString ?? "")) {_,_,_,_ in
+//
+//                    cell.stopAnimating()
+//                }
+//            }
 
             Task.init(priority: .high) { [weak self] in
                 guard let self = self else { return }
@@ -154,6 +154,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
                 }
                 else {
                     print("call")
+                    
                     send(genre: currentGenre)
                     let quoteModel = try await receive()
                     //let quoteModel = try await exploreNetworkWorker?.getSmallQuote(genre: currentGenre)

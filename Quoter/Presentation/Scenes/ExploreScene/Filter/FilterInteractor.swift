@@ -143,10 +143,11 @@ class FilterInteractor: FilterInteractorProtocol {
     }
     
     func getCategories() {
-        self.categories = Genre.allCases
-        self.categories.removeAll { genre in
+        var categories = Genre.allCases
+        categories.removeAll { genre in
             genre == .general
         }
+        self.categories = categories
         self.presenter?.reloadCollectionViewData()
     }
 

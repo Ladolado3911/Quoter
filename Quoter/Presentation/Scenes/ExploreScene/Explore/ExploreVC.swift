@@ -316,6 +316,7 @@ extension ExploreVC: FilterToExploreProtocol {
         } completion: { [weak self] didFinish in
             guard let self = self else { return }
             if didFinish {
+                
                 self.interactor?.currentGenre = genre
             }
         }
