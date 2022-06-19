@@ -12,6 +12,7 @@ enum LottieAnimation: String {
     case flyingPaper
     case dots
     case wakeup
+    case simpleLoading
 }
 
 extension UIView {

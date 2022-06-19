@@ -28,6 +28,7 @@
 		241A2A22285B4655005681C5 /* AuthorTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A2A21285B4655005681C5 /* AuthorTableHeaderView.swift */; };
 		241A2A24285B4902005681C5 /* AuthorEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A2A23285B4902005681C5 /* AuthorEntities.swift */; };
 		241A2A27285B5D34005681C5 /* AuthorNetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A2A26285B5D34005681C5 /* AuthorNetworkWorker.swift */; };
+		241FF790285F20C500646809 /* simpleLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 241FF78F285F20C500646809 /* simpleLoading.json */; };
 		242E31EE285361BC00AB4C22 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242E31ED285361BC00AB4C22 /* UIImageView+Extension.swift */; };
 		24484AD42837C07900D3BFA8 /* QuoteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24484AD32837C07900D3BFA8 /* QuoteButtonView.swift */; };
 		2458D29428097EBB0088C00E /* DailyQuotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458D29328097EBB0088C00E /* DailyQuotesVC.swift */; };
@@ -135,6 +136,7 @@
 		241A2A21285B4655005681C5 /* AuthorTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorTableHeaderView.swift; sourceTree = "<group>"; };
 		241A2A23285B4902005681C5 /* AuthorEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorEntities.swift; sourceTree = "<group>"; };
 		241A2A26285B5D34005681C5 /* AuthorNetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorNetworkWorker.swift; sourceTree = "<group>"; };
+		241FF78F285F20C500646809 /* simpleLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = simpleLoading.json; sourceTree = "<group>"; };
 		242E31ED285361BC00AB4C22 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		24484AD32837C07900D3BFA8 /* QuoteButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteButtonView.swift; sourceTree = "<group>"; };
 		2458D29328097EBB0088C00E /* DailyQuotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuotesVC.swift; sourceTree = "<group>"; };
@@ -569,6 +571,7 @@
 		24D71D2C2835152000BF2505 /* AnimationJSONs */ = {
 			isa = PBXGroup;
 			children = (
+				241FF78F285F20C500646809 /* simpleLoading.json */,
 				24CD4C0B2844A6C300A63968 /* wakeup.json */,
 				24D71D2F2835203F00BF2505 /* dots.json */,
 				24D71D2D28351ABF00BF2505 /* flyingPaper.json */,
@@ -772,6 +775,7 @@
 				24D71D2E28351ABF00BF2505 /* flyingPaper.json in Resources */,
 				2497158027D9E15F00968E08 /* GoogleService-Info.plist in Resources */,
 				24D86366280C0FDC0060760A /* LibreBaskerville-Regular.ttf in Resources */,
+				241FF790285F20C500646809 /* simpleLoading.json in Resources */,
 				24138A272805ABEE00044F5E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -78,6 +78,7 @@ class AuthorVC: UIViewController {
                                                                                    width: Constants.screenWidth,
                                                                                    height: 200))
         authorView.tableView.separatorStyle = .none
+        authorView.titleLabel.text = AuthorCellsManager.shared.authorName
     }
     
     private func setup() {
@@ -108,6 +109,8 @@ extension AuthorVC: AuthorVCProtocol {
     func showContent() {
         authorView.backView.alpha = 1
         authorView.backButton.alpha = 1
+        authorView.tableView.alpha = 1
+        authorView.titleLabel.alpha = 1
     }
     
     func hideView() {
@@ -120,6 +123,8 @@ extension AuthorVC: AuthorVCProtocol {
     func hideContent() {
         authorView.backButton.alpha = 0
         authorView.backView.alpha = 0
+        authorView.tableView.alpha = 0
+        authorView.titleLabel.alpha = 0
     }
     
     func dismissView() {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 
 class AuthorQuotesForSectionCellObject: CellProtocol {
@@ -28,7 +29,7 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
         dataForInnerCollectionView.count
     }
     
-    var dataForInnerCollectionView: [Any] = []
+    var dataForInnerCollectionView: [Any?] = []
     
     class AuthorQuotesForSectionCell: UITableViewCell {
         
@@ -144,8 +145,18 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
 
     func willDisplay(_ cell: UITableViewCell, networkWorker: CustomNetworkWorkerProtocol) {
         if let networkWorker = networkWorker as? AuthorNetworkWorker,
-           let authorID = AuthorCellsManager.shared.authorID {
-            //AuthorCellsManager.shared.dispatchGroup.enter()
+           let authorID = AuthorCellsManager.shared.authorID,
+           let cell = cell as? AuthorQuotesForSectionCell {
+            let animationSize = cell.bounds.height * 0.7
+            cell.createAndStartLoadingLottieAnimation(animation: .simpleLoading,
+                                                      animationSpeed: 1,
+                                                      frame: CGRect(x: cell.bounds.width / 2 - (animationSize / 2),
+                                                                    y: cell.bounds.height / 2 - (animationSize / 2),
+                                                                    width: animationSize,
+                                                                    height: animationSize),
+                                                      loopMode: .loop,
+                                                      contentMode: .scaleAspectFit,
+                                                      completion: nil)
             Task.init {
                 let quotesForSectionContentResponse = try await networkWorker.getAuthorQuotesForSection(authorID: authorID)
                 await MainActor.run { [weak self] in
@@ -154,9 +165,9 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
                     self.sectionNameOfCell = quotesForSectionContentResponse.sectionName
                     AuthorQuotesForSectionCell.collectionView.reloadData()
                     //AuthorCellsManager.shared.dispatchGroup.leave()
+                    cell.stopLoadingLottieAnimationIfExists()
                 }
             }
-            
         }
     }
 }

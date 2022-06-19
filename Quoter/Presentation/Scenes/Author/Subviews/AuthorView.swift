@@ -33,13 +33,14 @@ class AuthorView: UIView {
     
     let tableView: UITableView = {
         let table = UITableView()
+        table.alpha = 0
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Title"
+        label.alpha = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

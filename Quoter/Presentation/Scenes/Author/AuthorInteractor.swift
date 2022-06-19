@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 protocol AuthorInteractorProtocol {
     var presenter: AuthorPresenterProtocol? { get set }
@@ -19,9 +18,6 @@ protocol AuthorInteractorProtocol {
     
     func showView()
     func hideView()
-    
-//    func getDataSourceInfo()
-//    func getTableViewItems()
     
     //MARK: UITableview datasource and delegate functions
     func numberOfSections(in tableView: UITableView) -> Int
@@ -82,35 +78,6 @@ class AuthorInteractor: AuthorInteractorProtocol {
             }
         }
     }
-    
-    func getDataSourceInfo() {
-//        Task.init {  [weak self] in
-//            guard let self = self else { return }
-//            let dataSourceInfo = try await self.authorNetworkWorker?.getDataSourceInfo()
-//            let content = try await self.authorNetworkWorker.
-//            await MainActor.run {
-//                self.dataSourceInfo = dataSourceInfo
-//
-//            }
-//        }
-    }
-    
-//    func getTableViewItems() {
-//        guard let authorID = authorID else {
-//            return
-//        }
-//        guard let categoryName = categoryName else {
-//            return
-//        }
-//        Task.init { [weak self] in
-//            guard let self = self else { return }
-//            let content = try await self.authorNetworkWorker?.getSections(authorID: authorID, categoryName: categoryName)
-//            try await MainActor.run {
-//                self.tableViewItems = content ?? []
-//
-//            }
-//        }
-//    }
 }
 
 extension AuthorInteractor {
