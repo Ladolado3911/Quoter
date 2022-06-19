@@ -12,14 +12,15 @@ class AuthorTableHeaderView: UIView {
     let imageView: UIImageView = {
         let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFill
-        imgView.backgroundColor = .gray
+        imgView.layer.cornerRadius = 25
+        imgView.layer.masksToBounds = true
         imgView.translatesAutoresizingMaskIntoConstraints = false
         return imgView
     }()
     
     let aboutLabel: UILabel = {
         let aboutLabel = UILabel()
-        aboutLabel.text = "About"
+        //aboutLabel.text = "About"
         aboutLabel.textAlignment = .center
         aboutLabel.translatesAutoresizingMaskIntoConstraints = false
         return aboutLabel
@@ -28,7 +29,7 @@ class AuthorTableHeaderView: UIView {
     let descLabel: UILabel = {
         let descLabel = UILabel()
         descLabel.numberOfLines = 5
-        descLabel.text = "Lorem  volutpat posuere dictum. Etiam in dictum urna Lorem  volutpat posuere dictum. Etiam in dictum urna"
+        descLabel.textAlignment = .center
         descLabel.translatesAutoresizingMaskIntoConstraints = false
         return descLabel
     }()
@@ -49,8 +50,8 @@ class AuthorTableHeaderView: UIView {
     private func buildConstraints() {
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.screenWidth * 0.0468),
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.screenWidth * 0.0468),
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             imageView.widthAnchor.constraint(equalToConstant: Constants.screenWidth * 0.39),
             
             aboutLabel.topAnchor.constraint(equalTo: imageView.topAnchor),

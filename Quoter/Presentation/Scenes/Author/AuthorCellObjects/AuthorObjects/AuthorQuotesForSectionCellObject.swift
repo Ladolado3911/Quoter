@@ -147,7 +147,7 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
         if let networkWorker = networkWorker as? AuthorNetworkWorker,
            let authorID = AuthorCellsManager.shared.authorID,
            let cell = cell as? AuthorQuotesForSectionCell {
-            let animationSize = cell.bounds.height * 0.7
+            let animationSize: CGFloat = 120
             cell.createAndStartLoadingLottieAnimation(animation: .simpleLoading,
                                                       animationSpeed: 1,
                                                       frame: CGRect(x: cell.bounds.width / 2 - (animationSize / 2),

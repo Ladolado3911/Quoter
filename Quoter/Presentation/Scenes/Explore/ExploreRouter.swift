@@ -11,7 +11,7 @@ protocol ExploreRouterProtocol {
     var vc: ExploreVCProtocol? { get set }
     
     func routeToFilterVC(with currentGenre: Genre)
-    func routeToAuthorVC(authorID: String, authorName: String)
+    func routeToAuthorVC(authorID: String, authorName: String, authorImageURLString: String, authorDesc: String)
 }
 
 class ExploreRouter: ExploreRouterProtocol {
@@ -28,13 +28,15 @@ class ExploreRouter: ExploreRouterProtocol {
         }
     }
     
-    func routeToAuthorVC(authorID: String, authorName: String) {
+    func routeToAuthorVC(authorID: String, authorName: String, authorImageURLString: String, authorDesc: String) {
         let authorVC = AuthorVC()
         if let vc = vc {
             authorVC.modalPresentationStyle = .custom
             authorVC.modalTransitionStyle = .crossDissolve
             AuthorCellsManager.shared.authorID = authorID
             AuthorCellsManager.shared.authorName = authorName
+            AuthorCellsManager.shared.authorImageURLString = authorImageURLString
+            AuthorCellsManager.shared.authorDesc = authorDesc
             vc.present(vc: authorVC, animated: false)
         }
     }

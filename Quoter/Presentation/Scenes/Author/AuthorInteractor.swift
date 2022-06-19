@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol AuthorInteractorProtocol {
     var presenter: AuthorPresenterProtocol? { get set }
@@ -107,6 +108,26 @@ extension AuthorInteractor {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
+        if let view = tableView.tableHeaderView as? AuthorTableHeaderView,
+           let desc = AuthorCellsManager.shared.authorDesc,
+           let imageString = AuthorCellsManager.shared.authorImageURLString,
+           let url = URL(string: imageString) {
+            let animationSize: CGFloat = 120
+            view.createAndStartLoadingLottieAnimation(animation: .simpleLoading,
+                                                      animationSpeed: 1,
+                                                      frame: CGRect(x: view.bounds.width / 2 - (animationSize / 2),
+                                                                    y: view.bounds.height / 2 - (animationSize / 2),
+                                                                    width: animationSize,
+                                                                    height: animationSize),
+                                                      loopMode: .loop,
+                                                      contentMode: .scaleAspectFit,
+                                                      completion: nil)
+            view.imageView.sd_setImage(with: url) { _, _, _, _ in
+                view.descLabel.text = desc
+                view.aboutLabel.text = "About"
+                view.stopLoadingLottieAnimationIfExists()
+            }
+        }
     }
     
 //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -124,7 +124,10 @@ extension ExploreVC {
     
     @objc func onQuoteButton(sender: UIButton) {
         if let loadedQuote = interactor!.loadedQuotes![interactor!.currentPage] {
-            router?.routeToAuthorVC(authorID: loadedQuote.author.idString, authorName: loadedQuote.author.name)
+            router?.routeToAuthorVC(authorID: loadedQuote.author.idString,
+                                    authorName: loadedQuote.author.name,
+                                    authorImageURLString: loadedQuote.author.authorImageURLString,
+                                    authorDesc: loadedQuote.author.authorDesc)
         }
         else {
             presentAlert(title: "Alert",
@@ -241,8 +244,8 @@ extension ExploreVC: ExploreVCProtocol {
     }
     
     func reloadCollectionView() {
-        exploreView?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: false)
         exploreView?.collectionView.reloadData()
+        //exploreView?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: false)
         UIView.animate(withDuration: 1, delay: 1.5) { [weak self] in
             guard let self = self else { return }
             self.exploreView?.collectionView.alpha = 1

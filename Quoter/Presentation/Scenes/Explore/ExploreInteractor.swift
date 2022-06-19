@@ -59,7 +59,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
             self.loadedQuotes = [nil, nil, nil, nil, nil]
             print("cancel all downloads")
             SDWebImageDownloader.shared.cancelAllDownloads()
-            currentPage = 0
+            //currentPage = 0
             self.presenter?.reloadCollectionView()
         }
     }
@@ -139,7 +139,8 @@ class ExploreInteractor: ExploreInteractorProtocol {
                     let exploreAuthor = ExploreAuthor(idString: quoteModel!.author.id,
                                                       slug: quoteModel!.author.slug,
                                                       name: quoteModel!.author.name,
-                                                      authorImageURLString: quoteModel!.author.authorImageURLString)
+                                                      authorImageURLString: quoteModel!.author.authorImageURLString,
+                                                      authorDesc: quoteModel!.author.authorDesc)
                     let exploreQuote = ExploreQuote(quoteImageURLString: quoteModel!.quoteImageURLString,
                                                     content: quoteModel!.content,
                                                     author: exploreAuthor)

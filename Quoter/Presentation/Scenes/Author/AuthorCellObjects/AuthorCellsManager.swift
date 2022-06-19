@@ -31,6 +31,8 @@ protocol CellsManagerProtocol {
     var dispatchGroup: DispatchGroup { get }
     var authorID: String? { get set }
     var authorName: String? { get set }
+    var authorImageURLString: String? { get set }
+    var authorDesc: String? { get set }
     var everyCellObjects: [[CellProtocol]] { get }
 }
 
@@ -43,6 +45,8 @@ final class AuthorCellsManager: CellsManagerProtocol {
     var dispatchGroup: DispatchGroup = DispatchGroup()
     var authorID: String?
     var authorName: String?
+    var authorImageURLString: String? 
+    var authorDesc: String?
     
     var everyCellObjects: [[CellProtocol]] = [
         [AuthorQuotesForSectionCellObject()],

@@ -34,6 +34,7 @@ class AuthorView: UIView {
     let tableView: UITableView = {
         let table = UITableView()
         table.alpha = 0
+        table.backgroundColor = .clear
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -79,7 +80,7 @@ class AuthorView: UIView {
             backView.heightAnchor.constraint(equalToConstant: Constants.screenWidth * 0.1093 * 1.742),
             backView.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
             
-            tableView.topAnchor.constraint(equalTo: backView.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: backView.bottomAnchor, constant: Constants.screenHeight * 0.0528),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),

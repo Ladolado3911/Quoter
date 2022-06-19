@@ -19,6 +19,7 @@ protocol ExploreAuthorProtocol {
     var name: String { get set }
     var slug: String { get set }
     var authorImageURLString: String { get set }
+    var authorDesc: String { get set }
 }
 
 struct ExploreQuote: ExploreQuoteProtocol {
@@ -33,4 +34,5 @@ struct ExploreAuthor: ExploreAuthorProtocol {
     var slug: String
     var name: String
     var authorImageURLString: String
+    var authorDesc: String
 }
