@@ -17,16 +17,19 @@ class ExploreView: UIView {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isPagingEnabled = true
         collectionView.isPrefetchingEnabled = true
+        collectionView.isUserInteractionEnabled = false
         return collectionView
     }()
     
     let leftArrowButton: ArrowButton = {
         let leftButton = ArrowButton(direction: .left, arrowIcon: ExploreIcons.arrowIconThin)
+        leftButton.isEnabled = false
         return leftButton
     }()
     
     let rightArrowButton: ArrowButton = {
         let rightButton = ArrowButton(direction: .right, arrowIcon: ExploreIcons.arrowIconThin)
+        rightButton.isEnabled = false
         return rightButton
     }()
     

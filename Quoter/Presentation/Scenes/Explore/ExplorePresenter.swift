@@ -10,26 +10,30 @@ import UIKit
 protocol ExplorePresenterProtocol {
     var vc: ExploreVCProtocol? { get set }
     
-    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath])
-    func addCellWhenSwiping(indexPaths: [IndexPath])
+    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath], shouldAddCell: Bool)
+    func addCellWhenSwiping(indexPaths: [IndexPath], shouldAddCell: Bool)
     func screenShot()
     func presentAlert(title: String,
                       text: String,
                       mainButtonText: String,
                       mainButtonStyle: UIAlertAction.Style,
                       action: (() -> Void)?)
+    func turnLeftArrowOn()
     func reloadCollectionView()
+    
+    func turnInteractionOn()
+    func turnInteractionOff()
 }
 
 class ExplorePresenter: ExplorePresenterProtocol {
     var vc: ExploreVCProtocol?
     
-    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath]) {
-        vc?.scroll(direction: direction, contentOffsetX: contentOffsetX, indexPaths: indexPaths)
+    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath], shouldAddCell: Bool) {
+        vc?.scroll(direction: direction, contentOffsetX: contentOffsetX, indexPaths: indexPaths, shouldAddCell: shouldAddCell)
     }
     
-    func addCellWhenSwiping(indexPaths: [IndexPath]) {
-        vc?.addCellWhenSwiping(indexPaths: indexPaths)
+    func addCellWhenSwiping(indexPaths: [IndexPath], shouldAddCell: Bool) {
+        vc?.addCellWhenSwiping(indexPaths: indexPaths, shouldAddCell: shouldAddCell)
     }
     
     func screenShot() {
@@ -50,5 +54,16 @@ class ExplorePresenter: ExplorePresenterProtocol {
     
     func reloadCollectionView() {
         vc?.reloadCollectionView()
+    }
+    
+    func turnLeftArrowOn() {
+        vc?.turnLeftArrowOn()
+    }
+    
+    func turnInteractionOn() {
+        vc?.turnInteractionOn()
+    }
+    func turnInteractionOff() {
+        vc?.turnInteractionOff()
     }
 }

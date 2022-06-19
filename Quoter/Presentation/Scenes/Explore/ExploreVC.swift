@@ -12,8 +12,8 @@ protocol ExploreVCProtocol: AnyObject, FilterToExploreProtocol {
     var router: ExploreRouterProtocol? { get set }
     var exploreView: ExploreView? { get set }
     
-    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath])
-    func addCellWhenSwiping(indexPaths: [IndexPath])
+    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath], shouldAddCell: Bool)
+    func addCellWhenSwiping(indexPaths: [IndexPath], shouldAddCell: Bool)
     func screenshot()
     func presentAlert(title: String,
                       text: String,
@@ -22,6 +22,10 @@ protocol ExploreVCProtocol: AnyObject, FilterToExploreProtocol {
                       action: (() -> Void)?)
     func reloadCollectionView()
     func present(vc: UIViewController, animated: Bool)
+    func turnLeftArrowOn()
+    
+    func turnInteractionOn()
+    func turnInteractionOff()
 }
 
 class ExploreVC: UIViewController {
@@ -123,18 +127,19 @@ extension ExploreVC {
     }
     
     @objc func onQuoteButton(sender: UIButton) {
-        if let loadedQuote = interactor!.loadedQuotes![interactor!.currentPage] {
-            router?.routeToAuthorVC(authorID: loadedQuote.author.idString,
-                                    authorName: loadedQuote.author.name,
-                                    authorImageURLString: loadedQuote.author.authorImageURLString,
-                                    authorDesc: loadedQuote.author.authorDesc)
-        }
-        else {
+        let quote = interactor!.loadedQuotes![interactor!.currentPage]
+        if quote.isLoading {
             presentAlert(title: "Alert",
                          text: "Content is still loading",
                          mainButtonText: "Ok",
                          mainButtonStyle: .cancel,
                          action: nil)
+        }
+        else {
+            router?.routeToAuthorVC(authorID: quote.author!.idString,
+                                    authorName: quote.author!.name,
+                                    authorImageURLString: quote.author!.authorImageURLString,
+                                    authorDesc: quote.author!.authorDesc)
         }
     }
     
@@ -187,15 +192,19 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 
 extension ExploreVC: ExploreVCProtocol {
 
-    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath]) {
+    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath], shouldAddCell: Bool) {
         let nextOffset = CGPoint(x: exploreView!.collectionView.contentOffset.x + contentOffsetX,
                                  y: exploreView!.collectionView.contentOffset.y)
         if direction == .right {
-            exploreView?.collectionView.setContentOffset(nextOffset, animated: true)
-            exploreView?.collectionView.insertItems(at: indexPaths)
-            print("right")
+            
+            if shouldAddCell {
+                exploreView?.collectionView.insertItems(at: indexPaths)
+                //exploreView?.collectionView.reloadItems(at: indexPaths)
+                print("adding cell")
+            }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+        exploreView?.collectionView.setContentOffset(nextOffset, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             guard let self = self else { return }
             switch direction {
             case .left:
@@ -208,8 +217,22 @@ extension ExploreVC: ExploreVCProtocol {
         }
     }
     
-    func addCellWhenSwiping(indexPaths: [IndexPath]) {
-        exploreView?.collectionView.insertItems(at: indexPaths)
+    func turnInteractionOn() {
+        self.exploreView?.collectionView.isUserInteractionEnabled = true
+        self.exploreView?.leftArrowButton.isEnabled = true
+        self.exploreView?.rightArrowButton.isEnabled = true
+    }
+    
+    func turnInteractionOff() {
+        self.exploreView?.collectionView.isUserInteractionEnabled = false
+        self.exploreView?.leftArrowButton.isEnabled = false
+        self.exploreView?.rightArrowButton.isEnabled = false
+    }
+    
+    func addCellWhenSwiping(indexPaths: [IndexPath], shouldAddCell: Bool) {
+        if shouldAddCell {
+            exploreView?.collectionView.insertItems(at: indexPaths)
+        }
     }
     
     func presentAlert(title: String,
@@ -248,7 +271,7 @@ extension ExploreVC: ExploreVCProtocol {
     
     func reloadCollectionView() {
         exploreView?.collectionView.reloadData()
-        //exploreView?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: false)
+        exploreView?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: false)
         UIView.animate(withDuration: 1, delay: 1.5) { [weak self] in
             guard let self = self else { return }
             self.exploreView?.collectionView.alpha = 1
@@ -264,6 +287,10 @@ extension ExploreVC: ExploreVCProtocol {
     
     func present(vc: UIViewController, animated: Bool) {
         present(vc, animated: animated)
+    }
+    
+    func turnLeftArrowOn() {
+        self.exploreView?.leftArrowButton.isEnabled = true
     }
 }
 

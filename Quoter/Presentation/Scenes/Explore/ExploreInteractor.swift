@@ -18,7 +18,7 @@ protocol ExploreInteractorProtocol {
     var presenter: ExplorePresenterProtocol? { get set }
     var exploreNetworkWorker: ExploreNetworkWorkerProtocol? { get set }
     
-    var loadedQuotes: [ExploreQuoteProtocol?]? { get set }
+    var loadedQuotes: [ExploreQuoteProtocol]? { get set }
     var currentPage: Int { get set }
     var currentGenre: Genre { get set }
     var websocketTask: URLSessionWebSocketTask? { get set }
@@ -52,23 +52,31 @@ class ExploreInteractor: ExploreInteractorProtocol {
     var presenter: ExplorePresenterProtocol?
     var exploreNetworkWorker: ExploreNetworkWorkerProtocol?
     
-    var loadedQuotes: [ExploreQuoteProtocol?]? = [nil, nil, nil, nil, nil]
-    var currentPage: Int = 0
+    var loadedQuotes: [ExploreQuoteProtocol]? = [ExploreQuote(), ExploreQuote(), ExploreQuote(), ExploreQuote(), ExploreQuote()]
+    var currentPage: Int = 0 {
+        didSet {
+//            print(currentPage)
+//            print(loadedQuotes?.count ?? 0)
+        }
+    }
     var currentGenre: Genre = .general {
         didSet {
-            self.loadedQuotes = [nil, nil, nil, nil, nil]
-            print("cancel all downloads")
             SDWebImageDownloader.shared.cancelAllDownloads()
-            //currentPage = 0
-            self.presenter?.reloadCollectionView()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                guard let self = self else { return }
+                self.loadedQuotes = [ExploreQuote(), ExploreQuote(), ExploreQuote(), ExploreQuote(), ExploreQuote()]
+                print("cancel all downloads")
+                self.currentPage = 0
+                self.presenter?.reloadCollectionView()
+            }
         }
     }
     var websocketTask: URLSessionWebSocketTask?
     var timer: Timer?
 
     func onDownloadButton() {
-        if let loadedQuotes = loadedQuotes,
-           let quote = loadedQuotes[currentPage] {
+        if let loadedQuotes = loadedQuotes {
+            let quote = loadedQuotes[currentPage]
             let isAllowed = quote.isScreenshotAllowed
             if isAllowed {
                 // vc saves image
@@ -112,16 +120,37 @@ class ExploreInteractor: ExploreInteractorProtocol {
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         print("will display")
-        if let cell = cell as? ExploreCell {
-            
-            cell.startAnimating()
+        if let cell = cell as? ExploreCell,
+           let loadedQuotes = loadedQuotes {
+            //let item = loadedQuotes[indexPath.item]
             cell.buildSubviews()
             cell.buildConstraints()
-            Task.init(priority: .high) {
-                var quote: ExploreQuoteProtocol
-                if let arr = loadedQuotes,
-                   let unwrapped = arr[indexPath.item] {
-                    quote = unwrapped
+            
+            if indexPath.item == currentPage {
+                self.presenter?.turnInteractionOff()
+            }
+            //cell.startAnimating()
+            let item = loadedQuotes[indexPath.item]
+            
+            if item.isLoading {
+                cell.startAnimating()
+            }
+            if !item.isLoading && cell.imgView.image == nil {
+                cell.startAnimating()
+                
+                cell.imgView.sd_setImage(with: URL(string: item.quoteImageURLString ?? "")) {_,_,_,_ in
+                    
+                    cell.stopAnimating()
+                }
+            }
+
+            Task.init(priority: .high) { [weak self] in
+                guard let self = self else { return }
+                var quote: ExploreQuoteProtocol = ExploreQuote()
+                let item = loadedQuotes[indexPath.item]
+                
+                if !item.isLoading {
+                    quote = item
                 }
                 else {
                     print("call")
@@ -138,24 +167,37 @@ class ExploreInteractor: ExploreInteractorProtocol {
                                                     author: exploreAuthor)
                     quote = exploreQuote
                 }
-                await MainActor.run { [weak self, quote] in
-                    guard let self = self else { return }
-                    loadedQuotes![indexPath.item] = quote
-                    cell.authorNameLabel.text = quote.author.name
-                    cell.quoteContentLabel.text = quote.content
-                    let fontSize = cell.getFontSizeForQuote(stringCount: CGFloat(quote.content.count))
-                    cell.quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: fontSize)
-                    cell.imgView.sd_setImage(with: URL(string: quote.quoteImageURLString),
-                                             placeholderImage: nil,
-                                             options: [.continueInBackground, .highPriority, .scaleDownLargeImages, .retryFailed, .refreshCached]) { _, error, _, _ in
-                        if let error = error {
-                            print("sd web error: \(error.localizedDescription)")
-                            cell.stopAnimating()
+                await MainActor.run { [quote] in
+                    //guard let self = self else { return }
+                    if let author = quote.author,
+                       let content = quote.content,
+                       let imageURLString = quote.quoteImageURLString {
+                        
+                        // turn on interaction
+                        if indexPath.item == currentPage {
+                            self.presenter?.turnInteractionOn()
                         }
-                        else {
-                            cell.stopAnimating()
-                            self.loadedQuotes![indexPath.item]?.isScreenshotAllowed = true
+                        
+                        self.loadedQuotes![indexPath.item] = quote
+                        cell.authorNameLabel.text = author.name
+                        cell.quoteContentLabel.text = quote.content
+                        let fontSize = cell.getFontSizeForQuote(stringCount: CGFloat(content.count))
+                        cell.quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: fontSize)
+                        self.loadedQuotes![indexPath.item].isLoading = false
+                        cell.imgView.sd_setImage(with: URL(string: imageURLString),
+                                                 placeholderImage: nil,
+                                                 options: [.continueInBackground, .highPriority, .scaleDownLargeImages, .retryFailed, .refreshCached]) { _, error, _, _ in
+                            if let error = error {
+                                print("sd web error: \(error.localizedDescription)")
+                                cell.stopAnimating()
+                                //cell.stopAnimating()
+                            }
+                            else {
+                                cell.stopAnimating()
+                                self.loadedQuotes![indexPath.item].isScreenshotAllowed = true
+                            }
                         }
+                        
                     }
                 }
             }
@@ -175,17 +217,24 @@ class ExploreInteractor: ExploreInteractorProtocol {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let prevPage = currentPage
         currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        loadedQuotes?.append(nil)
+        if currentPage == loadedQuotes?.count ?? 0 - 1 {
+            loadedQuotes?.append(ExploreQuote())
+        }
         let indexPaths = [IndexPath(item: loadedQuotes!.count - 2, section: 0)]
-        presenter?.addCellWhenSwiping(indexPaths: indexPaths)
+        let shouldAddCell = currentPage == loadedQuotes?.count ?? 0 - 1
+        presenter?.addCellWhenSwiping(indexPaths: indexPaths, shouldAddCell: shouldAddCell)
     }
     
     func scroll(direction: ExploreDirection) {
         var contentOffsetX: CGFloat? = nil
+        var shouldAddCell: Bool = false
+        //let prevPage = currentPage
         switch direction {
         case .left:
             if currentPage - 1 < 0 {
+                presenter?.turnLeftArrowOn()
                 return
             }
             currentPage -= 1
@@ -193,10 +242,17 @@ class ExploreInteractor: ExploreInteractorProtocol {
         case .right:
             currentPage += 1
             contentOffsetX = Constants.screenWidth
+            print(currentPage)
+            print(loadedQuotes?.count ?? 0)
+            shouldAddCell = currentPage >= (loadedQuotes?.count ?? 0) - 4
+            if currentPage >= (loadedQuotes?.count ?? 0) - 4 {
+                loadedQuotes?.append(ExploreQuote())
+            }
         }
-        loadedQuotes?.append(nil)
         let indexPaths = [IndexPath(item: loadedQuotes!.count - 2, section: 0)]
-        presenter?.scroll(direction: direction, contentOffsetX: contentOffsetX!, indexPaths: indexPaths)
+//        let shouldAddCell = currentPage >= (loadedQuotes?.count ?? 0) - 4
+
+        presenter?.scroll(direction: direction, contentOffsetX: contentOffsetX!, indexPaths: indexPaths, shouldAddCell: shouldAddCell)
     }
     
     func presentAlert(title: String, text: String, mainButtonText: String, mainButtonStyle: UIAlertAction.Style, action: (() -> Void)?) {

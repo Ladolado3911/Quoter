@@ -8,10 +8,11 @@
 import Foundation
 
 protocol ExploreQuoteProtocol {
-    var content: String { get set }
-    var author: ExploreAuthorProtocol { get set }
-    var quoteImageURLString: String { get set }
+    var content: String? { get set }
+    var author: ExploreAuthorProtocol? { get set }
+    var quoteImageURLString: String? { get set }
     var isScreenshotAllowed: Bool { get set }
+    var isLoading: Bool { get set }
 }
 
 protocol ExploreAuthorProtocol {
@@ -23,10 +24,11 @@ protocol ExploreAuthorProtocol {
 }
 
 struct ExploreQuote: ExploreQuoteProtocol {
-    var quoteImageURLString: String
-    var content: String
-    var author: ExploreAuthorProtocol
+    var quoteImageURLString: String?
+    var content: String?
+    var author: ExploreAuthorProtocol?
     var isScreenshotAllowed: Bool = false
+    var isLoading: Bool = true
 }
 
 struct ExploreAuthor: ExploreAuthorProtocol {
