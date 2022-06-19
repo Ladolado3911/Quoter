@@ -2,93 +2,42 @@
 //  ExploreRouter.swift
 //  Quoter
 //
-//  Created by Lado Tsivtsivadze on 3/2/22.
+//  Created by Lado Tsivtsivadze on 5/15/22.
 //
 
 import UIKit
 
-protocol ExploreRouterProtocol: AnyObject {
-    var vc: PresenterToExploreVCProtocol? { get set }
+protocol ExploreRouterProtocol {
+    var vc: ExploreVCProtocol? { get set }
     
-    func routeToFilters(completion: (() -> Void)?)
-    func routeToLoadingAlertVC()
-    func routeToModalAlertVC(quoteVM: QuoteGardenQuoteVM, completion: (() -> Void)?)
-    func routeToQuotesOfAuthor(resultTuple: ([QuoteGardenQuoteVM], (UIImage?, ImageType)), completion: (() -> Void)?)
-    func routeToSwipeHint(repeatCount: Float, delay: Int)
+    func routeToFilterVC(with currentGenre: Genre)
+    func routeToAuthorVC(authorID: String, authorName: String, authorImageURLString: String, authorDesc: String)
 }
 
 class ExploreRouter: ExploreRouterProtocol {
-    var vc: PresenterToExploreVCProtocol?
+    weak var vc: ExploreVCProtocol?
     
-    func routeToFilters(completion: (() -> Void)?) {
-        guard let exploreVC = vc as? ExploreVC else { return }
+    func routeToFilterVC(with currentGenre: Genre) {
         let filterVC = FilterVC()
-        filterVC.modalTransitionStyle = .crossDissolve
-        filterVC.modalPresentationStyle = .custom
-        filterVC.interactor!.selectedTagStrings = exploreVC.interactor!.selectedFilters
-        filterVC.interactor?.dismissClosure = { selectedFilters in
-            exploreVC.interactor!.selectedFilters = selectedFilters
-            exploreVC.interactor!.resetInitialData()
-            exploreVC.dismiss(animated: true)
+        if let vc = vc {
+            filterVC.modalPresentationStyle = .custom
+            filterVC.modalTransitionStyle = .crossDissolve
+            filterVC.filterToExploreDelegate = vc
+            filterVC.currentGenre = currentGenre
+            vc.present(vc: filterVC, animated: false)
         }
-        filterVC.interactor?.dismissWithTimerClosure = {
-            exploreVC.dismiss(animated: true) {
-                if let completion = completion {
-                    completion()
-                }
-            }
-        }
-        exploreVC.present(filterVC, animated: true)
     }
     
-    func routeToQuotesOfAuthor(resultTuple: ([QuoteGardenQuoteVM], (UIImage?, ImageType)), completion: (() -> Void)?) {
-        guard let exploreVC = vc as? ExploreVC else { return }
-        let destVC = QoaVC()
-        destVC.modalTransitionStyle = .coverVertical
-        destVC.modalPresentationStyle = .overCurrentContext
-        destVC.interactor?.dismissWithTimerClosure = completion
-        destVC.interactor?.networkQuotesArr = resultTuple.0
-        destVC.interactor?.state = .network
-        destVC.interactor?.networkAuthorImage = resultTuple.1.0
-        destVC.interactor?.authorName = resultTuple.0.first?.authorName
-        exploreVC.present(destVC, animated: true)
-    }
-    
-    func routeToModalAlertVC(quoteVM: QuoteGardenQuoteVM, completion: (() -> Void)?) {
-        guard let exploreVC = vc as? ExploreVC else { return }
-        let modalAlertVC = ModalAlertVC()
-        let quoteVM = quoteVM
-        modalAlertVC.modalTransitionStyle = .crossDissolve
-        modalAlertVC.modalPresentationStyle = .custom
-        modalAlertVC.authorName = quoteVM.authorName
-        modalAlertVC.passingClosure = { resultTuple in
-            self.routeToQuotesOfAuthor(resultTuple: resultTuple, completion: completion)
-        }
-        modalAlertVC.quoteVM = quoteVM
-        exploreVC.present(modalAlertVC, animated: false)
-    }
-    
-    func routeToLoadingAlertVC() {
-        guard let exploreVC = vc as? ExploreVC else { return }
-        let loadingAlertVC = LoadingAlertVC()
-        loadingAlertVC.modalTransitionStyle = .crossDissolve
-        loadingAlertVC.modalPresentationStyle = .custom
-        exploreVC.present(loadingAlertVC, animated: false)
-    }
-    
-    func routeToSwipeHint(repeatCount: Float, delay: Int) {
-        guard let exploreVC = vc as? ExploreVC else { return }
-        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(delay)) {
-            let indicatorVC = ScrollIndicatorVC()
-            indicatorVC.modalTransitionStyle = .crossDissolve
-            indicatorVC.modalPresentationStyle = .custom
-            indicatorVC.repeatCount = repeatCount
-            indicatorVC.completion = { didFinish in
-                if didFinish {
-                    indicatorVC.dismiss(animated: true)
-                }
-            }
-            exploreVC.present(indicatorVC, animated: true)
+    func routeToAuthorVC(authorID: String, authorName: String, authorImageURLString: String, authorDesc: String) {
+        let authorVC = AuthorVC()
+        if let vc = vc {
+            authorVC.modalPresentationStyle = .custom
+            authorVC.modalTransitionStyle = .crossDissolve
+            AuthorCellsManager.shared.authorID = authorID
+            AuthorCellsManager.shared.authorName = authorName
+            AuthorCellsManager.shared.authorImageURLString = authorImageURLString
+            AuthorCellsManager.shared.authorDesc = authorDesc
+            vc.present(vc: authorVC, animated: false)
         }
     }
 }

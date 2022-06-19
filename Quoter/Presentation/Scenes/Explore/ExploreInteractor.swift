@@ -2,208 +2,302 @@
 //  ExploreInteractor.swift
 //  Quoter
 //
-//  Created by Lado Tsivtsivadze on 3/2/22.
+//  Created by Lado Tsivtsivadze on 5/15/22.
 //
 
 import UIKit
-import Firebase
+import SDWebImage
+import Photos
 
-//MARK: Explore Interactor Protocol
-
-protocol VCToExploreInteractorProtocol: AnyObject {
-    
-    var presenter: InteractorToExplorePresenterProtocol? { get set }
-    
-    //MARK: Explore Interactor Protocol Properties
-    
-    var isFirstAppearanceOfExploreVC: Bool { get set }
-    var counter: Int { get set }
-    var timer: Timer? { get set }
-    var comesFromFilter: Bool { get set }
-    var isFirstLaunch: Bool { get set }
-    var isCounterFirstLaunchForDeviceFirstLaunch: Bool { get set }
-    var loadedVMs: [QuoteGardenQuoteVM] { get set }
-    var loadedImages: [UIImage?] { get set }
-    var loadedImageURLs: [String?] { get set }
-    var selectedFilters: [String] { get set }
-    var isLoadNewDataFunctionRunning: Bool { get set }
-    var isLoadOldDataFunctionRunning: Bool { get set }
-    var isDataLoaded: Bool  { get set }
-    var currentPage: Int { get set }
-    var capturedCurrentPage: Int { get set }
-    
-    //MARK: Explore Interactor Protocol Methods
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath,
-                        bookGesture: UITapGestureRecognizer,
-                        filterGesture: UITapGestureRecognizer,
-                        ideaTarget: ButtonTarget) -> UICollectionViewCell
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView, completion: @escaping () -> Void)
-    func requestDisplayInitialData()
-    func resetInitialData()
-    func invalidateTimer()
-    func requestDisplayNewData(edges: (Int, Int))
-    func requestNewData(edges: (Int, Int), offsetOfPage: Int)
-    func requestToSetTimer()
-    func requestToChangeIdeaState(isSwitchButtonSelected: Bool)
+enum ExploreDirection {
+    case left
+    case right
 }
 
-//MARK: Explore Interactor Class
+protocol ExploreInteractorProtocol {
+    var presenter: ExplorePresenterProtocol? { get set }
+    var exploreNetworkWorker: ExploreNetworkWorkerProtocol? { get set }
+    
+    var loadedQuotes: [ExploreQuoteProtocol]? { get set }
+    var currentPage: Int { get set }
+    var currentGenre: Genre { get set }
+    var websocketTask: URLSessionWebSocketTask? { get set }
+    var timer: Timer? { get set }
+    
+    //func buttonAnimationTimerFire(collectionView: UICollectionView?)
+    func onDownloadButton()
+    func presentAlert(title: String, text: String, mainButtonText: String, mainButtonStyle: UIAlertAction.Style, action: (() -> Void)?)
+    
+    func ping()
+    func close()
+    func send(genre: Genre)
+    func receive() async throws -> QuoteModel?
+    
+    //MARK: Collection View methods
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    //func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath])
+    
+    //MARK: Scroll View methods
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView)
+    func scroll(direction: ExploreDirection)
+}
 
-class ExploreInteractor: VCToExploreInteractorProtocol {
+class ExploreInteractor: ExploreInteractorProtocol {
     
-    var presenter: InteractorToExplorePresenterProtocol?
+    var presenter: ExplorePresenterProtocol?
+    var exploreNetworkWorker: ExploreNetworkWorkerProtocol?
     
-    //MARK: Explore Interactor Class Properties
-    
-    var isFirstAppearanceOfExploreVC: Bool = true
-    var counter: Int = 0
-    var timer: Timer?
-    var comesFromFilter: Bool = true
-    var isFirstLaunch: Bool = false
-    var isCounterFirstLaunchForDeviceFirstLaunch: Bool = true
-    var loadedVMs: [QuoteGardenQuoteVM] = []
-    
-    var loadedImages: [UIImage?] = []
-    var loadedImageURLs: [String?] = []
-    
-    var selectedFilters: [String] = [""]
-    var isLoadNewDataFunctionRunning: Bool = false
-    var isLoadOldDataFunctionRunning: Bool = false
-    var isDataLoaded = false {
+    var loadedQuotes: [ExploreQuoteProtocol]? = [ExploreQuote(), ExploreQuote(), ExploreQuote(), ExploreQuote(), ExploreQuote()]
+    var currentPage: Int = 0 {
         didSet {
-            isDataLoadedSubject.send(isDataLoaded)
+//            print(currentPage)
+//            print(loadedQuotes?.count ?? 0)
         }
     }
-    var currentPage: Int = 0
-    var capturedCurrentPage: Int = 0
-    
-    //MARK: Explore Interactor Class Methods
-    
-    func invalidateTimer() {
-        timer?.invalidate()
-        timer = nil
-        counter = 0
-    }
-    
-    func requestToSetTimer() {
-        presenter?.setTimer()
-    }
-    
-    func requestToChangeIdeaState(isSwitchButtonSelected: Bool) {
-        let quoteVMM = loadedVMs[currentPage]
-        let modalAlertImageWorker = ModalAlertImageWorker()
-        
-        if !isSwitchButtonSelected {
-            Sound.idea.play(extensionString: .mp3)
+    var currentGenre: Genre = .general {
+        didSet {
+            SDWebImageDownloader.shared.cancelAllDownloads()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                guard let self = self else { return }
+                self.loadedQuotes = [ExploreQuote(), ExploreQuote(), ExploreQuote(), ExploreQuote(), ExploreQuote()]
+                print("cancel all downloads")
+                self.currentPage = 0
+                self.presenter?.reloadCollectionView()
+            }
         }
-        self.presenter?.formatIdeaChange()
-        
-        modalAlertImageWorker.getAuthorImage(authorName: quoteVMM.authorName) { (image, imageType) in
-            if let image = image {
-                if isSwitchButtonSelected {
-                    CoreDataWorker.removePair(quoteVM: quoteVMM)
+    }
+    var websocketTask: URLSessionWebSocketTask?
+    var timer: Timer?
+
+    func onDownloadButton() {
+        if let loadedQuotes = loadedQuotes {
+            let quote = loadedQuotes[currentPage]
+            let isAllowed = quote.isScreenshotAllowed
+            if isAllowed {
+                // vc saves image
+                if PHPhotoLibrary.authorizationStatus(for: .addOnly) == .authorized {
+                    presenter?.screenShot()
                 }
                 else {
-                    CoreDataWorker.addPair(quoteVM: quoteVMM, authorImageData: image.pngData())
+                    presenter?.presentAlert(title: "Alert",
+                                            text: "Acces to photos is denied",
+                                            mainButtonText: "Ok",
+                                            mainButtonStyle: .default,
+                                            action: nil)
                 }
-                collectionViewUpdateSubject.send {}
             }
             else {
-                print("Could not unwrap")
+                // vc presents alert
+                presenter?.presentAlert(title: "Alert",
+                                        text: "Image is not yet loaded",
+                                        mainButtonText: "Ok",
+                                        mainButtonStyle: .default,
+                                        action: nil)
             }
+        }
+        else {
+            presenter?.presentAlert(title: "Alert",
+                                    text: "Image is not yet loaded",
+                                    mainButtonText: "Ok",
+                                    mainButtonStyle: .default,
+                                    action: nil)
         }
     }
 
-    func requestDisplayNewData(edges: (Int, Int)) {
-        let contentWorker = ExploreContentWorker()
-        contentWorker.getContent(genres: selectedFilters) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let (quoteModels, images, imageURLs)):
-                self.presenter?.formatNewData(currentVMs: self.loadedVMs,
-                                              capturedPage: self.capturedCurrentPage,
-                                              edges: edges,
-                                              quoteModels: quoteModels,
-                                              images: images,
-                                              imageURLs: imageURLs)
-            case .failure(let error):
-                print(error)
-                // notify user and offer try again or cancel options
-                //self.presenter?.presentNetworkErrorAlert()
-                
-                self.presenter?.presentNetworkErrorAlert()
-                
-                
-            }
-        }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        loadedQuotes?.count ?? 0
     }
     
-    func requestDisplayInitialData() {
-        let contentWorker = ExploreContentWorker()
-        currentPage = 0
-        capturedCurrentPage = 0
-        contentWorker.getContent(genres: selectedFilters) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let (quoteModels, images, imageURLs)):
-                self.presenter?.formatData(quoteModels: quoteModels, images: images, imageURLs: imageURLs)
-            case .failure(let error):
-                print(error)
-                // notify user and offer try again or cancel options
-                self.presenter?.addWifiButtonIfNeeded()
-                self.presenter?.presentInitialNetworkErrorAlert()
-            }
-        }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExploreCell", for: indexPath)
+        return cell
     }
     
-    func requestNewData(edges: (Int, Int), offsetOfPage: Int) {
-        if currentPage == loadedVMs.count - offsetOfPage && !isLoadNewDataFunctionRunning {
-            capturedCurrentPage = currentPage
-            if !isLoadNewDataFunctionRunning {
-                isLoadNewDataFunctionRunning = true
-                requestDisplayNewData(edges: edges)
-            }
-        }
-    }
-    
-    func resetInitialData() {
-        isDataLoaded = false
-        loadedVMs = []
-        loadedImages = []
-        selectedFilters.removeAll { $0 == "" }
-        presenter?.startAnimating()
-        requestDisplayInitialData()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath,
-                        bookGesture: UITapGestureRecognizer,
-                        filterGesture: UITapGestureRecognizer,
-                        ideaTarget: ButtonTarget) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? QuoteCell
-        cell?.quoteVM = loadedVMs[indexPath.item]
-        cell?.mainImageStringURL = loadedImageURLs[indexPath.item]
-        cell?.mainImage = loadedImages[indexPath.item]
-        cell?.tapOnBookGesture = bookGesture
-        cell?.tapOnFilterGesture = filterGesture
-        cell?.ideaButtonTarget = ideaTarget
-        return cell!
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView, completion: @escaping () -> Void) {
-        currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        requestNewData(edges: (4, 14), offsetOfPage: 5)
-        requestNewData(edges: (0, 10), offsetOfPage: 1)
-        
-        if currentPage == loadedVMs.count - 1 && isLoadNewDataFunctionRunning {
-            completion()
-        }
-        else {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        print("will display")
+        if let cell = cell as? ExploreCell,
+           let loadedQuotes = loadedQuotes {
+            //let item = loadedQuotes[indexPath.item]
+            cell.buildSubviews()
+            cell.buildConstraints()
             
+            if indexPath.item == currentPage {
+                self.presenter?.turnInteractionOff()
+            }
+            //cell.startAnimating()
+            let item = loadedQuotes[indexPath.item]
+            
+            if item.isLoading {
+                cell.startAnimating()
+            }
+            if !item.isLoading && cell.imgView.image == nil {
+                cell.startAnimating()
+                
+                cell.imgView.sd_setImage(with: URL(string: item.quoteImageURLString ?? "")) {_,_,_,_ in
+                    
+                    cell.stopAnimating()
+                }
+            }
+
+            Task.init(priority: .high) { [weak self] in
+                guard let self = self else { return }
+                var quote: ExploreQuoteProtocol = ExploreQuote()
+                let item = loadedQuotes[indexPath.item]
+                
+                if !item.isLoading {
+                    quote = item
+                }
+                else {
+                    print("call")
+                    send(genre: currentGenre)
+                    let quoteModel = try await receive()
+                    //let quoteModel = try await exploreNetworkWorker?.getSmallQuote(genre: currentGenre)
+                    let exploreAuthor = ExploreAuthor(idString: quoteModel!.author.id,
+                                                      slug: quoteModel!.author.slug,
+                                                      name: quoteModel!.author.name,
+                                                      authorImageURLString: quoteModel!.author.authorImageURLString,
+                                                      authorDesc: quoteModel!.author.authorDesc)
+                    let exploreQuote = ExploreQuote(quoteImageURLString: quoteModel!.quoteImageURLString,
+                                                    content: quoteModel!.content,
+                                                    author: exploreAuthor)
+                    quote = exploreQuote
+                }
+                await MainActor.run { [quote] in
+                    //guard let self = self else { return }
+                    if let author = quote.author,
+                       let content = quote.content,
+                       let imageURLString = quote.quoteImageURLString {
+                        
+                        // turn on interaction
+                        if indexPath.item == currentPage {
+                            self.presenter?.turnInteractionOn()
+                        }
+                        
+                        self.loadedQuotes![indexPath.item] = quote
+                        cell.authorNameLabel.text = author.name
+                        cell.quoteContentLabel.text = quote.content
+                        let fontSize = cell.getFontSizeForQuote(stringCount: CGFloat(content.count))
+                        cell.quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: fontSize)
+                        self.loadedQuotes![indexPath.item].isLoading = false
+                        cell.imgView.sd_setImage(with: URL(string: imageURLString),
+                                                 placeholderImage: nil,
+                                                 options: [.continueInBackground, .highPriority, .scaleDownLargeImages, .retryFailed, .refreshCached]) { _, error, _, _ in
+                            if let error = error {
+                                print("sd web error: \(error.localizedDescription)")
+                                cell.stopAnimating()
+                                //cell.stopAnimating()
+                            }
+                            else {
+                                cell.stopAnimating()
+                                self.loadedQuotes![indexPath.item].isScreenshotAllowed = true
+                            }
+                        }
+                        
+                    }
+                }
+            }
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        UIScreen.main.bounds.size
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let prevPage = currentPage
+        currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+        if currentPage == loadedQuotes?.count ?? 0 - 1 {
+            loadedQuotes?.append(ExploreQuote())
+        }
+        let indexPaths = [IndexPath(item: loadedQuotes!.count - 2, section: 0)]
+        let shouldAddCell = currentPage == loadedQuotes?.count ?? 0 - 1
+        presenter?.addCellWhenSwiping(indexPaths: indexPaths, shouldAddCell: shouldAddCell)
+    }
+    
+    func scroll(direction: ExploreDirection) {
+        var contentOffsetX: CGFloat? = nil
+        var shouldAddCell: Bool = false
+        //let prevPage = currentPage
+        switch direction {
+        case .left:
+            if currentPage - 1 < 0 {
+                presenter?.turnLeftArrowOn()
+                return
+            }
+            currentPage -= 1
+            contentOffsetX = -Constants.screenWidth
+        case .right:
+            currentPage += 1
+            contentOffsetX = Constants.screenWidth
+            print(currentPage)
+            print(loadedQuotes?.count ?? 0)
+            shouldAddCell = currentPage >= (loadedQuotes?.count ?? 0) - 4
+            if currentPage >= (loadedQuotes?.count ?? 0) - 4 {
+                loadedQuotes?.append(ExploreQuote())
+            }
+        }
+        let indexPaths = [IndexPath(item: loadedQuotes!.count - 2, section: 0)]
+//        let shouldAddCell = currentPage >= (loadedQuotes?.count ?? 0) - 4
+
+        presenter?.scroll(direction: direction, contentOffsetX: contentOffsetX!, indexPaths: indexPaths, shouldAddCell: shouldAddCell)
+    }
+    
+    func presentAlert(title: String, text: String, mainButtonText: String, mainButtonStyle: UIAlertAction.Style, action: (() -> Void)?) {
+        presenter?.presentAlert(title: title,
+                                text: text,
+                                mainButtonText: mainButtonText,
+                                mainButtonStyle: mainButtonStyle,
+                                action: action)
+    }
+    
+    func ping() {
+        websocketTask?.sendPing(pongReceiveHandler: { error in
+            if let error = error {
+                print(error)
+            }
+        })
+    }
+    
+    func close() {
+        websocketTask?.cancel()
+    }
+    
+    func send(genre: Genre) {
+        websocketTask?.send(.string("\(genre.rawValue)"), completionHandler: { error in
+            if let error = error {
+                print(error)
+            }
+        })
+    }
+    
+    func receive() async throws -> QuoteModel? {
+        let message = try await websocketTask?.receive()
+        switch message {
+        case .data(let data):
+            let decoded = try JSONDecoder().decode(QuoteModel.self, from: data)
+            print("content is \(decoded.content)")
+            return decoded
+        case .string(let str):
+            print("string in \(str)")
+            return nil
+        @unknown default:
+            return nil
+            //break
+        }
+    
     }
 }
+

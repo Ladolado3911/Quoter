@@ -1,343 +1,336 @@
 //
-//  ExploreVC.swift
+//  ExploreVCTemp.swift
 //  Quoter
 //
-//  Created by Lado Tsivtsivadze on 1/19/22.
+//  Created by Lado Tsivtsivadze on 4/12/22.
 //
 
 import UIKit
-import SnapKit
-import AnimatedCollectionViewLayout
-import Combine
-import Firebase
 
-let isDataLoadedSubject = CurrentValueSubject<Bool, Never>(false)
-let isFirstLaunchSubject = CurrentValueSubject<Bool, Never>(false)
-
-protocol PresenterToExploreVCProtocol: AnyObject {
-    var interactor: VCToExploreInteractorProtocol? { get set }
+protocol ExploreVCProtocol: AnyObject, FilterToExploreProtocol {
+    var interactor: ExploreInteractorProtocol? { get set }
+    var router: ExploreRouterProtocol? { get set }
+    var exploreView: ExploreView? { get set }
     
-    func startAnimating()
-    func displayInitialData(loadedVMs: [QuoteGardenQuoteVM],
-                            loadedImages: [UIImage?],
-                            indexPaths: [IndexPath],
-                            imageURLs: [String?])
+    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath], shouldAddCell: Bool)
+    func addCellWhenSwiping(indexPaths: [IndexPath], shouldAddCell: Bool)
+    func screenshot()
+    func presentAlert(title: String,
+                      text: String,
+                      mainButtonText: String,
+                      mainButtonStyle: UIAlertAction.Style,
+                      action: (() -> Void)?)
+    func reloadCollectionView()
+    func present(vc: UIViewController, animated: Bool)
+    func turnLeftArrowOn()
     
-    func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
-                        loadedImages: [UIImage?],
-                        indexPaths: [IndexPath],
-                        imageURLs: [String?])
-    
-    func setTimer()
-    func displayIdeaChange()
-    func addWifiButton()
-    func displayNetworkErrorAlert()
-    func displayInitialNetworkErrorAlert()
+    func turnInteractionOn()
+    func turnInteractionOff()
 }
 
-class ExploreVC: MonitoredVC {
+class ExploreVC: UIViewController {
     
-    var interactor: VCToExploreInteractorProtocol?
+    var interactor: ExploreInteractorProtocol?
     var router: ExploreRouterProtocol?
+    var exploreView: ExploreView?
 
-    var tapOnBookGesture: UITapGestureRecognizer {
-        let tapOnGesture = UITapGestureRecognizer(target: self,
-                                                  action: #selector(didTapOnBook(sender:)))
-        return tapOnGesture
-    }
-    
-    var tapOnFilterGesture: UITapGestureRecognizer {
-        let tapOnGesture = UITapGestureRecognizer(target: self,
-                                                  action: #selector(didTapOnFilter(sender:)))
-        return tapOnGesture
-    }
-    
-    var tapOnIdeaGesture: UITapGestureRecognizer {
-        let tapOnGesture = UITapGestureRecognizer(target: self,
-                                                  action: #selector(onIdeaButton(sender:)))
-        return tapOnGesture
-    }
-    
-    var ideaButtonTarget: ButtonTarget {
-        let target = ButtonTarget(target: self,
-                                  selector: #selector(onIdeaButton(sender:)),
-                                  event: .touchUpInside)
-        return target
-    }
-
-    lazy var exploreView: ExploreView = {
-        let view = ExploreView(frame: view.bounds)
-        return view
+    lazy var quoteButtonTapGesture: UITapGestureRecognizer = {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(onQuoteButton(sender:)))
+        return gesture
     }()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
     }
-    
-    override func loadView() {
-        super.loadView()
-        view = exploreView
-        if !UIApplication.isAppAlreadyLaunchedOnce() {
-            self.interactor?.isFirstLaunch = true
-        }
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.statusBarStyle = .lightContent
-        exploreView.startAnimating()
-        exploreView.collectionView.isUserInteractionEnabled = false
-        interactor?.requestDisplayInitialData()
         configCollectionView()
-
-//        interactor?.requestToTrack()
+        configButtons()
+        configWebsocket()
+        configTimer()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        exploreView?.collectionView.visibleCells.forEach({ cell in
+            if let cell = cell as? ExploreCell {
+                cell.stopAnimating()
+            }
+        })
+    }
+
+    private func configCollectionView() {
+        view = self.exploreView
+        exploreView?.collectionView.prefetchDataSource = self
+        exploreView?.collectionView.dataSource = self
+        exploreView?.collectionView.delegate = self
+        exploreView?.collectionView.register(ExploreCell.self, forCellWithReuseIdentifier: "ExploreCell")
+    }
+    
+    private func configButtons() {
+        exploreView?.leftArrowButton.addTarget(self, action: #selector(scrollLeft), for: .touchUpInside)
+        exploreView?.rightArrowButton.addTarget(self, action: #selector(scrollRight), for: .touchUpInside)
+        exploreView?.downloadQuotePictureButton.addTarget(self, action: #selector(onDownloadButton), for: .touchUpInside)
+        exploreView?.filterButton.addTarget(self, action: #selector(onFilterButton), for: .touchUpInside)
+        exploreView?.quoteButtonView.addGestureRecognizer(quoteButtonTapGesture)
+    }
+    
+    private func configWebsocket() {
+        let session = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
+        let url = URL(string: "wss://quotie-quoter-api.herokuapp.com/getSmallQuote")
+        interactor?.websocketTask = session.webSocketTask(with: url!)
+        interactor?.websocketTask?.resume()
+    }
+    
+    private func configTimer() {
+        interactor?.timer = Timer.scheduledTimer(timeInterval: 5,
+                                                 target: self,
+                                                 selector: #selector(buttonAnimationTimerFire(sender:)),
+                                                 userInfo: nil,
+                                                 repeats: true)
+    }
+    
     private func setup() {
         let vc = self
         let interactor = ExploreInteractor()
         let presenter = ExplorePresenter()
         let router = ExploreRouter()
+        let exploreNetworkWorker = ExploreNetworkWorker()
+        let exploreView = ExploreView(frame: UIScreen.main.bounds)
         vc.interactor = interactor
+        vc.exploreView = exploreView
         vc.router = router
         interactor.presenter = presenter
+        interactor.exploreNetworkWorker = exploreNetworkWorker
         presenter.vc = vc
         router.vc = vc
     }
-    
-    private func configCollectionView() {
-        exploreView.collectionView.dataSource = self
-        exploreView.collectionView.delegate = self
-        exploreView.collectionView.register(QuoteCell.self, forCellWithReuseIdentifier: "cell")
-        
-        exploreView.wifiButton.addTarget(self, action: #selector(didTapOnWifi(sender:)), for: .touchUpInside)
-    }
+}
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if exploreView.lottieAnimation != nil {
-            connectionStatusSubject.send((NetworkMonitor.shared.isConnected, false))
+extension ExploreVC {
+    @objc func scrollLeft(sender: ArrowButton) {
+        exploreView?.collectionView.isUserInteractionEnabled = false
+        exploreView?.leftArrowButton.isEnabled = false
+        interactor?.scroll(direction: .left)
+    }
+    
+    @objc func scrollRight(sender: ArrowButton) {
+        exploreView?.collectionView.isUserInteractionEnabled = false
+        exploreView?.rightArrowButton.isEnabled = false
+        interactor?.scroll(direction: .right)
+    }
+    
+    @objc func onDownloadButton(sender: UIButton) {
+        interactor?.onDownloadButton()
+    }
+    
+    @objc func onFilterButton(sender: UIButton) {
+        router?.routeToFilterVC(with: interactor?.currentGenre ?? .general)
+    }
+    
+    @objc func onQuoteButton(sender: UIButton) {
+        let quote = interactor!.loadedQuotes![interactor!.currentPage]
+        if quote.isLoading {
+            presentAlert(title: "Alert",
+                         text: "Content is still loading",
+                         mainButtonText: "Ok",
+                         mainButtonStyle: .cancel,
+                         action: nil)
         }
         else {
-            if !interactor!.isDataLoaded && !(exploreView.collectionView.subviews.map { $0.tag }.contains(1)) {
-                exploreView.startAnimating()
-            }
+            router?.routeToAuthorVC(authorID: quote.author!.idString,
+                                    authorName: quote.author!.name,
+                                    authorImageURLString: quote.author!.authorImageURLString,
+                                    authorDesc: quote.author!.authorDesc)
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        guard let isDataLoaded = interactor?.isDataLoaded else { return }
-        if isDataLoaded {
-            interactor?.requestToSetTimer()
-        }
-        //exploreView.collectionView.removeFromSuperview()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if exploreView.lottieAnimation != nil {
-            exploreView.stopLottieAnimation()
-            exploreView.lottieAnimation = nil
-        }
-        if interactor?.timer != nil {
-            interactor?.invalidateTimer()
-        }
-        interactor?.isFirstAppearanceOfExploreVC = false
-    }
-    
-    @objc func didTapOnWifi(sender: UIButton) {
-        presentPickModalAlert(title: "Network Error", text: "Want to reconnect?", mainButtonText: "Reconnect", mainButtonStyle: .default) { [weak self] in
-            guard let self = self else { return }
-            self.exploreView.collectionView.isUserInteractionEnabled = false
-            self.interactor?.requestDisplayInitialData()
-        }
-    }
-    
-    @objc func didTapOnBook(sender: UITapGestureRecognizer) {
-        Analytics.logEvent("did_tap_on_book", parameters: nil)
-        interactor?.invalidateTimer()
-        router?.routeToModalAlertVC(quoteVM: interactor!.loadedVMs[interactor!.currentPage]) { [weak self] in
-            guard let self = self else { return }
-            self.interactor?.requestToSetTimer()
-        }
-    }
-    
-    @objc func didTapOnFilter(sender: UITapGestureRecognizer) {
-        Analytics.logEvent("did_tap_on_filter", parameters: nil)
-        interactor?.invalidateTimer()
-        router?.routeToFilters { [weak self] in
-            guard let self = self else { return }
-            self.interactor?.requestToSetTimer()
-        }
-    }
-    
-    @objc func onIdeaButton(sender: UIButton) {
-        Analytics.logEvent("did_tap_on_Idea", parameters: nil)
-        interactor?.requestToChangeIdeaState(isSwitchButtonSelected: sender.isSelected)
-        sender.isSelected.toggle()
-    }
-    
-    @objc func timerFire(sender: Timer) {
-        if interactor!.isFirstLaunch {
-            if interactor!.isCounterFirstLaunchForDeviceFirstLaunch {
-                if interactor?.counter == 2 {
-                    router?.routeToSwipeHint(repeatCount: 2, delay: 1)
-                    interactor?.invalidateTimer()
-                    interactor?.isCounterFirstLaunchForDeviceFirstLaunch = false
-                    return
-                }
-            }
-            else {
-                if interactor?.counter == 20 {
-                    router?.routeToSwipeHint(repeatCount: 2, delay: 1)
-                    interactor?.invalidateTimer()
-                    return
-                }
-            }
-        }
-        else {
-            if interactor?.counter == 20 {
-                router?.routeToSwipeHint(repeatCount: 2, delay: 1)
-                interactor?.invalidateTimer()
-                return
-            }
-        }
-        interactor?.counter += 1
+    @objc func buttonAnimationTimerFire(sender: Timer) {
+        //interactor?.buttonAnimationTimerFire(collectionView: exploreView?.collectionView)
+        exploreView?.animateQuoteButton()
+        exploreView?.animateFilterButton()
     }
 }
 
-extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        interactor?.loadedVMs.count ?? 0
+        interactor?.collectionView(collectionView, numberOfItemsInSection: section) ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = interactor?.collectionView(collectionView, cellForItemAt: indexPath, bookGesture: tapOnBookGesture, filterGesture: tapOnFilterGesture, ideaTarget: ideaButtonTarget)
-        return cell!
+        interactor?.collectionView(collectionView, cellForItemAt: indexPath) ?? ExploreCell()
     }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        view.bounds.size
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        interactor?.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        0
+        interactor?.collectionView(collectionView, layout: collectionViewLayout, minimumLineSpacingForSectionAt: section) ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        0
+        interactor?.collectionView(collectionView, layout: collectionViewLayout, minimumInteritemSpacingForSectionAt: section) ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        interactor?.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? view.bounds.size
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        //interactor?.collectionView(collectionView, prefetchItemsAt: indexPaths)
+        print("prefetch at \(indexPaths.map { $0.item })")
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        interactor?.scrollViewDidEndDecelerating(scrollView)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-      
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        interactor?.invalidateTimer()
-        print(interactor!.loadedVMs.count)
-        print("current page \(interactor!.currentPage)")
-        //interactor?.requestToSetTimer()
-        interactor?.scrollViewDidEndDecelerating(scrollView) { [weak self] in
-            guard let self = self else { return }
-            Analytics.logEvent("did_scroll", parameters: nil)
-            self.router?.routeToLoadingAlertVC()
-        }
+        //print(scrollView.contentOffset)
     }
 }
 
-extension ExploreVC: PresenterToExploreVCProtocol {
-    
-    func displayInitialNetworkErrorAlert() {
-        presentAlert(title: "Network Error", text: "Could not connect", mainButtonText: "Ok", mainButtonStyle: .default) { [weak self] in
-            guard let self = self else { return }
-            self.exploreView.collectionView.isUserInteractionEnabled = true
-            self.dismiss(animated: true)
+extension ExploreVC: ExploreVCProtocol {
+
+    func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath], shouldAddCell: Bool) {
+        let nextOffset = CGPoint(x: exploreView!.collectionView.contentOffset.x + contentOffsetX,
+                                 y: exploreView!.collectionView.contentOffset.y)
+        if direction == .right {
+            
+            if shouldAddCell {
+                exploreView?.collectionView.insertItems(at: indexPaths)
+                //exploreView?.collectionView.reloadItems(at: indexPaths)
+                print("adding cell")
+            }
         }
-    }
-    
-    func displayNetworkErrorAlert() {
-        dismiss(animated: true) { [weak self] in
+        exploreView?.collectionView.setContentOffset(nextOffset, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             guard let self = self else { return }
-            self.presentAlert(title: "Network Error", text: "Could not connect", mainButtonText: "Ok", mainButtonStyle: .default) {
-                self.exploreView.collectionView.isUserInteractionEnabled = true
-                self.dismiss(animated: true)
+            switch direction {
+            case .left:
+                self.exploreView?.collectionView.isUserInteractionEnabled = true
+                self.exploreView?.leftArrowButton.isEnabled = true
+            case .right:
+                self.exploreView?.collectionView.isUserInteractionEnabled = true
+                self.exploreView?.rightArrowButton.isEnabled = true
             }
         }
     }
     
-    func addWifiButton() {
-        if exploreView.lottieAnimation != nil {
-            //exploreView.stopAnimating()
-            //exploreView.lottieAnimation = nil
-            exploreView.stopLottieAnimation()
+    func turnInteractionOn() {
+        self.exploreView?.collectionView.isUserInteractionEnabled = true
+        self.exploreView?.leftArrowButton.isEnabled = true
+        self.exploreView?.rightArrowButton.isEnabled = true
+    }
+    
+    func turnInteractionOff() {
+        self.exploreView?.collectionView.isUserInteractionEnabled = false
+        self.exploreView?.leftArrowButton.isEnabled = false
+        self.exploreView?.rightArrowButton.isEnabled = false
+    }
+    
+    func addCellWhenSwiping(indexPaths: [IndexPath], shouldAddCell: Bool) {
+        if shouldAddCell {
+            exploreView?.collectionView.insertItems(at: indexPaths)
         }
-        if !exploreView.subviews.contains(exploreView.wifiButton) {
-            exploreView.addWifiButton()
+    }
+    
+    func presentAlert(title: String,
+                      text: String,
+                      mainButtonText: String,
+                      mainButtonStyle: UIAlertAction.Style,
+                      action: (() -> Void)?) {
+        var newAction: () -> Void
+        if let action = action {
+            newAction = action
+        }
+        else {
+            newAction = { }
+        }
+        presentAlert(title: title,
+                     text: text,
+                     mainButtonText: mainButtonText,
+                     mainButtonStyle: mainButtonStyle,
+                     mainButtonAction: newAction)
+    }
+    
+    func screenshot() {
+        if let exploreView = exploreView,
+           let exploreCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? ExploreCell {
+            let newCell = ExploreScreenshotCell(exploreCell: exploreCell, frame: exploreCell.bounds)
+            newCell.takeScreenshot { [weak self] in
+                guard let self = self else { return }
+                self.interactor?.presentAlert(title: "Alert",
+                                              text: "Image saved successfully",
+                                              mainButtonText: "Ok",
+                                              mainButtonStyle: .default,
+                                              action: nil)
+            }
         }
     }
     
-    func displayNewData(loadedVMs: [QuoteGardenQuoteVM],
-                        loadedImages: [UIImage?],
-                        indexPaths: [IndexPath],
-                        imageURLs: [String?]) {
-
-        interactor?.loadedVMs.append(contentsOf: loadedVMs)
-        interactor?.loadedImages.append(contentsOf: loadedImages)
-        interactor?.loadedImageURLs.append(contentsOf: imageURLs)
-
-        interactor?.loadedImages.removeSubrange(0..<interactor!.currentPage)
-        interactor?.loadedVMs.removeSubrange(0..<interactor!.currentPage)
-        interactor?.loadedImageURLs.removeSubrange(0..<interactor!.currentPage)
-
-        exploreView.collectionView.reloadData()
-        interactor?.currentPage = 0
-        interactor?.capturedCurrentPage = 0
-        exploreView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: false)
-
-        exploreView.collectionView.isUserInteractionEnabled = true
-        interactor?.isLoadNewDataFunctionRunning = false
-        self.dismiss(animated: false)
-    }
-    
-    func displayInitialData(loadedVMs: [QuoteGardenQuoteVM],
-                            loadedImages: [UIImage?],
-                            indexPaths: [IndexPath],
-                            imageURLs: [String?]) {
-        
-        exploreView.removeWifiButton()
-        interactor?.loadedVMs = loadedVMs
-        
-        interactor?.loadedImages = loadedImages
-        interactor?.loadedImageURLs = imageURLs
-        
-        exploreView.collectionView.insertItems(at: indexPaths)
-        if exploreView.lottieAnimation != nil {
-            exploreView.stopLottieAnimation()
+    func reloadCollectionView() {
+        exploreView?.collectionView.reloadData()
+        exploreView?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: false)
+        UIView.animate(withDuration: 1, delay: 1.5) { [weak self] in
+            guard let self = self else { return }
+            self.exploreView?.collectionView.alpha = 1
+        } completion: { [weak self] didFinish in
+            guard let self = self else { return }
+            if didFinish {
+                self.exploreView?.collectionView.isUserInteractionEnabled = true
+                self.exploreView?.rightArrowButton.isEnabled = true
+                self.exploreView?.leftArrowButton.isEnabled = true
+            }
         }
-        interactor?.isDataLoaded = true
-        if interactor!.isFirstAppearanceOfExploreVC {
-            interactor?.requestToSetTimer()
-        }
-        exploreView.collectionView.isUserInteractionEnabled = true
     }
     
-    func startAnimating() {
-        exploreView.collectionView.reloadData()
-        exploreView.startAnimating()
+    func present(vc: UIViewController, animated: Bool) {
+        present(vc, animated: animated)
     }
     
-    func setTimer() {
-        interactor?.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFire(sender:)), userInfo: nil, repeats: true)
-    }
-    
-    func displayIdeaChange() {
- 
+    func turnLeftArrowOn() {
+        self.exploreView?.leftArrowButton.isEnabled = true
     }
 }
+
+extension ExploreVC: FilterToExploreProtocol {
+    func sendBackGenre(genre: Genre) {
+        exploreView?.collectionView.isUserInteractionEnabled = false
+        exploreView?.rightArrowButton.isEnabled = false
+        exploreView?.leftArrowButton.isEnabled = false
+        exploreView?.filterButton.setTitle(genre.rawValue.capitalized, for: .normal)
+        exploreView?.stopAnimating()
+        UIView.animate(withDuration: 1, delay: 0) { [weak self] in
+            guard let self = self else { return }
+            self.exploreView?.collectionView.alpha = 0
+        } completion: { [weak self] didFinish in
+            guard let self = self else { return }
+            if didFinish {
+                self.interactor?.currentGenre = genre
+            }
+        }
+    }
+}
+
+extension ExploreVC: URLSessionWebSocketDelegate {
+
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+        print("did connect to socket")
+        
+    }
+    
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
+        print("did lose connection with socket")
+    }
+}
+

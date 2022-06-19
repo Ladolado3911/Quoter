@@ -2,64 +2,67 @@
 //  FilterPresenter.swift
 //  Quoter
 //
-//  Created by Lado Tsivtsivadze on 3/9/22.
+//  Created by Lado Tsivtsivadze on 6/6/22.
 //
 
 import UIKit
-import TTGTags
 
-protocol InteractorToFilterPresenterProtocol: AnyObject {
+protocol FilterPresenterProtocol {
+    var vc: FilterVCProtocol? { get set }
     
-    var vc: PresenterToFilterVCProtocol? { get set }
-    
-    func formatFetchedTags(filterObjects: [FilterObject])
-    func formatListener()
-    func reloadCollectionView()
-    func demolish(completion: @escaping () -> Void)
+    func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView)
+    func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView)
+
+    func animateMovement(direction: MovementDirection)
+    func animateColor()
     func dismiss()
     
+    func reloadCollectionViewData()
+    
+    func setCurrentGenreToLabel(genre: Genre)
+    func selectCell(indexPath: IndexPath)
 }
 
-class FilterPresenter: InteractorToFilterPresenterProtocol {
-    var vc: PresenterToFilterVCProtocol?
+class FilterPresenter: FilterPresenterProtocol {
+    var vc: FilterVCProtocol?
     
-    func formatFetchedTags(filterObjects: [FilterObject]) {
-        let convertedToTags = filterObjects.map { $0.genre.capitalized }
-        var resultArr: [TTGTextTag] = []
-        for tag in convertedToTags {
-            let content = TTGTextTagStringContent(text: tag)
-            content.textColor = .black
-            let style = TTGTextTagStyle()
-            style.backgroundColor = .white
-            style.textAlignment = .center
-            style.extraSpace = CGSize(width: 10, height: 10)
-            
-            let selectedContent = TTGTextTagStringContent(text: tag)
-            selectedContent.textColor = .white
-            let selectedStyle = TTGTextTagStyle()
-            selectedStyle.backgroundColor = .black
-            selectedStyle.textAlignment = .center
-            selectedStyle.extraSpace = CGSize(width: 10, height: 10)
-
-            let selectedTextTag = TTGTextTag(content: content, style: style, selectedContent: selectedContent, selectedStyle: selectedStyle)
-            resultArr.append(selectedTextTag)
+    func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView) {
+        let minY = targetView.frame.minY
+        let dragVelocity = sender.velocity(in: targetView)
+        vc?.panFunc(sender: sender, targetView: targetView, minY: minY, dragVelocity: dragVelocity)
+    }
+    
+    func panFunc2(sender: UIPanGestureRecognizer, targetView: FilterView) {
+        
+    }
+    
+    func animateMovement(direction: MovementDirection) {
+        switch direction {
+        case .up:
+            vc?.animate(to: CGPoint(x: -5, y: Constants.screenHeight * 0.3819))
+        case .down:
+            vc?.animate(to: CGPoint(x: -5, y: Constants.screenHeight))
         }
-        vc?.displayFetchedTags(selectionLimit: UInt(convertedToTags.count - 1), resultArr: resultArr)
     }
     
-    func formatListener() {
-        vc?.addListener()
+    func animateColor() {
+        vc?.animateColor()
     }
-    
-    func reloadCollectionView() {
-        vc?.reloadCollectionView()
-    }
-    
-    func demolish(completion: @escaping () -> Void) {
-        vc?.demolish(completion: completion)
-    }
-    
+
     func dismiss() {
         vc?.dismiss()
     }
+    
+    func reloadCollectionViewData() {
+        vc?.reloadCollectionViewData()
+    }
+    
+    func setCurrentGenreToLabel(genre: Genre) {
+        vc?.setCurrentGenreToLabel(genre: genre)
+    }
+    
+    func selectCell(indexPath: IndexPath) {
+        vc?.selectCell(indexPath: indexPath)
+    }
+
 }
