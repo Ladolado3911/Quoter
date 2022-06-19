@@ -39,9 +39,14 @@ class AuthorView: UIView {
         return table
     }()
     
-    let titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.alpha = 0
+        label.textColor = DarkModeColors.white
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        label.font = UIFont.systemFont(ofSize: Constants.screenHeight * 0.021598272, weight: .bold)
+        //label.font = LibreBaskerville.styles.defaultFont(size: backView.bounds.height / 5)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -87,6 +92,8 @@ class AuthorView: UIView {
             
             titleLabel.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: backView.topAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: backView.bottomAnchor),
         ])
     }
 }

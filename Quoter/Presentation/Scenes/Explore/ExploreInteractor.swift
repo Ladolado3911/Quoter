@@ -65,16 +65,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
     }
     var websocketTask: URLSessionWebSocketTask?
     var timer: Timer?
-    
-//    func buttonAnimationTimerFire(collectionView: UICollectionView?) {
-//        guard let collectionView = collectionView else {
-//            return
-//        }
-//        if let currentCell = collectionView.cellForItem(at: IndexPath(item: currentPage, section: 0)) as? ExploreCell {
-//            currentCell.animateButton()
-//        }
-//    }
-    
+
     func onDownloadButton() {
         if let loadedQuotes = loadedQuotes,
            let quote = loadedQuotes[currentPage] {
@@ -122,6 +113,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         print("will display")
         if let cell = cell as? ExploreCell {
+            
             cell.startAnimating()
             cell.buildSubviews()
             cell.buildConstraints()

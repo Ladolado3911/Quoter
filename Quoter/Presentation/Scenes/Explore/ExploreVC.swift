@@ -190,8 +190,11 @@ extension ExploreVC: ExploreVCProtocol {
     func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath]) {
         let nextOffset = CGPoint(x: exploreView!.collectionView.contentOffset.x + contentOffsetX,
                                  y: exploreView!.collectionView.contentOffset.y)
-        exploreView?.collectionView.setContentOffset(nextOffset, animated: true)
-        exploreView?.collectionView.insertItems(at: indexPaths)
+        if direction == .right {
+            exploreView?.collectionView.setContentOffset(nextOffset, animated: true)
+            exploreView?.collectionView.insertItems(at: indexPaths)
+            print("right")
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self = self else { return }
             switch direction {
