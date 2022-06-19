@@ -8,11 +8,10 @@
 import UIKit
 import CoreData
 import Firebase
+import GoogleMobileAds
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -23,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         //Thread.sleep(forTimeInterval: 2.0)
         FirebaseApp.configure()
+        GADMobileAds.sharedInstance().start()
         Analytics.setAnalyticsCollectionEnabled(false)
         guard let _ = UserDefaults.standard.value(forKey: "firstLaunch") as? Bool else { return true }
         return true

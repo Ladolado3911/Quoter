@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, GADFullScreenContentDelegate {
 
     var window: UIWindow?
+    var appOpenAd: GADAppOpenAd?
+    var loadTime = Date()
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -30,6 +33,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        
+        self.tryToPresentAd()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -57,25 +62,51 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         MenuModels.shared.initialize()
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
-        
-        
-        
-        
-        // MARK: previous version
-        
-        
-//        CoreDataWorker.clearWhereverNeeded()
-//        UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
-//        let tabbarController = TabbarController()
-//        tabbarController.addTabbarItem(item: TabbarItem(itemView: TabbarItemView(icon: UIImage(named: "explore2")!,
-//                                                                                 itemName: "Explore"),
-//                                                        controller: ExploreVC()))
-//        tabbarController.addTabbarItem(item: TabbarItem(itemView: TabbarItemView(icon: UIImage(named: "IdeaTabbar")!,
-//                                                                                 itemName: "Favorites"),
-//                                                        controller: AuthorsVC()))
-//        let vc = tabbarController
-//        window?.rootViewController = vc
-//        window?.makeKeyAndVisible()
     }
+    
+    func requestAppOpenAd(completion: (() -> Void)?) {
+        let request = GADRequest()
+        // this is test ad unit
+        GADAppOpenAd.load(withAdUnitID: "ca-app-pub-3940256099942544/5662855259",
+                          request: request,
+                          orientation: UIInterfaceOrientation.portrait,
+                          completionHandler: { (appOpenAdIn, _) in
+            self.appOpenAd = appOpenAdIn
+            self.appOpenAd?.fullScreenContentDelegate = self
+            //self.tryToPresentAd()
+            print("Ad is ready")
+            if let completion = completion {
+                completion()
+            }
+            
+        })
+    }
+    func tryToPresentAd() {
+        if let gOpenAd = self.appOpenAd, let rwc = window!.rootViewController {
+            gOpenAd.present(fromRootViewController: rwc)
+        }
+        else {
+            self.requestAppOpenAd() { [weak self] in
+                guard let self = self else { return }
+                self.appOpenAd?.present(fromRootViewController: self.window!.rootViewController!)
+            }
+            
+        }
+    }
+    
+    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+        requestAppOpenAd(completion: nil)
+    }
+    
+    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        requestAppOpenAd(completion: nil)
+    }
+    
+//    func adDidPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+//        print("Ad did present")
+//
+//    }
+    
 }
+
 
