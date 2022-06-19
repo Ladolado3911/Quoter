@@ -39,24 +39,11 @@ class AuthorView: UIView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
+        label.text = "Title"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-//
-//    let aboutLabel: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
-//
-//    let descLabel: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
-    
-    
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -76,6 +63,7 @@ class AuthorView: UIView {
         addSubview(backView)
         addSubview(backButton)
         addSubview(tableView)
+        addSubview(titleLabel)
     }
     
     private func buildConstraints() {
@@ -95,6 +83,8 @@ class AuthorView: UIView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
+            titleLabel.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
 }

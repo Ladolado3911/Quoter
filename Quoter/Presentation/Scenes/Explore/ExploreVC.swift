@@ -123,11 +123,16 @@ extension ExploreVC {
     }
     
     @objc func onQuoteButton(sender: UIButton) {
-        router?.routeToAuthorVC()
-//        exploreView?.animateQuoteButton(completion: { [weak self] frameOfFinalState in
-//            guard let self = self else { return }
-//            self.router?.routeToAuthorVC(frameOfFinalState: frameOfFinalState)
-//        })
+        if let loadedQuote = interactor!.loadedQuotes![interactor!.currentPage] {
+            router?.routeToAuthorVC(authorID: loadedQuote.author.idString, authorName: loadedQuote.author.name)
+        }
+        else {
+            presentAlert(title: "Alert",
+                         text: "Content is still loading",
+                         mainButtonText: "Ok",
+                         mainButtonStyle: .cancel,
+                         action: nil)
+        }
     }
     
     @objc func buttonAnimationTimerFire(sender: Timer) {

@@ -55,6 +55,12 @@ class AuthorVC: UIViewController {
         interactor?.showView()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        AuthorCellsManager.shared.authorID = ""
+        AuthorCellsManager.shared.authorName = ""
+    }
+    
     private func buildSubviews() {
         view.addSubview(authorView)
     }
@@ -71,6 +77,7 @@ class AuthorVC: UIViewController {
                                                                                    y: 0,
                                                                                    width: Constants.screenWidth,
                                                                                    height: 200))
+        authorView.tableView.separatorStyle = .none
     }
     
     private func setup() {
@@ -182,6 +189,10 @@ extension AuthorVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         interactor?.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        interactor?.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
     }
     
     

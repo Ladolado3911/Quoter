@@ -18,15 +18,19 @@ protocol CellProtocol {
     func configureInnerCollectionView(target: UIViewController)
     func dequeInnerCollectionViewCell(indexPath: IndexPath) -> UICollectionViewCell
     func didSelectInnerCollectionViewCell()
-    func sizeForItemAt() -> CGSize
+    func sizeForInnerCollectionViewItemAt() -> CGSize
+    func willDisplayInnerCollectionViewCell(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
     
     //MARK: functions on cell
     func registerCell(_ tableView: UITableView)
     func dequeCell(_ tableView: UITableView) -> UITableViewCell
-    func willDisplay(_ cell: UITableViewCell)
+    func willDisplay(_ cell: UITableViewCell, networkWorker: CustomNetworkWorkerProtocol)
 }
 
 protocol CellsManagerProtocol {
+    var dispatchGroup: DispatchGroup { get }
+    var authorID: String? { get set }
+    var authorName: String? { get set }
     var everyCellObjects: [[CellProtocol]] { get }
 }
 
@@ -36,9 +40,13 @@ final class AuthorCellsManager: CellsManagerProtocol {
     
     private init() {}
     
+    var dispatchGroup: DispatchGroup = DispatchGroup()
+    var authorID: String?
+    var authorName: String?
+    
     var everyCellObjects: [[CellProtocol]] = [
         [AuthorQuotesForSectionCellObject()],
-        [OtherAuthorsForSectionCellObject()],
+        //[OtherAuthorsForSectionCellObject()],
         
     ]
     

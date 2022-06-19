@@ -37,6 +37,7 @@ class OtherAuthorsForSectionCellObject: CellProtocol {
             layout.scrollDirection = .horizontal
             let collectView = UICollectionView(frame: .zero, collectionViewLayout: layout)
             collectView.backgroundColor = .clear
+            collectView.showsHorizontalScrollIndicator = false
             collectView.translatesAutoresizingMaskIntoConstraints = false
             return collectView
         }()
@@ -54,8 +55,8 @@ class OtherAuthorsForSectionCellObject: CellProtocol {
         func buildConstraints() {
             NSLayoutConstraint.activate([
                 OtherAuthorsForSectionCell.collectionView.topAnchor.constraint(equalTo: topAnchor),
-                OtherAuthorsForSectionCell.collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                OtherAuthorsForSectionCell.collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                OtherAuthorsForSectionCell.collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.screenWidth * 0.0468),
+                OtherAuthorsForSectionCell.collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.screenWidth * 0.0468),
                 OtherAuthorsForSectionCell.collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
             ])
         }
@@ -89,8 +90,12 @@ class OtherAuthorsForSectionCellObject: CellProtocol {
         
     }
     
-    func sizeForItemAt() -> CGSize {
+    func sizeForInnerCollectionViewItemAt() -> CGSize {
         CGSize(width: 100, height: OtherAuthorsForSectionCell.collectionView.bounds.height)
+    }
+    
+    func willDisplayInnerCollectionViewCell(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
     }
     
     func registerCell(_ tableView: UITableView) {
@@ -101,7 +106,7 @@ class OtherAuthorsForSectionCellObject: CellProtocol {
         tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! OtherAuthorsForSectionCell
     }
     
-    func willDisplay(_ cell: UITableViewCell) {
+    func willDisplay(_ cell: UITableViewCell, networkWorker: CustomNetworkWorkerProtocol) {
         if let cell = cell as? OtherAuthorsForSectionCell {
 
         }

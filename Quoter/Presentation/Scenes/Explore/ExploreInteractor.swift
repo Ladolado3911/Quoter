@@ -136,7 +136,8 @@ class ExploreInteractor: ExploreInteractorProtocol {
                     send(genre: currentGenre)
                     let quoteModel = try await receive()
                     //let quoteModel = try await exploreNetworkWorker?.getSmallQuote(genre: currentGenre)
-                    let exploreAuthor = ExploreAuthor(slug: quoteModel!.author.slug,
+                    let exploreAuthor = ExploreAuthor(idString: quoteModel!.author.id,
+                                                      slug: quoteModel!.author.slug,
                                                       name: quoteModel!.author.name,
                                                       authorImageURLString: quoteModel!.author.authorImageURLString)
                     let exploreQuote = ExploreQuote(quoteImageURLString: quoteModel!.quoteImageURLString,

@@ -17,7 +17,7 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
     }
     
     var rowHeight: CGFloat {
-        Constants.screenHeight * 0.27992
+        Constants.screenHeight * 0.2 + 20
     }
     
     var innerCollectionView: UICollectionView {
@@ -25,8 +25,10 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
     }
     
     var innerCollectionViewDataCount: Int {
-        5
+        dataForInnerCollectionView.count
     }
+    
+    var dataForInnerCollectionView: [Any] = []
     
     class AuthorQuotesForSectionCell: UITableViewCell {
         
@@ -37,13 +39,14 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
             layout.scrollDirection = .horizontal
             let collectView = UICollectionView(frame: .zero, collectionViewLayout: layout)
             collectView.backgroundColor = .clear
+            collectView.showsHorizontalScrollIndicator = false
             collectView.translatesAutoresizingMaskIntoConstraints = false
             return collectView
         }()
         
         override func layoutSubviews() {
             super.layoutSubviews()
-            backgroundColor = .red
+            backgroundColor = .clear
             buildSubviews()
             buildConstraints()
         }
@@ -55,8 +58,8 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
         func buildConstraints() {
             NSLayoutConstraint.activate([
                 AuthorQuotesForSectionCell.collectionView.topAnchor.constraint(equalTo: topAnchor),
-                AuthorQuotesForSectionCell.collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                AuthorQuotesForSectionCell.collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                AuthorQuotesForSectionCell.collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.screenWidth * 0.0468),
+                AuthorQuotesForSectionCell.collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.screenWidth * 0.0468),
                 AuthorQuotesForSectionCell.collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
             ])
         }
@@ -66,9 +69,38 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
         
         static let cellIdentifier: String = String(describing: ChildCell.self)
         
+        let quoteLabel: UILabel = {
+            let label = UILabel()
+            label.numberOfLines = 3
+            label.textAlignment = .center
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        
         override func layoutSubviews() {
             super.layoutSubviews()
-            backgroundColor = .brown
+            backgroundColor = DarkModeColors.lightBlack
+            layer.cornerRadius = 25
+            layer.applySketchShadow(color: DarkModeColors.black,
+                                         alpha: 0.4,
+                                         x: 1,
+                                         y: 2,
+                                         blur: 2,
+                                         spread: 0)
+            buildSubviews()
+            buildConstraints()
+        }
+        
+        private func buildSubviews() {
+            addSubview(quoteLabel)
+        }
+        
+        private func buildConstraints() {
+            NSLayoutConstraint.activate([
+                quoteLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: bounds.width * 0.0937),
+                quoteLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -bounds.width * 0.0937),
+                quoteLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bounds.height * 0.111),
+            ])
         }
         
         
@@ -90,8 +122,16 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
         
     }
     
-    func sizeForItemAt() -> CGSize {
-        CGSize(width: 100, height: AuthorQuotesForSectionCell.collectionView.bounds.height)
+    func sizeForInnerCollectionViewItemAt() -> CGSize {
+        CGSize(width: rowHeight * 1.6918, height: AuthorQuotesForSectionCell.collectionView.bounds.height - 10)
+    }
+    
+    func willDisplayInnerCollectionViewCell(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let dataArr = dataForInnerCollectionView as? [String],
+           let cell = cell as? ChildCell {
+            let quote = dataArr[indexPath.item]
+            cell.quoteLabel.text = quote
+        }
     }
 
     func registerCell(_ tableView: UITableView) {
@@ -102,8 +142,20 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
         tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! AuthorQuotesForSectionCell
     }
 
-    func willDisplay(_ cell: UITableViewCell) {
-        if let cell = cell as? AuthorQuotesForSectionCell {
+    func willDisplay(_ cell: UITableViewCell, networkWorker: CustomNetworkWorkerProtocol) {
+        if let networkWorker = networkWorker as? AuthorNetworkWorker,
+           let authorID = AuthorCellsManager.shared.authorID {
+            //AuthorCellsManager.shared.dispatchGroup.enter()
+            Task.init {
+                let quotesForSectionContentResponse = try await networkWorker.getAuthorQuotesForSection(authorID: authorID)
+                await MainActor.run { [weak self] in
+                    guard let self = self else { return }
+                    self.dataForInnerCollectionView = quotesForSectionContentResponse.quotes
+                    self.sectionNameOfCell = quotesForSectionContentResponse.sectionName
+                    AuthorQuotesForSectionCell.collectionView.reloadData()
+                    //AuthorCellsManager.shared.dispatchGroup.leave()
+                }
+            }
             
         }
     }

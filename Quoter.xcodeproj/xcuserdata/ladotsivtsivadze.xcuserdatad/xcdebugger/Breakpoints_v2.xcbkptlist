@@ -1038,8 +1038,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254">
+            startingLineNumber = "255"
+            endingLineNumber = "255">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1052,8 +1052,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
             landmarkName = "ExploreInteractor"
             landmarkType = "3">
          </BreakpointContent>
@@ -1244,8 +1244,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1260,8 +1260,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "collectionView(_:prefetchItemsAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1276,8 +1276,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
             landmarkName = "scrollViewDidEndDecelerating(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1308,8 +1308,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "scroll(direction:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1340,8 +1340,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
             landmarkName = "collectionView(_:prefetchItemsAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1516,8 +1516,8 @@
             filePath = "Quoter/Presentation/Scenes/Explore/ExploreVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "reloadCollectionView()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1532,8 +1532,8 @@
             filePath = "Quoter/Presentation/Scenes/Author/AuthorVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "showView()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1548,9 +1548,57 @@
             filePath = "Quoter/Presentation/Scenes/Author/AuthorCellObjects/AuthorObjects/AuthorQuotesForSectionCellObject.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "configureInnerCollectionView(target:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7310C1C9-4C87-4283-9D99-8407C3838638"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quoter/Presentation/Scenes/Author/AuthorCellObjects/AuthorObjects/AuthorQuotesForSectionCellObject.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "willDisplay(_:networkWorker:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9A2656EA-91F0-46D0-8C5C-E66B55F75D6B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quoter/Presentation/Scenes/Author/AuthorCellObjects/AuthorObjects/AuthorQuotesForSectionCellObject.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "willDisplay(_:networkWorker:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "48CA8646-4561-46F3-9C88-6799A1FE9E5C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quoter/Presentation/Scenes/Author/AuthorCellObjects/AuthorObjects/AuthorQuotesForSectionCellObject.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "willDisplayInnerCollectionViewCell(_:willDisplay:forItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

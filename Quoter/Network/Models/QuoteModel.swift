@@ -14,6 +14,7 @@ struct QuoteModel: Codable {
 }
 
 struct AuthorModelForQuote: Codable {
+    var id: String
     var name: String
     var slug: String
     var authorImageURLString: String

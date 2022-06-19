@@ -20,8 +20,8 @@ protocol AuthorInteractorProtocol {
     func showView()
     func hideView()
     
-    func getDataSourceInfo()
-    func getTableViewItems()
+//    func getDataSourceInfo()
+//    func getTableViewItems()
     
     //MARK: UITableview datasource and delegate functions
     func numberOfSections(in tableView: UITableView) -> Int
@@ -41,6 +41,7 @@ protocol AuthorInteractorProtocol {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
 }
 
 class AuthorInteractor: AuthorInteractorProtocol {
@@ -94,22 +95,22 @@ class AuthorInteractor: AuthorInteractorProtocol {
 //        }
     }
     
-    func getTableViewItems() {
-        guard let authorID = authorID else {
-            return
-        }
-        guard let categoryName = categoryName else {
-            return
-        }
-        Task.init { [weak self] in
-            guard let self = self else { return }
-            let content = try await self.authorNetworkWorker?.getSections(authorID: authorID, categoryName: categoryName)
-            try await MainActor.run {
-                self.tableViewItems = content ?? []
-                
-            }
-        }
-    }
+//    func getTableViewItems() {
+//        guard let authorID = authorID else {
+//            return
+//        }
+//        guard let categoryName = categoryName else {
+//            return
+//        }
+//        Task.init { [weak self] in
+//            guard let self = self else { return }
+//            let content = try await self.authorNetworkWorker?.getSections(authorID: authorID, categoryName: categoryName)
+//            try await MainActor.run {
+//                self.tableViewItems = content ?? []
+//
+//            }
+//        }
+//    }
 }
 
 extension AuthorInteractor {
@@ -134,7 +135,7 @@ extension AuthorInteractor {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath, target: UIViewController) {
-        AuthorCellsManager.shared.everyCellObjects[indexPath.section][indexPath.row].willDisplay(cell)
+        AuthorCellsManager.shared.everyCellObjects[indexPath.section][indexPath.row].willDisplay(cell, networkWorker: AuthorNetworkWorker())
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -173,6 +174,10 @@ extension AuthorInteractor {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        collectionView.pickRelevantCellObject(using: AuthorCellsManager.shared)?.sizeForItemAt() ?? .zero
+        collectionView.pickRelevantCellObject(using: AuthorCellsManager.shared)?.sizeForInnerCollectionViewItemAt() ?? .zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        collectionView.pickRelevantCellObject(using: AuthorCellsManager.shared)?.willDisplayInnerCollectionViewCell(collectionView, willDisplay: cell, forItemAt: indexPath)
     }
 }

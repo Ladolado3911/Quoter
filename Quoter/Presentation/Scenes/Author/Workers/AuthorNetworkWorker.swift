@@ -11,11 +11,15 @@ protocol GetContentForSectionProtocol {
     func getContent()
 }
 
-protocol AuthorNetworkWorkerProtocol {
+protocol CustomNetworkWorkerProtocol {
+    
+}
+
+protocol AuthorNetworkWorkerProtocol: CustomNetworkWorkerProtocol {
     var networkWorker: NetworkWorkerProtocol { get set }
 
-    func getSections(authorID: String, categoryName: String) async throws -> [SectionProtocol]
-    func getDataSourceInfo() async throws -> AuthorDataSourceInfoProtocol
+//    func getSections(authorID: String, categoryName: String) async throws -> [SectionProtocol]
+//    func getDataSourceInfo() async throws -> AuthorDataSourceInfoProtocol
     
     func getAboutAuthor(authorID: String) async throws -> AuthorAboutProtocol
     func getAuthorQuotesForSection(authorID: String) async throws -> AuthorQuotesForSectionProtocol
@@ -24,37 +28,13 @@ protocol AuthorNetworkWorkerProtocol {
 
 class AuthorNetworkWorker: AuthorNetworkWorkerProtocol {
     var networkWorker: NetworkWorkerProtocol = NetworkWorker()
-    
-    func getSections(authorID: String, categoryName: String) async throws -> [SectionProtocol] {
-        let content = try await withThrowingTaskGroup(of: SectionProtocol?.self, returning: [SectionProtocol?]?.self) { [weak self] group in
-            guard let self = self else { return nil }
-            for task in 0..<2 {
-                group.addTask {
-                    switch task {
-                    case 0:
-                        let authorQuotesForSection = try await self.getAuthorQuotesForSection(authorID: authorID)
-                        return authorQuotesForSection
-                    case 1:
-                        let otherAuthorsForSection = try await self.getOtherAuthorsForSection(categoryName: categoryName)
-                        return otherAuthorsForSection
-                    default:
-                        return nil
-                    }
-                }
-            }
-            return try await group.reduce(into: [SectionProtocol]()) { result, data in
-                result?.append(data)
-            }
-        }
-        return content?.compactMap { $0 } ?? []
-    }
-    
-    func getDataSourceInfo() async throws -> AuthorDataSourceInfoProtocol {
-        let endpoint = QuotieEndpoint.getDataSourceInfo
-        let model = Resource(model: AuthorDataSourceInfoEntity.self)
-        let entity = try await networkWorker.fetchData(endpoint: endpoint, model: model)
-        return entity
-    }
+//
+//    func getDataSourceInfo() async throws -> AuthorDataSourceInfoProtocol {
+//        let endpoint = QuotieEndpoint.getDataSourceInfo
+//        let model = Resource(model: AuthorDataSourceInfoEntity.self)
+//        let entity = try await networkWorker.fetchData(endpoint: endpoint, model: model)
+//        return entity
+//    }
     
     func getAboutAuthor(authorID: String) async throws -> AuthorAboutProtocol {
         let endpoint = QuotieEndpoint.getAboutAuthor(authorID: authorID)
