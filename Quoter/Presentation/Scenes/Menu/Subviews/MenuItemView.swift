@@ -20,7 +20,7 @@ class MenuItemView: UIView {
     let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = MenuIcons.exploreIcon
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

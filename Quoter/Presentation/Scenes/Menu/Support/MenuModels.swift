@@ -13,8 +13,8 @@ final class MenuModels {
     
     var menuItems: [MenuItem] = [
         MenuItem(title: "Explore", icon: MenuIcons.exploreIcon, viewController: ExploreVC()),
-        MenuItem(title: "Gallery", icon: MenuIcons.defaultIcon, viewController: GalleryVC()),
-        MenuItem(title: "Daily Quotes", icon: MenuIcons.exploreIcon, viewController: DailyQuotesVC()),
+        MenuItem(title: "Gallery", icon: MenuIcons.galleryIcon, viewController: GalleryVC()),
+        MenuItem(title: "Daily Quotes", icon: MenuIcons.quoteIcon, viewController: DailyQuotesVC()),
     
     
     ]

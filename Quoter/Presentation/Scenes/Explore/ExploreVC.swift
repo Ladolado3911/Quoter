@@ -33,7 +33,7 @@ class ExploreVC: UIViewController {
     var interactor: ExploreInteractorProtocol?
     var router: ExploreRouterProtocol?
     var exploreView: ExploreView?
-    
+
     lazy var quoteButtonTapGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(onQuoteButton(sender:)))
         return gesture
@@ -55,6 +55,15 @@ class ExploreVC: UIViewController {
         configButtons()
         configWebsocket()
         configTimer()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        exploreView?.collectionView.visibleCells.forEach({ cell in
+            if let cell = cell as? ExploreCell {
+                cell.stopAnimating()
+            }
+        })
     }
 
     private func configCollectionView() {
