@@ -1,0 +1,428 @@
+
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/Info.plist
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/GoogleMobileAds
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAdChoicesView.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAdFormat.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAdLoader.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAdLoaderAdTypes.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAdLoaderDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAdMetadata.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAdNetworkExtras.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAdReward.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAdSize.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAdSizeDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAdValue.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAppEventDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAppOpenAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAudioVideoManager.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADAudioVideoManagerDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADBannerView.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADBannerViewDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADCustomEventBanner.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADCustomEventBannerDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADCustomEventExtras.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADCustomEventInterstitial.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADCustomEventInterstitialDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADCustomEventNativeAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADCustomEventNativeAdDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADCustomEventParameters.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADCustomEventRequest.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADCustomNativeAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADCustomNativeAdDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADDebugOptionsViewController.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADDisplayAdMeasurement.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADDynamicHeightSearchRequest.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADExtras.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADFullScreenContentDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADInitializationStatus.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADInterstitialAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADMediaAspectRatio.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADMediaContent.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADMediaView.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADMobileAds.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADMultipleAdsAdLoaderOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADMuteThisAdReason.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADNativeAd+ConfirmationClick.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADNativeAd+CustomClickGesture.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADNativeAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADNativeAdAssetIdentifiers.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADNativeAdDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADNativeAdImage+Mediation.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADNativeAdImage.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADNativeAdImageAdLoaderOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADNativeAdMediaAdLoaderOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADNativeAdUnconfirmedClickDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADNativeAdViewAdOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADNativeMuteThisAdLoaderOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADPresentationError.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADRequest.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADRequestConfiguration.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADRequestError.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADResponseInfo.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADRewardedAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADRewardedInterstitialAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADSearchBannerView.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADServerSideVerificationOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADVideoController.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADVideoControllerDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GADVideoOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GAMBannerView.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GAMBannerViewOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GAMInterstitialAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GAMRequest.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GoogleMobileAds.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/GoogleMobileAdsDefines.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMAdNetworkAdapterProtocol.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMAdNetworkConnectorProtocol.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMediatedUnifiedNativeAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMediatedUnifiedNativeAdNotificationSource.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMediationAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMediationAdapter.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMediationAdConfiguration.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMediationAdEventDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMediationAdRequest.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMediationAdSize.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMediationBannerAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMediationInterstitialAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMediationNativeAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMediationRewardedAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMediationServerConfiguration.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMEnums.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMRewardBasedVideoAdNetworkAdapterProtocol.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADMRewardBasedVideoAdNetworkConnectorProtocol.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/Mediation/GADVersionNumber.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/RTBMediation/GADRTBAdapter.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Headers/RTBMediation/GADRTBRequestParameters.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/Modules/module.modulemap
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/GoogleMobileAds
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAdChoicesView.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAdFormat.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAdLoader.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAdLoaderAdTypes.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAdLoaderDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAdMetadata.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAdNetworkExtras.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAdReward.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAdSize.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAdSizeDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAdValue.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAppEventDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAppOpenAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAudioVideoManager.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADAudioVideoManagerDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADBannerView.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADBannerViewDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADCustomEventBanner.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADCustomEventBannerDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADCustomEventExtras.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADCustomEventInterstitial.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADCustomEventInterstitialDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADCustomEventNativeAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADCustomEventNativeAdDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADCustomEventParameters.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADCustomEventRequest.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADCustomNativeAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADCustomNativeAdDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADDebugOptionsViewController.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADDisplayAdMeasurement.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADDynamicHeightSearchRequest.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADExtras.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADFullScreenContentDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADInitializationStatus.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADInterstitialAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADMediaAspectRatio.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADMediaContent.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADMediaView.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADMobileAds.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADMultipleAdsAdLoaderOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADMuteThisAdReason.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADNativeAd+ConfirmationClick.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADNativeAd+CustomClickGesture.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADNativeAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADNativeAdAssetIdentifiers.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADNativeAdDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADNativeAdImage+Mediation.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADNativeAdImage.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADNativeAdImageAdLoaderOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADNativeAdMediaAdLoaderOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADNativeAdUnconfirmedClickDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADNativeAdViewAdOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADNativeMuteThisAdLoaderOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADPresentationError.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADRequest.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADRequestConfiguration.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADRequestError.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADResponseInfo.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADRewardedAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADRewardedInterstitialAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADSearchBannerView.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADServerSideVerificationOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADVideoController.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADVideoControllerDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GADVideoOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GAMBannerView.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GAMBannerViewOptions.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GAMInterstitialAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GAMRequest.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GoogleMobileAds.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/GoogleMobileAdsDefines.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMAdNetworkAdapterProtocol.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMAdNetworkConnectorProtocol.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMediatedUnifiedNativeAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMediatedUnifiedNativeAdNotificationSource.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMediationAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMediationAdapter.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMediationAdConfiguration.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMediationAdEventDelegate.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMediationAdRequest.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMediationAdSize.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMediationBannerAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMediationInterstitialAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMediationNativeAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMediationRewardedAd.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMediationServerConfiguration.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMEnums.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMRewardBasedVideoAdNetworkAdapterProtocol.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADMRewardBasedVideoAdNetworkConnectorProtocol.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/Mediation/GADVersionNumber.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/RTBMediation/GADRTBAdapter.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Headers/RTBMediation/GADRTBRequestParameters.h
+Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework/ios-arm64_x86_64-simulator/GoogleMobileAds.framework/Modules/module.modulemap
+Pods/Google-Mobile-Ads-SDK/LICENSE
+Pods/Google-Mobile-Ads-SDK/README.txt
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/Info.plist
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/ios-arm64_armv7/GoogleAppMeasurement.framework/GoogleAppMeasurement
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/ios-arm64_armv7/GoogleAppMeasurement.framework/Info.plist
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/ios-arm64_armv7/GoogleAppMeasurement.framework/Modules/module.modulemap
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/ios-arm64_i386_x86_64-simulator/GoogleAppMeasurement.framework/GoogleAppMeasurement
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/ios-arm64_i386_x86_64-simulator/GoogleAppMeasurement.framework/Info.plist
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/ios-arm64_i386_x86_64-simulator/GoogleAppMeasurement.framework/Modules/module.modulemap
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/ios-arm64_x86_64-maccatalyst/GoogleAppMeasurement.framework/GoogleAppMeasurement
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/ios-arm64_x86_64-maccatalyst/GoogleAppMeasurement.framework/Info.plist
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/ios-arm64_x86_64-maccatalyst/GoogleAppMeasurement.framework/Modules/module.modulemap
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/macos-arm64_x86_64/GoogleAppMeasurement.framework/GoogleAppMeasurement
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/macos-arm64_x86_64/GoogleAppMeasurement.framework/Info.plist
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/macos-arm64_x86_64/GoogleAppMeasurement.framework/Modules/module.modulemap
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/tvos-arm64/GoogleAppMeasurement.framework/GoogleAppMeasurement
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/tvos-arm64/GoogleAppMeasurement.framework/Info.plist
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/tvos-arm64/GoogleAppMeasurement.framework/Modules/module.modulemap
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/tvos-arm64_x86_64-simulator/GoogleAppMeasurement.framework/GoogleAppMeasurement
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/tvos-arm64_x86_64-simulator/GoogleAppMeasurement.framework/Info.plist
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.xcframework/tvos-arm64_x86_64-simulator/GoogleAppMeasurement.framework/Modules/module.modulemap
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/Info.plist
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/ios-arm64_armv7/GoogleAppMeasurementIdentitySupport.framework/GoogleAppMeasurementIdentitySupport
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/ios-arm64_armv7/GoogleAppMeasurementIdentitySupport.framework/Info.plist
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/ios-arm64_armv7/GoogleAppMeasurementIdentitySupport.framework/Modules/module.modulemap
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/ios-arm64_i386_x86_64-simulator/GoogleAppMeasurementIdentitySupport.framework/GoogleAppMeasurementIdentitySupport
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/ios-arm64_i386_x86_64-simulator/GoogleAppMeasurementIdentitySupport.framework/Info.plist
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/ios-arm64_i386_x86_64-simulator/GoogleAppMeasurementIdentitySupport.framework/Modules/module.modulemap
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/ios-arm64_x86_64-maccatalyst/GoogleAppMeasurementIdentitySupport.framework/GoogleAppMeasurementIdentitySupport
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/ios-arm64_x86_64-maccatalyst/GoogleAppMeasurementIdentitySupport.framework/Info.plist
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/ios-arm64_x86_64-maccatalyst/GoogleAppMeasurementIdentitySupport.framework/Modules/module.modulemap
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/macos-arm64_x86_64/GoogleAppMeasurementIdentitySupport.framework/GoogleAppMeasurementIdentitySupport
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/macos-arm64_x86_64/GoogleAppMeasurementIdentitySupport.framework/Info.plist
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/macos-arm64_x86_64/GoogleAppMeasurementIdentitySupport.framework/Modules/module.modulemap
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/tvos-arm64/GoogleAppMeasurementIdentitySupport.framework/GoogleAppMeasurementIdentitySupport
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/tvos-arm64/GoogleAppMeasurementIdentitySupport.framework/Info.plist
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/tvos-arm64/GoogleAppMeasurementIdentitySupport.framework/Modules/module.modulemap
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/tvos-arm64_x86_64-simulator/GoogleAppMeasurementIdentitySupport.framework/GoogleAppMeasurementIdentitySupport
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/tvos-arm64_x86_64-simulator/GoogleAppMeasurementIdentitySupport.framework/Info.plist
+Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurementIdentitySupport.xcframework/tvos-arm64_x86_64-simulator/GoogleAppMeasurementIdentitySupport.framework/Modules/module.modulemap
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/Info.plist
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_armv7/UserMessagingPlatform.framework/Headers/UMPConsentForm.h
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_armv7/UserMessagingPlatform.framework/Headers/UMPConsentInformation.h
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_armv7/UserMessagingPlatform.framework/Headers/UMPDebugSettings.h
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_armv7/UserMessagingPlatform.framework/Headers/UMPError.h
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_armv7/UserMessagingPlatform.framework/Headers/UMPRequestParameters.h
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_armv7/UserMessagingPlatform.framework/Headers/UserMessagingPlatform.h
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_armv7/UserMessagingPlatform.framework/Modules/module.modulemap
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_armv7/UserMessagingPlatform.framework/UserMessagingPlatform
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_x86_64-simulator/UserMessagingPlatform.framework/Headers/UMPConsentForm.h
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_x86_64-simulator/UserMessagingPlatform.framework/Headers/UMPConsentInformation.h
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_x86_64-simulator/UserMessagingPlatform.framework/Headers/UMPDebugSettings.h
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_x86_64-simulator/UserMessagingPlatform.framework/Headers/UMPError.h
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_x86_64-simulator/UserMessagingPlatform.framework/Headers/UMPRequestParameters.h
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_x86_64-simulator/UserMessagingPlatform.framework/Headers/UserMessagingPlatform.h
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_x86_64-simulator/UserMessagingPlatform.framework/Modules/module.modulemap
+Pods/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework/ios-arm64_x86_64-simulator/UserMessagingPlatform.framework/UserMessagingPlatform
+Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/GULAppDelegateSwizzler.m
+Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/GULSceneDelegateSwizzler.m
+Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/GULAppDelegateSwizzler_Private.h
+Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Internal/GULSceneDelegateSwizzler_Private.h
+Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULAppDelegateSwizzler.h
+Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULApplication.h
+Pods/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h
+Pods/GoogleUtilities/GoogleUtilities/Common/GULLoggerCodes.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/GULHeartbeatDateStorage.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/GULHeartbeatDateStorageUserDefaults.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/GULSecureCoding.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULAppEnvironmentUtil.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULHeartbeatDateStorable.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULHeartbeatDateStorage.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULHeartbeatDateStorageUserDefaults.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainStorage.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainUtils.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULSecureCoding.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULURLSessionDataResponse.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/NSURLSession+GULPromises.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/SecureStorage/GULKeychainStorage.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/SecureStorage/GULKeychainUtils.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/third_party/GULAppEnvironmentUtil.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/URLSessionPromiseWrapper/GULURLSessionDataResponse.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/URLSessionPromiseWrapper/NSURLSession+GULPromises.m
+Pods/GoogleUtilities/GoogleUtilities/Logger/GULLogger.m
+Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/GULLogger.h
+Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/GULLoggerLevel.h
+Pods/GoogleUtilities/GoogleUtilities/MethodSwizzler/GULSwizzler.m
+Pods/GoogleUtilities/GoogleUtilities/MethodSwizzler/Public/GoogleUtilities/GULOriginalIMPConvenienceMacros.h
+Pods/GoogleUtilities/GoogleUtilities/MethodSwizzler/Public/GoogleUtilities/GULSwizzler.h
+Pods/GoogleUtilities/GoogleUtilities/Network/GULMutableDictionary.m
+Pods/GoogleUtilities/GoogleUtilities/Network/GULNetwork.m
+Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkConstants.m
+Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkInternal.h
+Pods/GoogleUtilities/GoogleUtilities/Network/GULNetworkURLSession.m
+Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULMutableDictionary.h
+Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetwork.h
+Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkConstants.h
+Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkLoggerProtocol.h
+Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkMessageCode.h
+Pods/GoogleUtilities/GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkURLSession.h
+Pods/GoogleUtilities/GoogleUtilities/NSData+zlib/GULNSData+zlib.m
+Pods/GoogleUtilities/GoogleUtilities/NSData+zlib/Public/GoogleUtilities/GULNSData+zlib.h
+Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityChecker+Internal.h
+Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityChecker.m
+Pods/GoogleUtilities/GoogleUtilities/Reachability/GULReachabilityMessageCode.h
+Pods/GoogleUtilities/GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h
+Pods/GoogleUtilities/LICENSE
+Pods/GoogleUtilities/README.md
+Pods/Manifest.lock
+Pods/nanopb/LICENSE.txt
+Pods/nanopb/pb.h
+Pods/nanopb/pb_common.c
+Pods/nanopb/pb_common.h
+Pods/nanopb/pb_decode.c
+Pods/nanopb/pb_decode.h
+Pods/nanopb/pb_encode.c
+Pods/nanopb/pb_encode.h
+Pods/nanopb/README.md
+Pods/Pods.xcodeproj/project.pbxproj
+Pods/Pods.xcodeproj/xcuserdata/ladotsivtsivadze.xcuserdatad/xcschemes/Google-Mobile-Ads-SDK.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/ladotsivtsivadze.xcuserdatad/xcschemes/GoogleAppMeasurement.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/ladotsivtsivadze.xcuserdatad/xcschemes/GoogleUserMessagingPlatform.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/ladotsivtsivadze.xcuserdatad/xcschemes/GoogleUtilities.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/ladotsivtsivadze.xcuserdatad/xcschemes/nanopb.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/ladotsivtsivadze.xcuserdatad/xcschemes/Pods-Quoter-QuoterUITests.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/ladotsivtsivadze.xcuserdatad/xcschemes/Pods-Quoter.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/ladotsivtsivadze.xcuserdatad/xcschemes/Pods-QuoterTests.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/ladotsivtsivadze.xcuserdatad/xcschemes/PromisesObjC.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/ladotsivtsivadze.xcuserdatad/xcschemes/xcschememanagement.plist
+Pods/PromisesObjC/LICENSE
+Pods/PromisesObjC/README.md
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+All.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Always.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Any.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Async.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Await.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Catch.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Delay.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Do.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Race.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Recover.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Reduce.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Retry.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Testing.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Then.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Timeout.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Validate.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Wrap.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromiseError.m
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+All.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Always.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Any.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Async.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Await.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Catch.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Delay.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Do.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Race.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Recover.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Reduce.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Retry.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Testing.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Then.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Timeout.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Validate.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Wrap.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromiseError.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromisePrivate.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromises.h
+Pods/Target Support Files/Google-Mobile-Ads-SDK/Google-Mobile-Ads-SDK-xcframeworks-input-files.xcfilelist
+Pods/Target Support Files/Google-Mobile-Ads-SDK/Google-Mobile-Ads-SDK-xcframeworks-output-files.xcfilelist
+Pods/Target Support Files/Google-Mobile-Ads-SDK/Google-Mobile-Ads-SDK-xcframeworks.sh
+Pods/Target Support Files/Google-Mobile-Ads-SDK/Google-Mobile-Ads-SDK.debug.xcconfig
+Pods/Target Support Files/Google-Mobile-Ads-SDK/Google-Mobile-Ads-SDK.release.xcconfig
+Pods/Target Support Files/GoogleAppMeasurement/GoogleAppMeasurement-xcframeworks-input-files.xcfilelist
+Pods/Target Support Files/GoogleAppMeasurement/GoogleAppMeasurement-xcframeworks-output-files.xcfilelist
+Pods/Target Support Files/GoogleAppMeasurement/GoogleAppMeasurement-xcframeworks.sh
+Pods/Target Support Files/GoogleAppMeasurement/GoogleAppMeasurement.debug.xcconfig
+Pods/Target Support Files/GoogleAppMeasurement/GoogleAppMeasurement.release.xcconfig
+Pods/Target Support Files/GoogleUserMessagingPlatform/GoogleUserMessagingPlatform-xcframeworks-input-files.xcfilelist
+Pods/Target Support Files/GoogleUserMessagingPlatform/GoogleUserMessagingPlatform-xcframeworks-output-files.xcfilelist
+Pods/Target Support Files/GoogleUserMessagingPlatform/GoogleUserMessagingPlatform-xcframeworks.sh
+Pods/Target Support Files/GoogleUserMessagingPlatform/GoogleUserMessagingPlatform.debug.xcconfig
+Pods/Target Support Files/GoogleUserMessagingPlatform/GoogleUserMessagingPlatform.release.xcconfig
+Pods/Target Support Files/GoogleUtilities/GoogleUtilities-dummy.m
+Pods/Target Support Files/GoogleUtilities/GoogleUtilities-Info.plist
+Pods/Target Support Files/GoogleUtilities/GoogleUtilities-umbrella.h
+Pods/Target Support Files/GoogleUtilities/GoogleUtilities.debug.xcconfig
+Pods/Target Support Files/GoogleUtilities/GoogleUtilities.modulemap
+Pods/Target Support Files/GoogleUtilities/GoogleUtilities.release.xcconfig
+Pods/Target Support Files/nanopb/nanopb-dummy.m
+Pods/Target Support Files/nanopb/nanopb-Info.plist
+Pods/Target Support Files/nanopb/nanopb-prefix.pch
+Pods/Target Support Files/nanopb/nanopb-umbrella.h
+Pods/Target Support Files/nanopb/nanopb.debug.xcconfig
+Pods/Target Support Files/nanopb/nanopb.modulemap
+Pods/Target Support Files/nanopb/nanopb.release.xcconfig
+Pods/Target Support Files/Pods-Quoter-QuoterUITests/Pods-Quoter-QuoterUITests-acknowledgements.markdown
+Pods/Target Support Files/Pods-Quoter-QuoterUITests/Pods-Quoter-QuoterUITests-acknowledgements.plist
+Pods/Target Support Files/Pods-Quoter-QuoterUITests/Pods-Quoter-QuoterUITests-dummy.m
+Pods/Target Support Files/Pods-Quoter-QuoterUITests/Pods-Quoter-QuoterUITests-frameworks-Debug-input-files.xcfilelist
+Pods/Target Support Files/Pods-Quoter-QuoterUITests/Pods-Quoter-QuoterUITests-frameworks-Debug-output-files.xcfilelist
+Pods/Target Support Files/Pods-Quoter-QuoterUITests/Pods-Quoter-QuoterUITests-frameworks-Release-input-files.xcfilelist
+Pods/Target Support Files/Pods-Quoter-QuoterUITests/Pods-Quoter-QuoterUITests-frameworks-Release-output-files.xcfilelist
+Pods/Target Support Files/Pods-Quoter-QuoterUITests/Pods-Quoter-QuoterUITests-frameworks.sh
+Pods/Target Support Files/Pods-Quoter-QuoterUITests/Pods-Quoter-QuoterUITests-Info.plist
+Pods/Target Support Files/Pods-Quoter-QuoterUITests/Pods-Quoter-QuoterUITests-umbrella.h
+Pods/Target Support Files/Pods-Quoter-QuoterUITests/Pods-Quoter-QuoterUITests.debug.xcconfig
+Pods/Target Support Files/Pods-Quoter-QuoterUITests/Pods-Quoter-QuoterUITests.modulemap
+Pods/Target Support Files/Pods-Quoter-QuoterUITests/Pods-Quoter-QuoterUITests.release.xcconfig
+Pods/Target Support Files/Pods-Quoter/Pods-Quoter-acknowledgements.markdown
+Pods/Target Support Files/Pods-Quoter/Pods-Quoter-acknowledgements.plist
+Pods/Target Support Files/Pods-Quoter/Pods-Quoter-dummy.m
+Pods/Target Support Files/Pods-Quoter/Pods-Quoter-frameworks-Debug-input-files.xcfilelist
+Pods/Target Support Files/Pods-Quoter/Pods-Quoter-frameworks-Debug-output-files.xcfilelist
+Pods/Target Support Files/Pods-Quoter/Pods-Quoter-frameworks-Release-input-files.xcfilelist
+Pods/Target Support Files/Pods-Quoter/Pods-Quoter-frameworks-Release-output-files.xcfilelist
+Pods/Target Support Files/Pods-Quoter/Pods-Quoter-frameworks.sh
+Pods/Target Support Files/Pods-Quoter/Pods-Quoter-Info.plist
+Pods/Target Support Files/Pods-Quoter/Pods-Quoter-umbrella.h
+Pods/Target Support Files/Pods-Quoter/Pods-Quoter.debug.xcconfig
+Pods/Target Support Files/Pods-Quoter/Pods-Quoter.modulemap
+Pods/Target Support Files/Pods-Quoter/Pods-Quoter.release.xcconfig
+Pods/Target Support Files/Pods-QuoterTests/Pods-QuoterTests-acknowledgements.markdown
+Pods/Target Support Files/Pods-QuoterTests/Pods-QuoterTests-acknowledgements.plist
+Pods/Target Support Files/Pods-QuoterTests/Pods-QuoterTests-dummy.m
+Pods/Target Support Files/Pods-QuoterTests/Pods-QuoterTests-Info.plist
+Pods/Target Support Files/Pods-QuoterTests/Pods-QuoterTests-umbrella.h
+Pods/Target Support Files/Pods-QuoterTests/Pods-QuoterTests.debug.xcconfig
+Pods/Target Support Files/Pods-QuoterTests/Pods-QuoterTests.modulemap
+Pods/Target Support Files/Pods-QuoterTests/Pods-QuoterTests.release.xcconfig
+Pods/Target Support Files/PromisesObjC/PromisesObjC-dummy.m
+Pods/Target Support Files/PromisesObjC/PromisesObjC-Info.plist
+Pods/Target Support Files/PromisesObjC/PromisesObjC-umbrella.h
+Pods/Target Support Files/PromisesObjC/PromisesObjC.debug.xcconfig
+Pods/Target Support Files/PromisesObjC/PromisesObjC.modulemap
+Pods/Target Support Files/PromisesObjC/PromisesObjC.release.xcconfig
