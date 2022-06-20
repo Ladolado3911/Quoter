@@ -67,7 +67,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GADFullScreenContentDel
     func requestAppOpenAd(completion: (() -> Void)?) {
         let request = GADRequest()
         // this is test ad unit
-        GADAppOpenAd.load(withAdUnitID: "ca-app-pub-4520908978346246/8487103681",
+        GADAppOpenAd.load(withAdUnitID: "ca-app-pub-3940256099942544/3419835294",
                           request: request,
                           orientation: UIInterfaceOrientation.portrait,
                           completionHandler: { (appOpenAdIn, _) in
