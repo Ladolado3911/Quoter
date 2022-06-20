@@ -156,6 +156,11 @@ extension ExploreVC {
         //interactor?.buttonAnimationTimerFire(collectionView: exploreView?.collectionView)
         exploreView?.animateQuoteButton()
         exploreView?.animateFilterButton()
+        interactor?.websocketTask?.sendPing(pongReceiveHandler: { error in
+            if let error = error {
+                print("pong error is \(error.localizedDescription)")
+            }
+        })
     }
 }
 
