@@ -88,7 +88,7 @@ class SigninView: UIView {
             thirdPartyButtonView1.centerXAnchor.constraint(equalTo: centerXAnchor),
             thirdPartyButtonView1.widthAnchor.constraint(equalTo: formView.widthAnchor),
             thirdPartyButtonView1.topAnchor.constraint(equalTo: separatorLineView.bottomAnchor, constant: 20),
-            thirdPartyButtonView1.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.075704),
+            thirdPartyButtonView1.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.06),
             
             thirdPartyButtonView2.centerXAnchor.constraint(equalTo: centerXAnchor),
             thirdPartyButtonView2.widthAnchor.constraint(equalTo: formView.widthAnchor),

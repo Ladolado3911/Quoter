@@ -13,23 +13,7 @@ enum ThirdPartyButtonType {
 }
 
 class ThirdPartyButtonView: UIView {
-    
-    var thirdPartyButtonType: ThirdPartyButtonType? {
-        didSet {
-            guard let thirdPartyButtonType = thirdPartyButtonType else {
-                return
-            }
-            switch thirdPartyButtonType {
-            case .google:
-                titleLabel.text = "Continue with Google"
-                //iconView.image =
-            case .apple:
-                titleLabel.text = "Continue with Apple"
-                //iconView.image =
-            }
-        }
-    }
-    
+
     let iconView: UIImageView = {
         let iconView = UIImageView()
         iconView.contentMode = .scaleAspectFit
@@ -40,6 +24,8 @@ class ThirdPartyButtonView: UIView {
     let titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.textColor = DarkModeColors.black
+        titleLabel.textAlignment = .left
+        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         return titleLabel
     }()
@@ -54,7 +40,14 @@ class ThirdPartyButtonView: UIView {
     
     convenience init(buttonType: ThirdPartyButtonType) {
         self.init(frame: .zero)
-        self.thirdPartyButtonType = buttonType
+        switch buttonType {
+        case .google:
+            titleLabel.text = "Continue with Google"
+            iconView.image = ProfileIcons.googleIcon
+        case .apple:
+            titleLabel.text = "Continue with Apple"
+            iconView.image = ProfileIcons.appleIcon
+        }
     }
     
     override func layoutSubviews() {
@@ -75,6 +68,7 @@ class ThirdPartyButtonView: UIView {
             iconView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             iconView.topAnchor.constraint(equalTo: topAnchor),
             iconView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            iconView.widthAnchor.constraint(lessThanOrEqualToConstant: 100),
             
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
