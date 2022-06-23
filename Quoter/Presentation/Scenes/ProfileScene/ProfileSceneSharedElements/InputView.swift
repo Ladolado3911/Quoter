@@ -26,9 +26,9 @@ class InputView: UIView {
         let rectView = UIView()
         rectView.backgroundColor = DarkModeColors.lightBlack
         rectView.layer.applySketchShadow(color: DarkModeColors.black,
-                                         alpha: 0.7,
+                                         alpha: 0.35,
                                          x: 1,
-                                         y: 4,
+                                         y: 2,
                                          blur: 4,
                                          spread: 0)
         rectView.layer.cornerRadius = 10
