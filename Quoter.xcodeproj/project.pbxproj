@@ -53,6 +53,10 @@
 		2463DAED28648B3600FA78BE /* SignupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2463DAEC28648B3600FA78BE /* SignupPresenter.swift */; };
 		2463DAEF28648B4100FA78BE /* SignupRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2463DAEE28648B4100FA78BE /* SignupRouter.swift */; };
 		2463DAF228648B5000FA78BE /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2463DAF128648B5000FA78BE /* SignupView.swift */; };
+		2463DAF428648D9B00FA78BE /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2463DAF328648D9B00FA78BE /* ProfileInteractor.swift */; };
+		2463DAF628648DA700FA78BE /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2463DAF528648DA700FA78BE /* ProfilePresenter.swift */; };
+		2463DAF828648DB100FA78BE /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2463DAF728648DB100FA78BE /* ProfileRouter.swift */; };
+		2463DAFB28648DC600FA78BE /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2463DAFA28648DC600FA78BE /* ProfileView.swift */; };
 		246700B22859D1A9004C64EB /* AuthorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246700B12859D1A9004C64EB /* AuthorVC.swift */; };
 		246700B42859D1B7004C64EB /* AuthorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246700B32859D1B7004C64EB /* AuthorInteractor.swift */; };
 		246700B62859D1C2004C64EB /* AuthorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246700B52859D1C2004C64EB /* AuthorPresenter.swift */; };
@@ -180,6 +184,10 @@
 		2463DAEC28648B3600FA78BE /* SignupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPresenter.swift; sourceTree = "<group>"; };
 		2463DAEE28648B4100FA78BE /* SignupRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupRouter.swift; sourceTree = "<group>"; };
 		2463DAF128648B5000FA78BE /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		2463DAF328648D9B00FA78BE /* ProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
+		2463DAF528648DA700FA78BE /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		2463DAF728648DB100FA78BE /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		2463DAFA28648DC600FA78BE /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		246700B12859D1A9004C64EB /* AuthorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorVC.swift; sourceTree = "<group>"; };
 		246700B32859D1B7004C64EB /* AuthorInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorInteractor.swift; sourceTree = "<group>"; };
 		246700B52859D1C2004C64EB /* AuthorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorPresenter.swift; sourceTree = "<group>"; };
@@ -448,6 +456,10 @@
 			isa = PBXGroup;
 			children = (
 				2463DAD02864612100FA78BE /* ProfileVC.swift */,
+				2463DAF328648D9B00FA78BE /* ProfileInteractor.swift */,
+				2463DAF528648DA700FA78BE /* ProfilePresenter.swift */,
+				2463DAF728648DB100FA78BE /* ProfileRouter.swift */,
+				2463DAF928648DB500FA78BE /* Subviews */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -477,6 +489,14 @@
 				2463DAF128648B5000FA78BE /* SignupView.swift */,
 			);
 			path = Subivews;
+			sourceTree = "<group>";
+		};
+		2463DAF928648DB500FA78BE /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				2463DAFA28648DC600FA78BE /* ProfileView.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		246700B02859D18A004C64EB /* Author */ = {
@@ -1083,6 +1103,7 @@
 				246700BB2859D1EA004C64EB /* AuthorView.swift in Sources */,
 				246B8298283121A600D44DF5 /* ExploreNetworkWorker.swift in Sources */,
 				249BE4AC285DCBF600D30127 /* UITableView+Extension.swift in Sources */,
+				2463DAFB28648DC600FA78BE /* ProfileView.swift in Sources */,
 				24EF3BC32851D4A800789F0E /* FilterIcons.swift in Sources */,
 				24D5BC272806C2C0003D14CD /* BaseVC.swift in Sources */,
 				24138A1C2805726200044F5E /* MenuView.swift in Sources */,
@@ -1093,6 +1114,8 @@
 				246B82942831200A00D44DF5 /* QuoteModel.swift in Sources */,
 				2458D2982809A25B0088C00E /* ExploreView.swift in Sources */,
 				24138A362805AD6E00044F5E /* UIViewController+Extension.swift in Sources */,
+				2463DAF828648DB100FA78BE /* ProfileRouter.swift in Sources */,
+				2463DAF428648D9B00FA78BE /* ProfileInteractor.swift in Sources */,
 				24138A332805AD6E00044F5E /* UIColor+Extension.swift in Sources */,
 				2470F65D284E32DD00B6124D /* FilterRouter.swift in Sources */,
 				24138A202805739B00044F5E /* MenuItem.swift in Sources */,
@@ -1110,6 +1133,7 @@
 				24DAF67B285219AA0046DC51 /* FilterCategories.swift in Sources */,
 				24A71A36285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift in Sources */,
 				2458D29A2809A51A0088C00E /* ExploreCell.swift in Sources */,
+				2463DAF628648DA700FA78BE /* ProfilePresenter.swift in Sources */,
 				241A2A24285B4902005681C5 /* AuthorEntities.swift in Sources */,
 				24138A1A280571CA00044F5E /* MenuVC.swift in Sources */,
 				2463DAE72864890700FA78BE /* SigninPresenter.swift in Sources */,
