@@ -60,7 +60,7 @@ class ThirdPartyButtonView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = DarkModeColors.white
-        layer.cornerRadius = 10
+        layer.cornerRadius = 20
         buildSubviews()
         buildConstraints()
     }

@@ -14,18 +14,13 @@ enum InputViewType {
 
 class InputView: UIView {
     
-    var inputViewType: InputViewType? {
-        didSet {
-            switch inputViewType {
-            case .password:
-                inputTextField.isSecureTextEntry = true
-            case .email:
-                inputTextField.isSecureTextEntry = false
-            default:
-                break
-            }
-        }
-    }
+    let inputViewTitleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = DarkModeColors.white
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     let rectView: UIView = {
         let rectView = UIView()
@@ -60,7 +55,12 @@ class InputView: UIView {
     
     convenience init(type: InputViewType) {
         self.init(frame: .zero)
-        self.inputViewType = type
+        switch type {
+        case .password:
+            inputViewTitleLabel.text = "Password"
+        case .email:
+            inputViewTitleLabel.text = "Email"
+        }
     }
     
     override func layoutSubviews() {
@@ -72,11 +72,17 @@ class InputView: UIView {
     
     private func buildSubviews() {
         addSubview(rectView)
+        addSubview(inputViewTitleLabel)
         addSubview(inputTextField)
     }
     
     private func buildConstraints() {
         NSLayoutConstraint.activate([
+            inputViewTitleLabel.topAnchor.constraint(equalTo: topAnchor),
+            inputViewTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            inputViewTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            inputViewTitleLabel.bottomAnchor.constraint(equalTo: rectView.topAnchor),
+            
             rectView.leadingAnchor.constraint(equalTo: leadingAnchor),
             rectView.bottomAnchor.constraint(equalTo: bottomAnchor),
             rectView.trailingAnchor.constraint(equalTo: trailingAnchor),

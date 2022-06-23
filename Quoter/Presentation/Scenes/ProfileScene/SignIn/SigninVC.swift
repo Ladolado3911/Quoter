@@ -31,7 +31,8 @@ class SigninVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view = signinView
+        //view.backgroundColor = DarkModeColors.mainBlack
     }
     
     private func setup() {

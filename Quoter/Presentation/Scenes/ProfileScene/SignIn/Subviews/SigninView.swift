@@ -13,6 +13,7 @@ class SigninView: UIView {
         let titleLabel = UILabel()
         titleLabel.textAlignment = .center
         titleLabel.textColor = DarkModeColors.white
+        titleLabel.text = "Sign in"
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         return titleLabel
     }()
@@ -52,6 +53,7 @@ class SigninView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        backgroundColor = DarkModeColors.mainBlack
         buildSubviews()
         buildConstraints()
     }
@@ -76,6 +78,7 @@ class SigninView: UIView {
             formView.centerXAnchor.constraint(equalTo: centerXAnchor),
             formView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
             formView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.7656),
+            formView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2852),
             
             separatorLineView.centerXAnchor.constraint(equalTo: centerXAnchor),
             separatorLineView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.875),
@@ -85,11 +88,13 @@ class SigninView: UIView {
             thirdPartyButtonView1.centerXAnchor.constraint(equalTo: centerXAnchor),
             thirdPartyButtonView1.widthAnchor.constraint(equalTo: formView.widthAnchor),
             thirdPartyButtonView1.topAnchor.constraint(equalTo: separatorLineView.bottomAnchor, constant: 20),
+            thirdPartyButtonView1.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.075704),
             
             thirdPartyButtonView2.centerXAnchor.constraint(equalTo: centerXAnchor),
             thirdPartyButtonView2.widthAnchor.constraint(equalTo: formView.widthAnchor),
+            thirdPartyButtonView2.heightAnchor.constraint(equalTo: thirdPartyButtonView1.heightAnchor),
             thirdPartyButtonView2.topAnchor.constraint(equalTo: thirdPartyButtonView1.bottomAnchor, constant: 15),
-            thirdPartyButtonView2.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60)
+            //thirdPartyButtonView2.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60)
             
         ])
     }

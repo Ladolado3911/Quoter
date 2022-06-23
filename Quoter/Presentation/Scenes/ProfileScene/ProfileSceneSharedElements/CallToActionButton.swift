@@ -26,7 +26,7 @@ class CallToActionButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = DarkModeColors.lightBlack
-        setTitleColor(DarkModeColors.black, for: .normal)
+        setTitleColor(DarkModeColors.white, for: .normal)
         layer.applySketchShadow(color: DarkModeColors.black,
                                 alpha: 0.7,
                                 x: 1,

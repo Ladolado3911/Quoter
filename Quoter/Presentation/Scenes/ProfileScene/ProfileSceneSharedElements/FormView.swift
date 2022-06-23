@@ -8,15 +8,6 @@
 import UIKit
 
 class FormView: UIView {
-    
-    var formType: FormType? {
-        didSet {
-            guard let formType = formType else {
-                return
-            }
-            callToActionButton.callToActionButtonType = formType
-        }
-    }
 
     let firstInputView: InputView = {
         let firstInput = InputView(type: .email)
@@ -46,7 +37,12 @@ class FormView: UIView {
     
     convenience init(formType: FormType) {
         self.init(frame: .zero)
-        self.formType = formType
+        switch formType {
+        case .signUp:
+            callToActionButton.callToActionButtonType = .signUp
+        case .signIn:
+            callToActionButton.callToActionButtonType = .signIn
+        }
     }
     
     override func layoutSubviews() {
@@ -71,10 +67,11 @@ class FormView: UIView {
             secondInputView.topAnchor.constraint(equalTo: firstInputView.bottomAnchor, constant: 20),
             secondInputView.leadingAnchor.constraint(equalTo: firstInputView.leadingAnchor),
             secondInputView.trailingAnchor.constraint(equalTo: firstInputView.trailingAnchor),
+            secondInputView.heightAnchor.constraint(equalTo: firstInputView.heightAnchor),
             
             callToActionButton.topAnchor.constraint(equalTo: secondInputView.bottomAnchor, constant: 15),
-            callToActionButton.leadingAnchor.constraint(equalTo: secondInputView.leadingAnchor),
-            callToActionButton.trailingAnchor.constraint(equalTo: secondInputView.trailingAnchor),
+            callToActionButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3673),
+            callToActionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             callToActionButton.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
