@@ -1,13 +1,14 @@
 //
-//  SigninView.swift
+//  SignupView.swift
 //  Quoter
 //
 //  Created by Lado Tsivtsivadze on 6/23/22.
 //
 
+
 import UIKit
 
-class SigninView: UIView {
+class SignupView: UIView {
 
     let titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -26,7 +27,7 @@ class SigninView: UIView {
     }()
     
     let formView: FormView = {
-        let formView = FormView(formType: .signIn)
+        let formView = FormView(formType: .signUp)
         formView.translatesAutoresizingMaskIntoConstraints = false
         return formView
     }()
@@ -38,17 +39,17 @@ class SigninView: UIView {
         return lineView
     }()
     
-    let thirdPartyButtonView1: ThirdPartyButtonView = {
-        let buttonView = ThirdPartyButtonView(buttonType: .google)
-        buttonView.translatesAutoresizingMaskIntoConstraints = false
-        return buttonView
-    }()
-    
-    let thirdPartyButtonView2: ThirdPartyButtonView = {
-        let buttonView = ThirdPartyButtonView(buttonType: .apple)
-        buttonView.translatesAutoresizingMaskIntoConstraints = false
-        return buttonView
-    }()
+//    let thirdPartyButtonView1: ThirdPartyButtonView = {
+//        let buttonView = ThirdPartyButtonView(buttonType: .google)
+//        buttonView.translatesAutoresizingMaskIntoConstraints = false
+//        return buttonView
+//    }()
+//    
+//    let thirdPartyButtonView2: ThirdPartyButtonView = {
+//        let buttonView = ThirdPartyButtonView(buttonType: .apple)
+//        buttonView.translatesAutoresizingMaskIntoConstraints = false
+//        return buttonView
+//    }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -61,8 +62,8 @@ class SigninView: UIView {
         addSubview(signUpButton)
         addSubview(formView)
         addSubview(separatorLineView)
-        addSubview(thirdPartyButtonView1)
-        addSubview(thirdPartyButtonView2)
+//        addSubview(thirdPartyButtonView1)
+//        addSubview(thirdPartyButtonView2)
     }
     
     private func buildConstraints() {
@@ -82,15 +83,15 @@ class SigninView: UIView {
             separatorLineView.heightAnchor.constraint(equalToConstant: 0.5),
             separatorLineView.topAnchor.constraint(equalTo: formView.bottomAnchor, constant: 30),
             
-            thirdPartyButtonView1.centerXAnchor.constraint(equalTo: centerXAnchor),
-            thirdPartyButtonView1.widthAnchor.constraint(equalTo: formView.widthAnchor),
-            thirdPartyButtonView1.topAnchor.constraint(equalTo: separatorLineView.bottomAnchor, constant: 20),
-            
-            thirdPartyButtonView2.centerXAnchor.constraint(equalTo: centerXAnchor),
-            thirdPartyButtonView2.widthAnchor.constraint(equalTo: formView.widthAnchor),
-            thirdPartyButtonView2.topAnchor.constraint(equalTo: thirdPartyButtonView1.bottomAnchor, constant: 15),
-            thirdPartyButtonView2.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60)
-            
+//            thirdPartyButtonView1.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            thirdPartyButtonView1.widthAnchor.constraint(equalTo: formView.widthAnchor),
+//            thirdPartyButtonView1.topAnchor.constraint(equalTo: separatorLineView.bottomAnchor, constant: 20),
+//            
+//            thirdPartyButtonView2.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            thirdPartyButtonView2.widthAnchor.constraint(equalTo: formView.widthAnchor),
+//            thirdPartyButtonView2.topAnchor.constraint(equalTo: thirdPartyButtonView1.bottomAnchor, constant: 15),
+//            thirdPartyButtonView2.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60)
+//            
         ])
     }
 }
