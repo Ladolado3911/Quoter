@@ -74,7 +74,7 @@ class SigninView: UIView {
             titleLabel.bottomAnchor.constraint(equalTo: formView.topAnchor, constant: -bounds.height * 0.05),
             
             signUpButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            signUpButton.topAnchor.constraint(equalTo: topAnchor, constant: 64),
+            signUpButton.topAnchor.constraint(equalTo: topAnchor, constant: Constants.screenHeight * 0.085),
             
             formView.centerXAnchor.constraint(equalTo: centerXAnchor),
             formView.centerYAnchor.constraint(equalTo: centerYAnchor),
