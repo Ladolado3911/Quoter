@@ -68,5 +68,133 @@
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CC114FBF-2246-4EB4-8AA3-858E76DB43B6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quoter/Presentation/Scenes/ProfileScene/SignIn/SigninVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "emailTextFieldDidChange(sender:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CC114FBF-2246-4EB4-8AA3-858E76DB43B6 - 358d1bee747e610"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Quoter.SigninVC.emailTextFieldDidChange(sender: __C.UITextField) -&gt; ()"
+                  moduleName = "Quoter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ladotsivtsivadze/Desktop/Apps/Quoter/Quoter/Presentation/Scenes/ProfileScene/SignIn/SigninVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "CC114FBF-2246-4EB4-8AA3-858E76DB43B6 - 358d1bee747e610"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Quoter.SigninVC.emailTextFieldDidChange(sender: __C.UITextField) -&gt; ()"
+                  moduleName = "Quoter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ladotsivtsivadze/Desktop/Apps/Quoter/Quoter/Presentation/Scenes/ProfileScene/SignIn/SigninVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "120">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "984B23A6-1BE9-4804-8CF7-B53471A9ABFE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quoter/Presentation/Scenes/ProfileScene/SignIn/SigninVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "passwordTextFieldDidChange(sender:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "984B23A6-1BE9-4804-8CF7-B53471A9ABFE - e07ff30922bdf916"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Quoter.SigninVC.passwordTextFieldDidChange(sender: __C.UITextField) -&gt; ()"
+                  moduleName = "Quoter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ladotsivtsivadze/Desktop/Apps/Quoter/Quoter/Presentation/Scenes/ProfileScene/SignIn/SigninVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "79"
+                  endingLineNumber = "79"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "984B23A6-1BE9-4804-8CF7-B53471A9ABFE - e07ff30922bdf916"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Quoter.SigninVC.passwordTextFieldDidChange(sender: __C.UITextField) -&gt; ()"
+                  moduleName = "Quoter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ladotsivtsivadze/Desktop/Apps/Quoter/Quoter/Presentation/Scenes/ProfileScene/SignIn/SigninVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "79"
+                  endingLineNumber = "79"
+                  offsetFromSymbolStart = "120">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6E0F2CC1-DEAF-470D-A17E-2431889D08DB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quoter/Presentation/Scenes/ProfileScene/SignIn/SigninVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "passwordTextFieldDidChange(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "801C3E68-389C-426D-A215-59076983A7AF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Quoter/Presentation/Scenes/ProfileScene/SignIn/SigninVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "emailTextFieldDidChange(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -9,6 +9,23 @@ import UIKit
 
 extension String {
     
+    var isValidEmail: (String, Bool) {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let bool = emailPred.evaluate(with: self)
+        let str = bool ? "" : "Email is not valid"
+        return (str, bool)
+    }
+    
+    var isValidPassword: (String, Bool) {
+        // Minimum 8 characters at least 1 Alphabet and 1 Number
+        let passwordRegEx = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+        let passwordPred = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
+        let bool = passwordPred.evaluate(with: self)
+        let str = bool ? "" : "Minimum 8 characters, at least 1 Alphabet and 1 Number"
+        return (str, bool)
+    }
+    
     func convertAuthorNameException() -> String {
         var newSlug: String = ""
         if self == "Napoleon_Bonaparte" {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+//import SkyFloatingLabelTextField
 
 enum InputViewType {
     case password
@@ -47,6 +48,18 @@ class InputView: UIView {
         return textField
     }()
     
+    //let inputWarningLabel: UILabel
+    
+//    let newInputTextField: SkyFloatingLabelTextField = {
+//        let textField = SkyFloatingLabelTextField()
+//        textField.textColor = DarkModeColors.white
+//        textField.textAlignment = .left
+//        textField.clearsOnBeginEditing = true
+//        textField.translatesAutoresizingMaskIntoConstraints = false
+//        textField.tintColor = DarkModeColors.white
+//        return textField
+//    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -78,6 +91,7 @@ class InputView: UIView {
         addSubview(rectView)
         addSubview(inputViewTitleLabel)
         addSubview(inputTextField)
+       // addSubview(newInputTextField)
     }
     
     private func buildConstraints() {
@@ -96,8 +110,12 @@ class InputView: UIView {
             inputTextField.topAnchor.constraint(equalTo: rectView.topAnchor),
             inputTextField.trailingAnchor.constraint(equalTo: rectView.trailingAnchor, constant: -10),
             inputTextField.bottomAnchor.constraint(equalTo: rectView.bottomAnchor),
-            
-            
+
+//            newInputTextField.leadingAnchor.constraint(equalTo: rectView.leadingAnchor, constant: 10),
+//            newInputTextField.topAnchor.constraint(equalTo: rectView.topAnchor),
+//            newInputTextField.trailingAnchor.constraint(equalTo: rectView.trailingAnchor, constant: -10),
+//            newInputTextField.bottomAnchor.constraint(equalTo: rectView.bottomAnchor),
+//
         
         ])
     }

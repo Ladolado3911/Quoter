@@ -90,8 +90,8 @@ class SignupView: UIView {
             
             arrowButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             arrowButton.topAnchor.constraint(equalTo: topAnchor),
-            arrowButton.widthAnchor.constraint(equalToConstant: bounds.height * 0.10),
-            arrowButton.heightAnchor.constraint(equalToConstant: bounds.height * 0.10),
+            arrowButton.widthAnchor.constraint(equalToConstant: bounds.height * 0.07),
+            arrowButton.heightAnchor.constraint(equalToConstant: bounds.height * 0.07),
             
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: formView.topAnchor, constant: -bounds.height * 0.05),

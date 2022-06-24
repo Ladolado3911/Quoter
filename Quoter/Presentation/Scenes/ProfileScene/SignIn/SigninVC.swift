@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkyFloatingLabelTextField
 
 protocol SigninVCProtocol: AnyObject {
     var interactor: SigninInteractorProtocol? { get set }
@@ -34,7 +35,7 @@ class SigninVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = signinView
-        configButtons()
+        configElements()
         //view.backgroundColor = DarkModeColors.mainBlack
     }
     
@@ -54,8 +55,10 @@ class SigninVC: UIViewController {
         router.vc = vc
     }
     
-    private func configButtons() {
+    private func configElements() {
         signinView?.signUpButton.addTarget(self, action: #selector(onSignupButton(sender:)), for: .touchUpInside)
+        signinView?.formView.firstInputView.inputTextField.addTarget(self, action: #selector(emailTextFieldDidChange(sender:)), for: .editingChanged)
+        signinView?.formView.secondInputView.inputTextField.addTarget(self, action: #selector(passwordTextFieldDidChange(sender:)), for: .editingChanged)
     }
 }
 
@@ -63,10 +66,36 @@ extension SigninVC {
     @objc func onSignupButton(sender: UIButton) {
         router?.routeToSignupVC()
     }
+    
+    @objc func emailTextFieldDidChange(sender: UITextField) {
+        let tuple = (sender.text ?? "").isValidEmail
+        if !tuple.1 {
+            signinView?.formView.firstInputView.backgroundColor = .red
+            print(tuple.0)
+        }
+        else {
+            signinView?.formView.firstInputView.backgroundColor = .clear
+        }
+    }
+    
+    @objc func passwordTextFieldDidChange(sender: UITextField) {
+        let tuple = (sender.text ?? "").isValidPassword
+        if !tuple.1 {
+            signinView?.formView.secondInputView.backgroundColor = .red
+            print(tuple.0)
+        }
+        else {
+            signinView?.formView.secondInputView.backgroundColor = .clear
+        }
+    }
 }
 
 extension SigninVC: SigninVCProtocol {
     func present(vc: UIViewController) {
         present(vc, animated: true)
     }
+}
+
+extension SigninVC: UITextFieldDelegate {
+    
 }
