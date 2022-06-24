@@ -8,12 +8,8 @@ import UIKit
 
 protocol SignupRouterProtocol {
     var vc: SignupVCProtocol? { get set }
-    
-    
 }
 
 class SignupRouter: SignupRouterProtocol {
     weak var vc: SignupVCProtocol?
-    
-    
 }

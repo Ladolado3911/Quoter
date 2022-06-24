@@ -9,6 +9,13 @@
 import UIKit
 
 class SignupView: UIView {
+    
+    lazy var arrowButton: UIButton = {
+        let button = UIButton()
+        button.setImage(FilterIcons.arrowDown.resizedImage(targetHeight: bounds.height * 0.1), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     let titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -68,6 +75,7 @@ class SignupView: UIView {
     }
     
     private func buildSubviews() {
+        addSubview(arrowButton)
         addSubview(titleLabel)
         addSubview(formView)
         addSubview(separatorLineView)
@@ -79,6 +87,12 @@ class SignupView: UIView {
     
     private func buildConstraints() {
         NSLayoutConstraint.activate([
+            
+            arrowButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            arrowButton.topAnchor.constraint(equalTo: topAnchor),
+            arrowButton.widthAnchor.constraint(equalToConstant: bounds.height * 0.10),
+            arrowButton.heightAnchor.constraint(equalToConstant: bounds.height * 0.10),
+            
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: formView.topAnchor, constant: -bounds.height * 0.05),
 
@@ -100,16 +114,7 @@ class SignupView: UIView {
             verifyButton.leadingAnchor.constraint(equalTo: verificationView.leadingAnchor),
             verifyButton.topAnchor.constraint(equalTo: verificationView.bottomAnchor, constant: 10),
             verifyButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2)
-            
-//            thirdPartyButtonView1.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            thirdPartyButtonView1.widthAnchor.constraint(equalTo: formView.widthAnchor),
-//            thirdPartyButtonView1.topAnchor.constraint(equalTo: separatorLineView.bottomAnchor, constant: 20),
-//            
-//            thirdPartyButtonView2.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            thirdPartyButtonView2.widthAnchor.constraint(equalTo: formView.widthAnchor),
-//            thirdPartyButtonView2.topAnchor.constraint(equalTo: thirdPartyButtonView1.bottomAnchor, constant: 15),
-//            thirdPartyButtonView2.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60)
-//            
+
         ])
     }
 }

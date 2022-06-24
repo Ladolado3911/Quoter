@@ -33,6 +33,7 @@ class SignupVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = signupView
+        configButtons()
     }
     
     private func setup() {
@@ -49,6 +50,16 @@ class SignupVC: UIViewController {
         //interactor.exploreNetworkWorker = exploreNetworkWorker
         presenter.vc = vc
         router.vc = vc
+    }
+    
+    private func configButtons() {
+        signupView?.arrowButton.addTarget(self, action: #selector(onArrowButton(sender:)), for: .touchUpInside)
+    }
+}
+
+extension SignupVC {
+    @objc func onArrowButton(sender: UIButton) {
+        dismiss(animated: true)
     }
 }
 

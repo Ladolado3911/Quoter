@@ -11,6 +11,8 @@ protocol SigninVCProtocol: AnyObject {
     var interactor: SigninInteractorProtocol? { get set }
     var router: SigninRouterProtocol? { get set }
     var signinView: SigninView? { get set }
+    
+    func present(vc: UIViewController)
 }
 
 class SigninVC: UIViewController {
@@ -32,6 +34,7 @@ class SigninVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = signinView
+        configButtons()
         //view.backgroundColor = DarkModeColors.mainBlack
     }
     
@@ -50,8 +53,20 @@ class SigninVC: UIViewController {
         presenter.vc = vc
         router.vc = vc
     }
+    
+    private func configButtons() {
+        signinView?.signUpButton.addTarget(self, action: #selector(onSignupButton(sender:)), for: .touchUpInside)
+    }
+}
+
+extension SigninVC {
+    @objc func onSignupButton(sender: UIButton) {
+        router?.routeToSignupVC()
+    }
 }
 
 extension SigninVC: SigninVCProtocol {
-    
+    func present(vc: UIViewController) {
+        present(vc, animated: true)
+    }
 }
