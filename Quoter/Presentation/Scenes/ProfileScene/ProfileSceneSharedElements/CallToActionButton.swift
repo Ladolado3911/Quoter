@@ -10,6 +10,7 @@ import UIKit
 enum FormType: String {
     case signUp = "Sign up"
     case signIn = "Sign in"
+    case verification = "Verify"
 }
 
 class CallToActionButton: UIButton {

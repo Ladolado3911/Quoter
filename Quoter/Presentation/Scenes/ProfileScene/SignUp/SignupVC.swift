@@ -11,14 +11,14 @@ import UIKit
 protocol SignupVCProtocol: AnyObject {
     var interactor: SignupInteractorProtocol? { get set }
     var router: SignupRouterProtocol? { get set }
-    var signinView: SignupView? { get set }
+    var signupView: SignupView? { get set }
 }
 
 class SignupVC: UIViewController {
     
     var interactor: SignupInteractorProtocol?
     var router: SignupRouterProtocol?
-    var signinView: SignupView?
+    var signupView: SignupView?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -32,7 +32,7 @@ class SignupVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view = signupView
     }
     
     private func setup() {
@@ -41,9 +41,9 @@ class SignupVC: UIViewController {
         let presenter = SignupPresenter()
         let router = SignupRouter()
         //let exploreNetworkWorker = ExploreNetworkWorker()
-        let signinView = SignupView(frame: UIScreen.main.bounds)
+        let signupView = SignupView(frame: UIScreen.main.bounds)
         vc.interactor = interactor
-        vc.signinView = signinView
+        vc.signupView = signupView
         vc.router = router
         interactor.presenter = presenter
         //interactor.exploreNetworkWorker = exploreNetworkWorker

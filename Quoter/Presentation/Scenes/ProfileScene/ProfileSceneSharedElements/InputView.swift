@@ -10,6 +10,7 @@ import UIKit
 enum InputViewType {
     case password
     case email
+    case verification
 }
 
 class InputView: UIView {
@@ -18,6 +19,7 @@ class InputView: UIView {
         let label = UILabel()
         label.textColor = DarkModeColors.white
         label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -60,6 +62,8 @@ class InputView: UIView {
             inputViewTitleLabel.text = "Password"
         case .email:
             inputViewTitleLabel.text = "Email"
+        case .verification:
+            inputViewTitleLabel.text = "Enter email verification code"
         }
     }
     

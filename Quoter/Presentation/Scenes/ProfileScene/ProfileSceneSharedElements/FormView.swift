@@ -42,6 +42,8 @@ class FormView: UIView {
             callToActionButton.callToActionButtonType = .signUp
         case .signIn:
             callToActionButton.callToActionButtonType = .signIn
+        default:
+            break
         }
     }
     
@@ -64,12 +66,12 @@ class FormView: UIView {
             firstInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
             firstInputView.topAnchor.constraint(equalTo: topAnchor),
             
-            secondInputView.topAnchor.constraint(equalTo: firstInputView.bottomAnchor, constant: 20),
+            secondInputView.topAnchor.constraint(equalTo: firstInputView.bottomAnchor, constant: 15),
             secondInputView.leadingAnchor.constraint(equalTo: firstInputView.leadingAnchor),
             secondInputView.trailingAnchor.constraint(equalTo: firstInputView.trailingAnchor),
             secondInputView.heightAnchor.constraint(equalTo: firstInputView.heightAnchor),
             
-            callToActionButton.topAnchor.constraint(equalTo: secondInputView.bottomAnchor, constant: 15),
+            callToActionButton.topAnchor.constraint(equalTo: secondInputView.bottomAnchor, constant: 25),
             callToActionButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3673),
             callToActionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             callToActionButton.bottomAnchor.constraint(equalTo: bottomAnchor),
