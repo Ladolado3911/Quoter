@@ -16,6 +16,13 @@ class SignupView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    lazy var dimmingView: UIView = {
+        let dimmingView = UIView(frame: bounds)
+        dimmingView.backgroundColor = DarkModeColors.black
+        dimmingView.alpha = 0
+        return dimmingView
+    }()
 
     let titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -78,11 +85,9 @@ class SignupView: UIView {
         addSubview(arrowButton)
         addSubview(titleLabel)
         addSubview(formView)
-        addSubview(separatorLineView)
-        addSubview(verificationView)
-        addSubview(verifyButton)
-//        addSubview(thirdPartyButtonView1)
-//        addSubview(thirdPartyButtonView2)
+        //addSubview(separatorLineView)
+        //addSubview(verificationView)
+        //addSubview(verifyButton)
     }
     
     private func buildConstraints() {
@@ -116,5 +121,14 @@ class SignupView: UIView {
             verifyButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2)
 
         ])
+    }
+    
+    func startAnimating() {
+        self.formView.callToActionButton.startAnimating()
+    }
+    
+    func stopAnimating(completion: @escaping () -> Void) {
+        self.formView.callToActionButton.stopAnimating()
+        completion()
     }
 }

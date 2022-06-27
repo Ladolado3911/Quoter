@@ -65,7 +65,6 @@
 		246700BB2859D1EA004C64EB /* AuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246700BA2859D1EA004C64EB /* AuthorView.swift */; };
 		246B828A28311DBB00D44DF5 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B828428311DBB00D44DF5 /* Endpoints.swift */; };
 		246B828F28311DBB00D44DF5 /* QuotieEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B828928311DBB00D44DF5 /* QuotieEndpoint.swift */; };
-		246B829128311E9300D44DF5 /* QuotieCategoriesEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B829028311E9300D44DF5 /* QuotieCategoriesEndpoint.swift */; };
 		246B82942831200A00D44DF5 /* QuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B82932831200A00D44DF5 /* QuoteModel.swift */; };
 		246B82962831204E00D44DF5 /* NetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B82952831204E00D44DF5 /* NetworkWorker.swift */; };
 		246B8298283121A600D44DF5 /* ExploreNetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B8297283121A600D44DF5 /* ExploreNetworkWorker.swift */; };
@@ -79,12 +78,17 @@
 		2470F659284E322800B6124D /* FilterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2470F658284E322800B6124D /* FilterInteractor.swift */; };
 		2470F65B284E328400B6124D /* FilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2470F65A284E328400B6124D /* FilterPresenter.swift */; };
 		2470F65D284E32DD00B6124D /* FilterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2470F65C284E32DD00B6124D /* FilterRouter.swift */; };
+		24832A2C28698FAE001597FC /* UserCredentialsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24832A2B28698FAE001597FC /* UserCredentialsModel.swift */; };
+		24832A2F28699628001597FC /* SigninNetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24832A2E28699628001597FC /* SigninNetworkWorker.swift */; };
+		24832A32286998F9001597FC /* SignupNetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24832A31286998F9001597FC /* SignupNetworkWorker.swift */; };
+		24832A342869DACA001597FC /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24832A332869DACA001597FC /* ResponseModel.swift */; };
 		248C54142850BD600080FBBE /* ModalViewWithTopBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248C54132850BD600080FBBE /* ModalViewWithTopBorder.swift */; };
 		248C54172850E7280080FBBE /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248C54162850E7280080FBBE /* FilterView.swift */; };
 		2497158027D9E15F00968E08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2497157F27D9E15F00968E08 /* GoogleService-Info.plist */; };
 		2497158327D9E23400968E08 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158227D9E23400968E08 /* FirebaseAnalytics */; };
 		2497158527D9E23400968E08 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2497158427D9E23400968E08 /* FirebaseCrashlytics */; };
 		2497158927D9E40F00968E08 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2497158727D9E3FB00968E08 /* AdSupport.framework */; };
+		2499E1572868840D00352100 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2499E1562868840D00352100 /* IQKeyboardManagerSwift */; };
 		249BE4AC285DCBF600D30127 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249BE4AB285DCBF600D30127 /* UITableView+Extension.swift */; };
 		24A71A31285C96F800835E8C /* AuthorCellsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A71A30285C96F800835E8C /* AuthorCellsManager.swift */; };
 		24A71A36285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A71A35285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift */; };
@@ -197,7 +201,6 @@
 		246700BA2859D1EA004C64EB /* AuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorView.swift; sourceTree = "<group>"; };
 		246B828428311DBB00D44DF5 /* Endpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		246B828928311DBB00D44DF5 /* QuotieEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuotieEndpoint.swift; sourceTree = "<group>"; };
-		246B829028311E9300D44DF5 /* QuotieCategoriesEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotieCategoriesEndpoint.swift; sourceTree = "<group>"; };
 		246B82932831200A00D44DF5 /* QuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteModel.swift; sourceTree = "<group>"; };
 		246B82952831204E00D44DF5 /* NetworkWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkWorker.swift; sourceTree = "<group>"; };
 		246B8297283121A600D44DF5 /* ExploreNetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreNetworkWorker.swift; sourceTree = "<group>"; };
@@ -210,6 +213,10 @@
 		2470F658284E322800B6124D /* FilterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInteractor.swift; sourceTree = "<group>"; };
 		2470F65A284E328400B6124D /* FilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresenter.swift; sourceTree = "<group>"; };
 		2470F65C284E32DD00B6124D /* FilterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRouter.swift; sourceTree = "<group>"; };
+		24832A2B28698FAE001597FC /* UserCredentialsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentialsModel.swift; sourceTree = "<group>"; };
+		24832A2E28699628001597FC /* SigninNetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninNetworkWorker.swift; sourceTree = "<group>"; };
+		24832A31286998F9001597FC /* SignupNetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupNetworkWorker.swift; sourceTree = "<group>"; };
+		24832A332869DACA001597FC /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		248C54132850BD600080FBBE /* ModalViewWithTopBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewWithTopBorder.swift; sourceTree = "<group>"; };
 		248C54162850E7280080FBBE /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		2497157F27D9E15F00968E08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -287,6 +294,7 @@
 				2497158527D9E23400968E08 /* FirebaseCrashlytics in Frameworks */,
 				2463DACB28644B4E00FA78BE /* GoogleSignInSwift in Frameworks */,
 				246B82A428313DE000D44DF5 /* SDWebImage in Frameworks */,
+				2499E1572868840D00352100 /* IQKeyboardManagerSwift in Frameworks */,
 				24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */,
 				C0CE17F82A9B7C9309C94147 /* Pods_Quoter.framework in Frameworks */,
 				2463DAC928644B4E00FA78BE /* GoogleSignIn in Frameworks */,
@@ -437,6 +445,7 @@
 				2463DAE4286488A500FA78BE /* SigninInteractor.swift */,
 				2463DAE62864890700FA78BE /* SigninPresenter.swift */,
 				2463DAE82864894100FA78BE /* SigninRouter.swift */,
+				24832A2D28699614001597FC /* Workers */,
 				2463DADF28647F2500FA78BE /* Subviews */,
 			);
 			path = SignIn;
@@ -449,6 +458,7 @@
 				2463DAEA28648B2B00FA78BE /* SignupInteractor.swift */,
 				2463DAEC28648B3600FA78BE /* SignupPresenter.swift */,
 				2463DAEE28648B4100FA78BE /* SignupRouter.swift */,
+				24832A30286998E9001597FC /* Workers */,
 				2463DAF028648B4500FA78BE /* Subivews */,
 			);
 			path = SignUp;
@@ -542,7 +552,6 @@
 			children = (
 				246B828428311DBB00D44DF5 /* Endpoints.swift */,
 				246B828928311DBB00D44DF5 /* QuotieEndpoint.swift */,
-				246B829028311E9300D44DF5 /* QuotieCategoriesEndpoint.swift */,
 			);
 			path = Endpoints;
 			sourceTree = "<group>";
@@ -553,6 +562,8 @@
 				24CD4C0D2844B23700A63968 /* DeviceModel.swift */,
 				246B82932831200A00D44DF5 /* QuoteModel.swift */,
 				246B8299283124A600D44DF5 /* CategoriesModel.swift */,
+				24832A2B28698FAE001597FC /* UserCredentialsModel.swift */,
+				24832A332869DACA001597FC /* ResponseModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -595,6 +606,22 @@
 				246700B02859D18A004C64EB /* Author */,
 			);
 			path = ExploreScene;
+			sourceTree = "<group>";
+		};
+		24832A2D28699614001597FC /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				24832A2E28699628001597FC /* SigninNetworkWorker.swift */,
+			);
+			path = Workers;
+			sourceTree = "<group>";
+		};
+		24832A30286998E9001597FC /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				24832A31286998F9001597FC /* SignupNetworkWorker.swift */,
+			);
+			path = Workers;
 			sourceTree = "<group>";
 		};
 		248C54152850E7180080FBBE /* Subviews */ = {
@@ -868,6 +895,7 @@
 				246B82A328313DE000D44DF5 /* SDWebImage */,
 				2463DAC828644B4E00FA78BE /* GoogleSignIn */,
 				2463DACA28644B4E00FA78BE /* GoogleSignInSwift */,
+				2499E1562868840D00352100 /* IQKeyboardManagerSwift */,
 			);
 			productName = Quoter;
 			productReference = 24D1286F27903ECD00AD7F3D /* Quoter.app */;
@@ -912,6 +940,7 @@
 				2497158127D9E23400968E08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				246B82A228313DE000D44DF5 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				2463DAC728644B4E00FA78BE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				2499E1552868840D00352100 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 24D1287027903ECD00AD7F3D /* Products */;
 			projectDirPath = "";
@@ -1090,6 +1119,7 @@
 				24D8635F280C0A550060760A /* Fonts.swift in Sources */,
 				246700B82859D1CD004C64EB /* AuthorRouter.swift in Sources */,
 				242E31EE285361BC00AB4C22 /* UIImageView+Extension.swift in Sources */,
+				24832A32286998F9001597FC /* SignupNetworkWorker.swift in Sources */,
 				24138A352805AD6E00044F5E /* UIImage+Extension.swift in Sources */,
 				24138A3D2805B39F00044F5E /* Constants.swift in Sources */,
 				2463DAE5286488A500FA78BE /* SigninInteractor.swift in Sources */,
@@ -1127,7 +1157,9 @@
 				24D018F6280ADE150031C14B /* ArrowButtonView.swift in Sources */,
 				241A2A22285B4655005681C5 /* AuthorTableHeaderView.swift in Sources */,
 				24D018F9280ADE880031C14B /* ExploreIcons.swift in Sources */,
+				24832A2C28698FAE001597FC /* UserCredentialsModel.swift in Sources */,
 				2463DAF228648B5000FA78BE /* SignupView.swift in Sources */,
+				24832A342869DACA001597FC /* ResponseModel.swift in Sources */,
 				24484AD42837C07900D3BFA8 /* QuoteButtonView.swift in Sources */,
 				246B82962831204E00D44DF5 /* NetworkWorker.swift in Sources */,
 				24CD4C0E2844B23700A63968 /* DeviceModel.swift in Sources */,
@@ -1148,11 +1180,11 @@
 				2463DAD32864613100FA78BE /* SignupVC.swift in Sources */,
 				2463DAED28648B3600FA78BE /* SignupPresenter.swift in Sources */,
 				24D018FB280B1A460031C14B /* UILabel+Extension.swift in Sources */,
-				246B829128311E9300D44DF5 /* QuotieCategoriesEndpoint.swift in Sources */,
 				246B829A283124A600D44DF5 /* CategoriesModel.swift in Sources */,
 				2463DAEF28648B4100FA78BE /* SignupRouter.swift in Sources */,
 				248C54142850BD600080FBBE /* ModalViewWithTopBorder.swift in Sources */,
 				24A71A31285C96F800835E8C /* AuthorCellsManager.swift in Sources */,
+				24832A2F28699628001597FC /* SigninNetworkWorker.swift in Sources */,
 				248C54172850E7280080FBBE /* FilterView.swift in Sources */,
 				24138A1E2805728300044F5E /* MenuItemView.swift in Sources */,
 				2458D29428097EBB0088C00E /* DailyQuotesVC.swift in Sources */,
@@ -1554,6 +1586,14 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		2499E1552868840D00352100 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.0;
+			};
+		};
 		24DEBF4427ABB1D400C40B29 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/LottieFiles/lottie-ios";
@@ -1589,6 +1629,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2497158127D9E23400968E08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		2499E1562868840D00352100 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2499E1552868840D00352100 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 		24DEBF4527ABB1D400C40B29 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;

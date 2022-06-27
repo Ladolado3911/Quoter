@@ -36,4 +36,26 @@ class CallToActionButton: UIButton {
                                 spread: 0)
         layer.cornerRadius = 10
     }
+    
+    func startAnimating() {
+        titleLabel?.alpha = 0
+        isEnabled = false
+        let size = bounds.height * 1.3
+        let frame = CGRect(x: bounds.width / 2 - (size / 2),
+                           y: bounds.height / 2 - (size / 2),
+                           width: size,
+                           height: size)
+        createAndStartLoadingLottieAnimation(animation: .simpleLoading,
+                                             animationSpeed: 1,
+                                             frame: frame,
+                                             loopMode: .loop,
+                                             contentMode: .scaleAspectFit,
+                                             completion: nil)
+    }
+    
+    func stopAnimating() {
+        stopLoadingLottieAnimationIfExists()
+        titleLabel?.alpha = 1
+        isEnabled = true
+    }
 }

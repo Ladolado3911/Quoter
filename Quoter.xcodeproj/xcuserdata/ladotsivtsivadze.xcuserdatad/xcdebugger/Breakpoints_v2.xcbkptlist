@@ -1300,7 +1300,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "50"
             endingLineNumber = "50"
-            landmarkName = "fetchData(endpoint:model:)"
+            landmarkName = "request(endpoint:model:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

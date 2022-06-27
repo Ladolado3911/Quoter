@@ -34,6 +34,8 @@ class InputView: UIView {
                                          y: 2,
                                          blur: 4,
                                          spread: 0)
+        rectView.layer.borderColor = UIColor.red.cgColor
+        rectView.layer.borderWidth = 0
         rectView.layer.cornerRadius = 10
         rectView.translatesAutoresizingMaskIntoConstraints = false
         return rectView
@@ -73,10 +75,14 @@ class InputView: UIView {
         switch type {
         case .password:
             inputViewTitleLabel.text = "Password"
+            inputTextField.isSecureTextEntry = true
+            inputTextField.keyboardAppearance = .dark
         case .email:
             inputViewTitleLabel.text = "Email"
+            inputTextField.keyboardType = .emailAddress
         case .verification:
             inputViewTitleLabel.text = "Enter email verification code"
+            inputTextField.keyboardType = .numberPad
         }
     }
     

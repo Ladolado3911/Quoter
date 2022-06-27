@@ -23,6 +23,7 @@ class FormView: UIView {
     
     let callToActionButton: CallToActionButton = {
         let ctaButton = CallToActionButton()
+        ctaButton.isEnabled = false
         ctaButton.translatesAutoresizingMaskIntoConstraints = false
         return ctaButton
     }()
@@ -76,5 +77,10 @@ class FormView: UIView {
             callToActionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             callToActionButton.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+    }
+    
+    func clearData() {
+        firstInputView.inputTextField.text = ""
+        secondInputView.inputTextField.text = ""
     }
 }

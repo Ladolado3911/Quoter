@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
+import Combine
 
 protocol SigninVCProtocol: AnyObject {
     var interactor: SigninInteractorProtocol? { get set }
@@ -22,6 +22,14 @@ class SigninVC: UIViewController {
     var router: SigninRouterProtocol?
     var signinView: SigninView?
     
+    let emailSubject = PassthroughSubject<String, Never>()
+    let passwordSubject = PassthroughSubject<String, Never>()
+    
+    var trackEmail = ""
+    var trackPassword = ""
+    
+    var cancellables: Set<AnyCancellable> = []
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -36,6 +44,7 @@ class SigninVC: UIViewController {
         super.viewDidLoad()
         view = signinView
         configElements()
+        configListeners()
         //view.backgroundColor = DarkModeColors.mainBlack
     }
     
@@ -55,10 +64,43 @@ class SigninVC: UIViewController {
         router.vc = vc
     }
     
+    private func configListeners() {
+        Publishers.CombineLatest(emailSubject, passwordSubject)
+            .sink { [weak self] value in
+                guard let self = self else { return }
+                let bool = value.0.isValidEmail.1 && value.1.isValidPassword.1
+                self.trackEmail = value.0
+                self.trackPassword = value.1
+                self.signinView?.formView.callToActionButton.isEnabled = bool
+            }
+            .store(in: &cancellables)
+        
+        emailSubject
+            .sink { [weak self] value in
+                guard let self = self else { return }
+                let emailWidth: CGFloat = value.isValidEmail.1 ? 0 : 1
+                self.signinView?.formView.firstInputView.rectView.layer.borderWidth = emailWidth
+            }
+            .store(in: &cancellables)
+
+        passwordSubject
+            .sink { [weak self] value in
+                guard let self = self else { return }
+                let passwordWidth: CGFloat = value.isValidPassword.1 ? 0 : 1
+                self.signinView?.formView.secondInputView.rectView.layer.borderWidth = passwordWidth
+            }
+            .store(in: &cancellables)
+    }
+    
     private func configElements() {
         signinView?.signUpButton.addTarget(self, action: #selector(onSignupButton(sender:)), for: .touchUpInside)
+        signinView?.formView.callToActionButton.addTarget(self, action: #selector(onSigninButton(sender:)), for: .touchUpInside)
         signinView?.formView.firstInputView.inputTextField.addTarget(self, action: #selector(emailTextFieldDidChange(sender:)), for: .editingChanged)
         signinView?.formView.secondInputView.inputTextField.addTarget(self, action: #selector(passwordTextFieldDidChange(sender:)), for: .editingChanged)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
 }
 
@@ -67,26 +109,27 @@ extension SigninVC {
         router?.routeToSignupVC()
     }
     
+    @objc func onSigninButton(sender: UIButton) {
+        let email = trackEmail
+        let password = trackPassword
+        
+        
+    }
+    
     @objc func emailTextFieldDidChange(sender: UITextField) {
-        let tuple = (sender.text ?? "").isValidEmail
-        if !tuple.1 {
-            signinView?.formView.firstInputView.backgroundColor = .red
-            print(tuple.0)
+        if sender.text == "" {
+            signinView?.formView.firstInputView.rectView.layer.borderWidth = 0
+            return
         }
-        else {
-            signinView?.formView.firstInputView.backgroundColor = .clear
-        }
+        emailSubject.send(sender.text ?? "")
     }
     
     @objc func passwordTextFieldDidChange(sender: UITextField) {
-        let tuple = (sender.text ?? "").isValidPassword
-        if !tuple.1 {
-            signinView?.formView.secondInputView.backgroundColor = .red
-            print(tuple.0)
+        if sender.text == "" {
+            signinView?.formView.secondInputView.rectView.layer.borderWidth = 0
+            return
         }
-        else {
-            signinView?.formView.secondInputView.backgroundColor = .clear
-        }
+        passwordSubject.send(sender.text ?? "")
     }
 }
 

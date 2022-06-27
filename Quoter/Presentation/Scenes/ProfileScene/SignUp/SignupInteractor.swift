@@ -10,8 +10,10 @@ import UIKit
 
 protocol SignupInteractorProtocol {
     var presenter: SignupPresenterProtocol? { get set }
+    var signupNetworkWorker: SignupNetworkWorker? { get set }
 }
 
 class SignupInteractor: SignupInteractorProtocol {
     var presenter: SignupPresenterProtocol?
+    var signupNetworkWorker: SignupNetworkWorker?
 }

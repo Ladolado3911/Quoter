@@ -19,10 +19,10 @@ extension String {
     
     var isValidPassword: (String, Bool) {
         // Minimum 8 characters at least 1 Alphabet and 1 Number
-        let passwordRegEx = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+        let passwordRegEx = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
         let passwordPred = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
         let bool = passwordPred.evaluate(with: self)
-        let str = bool ? "" : "Minimum 8 characters, at least 1 Alphabet and 1 Number"
+        let str = bool ? "" : "Minimum 8 characters, at least one letter and one number"
         return (str, bool)
     }
     

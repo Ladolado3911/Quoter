@@ -15,7 +15,7 @@ enum NetworkError: Error {
 }
 
 protocol NetworkWorkerProtocol {
-    func fetchData<T: Codable>(endpoint: EndpointProtocol, model: Resource<T>) async throws -> T
+    func request<T: Codable>(endpoint: EndpointProtocol, model: Resource<T>) async throws -> T
 }
 
 struct Resource<T: Codable> {
@@ -24,7 +24,7 @@ struct Resource<T: Codable> {
 
 class NetworkWorker: NetworkWorkerProtocol {
 
-    func fetchData<T: Codable>(endpoint: EndpointProtocol, model: Resource<T>) async throws -> T {
+    func request<T: Codable>(endpoint: EndpointProtocol, model: Resource<T>) async throws -> T {
         var components = URLComponents()
         components.scheme = endpoint.scheme.rawValue
         components.queryItems = endpoint.parameters
@@ -57,5 +57,4 @@ class NetworkWorker: NetworkWorkerProtocol {
             throw error
         }
     }
-    
 }

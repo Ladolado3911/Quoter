@@ -23,6 +23,7 @@ protocol ExploreInteractorProtocol {
     var currentGenre: Genre { get set }
     var websocketTask: URLSessionWebSocketTask? { get set }
     var timer: Timer? { get set }
+    var isConfigurationRunning: Bool { get set }
     
     //func buttonAnimationTimerFire(collectionView: UICollectionView?)
     func onDownloadButton()
@@ -73,6 +74,8 @@ class ExploreInteractor: ExploreInteractorProtocol {
     }
     var websocketTask: URLSessionWebSocketTask?
     var timer: Timer?
+    
+    var isConfigurationRunning = false
 
     func onDownloadButton() {
         if let loadedQuotes = loadedQuotes {
