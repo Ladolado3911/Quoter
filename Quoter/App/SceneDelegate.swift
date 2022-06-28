@@ -7,7 +7,8 @@
 
 import UIKit
 import GoogleMobileAds
-import FacebookCore
+import FBSDKCoreKit
+
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, GADFullScreenContentDelegate {
 
