@@ -84,7 +84,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GADFullScreenContentDel
         // this is test ad unit
         if !isAdOnScreen {
             print("load ad")
-            GADAppOpenAd.load(withAdUnitID: "ca-app-pub-3940256099942544/3419835294",
+            GADAppOpenAd.load(withAdUnitID: "ca-app-pub-4520908978346246/8487103681",
                               request: request,
                               orientation: UIInterfaceOrientation.portrait,
                               completionHandler: { [weak self] (appOpenAdIn, _) in
