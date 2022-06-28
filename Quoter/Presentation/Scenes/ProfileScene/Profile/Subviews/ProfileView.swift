@@ -11,6 +11,7 @@ class ProfileView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        backgroundColor = DarkModeColors.mainBlack
         buildSubviews()
         buildConstraints()
     }

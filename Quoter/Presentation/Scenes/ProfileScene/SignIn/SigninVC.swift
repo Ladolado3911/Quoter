@@ -21,7 +21,7 @@ class SigninVC: UIViewController {
     var interactor: SigninInteractorProtocol?
     var router: SigninRouterProtocol?
     var signinView: SigninView?
-    
+
     let emailSubject = PassthroughSubject<String, Never>()
     let passwordSubject = PassthroughSubject<String, Never>()
     
@@ -53,13 +53,13 @@ class SigninVC: UIViewController {
         let interactor = SigninInteractor()
         let presenter = SigninPresenter()
         let router = SigninRouter()
-        //let exploreNetworkWorker = ExploreNetworkWorker()
+        let signinNetworkWorker = SigninNetworkWorker()
         let signinView = SigninView(frame: UIScreen.main.bounds)
         vc.interactor = interactor
         vc.signinView = signinView
         vc.router = router
         interactor.presenter = presenter
-        //interactor.exploreNetworkWorker = exploreNetworkWorker
+        interactor.signinNetworkWorker = signinNetworkWorker
         presenter.vc = vc
         router.vc = vc
     }
@@ -74,22 +74,22 @@ class SigninVC: UIViewController {
                 self.signinView?.formView.callToActionButton.isEnabled = bool
             }
             .store(in: &cancellables)
-        
-        emailSubject
-            .sink { [weak self] value in
-                guard let self = self else { return }
-                let emailWidth: CGFloat = value.isValidEmail.1 ? 0 : 1
-                self.signinView?.formView.firstInputView.rectView.layer.borderWidth = emailWidth
-            }
-            .store(in: &cancellables)
 
-        passwordSubject
-            .sink { [weak self] value in
-                guard let self = self else { return }
-                let passwordWidth: CGFloat = value.isValidPassword.1 ? 0 : 1
-                self.signinView?.formView.secondInputView.rectView.layer.borderWidth = passwordWidth
-            }
-            .store(in: &cancellables)
+//        emailSubject
+//            .sink { [weak self] value in
+//                guard let self = self else { return }
+//                let emailWidth: CGFloat = value.isValidEmail.1 ? 0 : 1
+//                self.signinView?.formView.firstInputView.rectView.layer.borderWidth = emailWidth
+//            }
+//            .store(in: &cancellables)
+//
+//        passwordSubject
+//            .sink { [weak self] value in
+//                guard let self = self else { return }
+//                let passwordWidth: CGFloat = value.isValidPassword.1 ? 0 : 1
+//                self.signinView?.formView.secondInputView.rectView.layer.borderWidth = passwordWidth
+//            }
+//            .store(in: &cancellables)
     }
     
     private func configElements() {
@@ -110,25 +110,65 @@ extension SigninVC {
     }
     
     @objc func onSigninButton(sender: UIButton) {
-        let email = trackEmail
-        let password = trackPassword
-        
+        let credentials = UserCredentials(email: trackEmail,
+                                          password: trackPassword,
+                                          isMailVerified: false)
+        //value required for isMailVerified bug here in backend
+        signinView?.formView.clearData()
+        signinView?.formView.callToActionButton.startAnimating()
+        Task.init { [weak self] in
+            guard let self = self else { return }
+            var resultResponse: QuotieResponse? = nil
+            do {
+                resultResponse = try await self.interactor?.signinNetworkWorker?.signinUser(user: credentials)
+            }
+            catch {
+                self.signinView?.formView.callToActionButton.stopAnimating()
+                self.presentAlert(title: "Alert",
+                                  text: "Unknown error",
+                                  mainButtonText: "ok",
+                                  mainButtonStyle: .cancel) {
+                    
+                }
+            }
+            await MainActor.run { [resultResponse] in
+                switch resultResponse?.response {
+                case .success(let id):
+                    // show profile VC
+                    self.signinView?.formView.callToActionButton.stopAnimating()
+                    self.router?.routeToProfileVC(with: id)
+                    break
+                case .failure(let message):
+                    self.signinView?.formView.callToActionButton.stopAnimating()
+                    self.presentAlert(title: "Alert",
+                                      text: message,
+                                      mainButtonText: "ok",
+                                      mainButtonStyle: .cancel) {
+                        
+                    }
+                default:
+                    break
+                }
+            }
+        }
         
     }
     
     @objc func emailTextFieldDidChange(sender: UITextField) {
-        if sender.text == "" {
-            signinView?.formView.firstInputView.rectView.layer.borderWidth = 0
-            return
-        }
+//        if sender.text == "" {
+//            signinView?.formView.firstInputView.rectView.layer.borderWidth = 0
+//            return
+//        }
+        //rackEmail = sender.text ?? ""
         emailSubject.send(sender.text ?? "")
     }
     
     @objc func passwordTextFieldDidChange(sender: UITextField) {
-        if sender.text == "" {
-            signinView?.formView.secondInputView.rectView.layer.borderWidth = 0
-            return
-        }
+//        if sender.text == "" {
+//            signinView?.formView.secondInputView.rectView.layer.borderWidth = 0
+//            return
+//        }
+        //trackPassword = sender.text ?? ""
         passwordSubject.send(sender.text ?? "")
     }
 }

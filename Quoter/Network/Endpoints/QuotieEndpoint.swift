@@ -19,6 +19,9 @@ enum QuotieEndpoint: EndpointProtocol {
     case getOtherAuthorsForSection(categoryName: String)
     
     case signupUser(body: UserCredentials)
+    case signinUser(body: UserCredentials)
+    
+    case getUser(userID: String)
 
     var scheme: Scheme {
         switch self {
@@ -42,6 +45,10 @@ enum QuotieEndpoint: EndpointProtocol {
             return "/getOtherAuthorsInCategory/\(name)/"
         case .signupUser:
             return "/signUp/"
+        case .signinUser:
+            return "/signIn/"
+        case .getUser(let id):
+            return "/getUser/\(id)/"
         }
     }
     var parameters: [URLQueryItem] {
@@ -52,6 +59,8 @@ enum QuotieEndpoint: EndpointProtocol {
     }
     var method: HTTPMethod {
         switch self {
+        case .signinUser:
+            return .post
         case .signupUser:
             return .post
         default:
@@ -61,6 +70,16 @@ enum QuotieEndpoint: EndpointProtocol {
     var body: Data? {
         switch self {
         case .signupUser(let userCredentials):
+            do {
+                let data = try JSONEncoder().encode(userCredentials)
+                return data
+            }
+            catch {
+                print(error)
+                return nil
+            }
+        
+        case .signinUser(let userCredentials):
             do {
                 let data = try JSONEncoder().encode(userCredentials)
                 return data

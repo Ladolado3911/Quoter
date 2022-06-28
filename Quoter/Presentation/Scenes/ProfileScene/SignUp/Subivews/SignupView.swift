@@ -106,19 +106,19 @@ class SignupView: UIView {
             formView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.7656),
             formView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2852),
             
-            separatorLineView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            separatorLineView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.875),
-            separatorLineView.heightAnchor.constraint(equalToConstant: 0.5),
-            separatorLineView.topAnchor.constraint(equalTo: formView.bottomAnchor, constant: bounds.height * 0.05),
-            
-            verificationView.topAnchor.constraint(equalTo: separatorLineView.bottomAnchor, constant: bounds.height * 0.05),
-            verificationView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            verificationView.widthAnchor.constraint(equalTo: formView.widthAnchor),
-            verificationView.heightAnchor.constraint(equalTo: formView.heightAnchor, multiplier: 0.3),
-            
-            verifyButton.leadingAnchor.constraint(equalTo: verificationView.leadingAnchor),
-            verifyButton.topAnchor.constraint(equalTo: verificationView.bottomAnchor, constant: 10),
-            verifyButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2)
+//            separatorLineView.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            separatorLineView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.875),
+//            separatorLineView.heightAnchor.constraint(equalToConstant: 0.5),
+//            separatorLineView.topAnchor.constraint(equalTo: formView.bottomAnchor, constant: bounds.height * 0.05),
+//            
+//            verificationView.topAnchor.constraint(equalTo: separatorLineView.bottomAnchor, constant: bounds.height * 0.05),
+//            verificationView.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            verificationView.widthAnchor.constraint(equalTo: formView.widthAnchor),
+//            verificationView.heightAnchor.constraint(equalTo: formView.heightAnchor, multiplier: 0.3),
+//            
+//            verifyButton.leadingAnchor.constraint(equalTo: verificationView.leadingAnchor),
+//            verifyButton.topAnchor.constraint(equalTo: verificationView.bottomAnchor, constant: 10),
+//            verifyButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2)
 
         ])
     }

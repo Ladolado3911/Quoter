@@ -30,7 +30,7 @@ class ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view = profileView
     }
     
     private func setup() {

@@ -9,8 +9,10 @@ import UIKit
 
 protocol SigninInteractorProtocol {
     var presenter: SigninPresenterProtocol? { get set }
+    var signinNetworkWorker: SigninNetworkWorkerProtocol? { get set }
 }
 
 class SigninInteractor: SigninInteractorProtocol {
     var presenter: SigninPresenterProtocol?
+    var signinNetworkWorker: SigninNetworkWorkerProtocol?
 }

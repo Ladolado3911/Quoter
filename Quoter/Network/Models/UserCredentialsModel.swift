@@ -10,5 +10,11 @@ import UIKit
 struct UserCredentials: Codable {
     var email: String
     var password: String
-    var isMailVerified: Bool
+    var isMailVerified: Bool?
+}
+
+struct UserModel: Codable {
+    var idString: String
+    var email: String
+    var password: String
 }

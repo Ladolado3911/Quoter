@@ -11,6 +11,7 @@ protocol SigninRouterProtocol {
     var vc: SigninVCProtocol? { get set }
     
     func routeToSignupVC()
+    func routeToProfileVC(with userIDString: String)
 }
 
 class SigninRouter: SigninRouterProtocol {
@@ -20,4 +21,12 @@ class SigninRouter: SigninRouterProtocol {
         let signupVC = SignupVC()
         vc?.present(vc: signupVC)
     }
+    
+    func routeToProfileVC(with userIDString: String) {
+        let profileVC = ProfileVC()
+        profileVC.modalPresentationStyle = .fullScreen
+        profileVC.modalTransitionStyle = .crossDissolve
+        vc?.present(vc: profileVC)
+    }
+    
 }
