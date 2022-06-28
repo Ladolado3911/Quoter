@@ -9,11 +9,26 @@ import UIKit
 
 class ProfileMenuCell: UICollectionViewCell {
     
+    let rectView: UIView = {
+        let rectView = UIView()
+        rectView.backgroundColor = DarkModeColors.lightBlack
+        rectView.layer.applySketchShadow(color: DarkModeColors.black,
+                                         alpha: 0.7,
+                                         x: 1,
+                                         y: 4,
+                                         blur: 4,
+                                         spread: 0)
+        rectView.layer.cornerRadius = 20
+        rectView.translatesAutoresizingMaskIntoConstraints = false
+        return rectView
+    }()
+    
     lazy var vstack: UIStackView = {
         let vstack = UIStackView()
         vstack.axis = .vertical
         vstack.distribution = .fillProportionally
         vstack.spacing = 10
+        vstack.alignment = .center
         vstack.isLayoutMarginsRelativeArrangement = true
         vstack.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         vstack.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +37,7 @@ class ProfileMenuCell: UICollectionViewCell {
     
     let iconImageView: UIImageView = {
         let iconImageView = UIImageView()
-        iconImageView.contentMode = .scaleAspectFit
+        iconImageView.contentMode = .scaleAspectFill
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         return iconImageView
     }()
@@ -32,23 +47,18 @@ class ProfileMenuCell: UICollectionViewCell {
         label.textAlignment = .center
         label.textColor = DarkModeColors.white
         label.text = "Gallery"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        backgroundColor = DarkModeColors.lightBlack
-        layer.applySketchShadow(color: DarkModeColors.black,
-                                alpha: 0.7,
-                                x: 1,
-                                y: 4,
-                                blur: 4,
-                                spread: 0)
-        layer.cornerRadius = 20
+        backgroundColor = .clear
     }
     
     func buildSubviews() {
+        addSubview(rectView)
         vstack.addArrangedSubview(iconImageView)
         vstack.addArrangedSubview(menuItemTitleLabel)
         addSubview(vstack)
@@ -56,10 +66,19 @@ class ProfileMenuCell: UICollectionViewCell {
     
     func buildConstraints() {
         NSLayoutConstraint.activate([
-            vstack.leadingAnchor.constraint(equalTo: leadingAnchor),
-            vstack.topAnchor.constraint(equalTo: topAnchor),
-            vstack.trailingAnchor.constraint(equalTo: trailingAnchor),
-            vstack.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            rectView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            rectView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            rectView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+            rectView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
+            
+            vstack.leadingAnchor.constraint(equalTo: rectView.leadingAnchor),
+            vstack.topAnchor.constraint(equalTo: rectView.topAnchor),
+            vstack.trailingAnchor.constraint(equalTo: rectView.trailingAnchor),
+            vstack.bottomAnchor.constraint(equalTo: rectView.bottomAnchor),
+            
+            iconImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.15),
+//            iconImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.05),
         ])
     }
 }

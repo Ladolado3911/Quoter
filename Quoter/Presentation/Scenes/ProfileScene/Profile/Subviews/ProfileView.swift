@@ -100,7 +100,7 @@ class ProfileView: UIView {
             vstack.trailingAnchor.constraint(equalTo: trailingAnchor),
             vstack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.screenHeight * 0.2),
             
-            menuCollectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.352),
+            menuCollectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.32),
             userNameLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1)
         ])
     }

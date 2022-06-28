@@ -79,12 +79,12 @@ extension ProfileVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: Constants.screenHeight * 0.1514 * 1.3837,
-               height: Constants.screenHeight * 0.1514)
+        CGSize(width: (collectionView.bounds.height / 2) * 1.3837,
+               height: collectionView.bounds.height / 2)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        30
+        0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
