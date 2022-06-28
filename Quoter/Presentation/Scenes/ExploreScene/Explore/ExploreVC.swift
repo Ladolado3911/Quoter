@@ -87,6 +87,7 @@ class ExploreVC: UIViewController {
         let url = URL(string: "wss://quotie-quoter-api.herokuapp.com/getSmallQuote")
         interactor?.websocketTask = session.webSocketTask(with: url!)
         interactor?.websocketTask?.resume()
+        interactor?.isConfigurationRunning = true
     }
     
     private func configTimer() {
@@ -156,6 +157,15 @@ extension ExploreVC {
         //interactor?.buttonAnimationTimerFire(collectionView: exploreView?.collectionView)
         exploreView?.animateQuoteButton()
         exploreView?.animateFilterButton()
+        interactor?.websocketTask?.sendPing(pongReceiveHandler: { [weak self] error in
+            if let error = error {
+                guard let self = self else { return }
+                if !self.interactor!.isConfigurationRunning {
+                    self.configWebsocket()
+                }
+                print("pong error is \(error.localizedDescription)")
+            }
+        })
     }
 }
 
@@ -327,6 +337,7 @@ extension ExploreVC: URLSessionWebSocketDelegate {
 
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
         print("did connect to socket")
+        interactor?.isConfigurationRunning = false
         
     }
     
@@ -334,4 +345,3 @@ extension ExploreVC: URLSessionWebSocketDelegate {
         print("did lose connection with socket")
     }
 }
-
