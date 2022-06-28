@@ -53,20 +53,43 @@ class ProfileVC: UIViewController {
     private func configCollectionView() {
         profileView?.menuCollectionView.dataSource = self
         profileView?.menuCollectionView.delegate = self
+        profileView?.menuCollectionView.register(ProfileMenuCell.self, forCellWithReuseIdentifier: "ProfileCell")
     }
     
 }
 
 extension ProfileVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        0
+        interactor?.menuItems.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCell", for: indexPath)
+        return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let item = interactor?.menuItems[indexPath.item]
+        if let cell = cell as? ProfileMenuCell {
+            cell.buildSubviews()
+            cell.buildConstraints()
+            cell.iconImageView.image = item?.icon
+            cell.menuItemTitleLabel.text = item?.title
+        }
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: Constants.screenHeight * 0.1514 * 1.3837,
+               height: Constants.screenHeight * 0.1514)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        30
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
 }
 
 extension ProfileVC: ProfileVCProtocol {
