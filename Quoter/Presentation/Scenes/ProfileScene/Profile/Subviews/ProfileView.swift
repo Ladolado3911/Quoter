@@ -65,6 +65,7 @@ class ProfileView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = true
+        collectionView.indicatorStyle = .white
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()

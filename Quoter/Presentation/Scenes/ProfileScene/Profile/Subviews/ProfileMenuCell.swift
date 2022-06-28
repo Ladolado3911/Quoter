@@ -30,7 +30,8 @@ class ProfileMenuCell: UICollectionViewCell {
         vstack.spacing = 10
         vstack.alignment = .center
         vstack.isLayoutMarginsRelativeArrangement = true
-        vstack.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        let inset = Constants.screenHeight * 0.0215
+        vstack.layoutMargins = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
         vstack.translatesAutoresizingMaskIntoConstraints = false
         return vstack
     }()
@@ -47,7 +48,7 @@ class ProfileMenuCell: UICollectionViewCell {
         label.textAlignment = .center
         label.textColor = DarkModeColors.white
         label.text = "Gallery"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: Constants.screenHeight * 0.02375, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -69,7 +70,7 @@ class ProfileMenuCell: UICollectionViewCell {
             
             rectView.centerXAnchor.constraint(equalTo: centerXAnchor),
             rectView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            rectView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+            rectView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9),
             rectView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
             
             vstack.leadingAnchor.constraint(equalTo: rectView.leadingAnchor),
