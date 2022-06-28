@@ -7,12 +7,27 @@
 
 import UIKit
 import GoogleMobileAds
+import FacebookCore
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, GADFullScreenContentDelegate {
 
     var window: UIWindow?
     var appOpenAd: GADAppOpenAd?
     var loadTime = Date()
+    var isAdOnScreen = false
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else {
+            return
+        }
+
+        ApplicationDelegate.shared.application(
+            UIApplication.shared,
+            open: url,
+            sourceApplication: nil,
+            annotation: [UIApplication.OpenURLOptionsKey.annotation]
+        )
+    }
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -67,19 +82,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GADFullScreenContentDel
     func requestAppOpenAd(completion: (() -> Void)?) {
         let request = GADRequest()
         // this is test ad unit
-        GADAppOpenAd.load(withAdUnitID: "ca-app-pub-4520908978346246/8487103681",
-                          request: request,
-                          orientation: UIInterfaceOrientation.portrait,
-                          completionHandler: { (appOpenAdIn, _) in
-            self.appOpenAd = appOpenAdIn
-            self.appOpenAd?.fullScreenContentDelegate = self
-            //self.tryToPresentAd()
-            print("Ad is ready")
-            if let completion = completion {
-                completion()
-            }
-            
-        })
+        if !isAdOnScreen {
+            print("load ad")
+            GADAppOpenAd.load(withAdUnitID: "ca-app-pub-3940256099942544/3419835294",
+                              request: request,
+                              orientation: UIInterfaceOrientation.portrait,
+                              completionHandler: { [weak self] (appOpenAdIn, _) in
+                guard let self = self else { return }
+                self.appOpenAd = appOpenAdIn
+                self.appOpenAd?.fullScreenContentDelegate = self
+                //self.tryToPresentAd()
+                //print("Ad is ready")
+                if let completion = completion {
+                    self.isAdOnScreen = true
+                    completion()
+                }
+                
+            })
+        }
     }
     func tryToPresentAd() {
         if let gOpenAd = self.appOpenAd, let rwc = window!.rootViewController {
@@ -95,11 +115,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GADFullScreenContentDel
     }
     
     func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
-        requestAppOpenAd(completion: nil)
+        print("error is \(error.localizedDescription)")
+        //requestAppOpenAd(completion: nil)
     }
     
     func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        requestAppOpenAd(completion: nil)
+        print("dismiss")
+        
+        //requestAppOpenAd(completion: nil)
+    }
+    
+    func adWillDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        print("will dismiss")
+        self.isAdOnScreen = false
+        self.appOpenAd = nil
     }
     
 //    func adDidPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
@@ -108,5 +137,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GADFullScreenContentDel
 //    }
     
 }
-
-
