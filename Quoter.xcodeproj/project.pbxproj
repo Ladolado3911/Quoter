@@ -118,6 +118,7 @@
 		24DAF67B285219AA0046DC51 /* FilterCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DAF67A285219AA0046DC51 /* FilterCategories.swift */; };
 		24DAF67D285229C00046DC51 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DAF67C285229C00046DC51 /* CALayer+Extension.swift */; };
 		24DAF67F285235200046DC51 /* FilterLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DAF67E285235200046DC51 /* FilterLayout.swift */; };
+		24DEA8EF286B1380006F59C3 /* ProfileMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DEA8EE286B1380006F59C3 /* ProfileMenuCell.swift */; };
 		24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 24DEBF4527ABB1D400C40B29 /* Lottie */; };
 		24EF3BC32851D4A800789F0E /* FilterIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EF3BC22851D4A800789F0E /* FilterIcons.swift */; };
 		24F40214280DA33B007DF059 /* typodermic-eula-03-2020.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 24F40212280DA33B007DF059 /* typodermic-eula-03-2020.pdf */; };
@@ -254,6 +255,7 @@
 		24DAF67A285219AA0046DC51 /* FilterCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCategories.swift; sourceTree = "<group>"; };
 		24DAF67C285229C00046DC51 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		24DAF67E285235200046DC51 /* FilterLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterLayout.swift; sourceTree = "<group>"; };
+		24DEA8EE286B1380006F59C3 /* ProfileMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMenuCell.swift; sourceTree = "<group>"; };
 		24EF3BC22851D4A800789F0E /* FilterIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterIcons.swift; sourceTree = "<group>"; };
 		24F40212280DA33B007DF059 /* typodermic-eula-03-2020.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "typodermic-eula-03-2020.pdf"; sourceTree = "<group>"; };
 		24F40213280DA33B007DF059 /* goodtimesrg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = goodtimesrg.otf; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 			isa = PBXGroup;
 			children = (
 				2463DAFA28648DC600FA78BE /* ProfileView.swift */,
+				24DEA8EE286B1380006F59C3 /* ProfileMenuCell.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1149,6 +1152,7 @@
 				2458D2982809A25B0088C00E /* ExploreView.swift in Sources */,
 				24138A362805AD6E00044F5E /* UIViewController+Extension.swift in Sources */,
 				2463DAF828648DB100FA78BE /* ProfileRouter.swift in Sources */,
+				24DEA8EF286B1380006F59C3 /* ProfileMenuCell.swift in Sources */,
 				2463DAF428648D9B00FA78BE /* ProfileInteractor.swift in Sources */,
 				24138A332805AD6E00044F5E /* UIColor+Extension.swift in Sources */,
 				2470F65D284E32DD00B6124D /* FilterRouter.swift in Sources */,
