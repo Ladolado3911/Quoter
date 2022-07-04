@@ -31,6 +31,11 @@ class ProfileVC: UIViewController {
         setup()
     }
     
+    override func loadView() {
+        super.loadView()
+        interactor?.setProfileContent()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view = profileView

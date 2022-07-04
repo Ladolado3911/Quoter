@@ -10,7 +10,7 @@ import UIKit
 struct MenuItem {
     let title: String
     let icon: UIImage
-    let viewController: UIViewController
+    var viewController: UIViewController
     var isSelected: Bool = false
     
     mutating func select() {
@@ -19,5 +19,9 @@ struct MenuItem {
     
     mutating func deselect() {
         isSelected = false
+    }
+    
+    mutating func switchVC(with vc: UIViewController) {
+        viewController = vc
     }
 }

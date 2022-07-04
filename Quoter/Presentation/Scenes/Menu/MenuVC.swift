@@ -23,7 +23,7 @@ class MenuVC: UIViewController {
     lazy var leftSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeftOnMenuView(sender:)))
     
     var selectedItemIndex: Int = 0
-    let viewControllers = MenuModels.shared.menuItems.map { $0.viewController }
+    var viewControllers = MenuModels.shared.menuItems.map { $0.viewController }
     var menuItems = MenuModels.shared.menuItems
     var selectedVC: UIViewController {
         viewControllers[selectedItemIndex]
@@ -68,6 +68,17 @@ class MenuVC: UIViewController {
             addChild(vc)
             if childIndex == 0 {
                 view.addSubview(vc.view)
+            }
+            if childIndex == 2 {
+                if let vc = vc as? ProfileVC {
+                    vc.router?.reloadDelegate = self
+                }
+                if let vc = vc as? SigninVC {
+                    vc.router?.reloadDelegate = self
+                }
+                if let vc = vc as? SignupVC {
+                    vc.router?.reloadDelegate = self
+                }
             }
         }
         menuVCButton.addTarget(self, action: #selector(didTapOnMenuVCButton(sender:)), for: .touchUpInside)
@@ -187,5 +198,42 @@ extension MenuVC: UITableViewDataSource, UITableViewDelegate {
         switchVC(index: indexPath.row)
         tableView.reloadData()
         didTapOnVC()
+    }
+}
+
+extension MenuVC: ReloadMenuTableViewDelegate {
+    func reloadTableView() {
+        for vc in viewControllers {
+            if let vc = vc as? ProfileVC {
+                vc.view.removeFromSuperview()
+                vc.removeFromParent()
+                let signinVC = SigninVC()
+                addChild(signinVC)
+                view.addSubview(signinVC.view)
+                signinVC.router?.reloadDelegate = self
+                viewControllers[2] = signinVC
+            }
+            if let vc = vc as? SigninVC {
+                vc.view.removeFromSuperview()
+                vc.removeFromParent()
+                let profileVC = ProfileVC()
+                addChild(profileVC)
+                view.addSubview(profileVC.view)
+                profileVC.router?.reloadDelegate = self
+                viewControllers[2] = profileVC
+            }
+            if let vc = vc as? SignupVC {
+                vc.view.removeFromSuperview()
+                vc.removeFromParent()
+                let profileVC = ProfileVC()
+                addChild(profileVC)
+                view.addSubview(profileVC.view)
+                profileVC.router?.reloadDelegate = self
+                viewControllers[2] = profileVC
+            }
+            view.bringSubviewToFront(menuView)
+            view.bringSubviewToFront(menuVCButton)
+            view.bringSubviewToFront(blurEffectView)
+        }
     }
 }

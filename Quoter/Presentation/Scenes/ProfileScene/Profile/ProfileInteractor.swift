@@ -24,7 +24,7 @@ protocol ProfileInteractorProtocol {
     var profileNetworkWorker: ProfileNetworkWorkerProtocol? { get set }
     
     func signoutUser()
-    func setMail()
+    func setProfileContent()
 }
 
 class ProfileInteractor: ProfileInteractorProtocol {
@@ -45,7 +45,7 @@ class ProfileInteractor: ProfileInteractorProtocol {
         CurrentUserLocalManager.shared.deleteUserIDAfterSignOut()
     }
     
-    func setMail() {
+    func setProfileContent() {
         if let userIDString = userIDString {
             Task.init { [weak self] in
                 guard let self = self else { return }
