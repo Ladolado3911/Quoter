@@ -10,11 +10,16 @@ import UIKit
 protocol ProfileRouterProtocol {
     var vc: ProfileVCProtocol? { get set }
     
+    func routeToSigninVC()
     
 }
 
 class ProfileRouter: ProfileRouterProtocol {
     weak var vc: ProfileVCProtocol?
     
+    func routeToSigninVC() {
+        let signinVC = SigninVC()
+        vc?.present(vc: signinVC)
+    }
     
 }

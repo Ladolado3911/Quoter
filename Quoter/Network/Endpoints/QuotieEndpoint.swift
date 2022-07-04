@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum QuoteSize: String {
     case big
@@ -20,8 +21,9 @@ enum QuotieEndpoint: EndpointProtocol {
     
     case signupUser(body: UserCredentials)
     case signinUser(body: UserCredentials)
+    //case signoutUser(id: UUID)
     
-    case getUser(userID: String)
+    case getUserProfileContent(userID: String)
 
     var scheme: Scheme {
         switch self {
@@ -47,8 +49,10 @@ enum QuotieEndpoint: EndpointProtocol {
             return "/signUp/"
         case .signinUser:
             return "/signIn/"
-        case .getUser(let id):
-            return "/getUser/\(id)/"
+        case .getUserProfileContent(let id):
+            return "/getUserProfileContent/\(id)/"
+//        case .signoutUser:
+//            return "/signOut/"
         }
     }
     var parameters: [URLQueryItem] {
@@ -88,6 +92,16 @@ enum QuotieEndpoint: EndpointProtocol {
                 print(error)
                 return nil
             }
+            
+//        case .signoutUser(let id):
+//            do {
+//                let data = try JSONEncoder().encode(id)
+//                return data
+//            }
+//            catch {
+//                print(error)
+//                return nil
+//            }
             
         default:
             return nil

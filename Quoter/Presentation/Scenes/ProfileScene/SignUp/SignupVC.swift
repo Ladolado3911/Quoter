@@ -13,6 +13,8 @@ protocol SignupVCProtocol: AnyObject {
     var interactor: SignupInteractorProtocol? { get set }
     var router: SignupRouterProtocol? { get set }
     var signupView: SignupView? { get set }
+    
+    func present(vc: UIViewController)
 }
 
 class SignupVC: UIViewController {
@@ -120,8 +122,10 @@ extension SignupVC {
             await MainActor.run {
                 var resultMessage: String = ""
                 switch response?.response {
-                case .success(let message):
-                    resultMessage = message
+                case .success(let idString):
+                    guard let id = UUID(uuidString: idString) else { return }
+                    CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id)
+                    router?.routeToProfileVC()
                 case .failure(let message):
                     resultMessage = message
                 default:
@@ -157,5 +161,7 @@ extension SignupVC {
 }
 
 extension SignupVC: SignupVCProtocol {
-    
+    func present(vc: UIViewController) {
+        present(vc, animated: true)
+    }
 }

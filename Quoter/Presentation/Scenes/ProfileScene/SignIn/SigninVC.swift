@@ -74,22 +74,6 @@ class SigninVC: UIViewController {
                 self.signinView?.formView.callToActionButton.isEnabled = bool
             }
             .store(in: &cancellables)
-
-//        emailSubject
-//            .sink { [weak self] value in
-//                guard let self = self else { return }
-//                let emailWidth: CGFloat = value.isValidEmail.1 ? 0 : 1
-//                self.signinView?.formView.firstInputView.rectView.layer.borderWidth = emailWidth
-//            }
-//            .store(in: &cancellables)
-//
-//        passwordSubject
-//            .sink { [weak self] value in
-//                guard let self = self else { return }
-//                let passwordWidth: CGFloat = value.isValidPassword.1 ? 0 : 1
-//                self.signinView?.formView.secondInputView.rectView.layer.borderWidth = passwordWidth
-//            }
-//            .store(in: &cancellables)
     }
     
     private func configElements() {
@@ -133,11 +117,16 @@ extension SigninVC {
             }
             await MainActor.run { [resultResponse] in
                 switch resultResponse?.response {
-                case .success(let id):
+                case .success(let idString):
                     // show profile VC
                     self.signinView?.formView.callToActionButton.stopAnimating()
-                    self.router?.routeToProfileVC(with: id)
-                    break
+                    if let id = UUID(uuidString: idString) {
+                        CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id)
+                        self.router?.routeToProfileVC()
+                    }
+                    else {
+                        break
+                    }
                 case .failure(let message):
                     self.signinView?.formView.callToActionButton.stopAnimating()
                     self.presentAlert(title: "Alert",
@@ -155,20 +144,10 @@ extension SigninVC {
     }
     
     @objc func emailTextFieldDidChange(sender: UITextField) {
-//        if sender.text == "" {
-//            signinView?.formView.firstInputView.rectView.layer.borderWidth = 0
-//            return
-//        }
-        //rackEmail = sender.text ?? ""
         emailSubject.send(sender.text ?? "")
     }
     
     @objc func passwordTextFieldDidChange(sender: UITextField) {
-//        if sender.text == "" {
-//            signinView?.formView.secondInputView.rectView.layer.borderWidth = 0
-//            return
-//        }
-        //trackPassword = sender.text ?? ""
         passwordSubject.send(sender.text ?? "")
     }
 }

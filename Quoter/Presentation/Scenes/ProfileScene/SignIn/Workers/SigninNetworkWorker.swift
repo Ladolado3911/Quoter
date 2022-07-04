@@ -11,7 +11,7 @@ protocol SigninNetworkWorkerProtocol {
     var networkWorker: NetworkWorkerProtocol { get set }
 
     func signinUser(user: UserCredentials) async throws -> QuotieResponse
-    func getUser(using id: String) async throws -> UserModel
+//    func getUserProfileContent(using id: String) async throws -> UserProfileContent
 }
 
 class SigninNetworkWorker: SigninNetworkWorkerProtocol {
@@ -25,10 +25,10 @@ class SigninNetworkWorker: SigninNetworkWorkerProtocol {
         return response
     }
     
-    func getUser(using id: String) async throws -> UserModel {
-        let endpoint = QuotieEndpoint.getUser(userID: id)
-        let model = Resource(model: UserModel.self)
-        let response = try await networkWorker.request(endpoint: endpoint, model: model)
-        return response
-    }
+//    func getUserProfileContent(using id: String) async throws -> UserProfileContent {
+//        let endpoint = QuotieEndpoint.getUserProfileContent(userID: id)
+//        let model = Resource(model: UserProfileContent.self)
+//        let response = try await networkWorker.request(endpoint: endpoint, model: model)
+//        return response
+//    }
 }

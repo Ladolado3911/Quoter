@@ -79,6 +79,7 @@
 		2470F659284E322800B6124D /* FilterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2470F658284E322800B6124D /* FilterInteractor.swift */; };
 		2470F65B284E328400B6124D /* FilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2470F65A284E328400B6124D /* FilterPresenter.swift */; };
 		2470F65D284E32DD00B6124D /* FilterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2470F65C284E32DD00B6124D /* FilterRouter.swift */; };
+		248115C32872E88100671C4B /* CurrentUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248115C22872E88100671C4B /* CurrentUserManager.swift */; };
 		24832A2C28698FAE001597FC /* UserCredentialsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24832A2B28698FAE001597FC /* UserCredentialsModel.swift */; };
 		24832A2F28699628001597FC /* SigninNetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24832A2E28699628001597FC /* SigninNetworkWorker.swift */; };
 		24832A32286998F9001597FC /* SignupNetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24832A31286998F9001597FC /* SignupNetworkWorker.swift */; };
@@ -121,6 +122,7 @@
 		24DAF67F285235200046DC51 /* FilterLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DAF67E285235200046DC51 /* FilterLayout.swift */; };
 		24DEA8EF286B1380006F59C3 /* ProfileMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DEA8EE286B1380006F59C3 /* ProfileMenuCell.swift */; };
 		24DEBF4627ABB1D400C40B29 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 24DEBF4527ABB1D400C40B29 /* Lottie */; };
+		24E49857286B420100D119F1 /* ProfileNetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E49856286B420100D119F1 /* ProfileNetworkWorker.swift */; };
 		24EF3BC32851D4A800789F0E /* FilterIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EF3BC22851D4A800789F0E /* FilterIcons.swift */; };
 		24F40214280DA33B007DF059 /* typodermic-eula-03-2020.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 24F40212280DA33B007DF059 /* typodermic-eula-03-2020.pdf */; };
 		24F40215280DA33B007DF059 /* goodtimesrg.otf in Resources */ = {isa = PBXBuildFile; fileRef = 24F40213280DA33B007DF059 /* goodtimesrg.otf */; };
@@ -214,6 +216,7 @@
 		2470F658284E322800B6124D /* FilterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInteractor.swift; sourceTree = "<group>"; };
 		2470F65A284E328400B6124D /* FilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresenter.swift; sourceTree = "<group>"; };
 		2470F65C284E32DD00B6124D /* FilterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRouter.swift; sourceTree = "<group>"; };
+		248115C22872E88100671C4B /* CurrentUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserManager.swift; sourceTree = "<group>"; };
 		24832A2B28698FAE001597FC /* UserCredentialsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentialsModel.swift; sourceTree = "<group>"; };
 		24832A2E28699628001597FC /* SigninNetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninNetworkWorker.swift; sourceTree = "<group>"; };
 		24832A31286998F9001597FC /* SignupNetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupNetworkWorker.swift; sourceTree = "<group>"; };
@@ -256,6 +259,7 @@
 		24DAF67C285229C00046DC51 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		24DAF67E285235200046DC51 /* FilterLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterLayout.swift; sourceTree = "<group>"; };
 		24DEA8EE286B1380006F59C3 /* ProfileMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMenuCell.swift; sourceTree = "<group>"; };
+		24E49856286B420100D119F1 /* ProfileNetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNetworkWorker.swift; sourceTree = "<group>"; };
 		24EF3BC22851D4A800789F0E /* FilterIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterIcons.swift; sourceTree = "<group>"; };
 		24F40212280DA33B007DF059 /* typodermic-eula-03-2020.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "typodermic-eula-03-2020.pdf"; sourceTree = "<group>"; };
 		24F40213280DA33B007DF059 /* goodtimesrg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = goodtimesrg.otf; sourceTree = "<group>"; };
@@ -361,6 +365,7 @@
 				24D5BC262806C2C0003D14CD /* BaseVC.swift */,
 				24138A3C2805B39F00044F5E /* Constants.swift */,
 				248C54132850BD600080FBBE /* ModalViewWithTopBorder.swift */,
+				248115C22872E88100671C4B /* CurrentUserManager.swift */,
 			);
 			path = SharedElements;
 			sourceTree = "<group>";
@@ -473,6 +478,7 @@
 				2463DAF328648D9B00FA78BE /* ProfileInteractor.swift */,
 				2463DAF528648DA700FA78BE /* ProfilePresenter.swift */,
 				2463DAF728648DB100FA78BE /* ProfileRouter.swift */,
+				24E49855286B41EE00D119F1 /* Workers */,
 				2463DAF928648DB500FA78BE /* Subviews */,
 			);
 			path = Profile;
@@ -816,6 +822,14 @@
 			path = Workers;
 			sourceTree = "<group>";
 		};
+		24E49855286B41EE00D119F1 /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				24E49856286B420100D119F1 /* ProfileNetworkWorker.swift */,
+			);
+			path = Workers;
+			sourceTree = "<group>";
+		};
 		24EF3BC12851D49500789F0E /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -1130,6 +1144,7 @@
 				2463DAFD28649C9E00FA78BE /* ProfileIcons.swift in Sources */,
 				24DAF6792852136D0046DC51 /* FilterCell.swift in Sources */,
 				246B829C283137B400D44DF5 /* ExploreInteractor.swift in Sources */,
+				24E49857286B420100D119F1 /* ProfileNetworkWorker.swift in Sources */,
 				2463DAEB28648B2B00FA78BE /* SignupInteractor.swift in Sources */,
 				24138A232805748200044F5E /* MenuModels.swift in Sources */,
 				246B82A72831464B00D44DF5 /* ExploreEntities.swift in Sources */,
@@ -1163,6 +1178,7 @@
 				24D018F9280ADE880031C14B /* ExploreIcons.swift in Sources */,
 				24832A2C28698FAE001597FC /* UserCredentialsModel.swift in Sources */,
 				2463DAF228648B5000FA78BE /* SignupView.swift in Sources */,
+				248115C32872E88100671C4B /* CurrentUserManager.swift in Sources */,
 				24832A342869DACA001597FC /* ResponseModel.swift in Sources */,
 				24484AD42837C07900D3BFA8 /* QuoteButtonView.swift in Sources */,
 				246B82962831204E00D44DF5 /* NetworkWorker.swift in Sources */,

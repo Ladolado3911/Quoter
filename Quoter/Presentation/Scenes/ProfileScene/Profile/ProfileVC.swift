@@ -11,6 +11,9 @@ protocol ProfileVCProtocol: AnyObject {
     var interactor: ProfileInteractorProtocol? { get set }
     var router: ProfileRouterProtocol? { get set }
     var profileView: ProfileView? { get set }
+    
+    func present(vc: UIViewController)
+    func setProfileContent(content: UserProfileContent)
 }
 
 class ProfileVC: UIViewController {
@@ -32,6 +35,7 @@ class ProfileVC: UIViewController {
         super.viewDidLoad()
         view = profileView
         configCollectionView()
+        configButtons()
     }
     
     private func setup() {
@@ -39,13 +43,13 @@ class ProfileVC: UIViewController {
         let interactor = ProfileInteractor()
         let presenter = ProfilePresenter()
         let router = ProfileRouter()
-        //let exploreNetworkWorker = ExploreNetworkWorker()
+        let profileNetworkWorker = ProfileNetworkWorker()
         let profileView = ProfileView(frame: UIScreen.main.bounds)
         vc.interactor = interactor
         vc.profileView = profileView
         vc.router = router
         interactor.presenter = presenter
-        //interactor.exploreNetworkWorker = exploreNetworkWorker
+        interactor.profileNetworkWorker = profileNetworkWorker
         presenter.vc = vc
         router.vc = vc
     }
@@ -56,6 +60,17 @@ class ProfileVC: UIViewController {
         profileView?.menuCollectionView.register(ProfileMenuCell.self, forCellWithReuseIdentifier: "ProfileCell")
     }
     
+    private func configButtons() {
+        profileView?.signoutButton.addTarget(self, action: #selector(onSignoutButton(sender:)), for: .touchUpInside)
+    }
+    
+}
+
+extension ProfileVC {
+    @objc func onSignoutButton(sender: UIButton) {
+        interactor?.signoutUser()
+        router?.routeToSigninVC()
+    }
 }
 
 extension ProfileVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -93,5 +108,11 @@ extension ProfileVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 }
 
 extension ProfileVC: ProfileVCProtocol {
+    func present(vc: UIViewController) {
+        present(vc, animated: true)
+    }
     
+    func setProfileContent(content: UserProfileContent) {
+        profileView?.titleLabel.text = content.email
+    }
 }
