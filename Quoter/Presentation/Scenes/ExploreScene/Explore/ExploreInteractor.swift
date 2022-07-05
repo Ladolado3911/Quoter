@@ -25,6 +25,9 @@ protocol ExploreInteractorProtocol {
     var timer: Timer? { get set }
     var isConfigurationRunning: Bool { get set }
     
+    var scrollBeginOffset: CGPoint { get set }
+    var scrollDidEndOffset: CGPoint { get set }
+    
     //func buttonAnimationTimerFire(collectionView: UICollectionView?)
     func onDownloadButton()
     func presentAlert(title: String, text: String, mainButtonText: String, mainButtonStyle: UIAlertAction.Style, action: (() -> Void)?)
@@ -74,6 +77,9 @@ class ExploreInteractor: ExploreInteractorProtocol {
     }
     var websocketTask: URLSessionWebSocketTask?
     var timer: Timer?
+    
+    var scrollBeginOffset: CGPoint = .zero
+    var scrollDidEndOffset: CGPoint = .zero
     
     var isConfigurationRunning = false
 
@@ -221,13 +227,25 @@ class ExploreInteractor: ExploreInteractorProtocol {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let prevPage = currentPage
-        currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        if currentPage == loadedQuotes?.count ?? 0 - 1 {
-            loadedQuotes?.append(ExploreQuote())
+        //let prevPage = currentPage
+        //var contentOffsetX: CGFloat
+        var shouldAddCell: Bool = false
+        if scrollDidEndOffset.x > scrollBeginOffset.x {
+            //contentOffsetX = Constants.screenWidth
+            currentPage += 1
+            print(currentPage)
+            print(loadedQuotes?.count ?? 0)
+            shouldAddCell = currentPage >= (loadedQuotes?.count ?? 0) - 4
+            if currentPage >= (loadedQuotes?.count ?? 0) - 4 {
+                loadedQuotes?.append(ExploreQuote())
+            }
         }
+        else {
+            //contentOffsetX = -Constants.screenWidth
+            currentPage -= 1
+        }
+        //currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
         let indexPaths = [IndexPath(item: loadedQuotes!.count - 2, section: 0)]
-        let shouldAddCell = currentPage == loadedQuotes?.count ?? 0 - 1
         presenter?.addCellWhenSwiping(indexPaths: indexPaths, shouldAddCell: shouldAddCell)
     }
     
@@ -254,8 +272,6 @@ class ExploreInteractor: ExploreInteractorProtocol {
             }
         }
         let indexPaths = [IndexPath(item: loadedQuotes!.count - 2, section: 0)]
-//        let shouldAddCell = currentPage >= (loadedQuotes?.count ?? 0) - 4
-
         presenter?.scroll(direction: direction, contentOffsetX: contentOffsetX!, indexPaths: indexPaths, shouldAddCell: shouldAddCell)
     }
     

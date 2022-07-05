@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import AuthenticationServices
 
 protocol SigninVCProtocol: AnyObject {
     var interactor: SigninInteractorProtocol? { get set }
@@ -29,6 +30,11 @@ class SigninVC: UIViewController {
     var trackPassword = ""
     
     var cancellables: Set<AnyCancellable> = []
+    
+    lazy var onAppleTapGesture: UITapGestureRecognizer = {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(continueWithApple(sender:)))
+        return tapGesture
+    }()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -54,12 +60,14 @@ class SigninVC: UIViewController {
         let presenter = SigninPresenter()
         let router = SigninRouter()
         let signinNetworkWorker = SigninNetworkWorker()
+        let signupNetworkWorker = SignupNetworkWorker()
         let signinView = SigninView(frame: UIScreen.main.bounds)
         vc.interactor = interactor
         vc.signinView = signinView
         vc.router = router
         interactor.presenter = presenter
         interactor.signinNetworkWorker = signinNetworkWorker
+        interactor.signupNetworkWorker = signupNetworkWorker
         presenter.vc = vc
         router.vc = vc
     }
@@ -77,6 +85,7 @@ class SigninVC: UIViewController {
     }
     
     private func configElements() {
+        signinView?.thirdPartyButtonView2.addGestureRecognizer(onAppleTapGesture)
         signinView?.signUpButton.addTarget(self, action: #selector(onSignupButton(sender:)), for: .touchUpInside)
         signinView?.formView.callToActionButton.addTarget(self, action: #selector(onSigninButton(sender:)), for: .touchUpInside)
         signinView?.formView.firstInputView.inputTextField.addTarget(self, action: #selector(emailTextFieldDidChange(sender:)), for: .editingChanged)
@@ -150,6 +159,20 @@ extension SigninVC {
     @objc func passwordTextFieldDidChange(sender: UITextField) {
         passwordSubject.send(sender.text ?? "")
     }
+    
+    @objc func continueWithApple(sender: UIButton) {
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+        request.requestedScopes = [.email]
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        controller.presentationContextProvider = self
+        controller.delegate = self
+        controller.performRequests()
+    }
+    
+    @objc func continueWithGoogle(sender: UIButton) {
+        
+    }
 }
 
 extension SigninVC: SigninVCProtocol {
@@ -160,4 +183,56 @@ extension SigninVC: SigninVCProtocol {
 
 extension SigninVC: UITextFieldDelegate {
     
+}
+
+extension SigninVC: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print(error)
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        switch authorization.credential {
+        case let credentials as ASAuthorizationAppleIDCredential:
+            let mail = credentials.email
+            interactor?.signupIfNeeded(email: mail) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let idString):
+                    let id = UUID(uuidString: idString)!
+                    CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id)
+                    self.router?.routeToProfileVC()
+                case .failure:
+                    Task.init {
+                        let userCredentials = UserCredentials(email: mail ?? "No Email", password: "", isMailVerified: true)
+                        let response = try await self.interactor?.signinNetworkWorker?.signinUser(user: userCredentials)
+                        await MainActor.run {
+                            switch response?.response {
+                            case .success(let idString):
+                                let id = UUID(uuidString: idString)!
+                                CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id)
+                                self.router?.routeToProfileVC()
+                            case .failure(let errorMessage):
+                                self.presentAlert(title: "Alert",
+                                                  text: errorMessage,
+                                                  mainButtonText: "ok",
+                                                  mainButtonStyle: .cancel) {
+                                    
+                                }
+                            default:
+                                break
+                            }
+                        }
+                    }
+                }
+            }
+        default:
+            break
+        }
+    }
+}
+
+extension SigninVC: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        view.window!
+    }
 }

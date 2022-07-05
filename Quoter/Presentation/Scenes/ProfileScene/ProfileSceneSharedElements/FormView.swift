@@ -73,7 +73,8 @@ class FormView: UIView {
             secondInputView.heightAnchor.constraint(equalTo: firstInputView.heightAnchor),
             
             callToActionButton.topAnchor.constraint(equalTo: secondInputView.bottomAnchor, constant: 25),
-            callToActionButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3673),
+            //callToActionButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3673),
+            callToActionButton.widthAnchor.constraint(equalTo: secondInputView.widthAnchor),
             callToActionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             callToActionButton.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])

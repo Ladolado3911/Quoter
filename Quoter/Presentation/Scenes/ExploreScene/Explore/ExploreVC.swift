@@ -33,7 +33,7 @@ class ExploreVC: UIViewController {
     var interactor: ExploreInteractorProtocol?
     var router: ExploreRouterProtocol?
     var exploreView: ExploreView?
-
+    
     lazy var quoteButtonTapGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(onQuoteButton(sender:)))
         return gesture
@@ -201,7 +201,18 @@ extension ExploreVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        interactor?.scrollDidEndOffset = scrollView.contentOffset
         interactor?.scrollViewDidEndDecelerating(scrollView)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            guard let self = self else { return }
+            self.turnInteractionOn()
+        }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        print("call off")
+        interactor?.scrollBeginOffset = scrollView.contentOffset
+        turnInteractionOff()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -249,8 +260,11 @@ extension ExploreVC: ExploreVCProtocol {
     }
     
     func addCellWhenSwiping(indexPaths: [IndexPath], shouldAddCell: Bool) {
+//        let nextOffset = CGPoint(x: exploreView!.collectionView.contentOffset.x + contentOffsetX,
+//                                 y: exploreView!.collectionView.contentOffset.y)
         if shouldAddCell {
             exploreView?.collectionView.insertItems(at: indexPaths)
+//            exploreView?.collectionView.setContentOffset(nextOffset, animated: true)
         }
     }
     
