@@ -10,13 +10,22 @@ import AuthenticationServices
 
 enum UserDefaultsKeys: String {
     case userIDToKeepSignedIn
+    case userType
 }
 
 final class CurrentUserLocalManager {
     
     static let shared = CurrentUserLocalManager()
     
-    var type: AccountType = .quotie
+    var type: AccountType? {
+        if let type = UserDefaults.standard.string(forKey: UserDefaultsKeys.userType.rawValue) {
+            let newType = AccountType.init(rawValue: type)
+            return newType!
+        }
+        else {
+            return nil
+        }
+    }
     
     var isUserSignedIn: Bool {
         switch type {
@@ -25,6 +34,8 @@ final class CurrentUserLocalManager {
         case .apple:
             return getCurrentUserID() != nil
         case .google:
+            return getCurrentUserID() != nil
+        default:
             return getCurrentUserID() != nil
         }
     }
@@ -59,12 +70,12 @@ final class CurrentUserLocalManager {
     //MARK: To keep user signed in
     func persistUserIDAfterSignIn(id: UUID, type: AccountType) {
         UserDefaults.standard.set(id.uuidString, forKey: UserDefaultsKeys.userIDToKeepSignedIn.rawValue)
-        self.type = type
+        UserDefaults.standard.set(type.rawValue, forKey: UserDefaultsKeys.userType.rawValue)
     }
     
     func persistUserIDAfterSignIn(idString: String, type: AccountType) {
         UserDefaults.standard.set(idString, forKey: UserDefaultsKeys.userIDToKeepSignedIn.rawValue)
-        self.type = type
+        UserDefaults.standard.set(type.rawValue, forKey: UserDefaultsKeys.userType.rawValue)
     }
     
     func getCurrentUserID() -> String? {

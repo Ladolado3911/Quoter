@@ -54,6 +54,8 @@ class ProfileInteractor: ProfileInteractorProtocol {
             break
         case .google:
             break
+        default:
+            break
         }
         CurrentUserLocalManager.shared.deleteUserIDAfterSignOut()
     }
@@ -64,7 +66,9 @@ class ProfileInteractor: ProfileInteractorProtocol {
                 guard let self = self else { return }
                 let userProfileContent = try await profileNetworkWorker?.getUserProfileContent(using: userIDString)
                 await MainActor.run {
+                    
                     guard let userProfileContent = userProfileContent else { return }
+                    print(userProfileContent.email)
                     self.presenter?.setProfileContent(content: userProfileContent)
                 }
             }
