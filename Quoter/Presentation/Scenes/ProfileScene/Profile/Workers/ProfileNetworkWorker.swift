@@ -36,7 +36,7 @@ class ProfileNetworkWorker: ProfileNetworkWorkerProtocol {
 //    }
     
     func getUserProfileContent(using id: String) async throws -> UserProfileContent {
-        let endpoint = QuotieEndpoint.getUserProfileContent(userID: id)
+        let endpoint = QuotieEndpoint.getUserProfileContent(userID: id, accountType: CurrentUserLocalManager.shared.type)
         let model = Resource(model: UserProfileContent.self)
         let response = try await networkWorker.request(endpoint: endpoint, model: model)
         return response

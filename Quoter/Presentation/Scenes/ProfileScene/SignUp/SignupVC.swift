@@ -113,7 +113,8 @@ extension SignupVC {
     @objc func onSignupButton(sender: UIButton) {
         let credentials = UserCredentials(email: trackEmail,
                                           password: trackPassword,
-                                          isMailVerified: false)
+                                          isMailVerified: false,
+                                          accountType: AccountType.quotie.rawValue)
         signupView?.startAnimating()
         signupView?.formView.clearData()
         Task.init { [weak self] in
@@ -124,7 +125,7 @@ extension SignupVC {
                 switch response?.response {
                 case .success(let idString):
                     guard let id = UUID(uuidString: idString) else { return }
-                    CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id)
+                    CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id, type: .quotie)
                     router?.routeToProfileVC()
                 case .failure(let message):
                     resultMessage = message

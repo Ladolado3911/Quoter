@@ -16,7 +16,7 @@ protocol SigninInteractorProtocol {
     var signinNetworkWorker: SigninNetworkWorkerProtocol? { get set }
     var signupNetworkWorker: SignupNetworkWorkerProtocol? { get set }
     
-    func signupIfNeeded(email: String?, completion: @escaping (Result<String, SignUpError>) -> Void)
+    func signupWithApple(appleID: String, email: String?, completion: @escaping (Result<String, SignUpError>) -> Void)
     //func signin()
 }
 
@@ -25,14 +25,15 @@ class SigninInteractor: SigninInteractorProtocol {
     var signinNetworkWorker: SigninNetworkWorkerProtocol?
     var signupNetworkWorker: SignupNetworkWorkerProtocol?
     
-    func signupIfNeeded(email: String?, completion: @escaping (Result<String, SignUpError>) -> Void) {
-        let userCredentials = UserCredentials(email: email ?? "No Email", password: "", isMailVerified: true)
+    func signupWithApple(appleID: String, email: String?, completion: @escaping (Result<String, SignUpError>) -> Void) {
+        let appleUserCredentials = AppleUserCredentials(appleID: appleID, email: email ?? "No Mail", isMailVerified: false)
         Task.init {
-            let response = try await signupNetworkWorker?.signupUser(user: userCredentials)
+            let response = try await signupNetworkWorker?.signupUserWithApple(appleUser: appleUserCredentials)
+            //let response = try await signupNetworkWorker?.signupUser(user: userCredentials)
             await MainActor.run {
                 switch response?.response {
-                case .success(let idString):
-                    completion(.success(idString))
+                case .success(let appleID):
+                    completion(.success(appleID))
                 case .failure(let errorMessage):
                     completion(.failure(SignUpError.couldNotSignUp(message: errorMessage)))
                 default:

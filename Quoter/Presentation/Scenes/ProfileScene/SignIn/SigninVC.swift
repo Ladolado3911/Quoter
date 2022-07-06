@@ -9,6 +9,12 @@ import UIKit
 import Combine
 import AuthenticationServices
 
+enum AccountType: String {
+    case quotie
+    case apple
+    case google
+}
+
 protocol SigninVCProtocol: AnyObject {
     var interactor: SigninInteractorProtocol? { get set }
     var router: SigninRouterProtocol? { get set }
@@ -105,7 +111,8 @@ extension SigninVC {
     @objc func onSigninButton(sender: UIButton) {
         let credentials = UserCredentials(email: trackEmail,
                                           password: trackPassword,
-                                          isMailVerified: false)
+                                          isMailVerified: false,
+                                          accountType: AccountType.quotie.rawValue)
         //value required for isMailVerified bug here in backend
         signinView?.formView.clearData()
         signinView?.formView.callToActionButton.startAnimating()
@@ -130,7 +137,7 @@ extension SigninVC {
                     // show profile VC
                     self.signinView?.formView.callToActionButton.stopAnimating()
                     if let id = UUID(uuidString: idString) {
-                        CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id)
+                        CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id, type: .quotie)
                         self.router?.routeToProfileVC()
                     }
                     else {
@@ -187,29 +194,29 @@ extension SigninVC: UITextFieldDelegate {
 
 extension SigninVC: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print(error)
+        print(error.localizedDescription)
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
         case let credentials as ASAuthorizationAppleIDCredential:
             let mail = credentials.email
-            interactor?.signupIfNeeded(email: mail) { [weak self] result in
+            let userID = credentials.user
+            
+            interactor?.signupWithApple(appleID: userID, email: mail) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
-                case .success(let idString):
-                    let id = UUID(uuidString: idString)!
-                    CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id)
+                case .success(let appleID):
+                    CurrentUserLocalManager.shared.persistUserIDAfterSignIn(idString: appleID, type: .apple)
                     self.router?.routeToProfileVC()
                 case .failure:
                     Task.init {
-                        let userCredentials = UserCredentials(email: mail ?? "No Email", password: "", isMailVerified: true)
-                        let response = try await self.interactor?.signinNetworkWorker?.signinUser(user: userCredentials)
+                        let appleUserCredentials = AppleUserCredentials(appleID: userID, email: mail ?? "No Mail", isMailVerified: false)
+                        let response = try await self.interactor?.signinNetworkWorker?.signinWithApple(user: appleUserCredentials)
                         await MainActor.run {
                             switch response?.response {
-                            case .success(let idString):
-                                let id = UUID(uuidString: idString)!
-                                CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id)
+                            case .success(let appleID):
+                                CurrentUserLocalManager.shared.persistUserIDAfterSignIn(idString: appleID, type: .apple)
                                 self.router?.routeToProfileVC()
                             case .failure(let errorMessage):
                                 self.presentAlert(title: "Alert",

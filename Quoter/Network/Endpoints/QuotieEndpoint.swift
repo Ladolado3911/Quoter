@@ -8,6 +8,12 @@
 import Foundation
 import UIKit
 
+struct AppleUserCredentials: Codable {
+    var appleID: String
+    var email: String
+    var isMailVerified: Bool
+}
+
 enum QuoteSize: String {
     case big
     case small
@@ -20,10 +26,12 @@ enum QuotieEndpoint: EndpointProtocol {
     case getOtherAuthorsForSection(categoryName: String)
     
     case signupUser(body: UserCredentials)
+    case signupWithApple(body: AppleUserCredentials)
     case signinUser(body: UserCredentials)
+    case signinWithApple(body: AppleUserCredentials)
     //case signoutUser(id: UUID)
     
-    case getUserProfileContent(userID: String)
+    case getUserProfileContent(userID: String, accountType: AccountType)
 
     var scheme: Scheme {
         switch self {
@@ -49,8 +57,12 @@ enum QuotieEndpoint: EndpointProtocol {
             return "/signUp/"
         case .signinUser:
             return "/signIn/"
-        case .getUserProfileContent(let id):
-            return "/getUserProfileContent/\(id)/"
+        case .getUserProfileContent(let id, let type):
+            return "/getUserProfileContent/\(id)/\(type.rawValue)/"
+        case .signupWithApple:
+            return "/signUpWithApple/"
+        case .signinWithApple:
+            return "/signInWithApple/"
 //        case .signoutUser:
 //            return "/signOut/"
         }
@@ -67,6 +79,10 @@ enum QuotieEndpoint: EndpointProtocol {
             return .post
         case .signupUser:
             return .post
+        case .signupWithApple:
+            return .post
+        case .signinWithApple:
+            return .post
         default:
             return .get
         }
@@ -76,6 +92,26 @@ enum QuotieEndpoint: EndpointProtocol {
         case .signupUser(let userCredentials):
             do {
                 let data = try JSONEncoder().encode(userCredentials)
+                return data
+            }
+            catch {
+                print(error)
+                return nil
+            }
+            
+        case .signupWithApple(let appleUserCredentials):
+            do {
+                let data = try JSONEncoder().encode(appleUserCredentials)
+                return data
+            }
+            catch {
+                print(error)
+                return nil
+            }
+            
+        case .signinWithApple(let appleUserCredentials):
+            do {
+                let data = try JSONEncoder().encode(appleUserCredentials)
                 return data
             }
             catch {

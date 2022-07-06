@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 protocol ProfileMenuItemProtocol {
     var icon: UIImage? { get set }
@@ -42,6 +43,18 @@ class ProfileInteractor: ProfileInteractorProtocol {
     var profileNetworkWorker: ProfileNetworkWorkerProtocol?
     
     func signoutUser() {
+        switch CurrentUserLocalManager.shared.type {
+        case .quotie:
+            break
+        case .apple:
+//            let request = ASAuthorizationAppleIDProvider().createRequest()
+//            request.requestedOperation = .operationLogout
+//            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+//            authorizationController.performRequests()
+            break
+        case .google:
+            break
+        }
         CurrentUserLocalManager.shared.deleteUserIDAfterSignOut()
     }
     

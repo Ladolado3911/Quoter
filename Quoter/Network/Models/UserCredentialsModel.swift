@@ -11,6 +11,7 @@ struct UserCredentials: Codable {
     var email: String
     var password: String
     var isMailVerified: Bool?
+    var accountType: String 
 }
 
 struct UserProfileContent: Codable {

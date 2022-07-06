@@ -11,6 +11,7 @@ protocol SigninNetworkWorkerProtocol {
     var networkWorker: NetworkWorkerProtocol { get set }
 
     func signinUser(user: UserCredentials) async throws -> QuotieResponse
+    func signinWithApple(user: AppleUserCredentials) async throws -> QuotieResponse
 //    func getUserProfileContent(using id: String) async throws -> UserProfileContent
 }
 
@@ -24,6 +25,14 @@ class SigninNetworkWorker: SigninNetworkWorkerProtocol {
         let response = try await networkWorker.request(endpoint: endpoint, model: model)
         return response
     }
+    
+    func signinWithApple(user: AppleUserCredentials) async throws -> QuotieResponse {
+        let endpoint = QuotieEndpoint.signinWithApple(body: user)
+        let model = Resource(model: QuotieResponse.self)
+        let response = try await networkWorker.request(endpoint: endpoint, model: model)
+        return response
+    }
+    
     
 //    func getUserProfileContent(using id: String) async throws -> UserProfileContent {
 //        let endpoint = QuotieEndpoint.getUserProfileContent(userID: id)
