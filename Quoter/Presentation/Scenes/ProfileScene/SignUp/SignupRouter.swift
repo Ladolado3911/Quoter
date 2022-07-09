@@ -24,8 +24,15 @@ class SignupRouter: SignupRouterProtocol {
     
     func routeToProfileVC() {
         let profileVC = ProfileVC()
-        MenuModels.shared.menuItems[2].switchVC(with: profileVC)
-        reloadDelegate?.reloadTableView()
+        vc!.dismiss { [weak self] in
+            guard let self = self else { return }
+//            MenuModels.shared.menuItems[2].switchVC(with: profileVC)
+//            self.reloadDelegate?.reloadTableView()
+            if let closure = self.vc!.presentFromSignin {
+                closure()
+            }
+        }
+
 //        profileVC.modalPresentationStyle = .fullScreen
 //        profileVC.modalTransitionStyle = .crossDissolve
 //        vc?.present(vc: profileVC)

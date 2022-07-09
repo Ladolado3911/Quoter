@@ -39,7 +39,7 @@ class ProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = profileView
-        configCollectionView()
+        //configCollectionView()
         configButtons()
     }
     
@@ -59,11 +59,11 @@ class ProfileVC: UIViewController {
         router.vc = vc
     }
     
-    private func configCollectionView() {
-        profileView?.menuCollectionView.dataSource = self
-        profileView?.menuCollectionView.delegate = self
-        profileView?.menuCollectionView.register(ProfileMenuCell.self, forCellWithReuseIdentifier: "ProfileCell")
-    }
+//    private func configCollectionView() {
+//        profileView?.menuCollectionView.dataSource = self
+//        profileView?.menuCollectionView.delegate = self
+//        profileView?.menuCollectionView.register(ProfileMenuCell.self, forCellWithReuseIdentifier: "ProfileCell")
+//    }
     
     private func configButtons() {
         profileView?.signoutButton.addTarget(self, action: #selector(onSignoutButton(sender:)), for: .touchUpInside)
@@ -118,6 +118,6 @@ extension ProfileVC: ProfileVCProtocol {
     }
     
     func setProfileContent(content: UserProfileContent) {
-        profileView?.titleLabel.text = content.email
+        profileView?.userNameLabel.text = content.email
     }
 }

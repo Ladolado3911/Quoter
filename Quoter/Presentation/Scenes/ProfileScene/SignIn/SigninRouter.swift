@@ -12,7 +12,7 @@ protocol SigninRouterProtocol {
     
     var reloadDelegate: ReloadMenuTableViewDelegate? { get set }
     
-    func routeToSignupVC()
+    func routeToSignupVC(presentFromSignin: @escaping () -> Void)
     func routeToProfileVC()
 }
 
@@ -21,8 +21,9 @@ class SigninRouter: SigninRouterProtocol {
     
     var reloadDelegate: ReloadMenuTableViewDelegate?
     
-    func routeToSignupVC() {
+    func routeToSignupVC(presentFromSignin: @escaping () -> Void) {
         let signupVC = SignupVC()
+        signupVC.presentFromSignin = presentFromSignin
         vc?.present(vc: signupVC)
     }
     

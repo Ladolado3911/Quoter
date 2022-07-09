@@ -12,6 +12,7 @@ enum FormType: String {
     case signIn = "Sign in"
     case verification = "Verify"
     case signOut = "Sign out"
+    case deleteAccount = "Delete account"
 }
 
 class CallToActionButton: UIButton {

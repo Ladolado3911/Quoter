@@ -14,7 +14,10 @@ protocol SignupVCProtocol: AnyObject {
     var router: SignupRouterProtocol? { get set }
     var signupView: SignupView? { get set }
     
+    var presentFromSignin: (() -> Void)? { get set }
+    
     func present(vc: UIViewController)
+    func dismiss(completion: (() -> Void)?)
 }
 
 class SignupVC: UIViewController {
@@ -30,6 +33,8 @@ class SignupVC: UIViewController {
     var trackPassword = ""
     
     var cancellables: Set<AnyCancellable> = []
+    
+    var presentFromSignin: (() -> Void)?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -124,20 +129,34 @@ extension SignupVC {
                 var resultMessage: String = ""
                 switch response?.response {
                 case .success(let idString):
+                    
                     guard let id = UUID(uuidString: idString) else { return }
+                    
                     CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id, type: .quotie)
-                    router?.routeToProfileVC()
+                    //router?.routeToProfileVC()
+                    signupView?.stopAnimating {
+                        self.router?.routeToProfileVC()
+                    }
+                    
                 case .failure(let message):
                     resultMessage = message
+                    signupView?.stopAnimating {
+                        self.presentAlert(title: "Alert",
+                                          text: resultMessage,
+                                          mainButtonText: "ok",
+                                          mainButtonStyle: .cancel) {
+                            
+                        }
+                    }
                 default:
                     resultMessage = "Try again"
-                }
-                signupView?.stopAnimating {
-                    self.presentAlert(title: "Alert",
-                                      text: resultMessage,
-                                      mainButtonText: "ok",
-                                      mainButtonStyle: .cancel) {
-                        
+                    signupView?.stopAnimating {
+                        self.presentAlert(title: "Alert",
+                                          text: resultMessage,
+                                          mainButtonText: "ok",
+                                          mainButtonStyle: .cancel) {
+                            
+                        }
                     }
                 }
             }
@@ -162,6 +181,14 @@ extension SignupVC {
 }
 
 extension SignupVC: SignupVCProtocol {
+    func dismiss(completion: (() -> Void)?) {
+        dismiss(animated: true) {
+            if let completion = completion {
+                completion()
+            }
+        }
+    }
+    
     func present(vc: UIViewController) {
         present(vc, animated: true)
     }

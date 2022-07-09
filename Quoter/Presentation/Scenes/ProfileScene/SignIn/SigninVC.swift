@@ -8,6 +8,10 @@
 import UIKit
 import Combine
 import AuthenticationServices
+import GoogleSignIn
+import FirebaseCore
+import Firebase
+
 
 enum AccountType: String {
     case quotie
@@ -39,6 +43,11 @@ class SigninVC: UIViewController {
     
     lazy var onAppleTapGesture: UITapGestureRecognizer = {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(continueWithApple(sender:)))
+        return tapGesture
+    }()
+    
+    lazy var onGoogleTapGesture: UITapGestureRecognizer = {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(continueWithGoogle(sender:)))
         return tapGesture
     }()
     
@@ -91,6 +100,7 @@ class SigninVC: UIViewController {
     }
     
     private func configElements() {
+        signinView?.thirdPartyButtonView1.addGestureRecognizer(onGoogleTapGesture)
         signinView?.thirdPartyButtonView2.addGestureRecognizer(onAppleTapGesture)
         signinView?.signUpButton.addTarget(self, action: #selector(onSignupButton(sender:)), for: .touchUpInside)
         signinView?.formView.callToActionButton.addTarget(self, action: #selector(onSigninButton(sender:)), for: .touchUpInside)
@@ -105,7 +115,10 @@ class SigninVC: UIViewController {
 
 extension SigninVC {
     @objc func onSignupButton(sender: UIButton) {
-        router?.routeToSignupVC()
+        router?.routeToSignupVC { [weak self] in
+            guard let self = self else { return }
+            self.router?.routeToProfileVC()
+        }
     }
     
     @objc func onSigninButton(sender: UIButton) {
@@ -179,6 +192,62 @@ extension SigninVC {
     
     @objc func continueWithGoogle(sender: UIButton) {
         
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+        // Start the sign in flow!
+        GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { [unowned self] user, error in
+            if let error = error {
+                return
+            }
+            guard
+                let authentication = user?.authentication,
+                let idToken = authentication.idToken
+            else {
+                return
+            }
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                           accessToken: authentication.accessToken)
+            // ...AuthCredential
+            Auth.auth().signIn(with: credential) { [weak self] result, error in
+                guard let self = self else { return }
+                guard let result = result else { return }
+                let user = result.user
+                let userCredentials = UserCredentials(email: user.email ?? "No Mail", password: "", isMailVerified: user.isEmailVerified, accountType: "google")
+                Task.init {
+                    let response = try await self.interactor?.signupNetworkWorker?.signupUser(user: userCredentials)
+                    switch response?.response {
+                    case .success(let success):
+                        let id = UUID(uuidString: success)!
+                        CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id, type: .google)
+                        self.router?.routeToProfileVC()
+                    case .failure(let failure):
+                        Task.init {
+                            let response = try await self.interactor?.signinNetworkWorker?.signinUser(user: userCredentials)
+                            await MainActor.run {
+                                switch response?.response {
+                                case .success(let message):
+                                    let id = UUID(uuidString: message)!
+                                    CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id, type: .google)
+                                    self.router?.routeToProfileVC()
+                                case .failure(let message):
+                                    self.presentAlert(title: "Alert",
+                                                      text: message,
+                                                      mainButtonText: "ok",
+                                                      mainButtonStyle: .cancel) {
+                                        
+                                    }
+                                default:
+                                    break
+                                }
+                            }
+                        }
+                    default:
+                        break
+                    }
+                }
+            }
+        }
     }
 }
 

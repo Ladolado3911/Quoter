@@ -17,6 +17,7 @@ protocol SigninInteractorProtocol {
     var signupNetworkWorker: SignupNetworkWorkerProtocol? { get set }
     
     func signupWithApple(appleID: String, email: String?, completion: @escaping (Result<String, SignUpError>) -> Void)
+    func signupWithGoogle()
     //func signin()
 }
 
@@ -42,4 +43,9 @@ class SigninInteractor: SigninInteractorProtocol {
             }
         }
     }
+    
+    func signupWithGoogle() {
+        
+    }
+    
 }

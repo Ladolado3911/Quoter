@@ -7,6 +7,7 @@
 
 import UIKit
 import AuthenticationServices
+import FirebaseAuth
 
 protocol ProfileMenuItemProtocol {
     var icon: UIImage? { get set }
@@ -47,13 +48,14 @@ class ProfileInteractor: ProfileInteractorProtocol {
         case .quotie:
             break
         case .apple:
-//            let request = ASAuthorizationAppleIDProvider().createRequest()
-//            request.requestedOperation = .operationLogout
-//            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-//            authorizationController.performRequests()
             break
         case .google:
-            break
+            do {
+                try Auth.auth().signOut()
+            }
+            catch {
+                print("could not sign out with error: \(error)")
+            }
         default:
             break
         }
