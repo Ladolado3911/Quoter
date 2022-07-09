@@ -95,6 +95,11 @@
 		24A71A36285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A71A35285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift */; };
 		24A71A38285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A71A37285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift */; };
 		24A8CEA5284B8EC000B5F6F2 /* ExploreScreenshotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A8CEA4284B8EC000B5F6F2 /* ExploreScreenshotCell.swift */; };
+		24C7F2A22879D62000065891 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7F2A12879D62000065891 /* GalleryView.swift */; };
+		24C7F2A52879D73400065891 /* GalleryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7F2A42879D73400065891 /* GalleryInteractor.swift */; };
+		24C7F2A72879D74600065891 /* GalleryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7F2A62879D74600065891 /* GalleryPresenter.swift */; };
+		24C7F2A92879D75400065891 /* GalleryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7F2A82879D75400065891 /* GalleryRouter.swift */; };
+		24C7F2AC2879D96200065891 /* GalleryNetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7F2AB2879D96200065891 /* GalleryNetworkWorker.swift */; };
 		24CD4C0C2844A6C300A63968 /* wakeup.json in Resources */ = {isa = PBXBuildFile; fileRef = 24CD4C0B2844A6C300A63968 /* wakeup.json */; };
 		24CD4C0E2844B23700A63968 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD4C0D2844B23700A63968 /* DeviceModel.swift */; };
 		24D018F6280ADE150031C14B /* ArrowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D018F5280ADE150031C14B /* ArrowButtonView.swift */; };
@@ -233,6 +238,11 @@
 		24A71A37285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherAuthorsForSectionCellObject.swift; sourceTree = "<group>"; };
 		24A8CEA4284B8EC000B5F6F2 /* ExploreScreenshotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreScreenshotCell.swift; sourceTree = "<group>"; };
 		24AABE4F28756E1900142C51 /* Quoter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Quoter.entitlements; sourceTree = "<group>"; };
+		24C7F2A12879D62000065891 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
+		24C7F2A42879D73400065891 /* GalleryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryInteractor.swift; sourceTree = "<group>"; };
+		24C7F2A62879D74600065891 /* GalleryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryPresenter.swift; sourceTree = "<group>"; };
+		24C7F2A82879D75400065891 /* GalleryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryRouter.swift; sourceTree = "<group>"; };
+		24C7F2AB2879D96200065891 /* GalleryNetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryNetworkWorker.swift; sourceTree = "<group>"; };
 		24CD4C0B2844A6C300A63968 /* wakeup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = wakeup.json; sourceTree = "<group>"; };
 		24CD4C0D2844B23700A63968 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		24D018F5280ADE150031C14B /* ArrowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowButtonView.swift; sourceTree = "<group>"; };
@@ -423,6 +433,11 @@
 			isa = PBXGroup;
 			children = (
 				24138A3E2805B90800044F5E /* GalleryVC.swift */,
+				24C7F2A42879D73400065891 /* GalleryInteractor.swift */,
+				24C7F2A62879D74600065891 /* GalleryPresenter.swift */,
+				24C7F2A82879D75400065891 /* GalleryRouter.swift */,
+				24C7F2AA2879D95100065891 /* Workers */,
+				24C7F2A32879D72200065891 /* Subviews */,
 			);
 			path = GalleryScene;
 			sourceTree = "<group>";
@@ -671,6 +686,22 @@
 				249BE4AD285DDAED00D30127 /* AuthorObjects */,
 			);
 			path = AuthorCellObjects;
+			sourceTree = "<group>";
+		};
+		24C7F2A32879D72200065891 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				24C7F2A12879D62000065891 /* GalleryView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		24C7F2AA2879D95100065891 /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				24C7F2AB2879D96200065891 /* GalleryNetworkWorker.swift */,
+			);
+			path = Workers;
 			sourceTree = "<group>";
 		};
 		24D018F4280ADE020031C14B /* Subviews */ = {
@@ -1148,6 +1179,7 @@
 				246B829C283137B400D44DF5 /* ExploreInteractor.swift in Sources */,
 				24E49857286B420100D119F1 /* ProfileNetworkWorker.swift in Sources */,
 				2463DAEB28648B2B00FA78BE /* SignupInteractor.swift in Sources */,
+				24C7F2A72879D74600065891 /* GalleryPresenter.swift in Sources */,
 				24138A232805748200044F5E /* MenuModels.swift in Sources */,
 				246B82A72831464B00D44DF5 /* ExploreEntities.swift in Sources */,
 				246B82A0283137D800D44DF5 /* ExploreRouter.swift in Sources */,
@@ -1159,6 +1191,7 @@
 				249BE4AC285DCBF600D30127 /* UITableView+Extension.swift in Sources */,
 				2463DAFB28648DC600FA78BE /* ProfileView.swift in Sources */,
 				24EF3BC32851D4A800789F0E /* FilterIcons.swift in Sources */,
+				24C7F2A22879D62000065891 /* GalleryView.swift in Sources */,
 				24D5BC272806C2C0003D14CD /* BaseVC.swift in Sources */,
 				24138A1C2805726200044F5E /* MenuView.swift in Sources */,
 				2463DAD52864613C00FA78BE /* SigninVC.swift in Sources */,
@@ -1177,6 +1210,7 @@
 				2470F654284E316800B6124D /* FilterVC.swift in Sources */,
 				24D018F6280ADE150031C14B /* ArrowButtonView.swift in Sources */,
 				241A2A22285B4655005681C5 /* AuthorTableHeaderView.swift in Sources */,
+				24C7F2A92879D75400065891 /* GalleryRouter.swift in Sources */,
 				24D018F9280ADE880031C14B /* ExploreIcons.swift in Sources */,
 				24832A2C28698FAE001597FC /* UserCredentialsModel.swift in Sources */,
 				2463DAF228648B5000FA78BE /* SignupView.swift in Sources */,
@@ -1194,9 +1228,11 @@
 				2463DAF628648DA700FA78BE /* ProfilePresenter.swift in Sources */,
 				241A2A24285B4902005681C5 /* AuthorEntities.swift in Sources */,
 				24138A1A280571CA00044F5E /* MenuVC.swift in Sources */,
+				24C7F2A52879D73400065891 /* GalleryInteractor.swift in Sources */,
 				2463DAE72864890700FA78BE /* SigninPresenter.swift in Sources */,
 				24D5BC2B2806FE93003D14CD /* MenuHeaderView.swift in Sources */,
 				24138A342805AD6E00044F5E /* UIView+Extension.swift in Sources */,
+				24C7F2AC2879D96200065891 /* GalleryNetworkWorker.swift in Sources */,
 				2463DADC2864742900FA78BE /* CallToActionButton.swift in Sources */,
 				24A71A38285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift in Sources */,
 				2463DAD32864613100FA78BE /* SignupVC.swift in Sources */,
