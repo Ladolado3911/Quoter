@@ -45,7 +45,11 @@ class ProfileNetworkWorker: ProfileNetworkWorkerProtocol {
     }
     
     func deleteAccount() async throws -> QuotieResponse {
-        
+        let quotieID = QuotieID(id: CurrentUserLocalManager.shared.getCurrentUserID()!)
+        let endpoint = QuotieEndpoint.deleteAccount(body: quotieID)
+        let model = Resource(model: QuotieResponse.self)
+        let response = try await networkWorker.request(endpoint: endpoint, model: model)
+        return response
     }
 
 }

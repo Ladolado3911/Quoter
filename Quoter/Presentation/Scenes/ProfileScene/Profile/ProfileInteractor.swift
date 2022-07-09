@@ -79,6 +79,23 @@ class ProfileInteractor: ProfileInteractorProtocol {
     }
     
     func deleteAccount() {
-        
+        if CurrentUserLocalManager.shared.type == .google {
+            Auth.auth().currentUser?.delete()
+        }
+        Task.init { [weak self] in
+            guard let self = self else { return }
+            let response = try await self.profileNetworkWorker?.deleteAccount()
+            await MainActor.run {
+                switch response?.response {
+                case .success(let _):
+                    self.presenter?.deleteAccount(result: .success)
+                case .failure(let errorMessage):
+                    self.presenter?.deleteAccount(result: .failure(errorMessage: errorMessage))
+                default:
+                    break
+                }
+            }
+            
+        }
     }
 }

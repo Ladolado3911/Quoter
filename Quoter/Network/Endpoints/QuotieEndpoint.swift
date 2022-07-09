@@ -19,6 +19,10 @@ struct AppleUserCredentials: Codable {
     var isMailVerified: Bool
 }
 
+struct QuotieID: Codable {
+    var id: String
+}
+
 enum QuoteSize: String {
     case big
     case small
@@ -34,6 +38,8 @@ enum QuotieEndpoint: EndpointProtocol {
     case signupWithApple(body: AppleUserCredentials)
     case signinUser(body: UserCredentials)
     case signinWithApple(body: AppleUserCredentials)
+    
+    case deleteAccount(body: QuotieID)
     //case signoutUser(id: UUID)
     
     case getUserProfileContent(userID: String, accountType: AccountType)
@@ -68,6 +74,8 @@ enum QuotieEndpoint: EndpointProtocol {
             return "/signUpWithApple/"
         case .signinWithApple:
             return "/signInWithApple/"
+        case .deleteAccount:
+            return "/deleteAccount/"
 //        case .signoutUser:
 //            return "/signOut/"
         }
@@ -87,6 +95,8 @@ enum QuotieEndpoint: EndpointProtocol {
         case .signupWithApple:
             return .post
         case .signinWithApple:
+            return .post
+        case .deleteAccount:
             return .post
         default:
             return .get
@@ -127,6 +137,16 @@ enum QuotieEndpoint: EndpointProtocol {
         case .signinUser(let userCredentials):
             do {
                 let data = try JSONEncoder().encode(userCredentials)
+                return data
+            }
+            catch {
+                print(error)
+                return nil
+            }
+            
+        case .deleteAccount(let quotieID):
+            do {
+                let data = try JSONEncoder().encode(quotieID)
                 return data
             }
             catch {

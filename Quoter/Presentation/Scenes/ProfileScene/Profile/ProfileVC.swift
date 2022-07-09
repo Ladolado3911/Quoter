@@ -14,6 +14,8 @@ protocol ProfileVCProtocol: AnyObject {
     
     func present(vc: UIViewController)
     func setProfileContent(content: UserProfileContent)
+    func accountDeletedSuccessfully()
+    func accountDeleteFail(errorMessage: String)
 }
 
 class ProfileVC: UIViewController {
@@ -60,6 +62,7 @@ class ProfileVC: UIViewController {
 
     private func configButtons() {
         profileView?.signoutButton.addTarget(self, action: #selector(onSignoutButton(sender:)), for: .touchUpInside)
+        profileView?.deleteAccountButton.addTarget(self, action: #selector(onDeleteButton(sender:)), for: .touchUpInside)
     }
     
 }
@@ -71,7 +74,7 @@ extension ProfileVC {
     }
     
     @objc func onDeleteButton(sender: UIButton) {
-        
+        interactor?.deleteAccount()
     }
 }
 
@@ -116,5 +119,24 @@ extension ProfileVC: ProfileVCProtocol {
     
     func setProfileContent(content: UserProfileContent) {
         profileView?.userNameLabel.text = content.email
+    }
+    
+    func accountDeletedSuccessfully() {
+        presentAlert(title: "Alert",
+                     text: "Account deleted",
+                     mainButtonText: "ok",
+                     mainButtonStyle: .default) { [weak self] in
+            guard let self = self else { return }
+            self.router?.routeToSigninVC()
+        }
+    }
+    
+    func accountDeleteFail(errorMessage: String) {
+        presentAlert(title: "Alert",
+                     text: errorMessage,
+                     mainButtonText: "ok",
+                     mainButtonStyle: .default) { 
+
+        }
     }
 }
