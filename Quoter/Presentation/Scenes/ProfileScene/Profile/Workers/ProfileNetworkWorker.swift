@@ -36,6 +36,7 @@ class ProfileNetworkWorker: ProfileNetworkWorkerProtocol {
 //    }
     
     func getUserProfileContent(using id: String) async throws -> UserProfileContent {
+        //add animation here when i return 
         let endpoint = QuotieEndpoint.getUserProfileContent(userID: id, accountType: CurrentUserLocalManager.shared.type!)
         let model = Resource(model: UserProfileContent.self)
         let response = try await networkWorker.request(endpoint: endpoint, model: model)

@@ -9,6 +9,7 @@ import UIKit
 import CoreData
 import Firebase
 import GoogleMobileAds
+import GoogleSignIn
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Analytics.setAnalyticsCollectionEnabled(false)
         guard let _ = UserDefaults.standard.value(forKey: "firstLaunch") as? Bool else { return true }
         return true
+    }
+    
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any])
+      -> Bool {
+      return GIDSignIn.sharedInstance.handle(url)
     }
 
     // MARK: UISceneSession Lifecycle
@@ -94,4 +102,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-

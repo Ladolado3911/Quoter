@@ -8,6 +8,11 @@
 import Foundation
 import UIKit
 
+struct GoogleUserCredentials: Codable {
+    var email: String
+    var isMailVerified: Bool 
+}
+
 struct AppleUserCredentials: Codable {
     var appleID: String
     var email: String

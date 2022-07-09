@@ -1744,3 +1744,6 @@ Pods/FBAEMKit/XCFrameworks/FBAEMKit.xcframework/Info.plist
 Pods/Target Support Files/FBSDKShareKit/FBSDKShareKit.debug.xcconfig
 Pods/Target Support Files/FBSDKShareKit/FBSDKShareKit.modulemap
 Pods/Target Support Files/FBSDKShareKit/FBSDKShareKit.release.xcconfig
+*.bcsymbolmap
+Pods/FBSDKCoreKit_Basics/XCFrameworks/FBSDKCoreKit_Basics.xcframework/ios-arm64/FBSDKCoreKit_Basics.framework/Headers/FBSDKNetworkTask.h
+*.h

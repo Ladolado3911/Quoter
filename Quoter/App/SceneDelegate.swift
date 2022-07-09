@@ -8,6 +8,7 @@
 import UIKit
 import GoogleMobileAds
 import FBSDKCoreKit
+import GoogleSignIn
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, GADFullScreenContentDelegate {
 
