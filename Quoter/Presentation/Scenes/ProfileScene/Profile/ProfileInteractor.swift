@@ -27,6 +27,7 @@ protocol ProfileInteractorProtocol {
     
     func signoutUser()
     func setProfileContent()
+    func deleteAccount()
 }
 
 class ProfileInteractor: ProfileInteractorProtocol {
@@ -75,5 +76,9 @@ class ProfileInteractor: ProfileInteractorProtocol {
                 }
             }
         }
+    }
+    
+    func deleteAccount() {
+        
     }
 }

@@ -39,7 +39,6 @@ class ProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = profileView
-        //configCollectionView()
         configButtons()
     }
     
@@ -58,13 +57,7 @@ class ProfileVC: UIViewController {
         presenter.vc = vc
         router.vc = vc
     }
-    
-//    private func configCollectionView() {
-//        profileView?.menuCollectionView.dataSource = self
-//        profileView?.menuCollectionView.delegate = self
-//        profileView?.menuCollectionView.register(ProfileMenuCell.self, forCellWithReuseIdentifier: "ProfileCell")
-//    }
-    
+
     private func configButtons() {
         profileView?.signoutButton.addTarget(self, action: #selector(onSignoutButton(sender:)), for: .touchUpInside)
     }
@@ -75,6 +68,10 @@ extension ProfileVC {
     @objc func onSignoutButton(sender: UIButton) {
         interactor?.signoutUser()
         router?.routeToSigninVC()
+    }
+    
+    @objc func onDeleteButton(sender: UIButton) {
+        
     }
 }
 

@@ -17,6 +17,7 @@ protocol ProfileNetworkWorkerProtocol {
     var networkWorker: NetworkWorkerProtocol { get set }
     
     func getUserProfileContent(using id: String) async throws -> UserProfileContent
+    func deleteAccount() async throws -> QuotieResponse
     //func getUserMail(using idString: String)
     //func signoutUser()
 
@@ -41,6 +42,10 @@ class ProfileNetworkWorker: ProfileNetworkWorkerProtocol {
         let model = Resource(model: UserProfileContent.self)
         let response = try await networkWorker.request(endpoint: endpoint, model: model)
         return response
+    }
+    
+    func deleteAccount() async throws -> QuotieResponse {
+        
     }
 
 }
