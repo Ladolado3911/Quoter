@@ -11,11 +11,21 @@ class GalleryView: UIView {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
+        label.text = "Gallery"
+        label.textColor = DarkModeColors.white
+        label.font = UIFont.systemFont(ofSize: 25, weight: .regular)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var infoLabel: UILabel = {
+        let label = UILabel()
         label.text = "No quotes. Go to explore to add quotes"
         label.textColor = DarkModeColors.white
-        label.font = UIFont.systemFont(ofSize: 30, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.textAlignment = .center
-        label.alpha = 0
+        label.alpha = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -34,16 +44,29 @@ class GalleryView: UIView {
         buildConstraints()
     }
     
+    func hideContent() {
+        for subview in subviews {
+            subview.alpha = 0
+        }
+    }
+    
+    func showInfoLabel(with text: String) {
+        infoLabel.alpha = 1
+        infoLabel.text = text
+    }
+    
     private func buildSubviews() {
         addSubview(titleLabel)
+        addSubview(infoLabel)
     }
     
     private func buildConstraints() {
         NSLayoutConstraint.activate([
+            infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            
-            
         
         ])
     }

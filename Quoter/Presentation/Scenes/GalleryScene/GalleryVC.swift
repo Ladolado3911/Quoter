@@ -10,7 +10,7 @@ import UIKit
 protocol GalleryVCProtocol: AnyObject {
     var interactor: GalleryInteractorProtocol? { get set }
     var router: GalleryRouterProtocol? { get set }
-    var galleryView: GalleryView { get set }
+    var galleryView: GalleryView? { get set }
     
     func present(vc: UIViewController)
 }
@@ -19,11 +19,7 @@ class GalleryVC: UIViewController {
     
     var interactor: GalleryInteractorProtocol?
     var router: GalleryRouterProtocol?
-    
-    lazy var galleryView: GalleryView = {
-        let galleryView = GalleryView(frame: view.bounds)
-        return galleryView
-    }()
+    var galleryView: GalleryView?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -43,6 +39,17 @@ class GalleryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = DarkModeColors.mainBlack
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if CurrentUserLocalManager.shared.isUserSignedIn {
+            galleryView?.showInfoLabel(with: "No quotes. Go to explore to add quotes")
+        }
+        else {
+            galleryView?.showInfoLabel(with: "Sign in to use gallery")
+        }
+        
     }
     
     private func setup() {

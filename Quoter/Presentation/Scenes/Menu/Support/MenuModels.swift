@@ -13,7 +13,7 @@ final class MenuModels {
     
     var menuItems: [MenuItem] = [
         MenuItem(title: "Explore", icon: MenuIcons.exploreIcon, viewController: ExploreVC()),
-        MenuItem(title: "Daily Quotes", icon: MenuIcons.quoteIcon, viewController: DailyQuotesVC()),
+        MenuItem(title: "Gallery", icon: MenuIcons.galleryIcon, viewController: GalleryVC()),
         MenuItem(title: "Profile", icon: MenuIcons.exploreIcon, viewController: CurrentUserLocalManager.shared.isUserSignedIn ? ProfileVC() : SigninVC()),
     
     
