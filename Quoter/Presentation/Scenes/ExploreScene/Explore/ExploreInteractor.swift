@@ -97,8 +97,6 @@ class ExploreInteractor: ExploreInteractorProtocol {
             return 
         }
         
-        
-        
         if let loadedQuotes = loadedQuotes {
             let quote = loadedQuotes[currentPage]
             let isAllowed = quote.isScreenshotAllowed

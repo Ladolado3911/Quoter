@@ -39,7 +39,6 @@ class SigninRouter: SigninRouterProtocol {
         case .menu:
             reloadDelegate?.reloadTableView()
         case .explore:
-            
             reloadDelegate?.reloadFromExplore()
         }
         

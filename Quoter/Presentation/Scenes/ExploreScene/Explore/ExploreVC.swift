@@ -359,6 +359,12 @@ extension ExploreVC: ExploreVCProtocol {
     }
     
     func showSignin() {
+        if let signinVC = MenuAuthorizationControllers.signInVCModal as? SigninVCProtocol {
+            signinVC.saveQuoteClosure = {
+                // save quote here
+                print("save quote here")
+            }
+        }
         router?.routeToSigninVC(with: MenuAuthorizationControllers.signInVCModal)
     }
 }

@@ -30,6 +30,8 @@ protocol SigninVCProtocol: AnyObject {
     var signinView: SigninView? { get set }
     var signinVCType: SigninVCType { get set }
     
+    var saveQuoteClosure: (() -> Void)? { get set }
+    
     func present(vc: UIViewController)
 }
 
@@ -39,6 +41,8 @@ class SigninVC: UIViewController {
     var router: SigninRouterProtocol?
     var signinView: SigninView?
     var signinVCType: SigninVCType = .menu
+    
+    var saveQuoteClosure: (() -> Void)?
 
     let emailSubject = PassthroughSubject<String, Never>()
     let passwordSubject = PassthroughSubject<String, Never>()
@@ -163,7 +167,11 @@ extension SigninVC {
                         case .menu:
                             break
                         case .explore:
-                            self.dismiss(animated: true)
+                            self.dismiss(animated: true) {
+                                if let closure = self.saveQuoteClosure {
+                                    closure()
+                                }
+                            }
                         }
                     }
                     else {
@@ -243,6 +251,16 @@ extension SigninVC {
                                     let id = UUID(uuidString: message)!
                                     CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id, type: .google)
                                     self.router?.routeToProfileVC(type: signinVCType)
+                                    switch self.signinVCType {
+                                    case .menu:
+                                        break
+                                    case .explore:
+                                        self.dismiss(animated: true) {
+                                            if let closure = self.saveQuoteClosure {
+                                                closure()
+                                            }
+                                        }
+                                    }
                                 case .failure(let message):
                                     self.presentAlert(title: "Alert",
                                                       text: message,
@@ -299,6 +317,16 @@ extension SigninVC: ASAuthorizationControllerDelegate {
                             case .success(let appleID):
                                 CurrentUserLocalManager.shared.persistUserIDAfterSignIn(idString: appleID, type: .apple)
                                 self.router?.routeToProfileVC(type: self.signinVCType)
+                                switch self.signinVCType {
+                                case .menu:
+                                    break
+                                case .explore:
+                                    self.dismiss(animated: true) {
+                                        if let closure = self.saveQuoteClosure {
+                                            closure()
+                                        }
+                                    }
+                                }
                             case .failure(let errorMessage):
                                 self.presentAlert(title: "Alert",
                                                   text: errorMessage,
