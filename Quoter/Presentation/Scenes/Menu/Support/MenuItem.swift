@@ -7,6 +7,49 @@
 
 import UIKit
 
+final class MenuAuthorizationControllers {
+    static var signInVC: UIViewController = {
+        let vc = SigninVC()
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        return vc
+    }()
+    
+    static var signInVCModal: UIViewController = {
+        let vc = SigninVC()
+        vc.signinVCType = .explore
+        return vc
+    }()
+   
+    static var profileVC: UIViewController = {
+        let vc = ProfileVC()
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        return vc
+    }()
+    
+    static var signUpVC: UIViewController = {
+        let vc = SignupVC()
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        return vc
+    }()
+}
+//
+//protocol MenuItemProtocol {
+//    var title: String { get set }
+//    var icon: UIImage { get set }
+//    var isSelected: Bool { get set }
+//}
+//
+//protocol MenuSingleItemProtocol {
+//    var viewController: UIViewController { get set }
+//}
+//
+//protocol MenuMultipleItemProtocol {
+//    var chosen
+//}
+
 struct MenuItem {
     let title: String
     let icon: UIImage
@@ -22,6 +65,7 @@ struct MenuItem {
     }
     
     mutating func switchVC(with vc: UIViewController) {
+        
         viewController = vc
     }
 }

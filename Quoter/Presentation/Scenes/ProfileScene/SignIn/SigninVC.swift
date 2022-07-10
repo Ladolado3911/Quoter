@@ -19,10 +19,16 @@ enum AccountType: String {
     case google
 }
 
+enum SigninVCType {
+    case menu
+    case explore
+}
+
 protocol SigninVCProtocol: AnyObject {
     var interactor: SigninInteractorProtocol? { get set }
     var router: SigninRouterProtocol? { get set }
     var signinView: SigninView? { get set }
+    var signinVCType: SigninVCType { get set }
     
     func present(vc: UIViewController)
 }
@@ -32,6 +38,7 @@ class SigninVC: UIViewController {
     var interactor: SigninInteractorProtocol?
     var router: SigninRouterProtocol?
     var signinView: SigninView?
+    var signinVCType: SigninVCType = .menu
 
     let emailSubject = PassthroughSubject<String, Never>()
     let passwordSubject = PassthroughSubject<String, Never>()
@@ -117,7 +124,7 @@ extension SigninVC {
     @objc func onSignupButton(sender: UIButton) {
         router?.routeToSignupVC { [weak self] in
             guard let self = self else { return }
-            self.router?.routeToProfileVC()
+            self.router?.routeToProfileVC(type: self.signinVCType)
         }
     }
     
@@ -151,7 +158,13 @@ extension SigninVC {
                     self.signinView?.formView.callToActionButton.stopAnimating()
                     if let id = UUID(uuidString: idString) {
                         CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id, type: .quotie)
-                        self.router?.routeToProfileVC()
+                        self.router?.routeToProfileVC(type: self.signinVCType)
+                        switch self.signinVCType {
+                        case .menu:
+                            break
+                        case .explore:
+                            self.dismiss(animated: true)
+                        }
                     }
                     else {
                         break
@@ -220,7 +233,7 @@ extension SigninVC {
                     case .success(let success):
                         let id = UUID(uuidString: success)!
                         CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id, type: .google)
-                        self.router?.routeToProfileVC()
+                        self.router?.routeToProfileVC(type: signinVCType)
                     case .failure(let failure):
                         Task.init {
                             let response = try await self.interactor?.signinNetworkWorker?.signinUser(user: userCredentials)
@@ -229,7 +242,7 @@ extension SigninVC {
                                 case .success(let message):
                                     let id = UUID(uuidString: message)!
                                     CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id, type: .google)
-                                    self.router?.routeToProfileVC()
+                                    self.router?.routeToProfileVC(type: signinVCType)
                                 case .failure(let message):
                                     self.presentAlert(title: "Alert",
                                                       text: message,
@@ -271,13 +284,12 @@ extension SigninVC: ASAuthorizationControllerDelegate {
         case let credentials as ASAuthorizationAppleIDCredential:
             let mail = credentials.email
             let userID = credentials.user
-            
             interactor?.signupWithApple(appleID: userID, email: mail) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let appleID):
                     CurrentUserLocalManager.shared.persistUserIDAfterSignIn(idString: appleID, type: .apple)
-                    self.router?.routeToProfileVC()
+                    self.router?.routeToProfileVC(type: self.signinVCType)
                 case .failure:
                     Task.init {
                         let appleUserCredentials = AppleUserCredentials(appleID: userID, email: mail ?? "No Mail", isMailVerified: false)
@@ -286,7 +298,7 @@ extension SigninVC: ASAuthorizationControllerDelegate {
                             switch response?.response {
                             case .success(let appleID):
                                 CurrentUserLocalManager.shared.persistUserIDAfterSignIn(idString: appleID, type: .apple)
-                                self.router?.routeToProfileVC()
+                                self.router?.routeToProfileVC(type: self.signinVCType)
                             case .failure(let errorMessage):
                                 self.presentAlert(title: "Alert",
                                                   text: errorMessage,

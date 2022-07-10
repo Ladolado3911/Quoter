@@ -64,6 +64,7 @@ class ProfileInteractor: ProfileInteractorProtocol {
     }
     
     func setProfileContent() {
+        
         if let userIDString = userIDString {
             Task.init { [weak self] in
                 guard let self = self else { return }

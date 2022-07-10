@@ -13,7 +13,7 @@ protocol SigninRouterProtocol {
     var reloadDelegate: ReloadMenuTableViewDelegate? { get set }
     
     func routeToSignupVC(presentFromSignin: @escaping () -> Void)
-    func routeToProfileVC()
+    func routeToProfileVC(type: SigninVCType)
 }
 
 class SigninRouter: SigninRouterProtocol {
@@ -27,16 +27,28 @@ class SigninRouter: SigninRouterProtocol {
         vc?.present(vc: signupVC)
     }
     
-    func routeToProfileVC() {
-        let profileVC = ProfileVC()
-        MenuModels.shared.menuItems[2].switchVC(with: profileVC)
-        reloadDelegate?.reloadTableView()
+    func routeToProfileVC(type: SigninVCType) {
+//        let profileVC = ProfileVC()
+//        profileVC.modalPresentationStyle = .fullScreen
+        if let profileVC = MenuAuthorizationControllers.profileVC as? ProfileVCProtocol {
+            profileVC.interactor?.userIDString = CurrentUserLocalManager.shared.getCurrentUserID()
+        }
+        MenuModels.shared.menuItems[2].switchVC(with: MenuAuthorizationControllers.profileVC)
+        
+        switch type {
+        case .menu:
+            reloadDelegate?.reloadTableView()
+        case .explore:
+            
+            reloadDelegate?.reloadFromExplore()
+        }
+        
         
         
         //profileVC.interactor?.userIDString = userIDString
 //        profileVC.modalPresentationStyle = .fullScreen
 //        profileVC.modalTransitionStyle = .crossDissolve
-        vc?.present(vc: profileVC)
+        //vc?.present(vc: profileVC)
     }
     
 }

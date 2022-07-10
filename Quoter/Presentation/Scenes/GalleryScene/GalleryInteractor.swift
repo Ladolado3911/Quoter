@@ -11,7 +11,7 @@ protocol GalleryInteractorProtocol {
     var presenter: GalleryPresenterProtocol? { get set }
     var galleryNetworkWorker: GalleryNetworkWorkerProtocol? { get set }
     
-    var capturedQuotes: []
+    //var capturedQuotes: []
 }
 
 class GalleryInteractor: GalleryInteractorProtocol {

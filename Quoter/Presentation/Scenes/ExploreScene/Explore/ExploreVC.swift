@@ -11,6 +11,7 @@ protocol ExploreVCProtocol: AnyObject, FilterToExploreProtocol {
     var interactor: ExploreInteractorProtocol? { get set }
     var router: ExploreRouterProtocol? { get set }
     var exploreView: ExploreView? { get set }
+    //var signinVC: UIViewController? { get set }
     
     func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath], shouldAddCell: Bool)
     func addCellWhenSwiping(indexPaths: [IndexPath], shouldAddCell: Bool)
@@ -20,12 +21,20 @@ protocol ExploreVCProtocol: AnyObject, FilterToExploreProtocol {
                       mainButtonText: String,
                       mainButtonStyle: UIAlertAction.Style,
                       action: (() -> Void)?)
+    
+    func presentPickModalAlert(title: String,
+                               text: String,
+                               mainButtonText: String,
+                               mainButtonStyle: UIAlertAction.Style,
+                               action: (() -> Void)?)
     func reloadCollectionView()
     func present(vc: UIViewController, animated: Bool)
     func turnLeftArrowOn()
     
     func turnInteractionOn()
     func turnInteractionOff()
+    
+    func showSignin()
 }
 
 class ExploreVC: UIViewController {
@@ -33,6 +42,7 @@ class ExploreVC: UIViewController {
     var interactor: ExploreInteractorProtocol?
     var router: ExploreRouterProtocol?
     var exploreView: ExploreView?
+    //var signinVC: UIViewController?
     
     lazy var quoteButtonTapGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(onQuoteButton(sender:)))
@@ -105,8 +115,11 @@ class ExploreVC: UIViewController {
         let router = ExploreRouter()
         let exploreNetworkWorker = ExploreNetworkWorker()
         let exploreView = ExploreView(frame: UIScreen.main.bounds)
+        //let signinVC = SigninVC()
+        //signinVC.signinVCType = .explore
         vc.interactor = interactor
         vc.exploreView = exploreView
+        //vc.signinVC = signinVC
         vc.router = router
         interactor.presenter = presenter
         interactor.exploreNetworkWorker = exploreNetworkWorker
@@ -287,6 +300,25 @@ extension ExploreVC: ExploreVCProtocol {
                      mainButtonAction: newAction)
     }
     
+    func presentPickModalAlert(title: String,
+                               text: String,
+                               mainButtonText: String,
+                               mainButtonStyle: UIAlertAction.Style,
+                               action: (() -> Void)?) {
+        var newAction: () -> Void
+        if let action = action {
+            newAction = action
+        }
+        else {
+            newAction = { }
+        }
+        presentPickModalAlert(title: "Alert",
+                              text: "You need to sign in",
+                              mainButtonText: "Sign in",
+                              mainButtonStyle: .default,
+                              mainButtonAction: newAction)
+    }
+    
     func screenshot() {
         if let exploreView = exploreView,
            let exploreCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? ExploreCell {
@@ -324,6 +356,10 @@ extension ExploreVC: ExploreVCProtocol {
     
     func turnLeftArrowOn() {
         self.exploreView?.leftArrowButton.isEnabled = true
+    }
+    
+    func showSignin() {
+        router?.routeToSigninVC(with: MenuAuthorizationControllers.signInVCModal)
     }
 }
 

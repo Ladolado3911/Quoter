@@ -35,13 +35,18 @@ class ProfileVC: UIViewController {
     
     override func loadView() {
         super.loadView()
-        interactor?.setProfileContent()
+//        interactor?.setProfileContent()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view = profileView
         configButtons()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        interactor?.setProfileContent()
     }
     
     private func setup() {
@@ -69,6 +74,7 @@ class ProfileVC: UIViewController {
 
 extension ProfileVC {
     @objc func onSignoutButton(sender: UIButton) {
+        
         interactor?.signoutUser()
         router?.routeToSigninVC()
     }

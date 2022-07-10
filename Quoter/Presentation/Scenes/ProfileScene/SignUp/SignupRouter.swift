@@ -8,6 +8,7 @@ import UIKit
 
 protocol ReloadMenuTableViewDelegate {
     func reloadTableView()
+    func reloadFromExplore()
 }
 
 protocol SignupRouterProtocol {
@@ -23,7 +24,8 @@ class SignupRouter: SignupRouterProtocol {
     var reloadDelegate: ReloadMenuTableViewDelegate?
     
     func routeToProfileVC() {
-        let profileVC = ProfileVC()
+//        let profileVC = ProfileVC()
+//        profileVC.modalPresentationStyle = .fullScreen
         vc!.dismiss { [weak self] in
             guard let self = self else { return }
 //            MenuModels.shared.menuItems[2].switchVC(with: profileVC)

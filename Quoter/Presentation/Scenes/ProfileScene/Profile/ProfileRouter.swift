@@ -21,9 +21,11 @@ class ProfileRouter: ProfileRouterProtocol {
     var reloadDelegate: ReloadMenuTableViewDelegate?
     
     func routeToSigninVC() {
-        let signinVC = SigninVC()
-        MenuModels.shared.menuItems[2].switchVC(with: signinVC)
+//        let signinVC = SigninVC()
+//        signinVC.modalPresentationStyle = .fullScreen
+        MenuModels.shared.menuItems[2].switchVC(with: MenuAuthorizationControllers.signInVC)
         reloadDelegate?.reloadTableView()
+        
         //vc?.present(vc: signinVC)
     }
     

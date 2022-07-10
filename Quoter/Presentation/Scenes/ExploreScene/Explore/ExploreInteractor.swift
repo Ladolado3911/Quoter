@@ -84,6 +84,21 @@ class ExploreInteractor: ExploreInteractorProtocol {
     var isConfigurationRunning = false
 
     func onDownloadButton() {
+        if !CurrentUserLocalManager.shared.isUserSignedIn {
+            // require to sign in
+            presenter?.presentPickModalAlert(title: "Alert",
+                                             text: "You need to sign in",
+                                             mainButtonText: "Sign in",
+                                             mainButtonStyle: .default,
+                                             action: { [weak self] in
+                guard let self = self else { return }
+                self.presenter?.showSignin()
+            })
+            return 
+        }
+        
+        
+        
         if let loadedQuotes = loadedQuotes {
             let quote = loadedQuotes[currentPage]
             let isAllowed = quote.isScreenshotAllowed
@@ -144,15 +159,6 @@ class ExploreInteractor: ExploreInteractorProtocol {
             if item.isLoading {
                 cell.startAnimating()
             }
-//            if !item.isLoading && cell.imgView.image == nil {
-//                cell.startAnimating()
-//
-//                cell.imgView.sd_setImage(with: URL(string: item.quoteImageURLString ?? "")) {_,_,_,_ in
-//
-//                    cell.stopAnimating()
-//                }
-//            }
-
             Task.init(priority: .high) { [weak self] in
                 guard let self = self else { return }
                 var quote: ExploreQuoteProtocol = ExploreQuote()
