@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Combine
+
+let globalUserIsSignedInSubject = PassthroughSubject<Bool, Never>()
 
 protocol GalleryVCProtocol: AnyObject {
     var interactor: GalleryInteractorProtocol? { get set }
@@ -13,6 +16,8 @@ protocol GalleryVCProtocol: AnyObject {
     var galleryView: GalleryView? { get set }
     
     func present(vc: UIViewController)
+    func showInfoLabel()
+    func reloadData()
 }
 
 class GalleryVC: UIViewController {
@@ -20,6 +25,8 @@ class GalleryVC: UIViewController {
     var interactor: GalleryInteractorProtocol?
     var router: GalleryRouterProtocol?
     var galleryView: GalleryView?
+    
+    var cancellables: Set<AnyCancellable> = []
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -38,18 +45,20 @@ class GalleryVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addListeners()
         view.backgroundColor = DarkModeColors.mainBlack
-        interactor?.setUserQuotes()
+        globalUserIsSignedInSubject.send(CurrentUserLocalManager.shared.isUserSignedIn)
+        //interactor?.setUserQuotes()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if CurrentUserLocalManager.shared.isUserSignedIn {
-            galleryView?.showInfoLabel(with: "No quotes. Go to explore to add quotes")
-        }
-        else {
-            galleryView?.showInfoLabel(with: "Sign in to use gallery")
-        }
+//        if CurrentUserLocalManager.shared.isUserSignedIn {
+//            interactor?.setUserQuotes()
+//        }
+//        else {
+//            galleryView?.showInfoLabel(with: "Sign in to use gallery")
+//        }
         
     }
     
@@ -69,12 +78,38 @@ class GalleryVC: UIViewController {
         router.vc = vc
     }
     
+    private func addListeners() {
+        globalUserIsSignedInSubject
+            .sink { [weak self] isSignedIn in
+                guard let self = self else { return }
+                if isSignedIn {
+                    self.interactor?.setUserQuotes()
+                }
+                else {
+                    self.galleryView?.hideCollectionView()
+                    self.galleryView?.showInfoLabel(with: "Sign in to use gallery")
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
 }
 
 extension GalleryVC: GalleryVCProtocol {
     
     func present(vc: UIViewController) {
         present(vc, animated: true)
+    }
+    
+    func showInfoLabel() {
+        galleryView?.hideCollectionView()
+        galleryView?.showInfoLabel(with: "No quotes. Go to explore to add quotes")
+    }
+    
+    func reloadData() {
+        galleryView?.hideInfoLabel()
+        galleryView?.showCollectionView()
+        galleryView?.collectionView.reloadData()
     }
     
 }

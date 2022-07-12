@@ -25,9 +25,19 @@ class GalleryView: UIView {
         label.textColor = DarkModeColors.white
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.textAlignment = .center
-        label.alpha = 1
+        label.alpha = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.alpha = 0
+        collectionView.backgroundColor = .red
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
     }()
     
     override init(frame: CGRect) {
@@ -50,14 +60,27 @@ class GalleryView: UIView {
         }
     }
     
+    func hideInfoLabel() {
+        infoLabel.alpha = 0
+    }
+    
     func showInfoLabel(with text: String) {
         infoLabel.alpha = 1
         infoLabel.text = text
     }
     
+    func showCollectionView() {
+        collectionView.alpha = 1
+    }
+    
+    func hideCollectionView() {
+        collectionView.alpha = 0
+    }
+    
     private func buildSubviews() {
         addSubview(titleLabel)
         addSubview(infoLabel)
+        addSubview(collectionView)
     }
     
     private func buildConstraints() {
@@ -67,6 +90,11 @@ class GalleryView: UIView {
             
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
         
         ])
     }

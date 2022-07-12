@@ -9,8 +9,19 @@ import UIKit
 
 protocol GalleryPresenterProtocol {
     var vc: GalleryVCProtocol? { get set }
+    
+    func showInfoLabel()
+    func reloadData()
 }
 
 class GalleryPresenter: GalleryPresenterProtocol {
     var vc: GalleryVCProtocol?
+    
+    func showInfoLabel() {
+        vc?.showInfoLabel()
+    }
+    
+    func reloadData() {
+        vc?.reloadData()
+    }
 }

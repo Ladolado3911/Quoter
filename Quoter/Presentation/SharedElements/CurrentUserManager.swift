@@ -71,11 +71,13 @@ final class CurrentUserLocalManager {
     func persistUserIDAfterSignIn(id: UUID, type: AccountType) {
         UserDefaults.standard.set(id.uuidString, forKey: UserDefaultsKeys.userIDToKeepSignedIn.rawValue)
         UserDefaults.standard.set(type.rawValue, forKey: UserDefaultsKeys.userType.rawValue)
+        globalUserIsSignedInSubject.send(true)
     }
     
     func persistUserIDAfterSignIn(idString: String, type: AccountType) {
         UserDefaults.standard.set(idString, forKey: UserDefaultsKeys.userIDToKeepSignedIn.rawValue)
         UserDefaults.standard.set(type.rawValue, forKey: UserDefaultsKeys.userType.rawValue)
+        globalUserIsSignedInSubject.send(true)
     }
     
     func getCurrentUserID() -> String? {
@@ -89,6 +91,7 @@ final class CurrentUserLocalManager {
     
     func deleteUserIDAfterSignOut() {
         UserDefaults.standard.set(nil, forKey: UserDefaultsKeys.userIDToKeepSignedIn.rawValue)
+        globalUserIsSignedInSubject.send(false)
     }
     
 }

@@ -30,7 +30,12 @@ class GalleryInteractor: GalleryInteractorProtocol {
             let savedQuotes = try await self.galleryNetworkWorker?.getUserQuotes(userIDString: userIDString, userType: userType)
             await MainActor.run {
                 self.userQuotes = savedQuotes!
-                print(self.userQuotes)
+                if self.userQuotes.isEmpty {
+                    self.presenter?.showInfoLabel()
+                }
+                else {
+                    self.presenter?.reloadData()
+                }
             }
             
         }

@@ -33,7 +33,6 @@
 		241FF790285F20C500646809 /* simpleLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 241FF78F285F20C500646809 /* simpleLoading.json */; };
 		241FF792285F670500646809 /* SectionTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241FF791285F670500646809 /* SectionTitleView.swift */; };
 		242E31EE285361BC00AB4C22 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242E31ED285361BC00AB4C22 /* UIImageView+Extension.swift */; };
-		243D4DFD287D854C00178B97 /* URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243D4DFC287D854C00178B97 /* URLSession+Extension.swift */; };
 		24484AD42837C07900D3BFA8 /* QuoteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24484AD32837C07900D3BFA8 /* QuoteButtonView.swift */; };
 		2458D29428097EBB0088C00E /* DailyQuotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458D29328097EBB0088C00E /* DailyQuotesVC.swift */; };
 		2458D2982809A25B0088C00E /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458D2972809A25B0088C00E /* ExploreView.swift */; };
@@ -178,7 +177,6 @@
 		241FF78F285F20C500646809 /* simpleLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = simpleLoading.json; sourceTree = "<group>"; };
 		241FF791285F670500646809 /* SectionTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitleView.swift; sourceTree = "<group>"; };
 		242E31ED285361BC00AB4C22 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
-		243D4DFC287D854C00178B97 /* URLSession+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extension.swift"; sourceTree = "<group>"; };
 		24484AD32837C07900D3BFA8 /* QuoteButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteButtonView.swift; sourceTree = "<group>"; };
 		2458D29328097EBB0088C00E /* DailyQuotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuotesVC.swift; sourceTree = "<group>"; };
 		2458D2972809A25B0088C00E /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
@@ -407,7 +405,6 @@
 				242E31ED285361BC00AB4C22 /* UIImageView+Extension.swift */,
 				240028262858B34F005220D7 /* UICollectionView+Extension.swift */,
 				249BE4AB285DCBF600D30127 /* UITableView+Extension.swift */,
-				243D4DFC287D854C00178B97 /* URLSession+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1216,7 +1213,6 @@
 				24C7F2A92879D75400065891 /* GalleryRouter.swift in Sources */,
 				24D018F9280ADE880031C14B /* ExploreIcons.swift in Sources */,
 				24832A2C28698FAE001597FC /* UserCredentialsModel.swift in Sources */,
-				243D4DFD287D854C00178B97 /* URLSession+Extension.swift in Sources */,
 				2463DAF228648B5000FA78BE /* SignupView.swift in Sources */,
 				248115C32872E88100671C4B /* CurrentUserManager.swift in Sources */,
 				24832A342869DACA001597FC /* ResponseModel.swift in Sources */,
