@@ -12,6 +12,7 @@ enum NetworkError: Error {
     case noData
     case cantDecode
     case noURL
+    case couldNotUnwrap
 }
 
 protocol NetworkWorkerProtocol {

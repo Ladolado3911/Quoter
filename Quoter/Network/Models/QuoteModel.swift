@@ -8,9 +8,11 @@
 import Foundation
 
 struct QuoteModel: Codable {
+    var id: UUID?
     var content: String
     var author: AuthorModelForQuote
     var quoteImageURLString: String
+    var quoteImageID: String
 }
 
 struct AuthorModelForQuote: Codable {

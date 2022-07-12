@@ -103,7 +103,36 @@ class ExploreInteractor: ExploreInteractorProtocol {
             if isAllowed {
                 // vc saves image
                 if PHPhotoLibrary.authorizationStatus(for: .addOnly) == .authorized {
-                    presenter?.screenShot()
+                    
+                    let currentUserID = CurrentUserLocalManager.shared.getCurrentUserID()!.lowercased()
+                    let userType = CurrentUserLocalManager.shared.type!
+                    let quoteID = quote.id!.uuidString.lowercased()
+                    let imageID = quote.quoteImageID.lowercased()
+                    print(imageID)
+                    
+//                    presenter?.screenShot()
+                    Task.init { [weak self] in
+                        guard let self = self else { return }
+                        
+                        let response = try await self.exploreNetworkWorker?.saveQuote(quoteIDString: quoteID,
+                                                                                      imageIDString: imageID,
+                                                                                      userIDString: currentUserID,
+                                                                                         userType: userType)
+                        await MainActor.run {
+                            switch response?.response {
+                            case .success:
+                                presenter?.screenShot()
+                            case .failure(let errorMessage):
+                                presenter?.presentAlert(title: "Alert",
+                                                        text: errorMessage,
+                                                        mainButtonText: "ok",
+                                                        mainButtonStyle: .default,
+                                                        action: nil)
+                            default:
+                                break
+                            }
+                        }
+                    }
                 }
                 else {
                     presenter?.presentAlert(title: "Alert",
@@ -176,9 +205,11 @@ class ExploreInteractor: ExploreInteractorProtocol {
                                                       name: quoteModel!.author.name,
                                                       authorImageURLString: quoteModel!.author.authorImageURLString,
                                                       authorDesc: quoteModel!.author.authorDesc)
-                    let exploreQuote = ExploreQuote(quoteImageURLString: quoteModel!.quoteImageURLString,
+                    let exploreQuote = ExploreQuote(id: quoteModel?.id,
+                                                    quoteImageURLString: quoteModel!.quoteImageURLString,
                                                     content: quoteModel!.content,
-                                                    author: exploreAuthor)
+                                                    author: exploreAuthor,
+                                                    quoteImageID: quoteModel!.quoteImageID)
                     quote = exploreQuote
                 }
                 await MainActor.run { [quote] in

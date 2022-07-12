@@ -242,9 +242,12 @@ extension SigninVC {
                 let user = result.user
                 let userCredentials = UserCredentials(email: user.email ?? "No Mail", password: "", isMailVerified: user.isEmailVerified, accountType: "google")
                 Task.init {
+                    
                     let response = try await self.interactor?.signupNetworkWorker?.signupUser(user: userCredentials)
+                    
                     switch response?.response {
                     case .success(let success):
+                        
                         let id = UUID(uuidString: success)!
                         CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id, type: .google)
                         self.router?.routeToProfileVC(type: signinVCType)
@@ -259,6 +262,7 @@ extension SigninVC {
                             }
                         }
                     case .failure(let failure):
+                        
                         Task.init {
                             let response = try await self.interactor?.signinNetworkWorker?.signinUser(user: userCredentials)
                             await MainActor.run {

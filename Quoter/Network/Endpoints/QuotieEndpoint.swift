@@ -28,6 +28,13 @@ enum QuoteSize: String {
     case small
 }
 
+struct SavedQuoteForEncode: Codable {
+    var quoteIDString: String
+    var imageIDString: String
+    var userIDString: String
+    var userType: String
+}
+
 enum QuotieEndpoint: EndpointProtocol {
     
     case getAboutAuthor(authorID: String)
@@ -42,6 +49,9 @@ enum QuotieEndpoint: EndpointProtocol {
     case deleteAccount(body: QuotieID)
     
     case getUserProfileContent(userID: String, accountType: AccountType)
+    
+    case saveQuote(body: SavedQuoteForEncode)
+    case getUserQuotes(userIDString: String, userTypeString: String)
 
     var scheme: Scheme {
         switch self {
@@ -75,6 +85,10 @@ enum QuotieEndpoint: EndpointProtocol {
             return "/signInWithApple/"
         case .deleteAccount:
             return "/deleteAccount/"
+        case .saveQuote:
+            return "/saveQuote/"
+        case .getUserQuotes(let userIDString, let userTypeString):
+            return "/getSavedQuotes/\(userIDString)/\(userTypeString)"
         }
     }
     var parameters: [URLQueryItem] {
@@ -94,6 +108,8 @@ enum QuotieEndpoint: EndpointProtocol {
         case .signinWithApple:
             return .post
         case .deleteAccount:
+            return .post
+        case .saveQuote:
             return .post
         default:
             return .get
@@ -144,6 +160,16 @@ enum QuotieEndpoint: EndpointProtocol {
         case .deleteAccount(let quotieID):
             do {
                 let data = try JSONEncoder().encode(quotieID)
+                return data
+            }
+            catch {
+                print(error)
+                return nil
+            }
+            
+        case .saveQuote(let saveQuoteResponse):
+            do {
+                let data = try JSONEncoder().encode(saveQuoteResponse)
                 return data
             }
             catch {

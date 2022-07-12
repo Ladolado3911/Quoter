@@ -39,6 +39,7 @@ class GalleryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = DarkModeColors.mainBlack
+        interactor?.setUserQuotes()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -21,7 +21,15 @@ class SignupNetworkWorker: SignupNetworkWorkerProtocol {
     func signupUser(user: UserCredentials) async throws -> QuotieResponse {
         let endpoint = QuotieEndpoint.signupUser(body: user)
         let model = Resource(model: QuotieResponse.self)
-        let response = try await networkWorker.request(endpoint: endpoint, model: model)
+        var response: QuotieResponse
+        do {
+            response = try await networkWorker.request(endpoint: endpoint, model: model)
+        }
+        catch {
+            print(error.localizedDescription)
+            throw error
+        }
+        //let response = try await networkWorker.request(endpoint: endpoint, model: model)
         return response
     }
     
