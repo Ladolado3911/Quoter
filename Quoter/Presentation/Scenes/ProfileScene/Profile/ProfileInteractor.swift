@@ -86,6 +86,7 @@ class ProfileInteractor: ProfileInteractorProtocol {
         Task.init { [weak self] in
             guard let self = self else { return }
             let response = try await self.profileNetworkWorker?.deleteAccount()
+            CurrentUserLocalManager.shared.deleteUserIDAfterSignOut()
             await MainActor.run {
                 switch response?.response {
                 case .success(let _):

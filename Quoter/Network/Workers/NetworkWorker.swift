@@ -45,7 +45,6 @@ class NetworkWorker: NetworkWorkerProtocol {
                 request.httpMethod = endpoint.method.rawValue
                 request.httpBody = endpoint.body
             }
-            //request.httpBody = endpoint.body
             let (data, response) = try await URLSession.shared.data(for: request)
             
             print("HTTP head", response)

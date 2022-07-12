@@ -75,6 +75,12 @@ class SigninVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = signinView
+        switch signinVCType {
+        case .menu:
+            break
+        case .explore:
+            signinView?.signUpButton.alpha = 0
+        }
         configElements()
         configListeners()
         //view.backgroundColor = DarkModeColors.mainBlack
@@ -242,6 +248,16 @@ extension SigninVC {
                         let id = UUID(uuidString: success)!
                         CurrentUserLocalManager.shared.persistUserIDAfterSignIn(id: id, type: .google)
                         self.router?.routeToProfileVC(type: signinVCType)
+                        switch self.signinVCType {
+                        case .menu:
+                            break
+                        case .explore:
+                            self.dismiss(animated: true) {
+                                if let closure = self.saveQuoteClosure {
+                                    closure()
+                                }
+                            }
+                        }
                     case .failure(let failure):
                         Task.init {
                             let response = try await self.interactor?.signinNetworkWorker?.signinUser(user: userCredentials)
@@ -308,6 +324,16 @@ extension SigninVC: ASAuthorizationControllerDelegate {
                 case .success(let appleID):
                     CurrentUserLocalManager.shared.persistUserIDAfterSignIn(idString: appleID, type: .apple)
                     self.router?.routeToProfileVC(type: self.signinVCType)
+                    switch self.signinVCType {
+                    case .menu:
+                        break
+                    case .explore:
+                        self.dismiss(animated: true) {
+                            if let closure = self.saveQuoteClosure {
+                                closure()
+                            }
+                        }
+                    }
                 case .failure:
                     Task.init {
                         let appleUserCredentials = AppleUserCredentials(appleID: userID, email: mail ?? "No Mail", isMailVerified: false)

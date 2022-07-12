@@ -89,7 +89,7 @@ class ExploreInteractor: ExploreInteractorProtocol {
             presenter?.presentPickModalAlert(title: "Alert",
                                              text: "You need to sign in",
                                              mainButtonText: "Sign in",
-                                             mainButtonStyle: .default,
+                                             mainButtonStyle: .cancel,
                                              action: { [weak self] in
                 guard let self = self else { return }
                 self.presenter?.showSignin()
