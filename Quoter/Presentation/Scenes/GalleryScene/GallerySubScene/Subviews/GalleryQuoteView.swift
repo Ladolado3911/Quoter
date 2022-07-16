@@ -77,26 +77,14 @@ class GalleryQuoteView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        //setData()
-        //backgroundColor = DarkModeColors
         layer.masksToBounds = true
         layer.cornerRadius = 30
-        //layer.borderWidth = 1
         layer.borderColor = DarkModeColors.white.cgColor
         buildSubviews()
         buildConstraints()
         
     }
-//
-//    private func setData() {
-//        if let exploreCell = exploreCell {
-//            quoteContentLabel.text = exploreCell.quoteContentLabel.text
-//            quoteContentLabel.font = exploreCell.quoteContentLabel.font
-//            authorNameLabel.text = exploreCell.authorNameLabel.text
-//            imgView.image = exploreCell.imgView.image
-//        }
-//    }
-    
+
     private func buildSubviews() {
         addSubview(imgView)
         addSubview(closeButton)

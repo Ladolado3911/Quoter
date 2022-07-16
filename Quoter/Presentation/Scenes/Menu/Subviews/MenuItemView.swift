@@ -12,7 +12,7 @@ class MenuItemView: UIView {
     let titleLabel: UILabel = {
         let field = UILabel()
         field.textColor = DarkModeColors.grey
-        field.font = UIFont(name: "Arial", size: 14)
+        field.font = UIFont(name: "Arial", size: 17)
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
@@ -63,7 +63,7 @@ class MenuItemView: UIView {
             iconImageView.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.04),
             iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 7),
+            titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 15),
             titleLabel.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         
