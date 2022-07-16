@@ -34,8 +34,8 @@ class GalleryView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
         collectionView.alpha = 0
-        collectionView.backgroundColor = .red
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -55,9 +55,9 @@ class GalleryView: UIView {
     }
     
     func hideContent() {
-        for subview in subviews {
-            subview.alpha = 0
-        }
+//        for subview in subviews {
+//            subview.alpha = 0
+//        }
     }
     
     func hideInfoLabel() {
@@ -88,13 +88,13 @@ class GalleryView: UIView {
             infoLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: topAnchor),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 78),
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
+            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 60),
         
         ])
     }

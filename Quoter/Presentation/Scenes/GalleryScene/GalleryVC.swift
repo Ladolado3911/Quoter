@@ -45,6 +45,7 @@ class GalleryVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configCollectionView()
         addListeners()
         view.backgroundColor = DarkModeColors.mainBlack
         globalUserIsSignedInSubject.send(CurrentUserLocalManager.shared.isUserSignedIn)
@@ -93,6 +94,13 @@ class GalleryVC: UIViewController {
             .store(in: &cancellables)
     }
     
+    private func configCollectionView() {
+        let collectionView = galleryView?.collectionView
+        collectionView?.dataSource = self
+        collectionView?.delegate = self
+        collectionView?.register(GalleryCell.self, forCellWithReuseIdentifier: GalleryCell.identifier)
+    }
+    
 }
 
 extension GalleryVC: GalleryVCProtocol {
@@ -112,4 +120,35 @@ extension GalleryVC: GalleryVCProtocol {
         galleryView?.collectionView.reloadData()
     }
     
+}
+
+extension GalleryVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        interactor?.collectionView(collectionView, numberOfItemsInSection: section) ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        interactor?.collectionView(collectionView, cellForItemAt: indexPath) ?? UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        interactor?.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        interactor?.collectionView(collectionView, layout: collectionViewLayout, minimumLineSpacingForSectionAt: section) ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        interactor?.collectionView(collectionView, layout: collectionViewLayout, minimumInteritemSpacingForSectionAt: section) ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        interactor?.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
+    }
 }
