@@ -12,21 +12,21 @@ PODS:
   - Google-Mobile-Ads-SDK (9.7.0):
     - GoogleAppMeasurement (< 10.0, >= 7.0)
     - GoogleUserMessagingPlatform (>= 1.1)
-  - GoogleAppMeasurement (9.2.0):
-    - GoogleAppMeasurement/AdIdSupport (= 9.2.0)
+  - GoogleAppMeasurement (9.3.0):
+    - GoogleAppMeasurement/AdIdSupport (= 9.3.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
     - GoogleUtilities/MethodSwizzler (~> 7.7)
     - GoogleUtilities/Network (~> 7.7)
     - "GoogleUtilities/NSData+zlib (~> 7.7)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleAppMeasurement/AdIdSupport (9.2.0):
-    - GoogleAppMeasurement/WithoutAdIdSupport (= 9.2.0)
+  - GoogleAppMeasurement/AdIdSupport (9.3.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 9.3.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
     - GoogleUtilities/MethodSwizzler (~> 7.7)
     - GoogleUtilities/Network (~> 7.7)
     - "GoogleUtilities/NSData+zlib (~> 7.7)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleAppMeasurement/WithoutAdIdSupport (9.2.0):
+  - GoogleAppMeasurement/WithoutAdIdSupport (9.3.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
     - GoogleUtilities/MethodSwizzler (~> 7.7)
     - GoogleUtilities/Network (~> 7.7)
@@ -84,7 +84,7 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: 787de205d524c3a4b17d527916f1d066e4361660
   FBSDKShareKit: b9c1cd1fa6a320a50f0f353cf30d589049c8db77
   Google-Mobile-Ads-SDK: 2685d6b3374b26de8a71f535614396e57cf80b13
-  GoogleAppMeasurement: 7a33224321f975d58c166657260526775d9c6b1a
+  GoogleAppMeasurement: b907bdad775b6975a8108762345b2cfbf1a93c37
   GoogleUserMessagingPlatform: ab890ce5f6620f293a21b6bdd82e416a2c73aeca
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
