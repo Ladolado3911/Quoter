@@ -88,12 +88,18 @@ class GalleryInteractor: GalleryInteractorProtocol {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let currentQuote = userQuotes[indexPath.item]
+        presenter?.didSelect(savedQuote: currentQuote)
+        //let view = GalleryQuoteView()
+//        view.authorNameLabel.text = currentQuote.quote.author.name
+//        view.quoteContentLabel.text = currentQuote.quote.content
+//        view.imgView.sd_setImage(with: URL(string: currentQuote.image.imageURLString))
+//
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: Constants.screenWidth * 0.308,
-               height: Constants.screenWidth * 0.308 * 1.6125)
+        CGSize(width: collectionView.bounds.width / 3,
+               height: collectionView.bounds.width / 3 * 1.6125)
     }
 }
 

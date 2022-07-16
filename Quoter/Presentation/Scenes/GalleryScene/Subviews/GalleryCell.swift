@@ -58,8 +58,8 @@ class GalleryCell: UICollectionViewCell {
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             titleLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -bounds.height * 0.08125),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
         ])
     }
 }

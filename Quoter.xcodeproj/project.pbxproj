@@ -33,6 +33,8 @@
 		241FF790285F20C500646809 /* simpleLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 241FF78F285F20C500646809 /* simpleLoading.json */; };
 		241FF792285F670500646809 /* SectionTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241FF791285F670500646809 /* SectionTitleView.swift */; };
 		242E31EE285361BC00AB4C22 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242E31ED285361BC00AB4C22 /* UIImageView+Extension.swift */; };
+		243287DC2882BFE800D74E75 /* GalleryQuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243287DB2882BFE800D74E75 /* GalleryQuoteView.swift */; };
+		243287DF2882C15A00D74E75 /* GallerySubSceneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243287DE2882C15A00D74E75 /* GallerySubSceneVC.swift */; };
 		243BA97828800DA900E8D890 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243BA97728800DA900E8D890 /* GalleryCell.swift */; };
 		24484AD42837C07900D3BFA8 /* QuoteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24484AD32837C07900D3BFA8 /* QuoteButtonView.swift */; };
 		2458D29428097EBB0088C00E /* DailyQuotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458D29328097EBB0088C00E /* DailyQuotesVC.swift */; };
@@ -178,6 +180,8 @@
 		241FF78F285F20C500646809 /* simpleLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = simpleLoading.json; sourceTree = "<group>"; };
 		241FF791285F670500646809 /* SectionTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitleView.swift; sourceTree = "<group>"; };
 		242E31ED285361BC00AB4C22 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		243287DB2882BFE800D74E75 /* GalleryQuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryQuoteView.swift; sourceTree = "<group>"; };
+		243287DE2882C15A00D74E75 /* GallerySubSceneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GallerySubSceneVC.swift; sourceTree = "<group>"; };
 		243BA97728800DA900E8D890 /* GalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
 		24484AD32837C07900D3BFA8 /* QuoteButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteButtonView.swift; sourceTree = "<group>"; };
 		2458D29328097EBB0088C00E /* DailyQuotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuotesVC.swift; sourceTree = "<group>"; };
@@ -431,9 +435,27 @@
 			path = Workers;
 			sourceTree = "<group>";
 		};
+		243287DD2882C14B00D74E75 /* GallerySubScene */ = {
+			isa = PBXGroup;
+			children = (
+				243287DE2882C15A00D74E75 /* GallerySubSceneVC.swift */,
+				243287E02882C24200D74E75 /* Subviews */,
+			);
+			path = GallerySubScene;
+			sourceTree = "<group>";
+		};
+		243287E02882C24200D74E75 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				243287DB2882BFE800D74E75 /* GalleryQuoteView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		2458D295280999270088C00E /* GalleryScene */ = {
 			isa = PBXGroup;
 			children = (
+				243287DD2882C14B00D74E75 /* GallerySubScene */,
 				24138A3E2805B90800044F5E /* GalleryVC.swift */,
 				24C7F2A42879D73400065891 /* GalleryInteractor.swift */,
 				24C7F2A62879D74600065891 /* GalleryPresenter.swift */,
@@ -1221,9 +1243,11 @@
 				248115C32872E88100671C4B /* CurrentUserManager.swift in Sources */,
 				24832A342869DACA001597FC /* ResponseModel.swift in Sources */,
 				24484AD42837C07900D3BFA8 /* QuoteButtonView.swift in Sources */,
+				243287DC2882BFE800D74E75 /* GalleryQuoteView.swift in Sources */,
 				246B82962831204E00D44DF5 /* NetworkWorker.swift in Sources */,
 				24CD4C0E2844B23700A63968 /* DeviceModel.swift in Sources */,
 				246700B42859D1B7004C64EB /* AuthorInteractor.swift in Sources */,
+				243287DF2882C15A00D74E75 /* GallerySubSceneVC.swift in Sources */,
 				2463DAE32864832500FA78BE /* ThirdPartyButton.swift in Sources */,
 				24DAF67D285229C00046DC51 /* CALayer+Extension.swift in Sources */,
 				24DAF67B285219AA0046DC51 /* FilterCategories.swift in Sources */,

@@ -18,6 +18,7 @@ protocol GalleryVCProtocol: AnyObject {
     func present(vc: UIViewController)
     func showInfoLabel()
     func reloadData()
+    func didSelect(quoteContent: String?, authorName: String?, imageURLString: String?)
 }
 
 class GalleryVC: UIViewController {
@@ -120,6 +121,10 @@ extension GalleryVC: GalleryVCProtocol {
         galleryView?.collectionView.reloadData()
     }
     
+    func didSelect(quoteContent: String?, authorName: String?, imageURLString: String?) {
+        router?.routeToGallerySubScene(quoteContent: quoteContent, authorName: authorName, imageURLString: imageURLString)
+    }
+    
 }
 
 extension GalleryVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -145,7 +150,7 @@ extension GalleryVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        interactor?.collectionView(collectionView, didSelectItemAt: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
