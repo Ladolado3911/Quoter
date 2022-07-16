@@ -12,6 +12,7 @@ protocol ExploreRouterProtocol {
     
     func routeToFilterVC(with currentGenre: Genre)
     func routeToAuthorVC(authorID: String, authorName: String, authorImageURLString: String, authorDesc: String)
+    func routeToSigninVC(with vc: UIViewController)
 }
 
 class ExploreRouter: ExploreRouterProtocol {
@@ -39,5 +40,9 @@ class ExploreRouter: ExploreRouterProtocol {
             AuthorCellsManager.shared.authorDesc = authorDesc
             vc.present(vc: authorVC, animated: false)
         }
+    }
+    
+    func routeToSigninVC(with signinVC: UIViewController) {
+        vc!.present(vc: signinVC, animated: true)
     }
 }

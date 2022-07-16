@@ -6,27 +6,53 @@
 //
 
 import Foundation
+import UIKit
+
+struct GoogleUserCredentials: Codable {
+    var email: String
+    var isMailVerified: Bool 
+}
+
+struct AppleUserCredentials: Codable {
+    var appleID: String
+    var email: String
+    var isMailVerified: Bool
+}
+
+struct QuotieID: Codable {
+    var id: String
+}
 
 enum QuoteSize: String {
     case big
     case small
 }
 
+struct SavedQuoteForEncode: Codable {
+    var quoteIDString: String
+    var imageIDString: String
+    var userIDString: String
+    var userType: String
+}
+
 enum QuotieEndpoint: EndpointProtocol {
-    
-    case getRandomQuote(genre: String)
-    case getQuotes(genre: String, limit: Int, size: QuoteSize)
-    case registerDevice
-    case negotiateQuotes(genre: String, size: QuoteSize, body: [String: AnyHashable])
-    case getSmallQuote(genre: String)
-    case getSmallGeneralQuote
-    case getCategories
     
     case getAboutAuthor(authorID: String)
     case getAuthorQuotesForSection(authorID: String)
     case getOtherAuthorsForSection(categoryName: String)
-    case getDataSourceInfo
     
+    case signupUser(body: UserCredentials)
+    case signupWithApple(body: AppleUserCredentials)
+    case signinUser(body: UserCredentials)
+    case signinWithApple(body: AppleUserCredentials)
+    
+    case deleteAccount(body: QuotieID)
+    
+    case getUserProfileContent(userID: String, accountType: AccountType)
+    
+    case saveQuote(body: SavedQuoteForEncode)
+    case getUserQuotes(userIDString: String, userTypeString: String)
+
     var scheme: Scheme {
         switch self {
         default:
@@ -41,29 +67,28 @@ enum QuotieEndpoint: EndpointProtocol {
     }
     var path: String {
         switch self {
-        case .getRandomQuote(let genre):
-            return "/randomQuote/\(genre)/"
-        case .getQuotes(let genre, let limit, let size):
-            return "/getQuotes/\(genre)/\(limit)/\(size.rawValue)"
-        case .registerDevice:
-            return "/registerDevice/"
-        case .negotiateQuotes(let genre, let size, _):
-            return "/getQuotesNegotiated/\(genre)/\(size.rawValue)"
-        case .getSmallQuote(let genre):
-            return "/getSmallQuote/\(genre)"
-        case .getSmallGeneralQuote:
-            return "/getSmallGeneralQuote/"
-        case .getCategories:
-            return "/categories/"
-            
         case .getAboutAuthor(let id):
             return "/getAuthorAbout/\(id)/"
         case .getAuthorQuotesForSection(let id):
             return "/getAuthorQuotesSection/\(id)/"
         case .getOtherAuthorsForSection(let name):
             return "/getOtherAuthorsInCategory/\(name)/"
-        case .getDataSourceInfo:
-            return "/getSectionCountAndCellIdentifiers/"
+        case .signupUser:
+            return "/signUp/"
+        case .signinUser:
+            return "/signIn/"
+        case .getUserProfileContent(let id, let type):
+            return "/getUserProfileContent/\(id)/\(type.rawValue)/"
+        case .signupWithApple:
+            return "/signUpWithApple/"
+        case .signinWithApple:
+            return "/signInWithApple/"
+        case .deleteAccount:
+            return "/deleteAccount/"
+        case .saveQuote:
+            return "/saveQuote/"
+        case .getUserQuotes(let userIDString, let userTypeString):
+            return "/getSavedQuotes/\(userIDString)/\(userTypeString)"
         }
     }
     var parameters: [URLQueryItem] {
@@ -74,14 +99,83 @@ enum QuotieEndpoint: EndpointProtocol {
     }
     var method: HTTPMethod {
         switch self {
+        case .signinUser:
+            return .post
+        case .signupUser:
+            return .post
+        case .signupWithApple:
+            return .post
+        case .signinWithApple:
+            return .post
+        case .deleteAccount:
+            return .post
+        case .saveQuote:
+            return .post
         default:
             return .get
         }
     }
     var body: Data? {
         switch self {
-        case .negotiateQuotes(_, _, let body):
-            return try? JSONSerialization.data(withJSONObject: body)
+        case .signupUser(let userCredentials):
+            do {
+                let data = try JSONEncoder().encode(userCredentials)
+                return data
+            }
+            catch {
+                print(error)
+                return nil
+            }
+            
+        case .signupWithApple(let appleUserCredentials):
+            do {
+                let data = try JSONEncoder().encode(appleUserCredentials)
+                return data
+            }
+            catch {
+                print(error)
+                return nil
+            }
+            
+        case .signinWithApple(let appleUserCredentials):
+            do {
+                let data = try JSONEncoder().encode(appleUserCredentials)
+                return data
+            }
+            catch {
+                print(error)
+                return nil
+            }
+        
+        case .signinUser(let userCredentials):
+            do {
+                let data = try JSONEncoder().encode(userCredentials)
+                return data
+            }
+            catch {
+                print(error)
+                return nil
+            }
+            
+        case .deleteAccount(let quotieID):
+            do {
+                let data = try JSONEncoder().encode(quotieID)
+                return data
+            }
+            catch {
+                print(error)
+                return nil
+            }
+            
+        case .saveQuote(let saveQuoteResponse):
+            do {
+                let data = try JSONEncoder().encode(saveQuoteResponse)
+                return data
+            }
+            catch {
+                print(error)
+                return nil
+            }
         default:
             return nil
         }

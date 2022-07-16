@@ -21,7 +21,7 @@ protocol CellProtocol {
     func sizeForInnerCollectionViewItemAt() -> CGSize
     func willDisplayInnerCollectionViewCell(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
     
-    //MARK: functions on cell
+    //MARK: functions on table view cell
     func registerCell(_ tableView: UITableView)
     func dequeCell(_ tableView: UITableView) -> UITableViewCell
     func willDisplay(_ cell: UITableViewCell, networkWorker: CustomNetworkWorkerProtocol)

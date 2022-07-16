@@ -39,21 +39,21 @@ class AuthorNetworkWorker: AuthorNetworkWorkerProtocol {
     func getAboutAuthor(authorID: String) async throws -> AuthorAboutProtocol {
         let endpoint = QuotieEndpoint.getAboutAuthor(authorID: authorID)
         let model = Resource(model: AuthorAboutEntity.self)
-        let entity = try await networkWorker.fetchData(endpoint: endpoint, model: model)
+        let entity = try await networkWorker.request(endpoint: endpoint, model: model)
         return entity
     }
     
     func getAuthorQuotesForSection(authorID: String) async throws -> AuthorQuotesForSectionProtocol {
         let endpoint = QuotieEndpoint.getAuthorQuotesForSection(authorID: authorID)
         let model = Resource(model: AuthorQuotesForSectionEntity.self)
-        let entity = try await networkWorker.fetchData(endpoint: endpoint, model: model)
+        let entity = try await networkWorker.request(endpoint: endpoint, model: model)
         return entity
     }
     
     func getOtherAuthorsForSection(categoryName: String) async throws -> OtherAuthorsForSectionProtocol {
         let endpoint = QuotieEndpoint.getOtherAuthorsForSection(categoryName: categoryName)
         let model = Resource(model: OtherAuthorsForSectionEntity.self)
-        let entity = try await networkWorker.fetchData(endpoint: endpoint, model: model)
+        let entity = try await networkWorker.request(endpoint: endpoint, model: model)
         return entity
     }
     

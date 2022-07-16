@@ -12,10 +12,11 @@ enum NetworkError: Error {
     case noData
     case cantDecode
     case noURL
+    case couldNotUnwrap
 }
 
 protocol NetworkWorkerProtocol {
-    func fetchData<T: Codable>(endpoint: EndpointProtocol, model: Resource<T>) async throws -> T
+    func request<T: Codable>(endpoint: EndpointProtocol, model: Resource<T>) async throws -> T
 }
 
 struct Resource<T: Codable> {
@@ -24,7 +25,7 @@ struct Resource<T: Codable> {
 
 class NetworkWorker: NetworkWorkerProtocol {
 
-    func fetchData<T: Codable>(endpoint: EndpointProtocol, model: Resource<T>) async throws -> T {
+    func request<T: Codable>(endpoint: EndpointProtocol, model: Resource<T>) async throws -> T {
         var components = URLComponents()
         components.scheme = endpoint.scheme.rawValue
         components.queryItems = endpoint.parameters
@@ -45,7 +46,6 @@ class NetworkWorker: NetworkWorkerProtocol {
                 request.httpMethod = endpoint.method.rawValue
                 request.httpBody = endpoint.body
             }
-            //request.httpBody = endpoint.body
             let (data, response) = try await URLSession.shared.data(for: request)
             
             print("HTTP head", response)
@@ -57,5 +57,4 @@ class NetworkWorker: NetworkWorkerProtocol {
             throw error
         }
     }
-    
 }

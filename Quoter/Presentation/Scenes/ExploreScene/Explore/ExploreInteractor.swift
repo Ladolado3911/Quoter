@@ -25,6 +25,9 @@ protocol ExploreInteractorProtocol {
     var timer: Timer? { get set }
     var isConfigurationRunning: Bool { get set }
     
+    var scrollBeginOffset: CGPoint { get set }
+    var scrollDidEndOffset: CGPoint { get set }
+    
     //func buttonAnimationTimerFire(collectionView: UICollectionView?)
     func onDownloadButton()
     func presentAlert(title: String, text: String, mainButtonText: String, mainButtonStyle: UIAlertAction.Style, action: (() -> Void)?)
@@ -74,16 +77,62 @@ class ExploreInteractor: ExploreInteractorProtocol {
     }
     var websocketTask: URLSessionWebSocketTask?
     var timer: Timer?
-    var isConfigurationRunning: Bool = false
+    
+    var scrollBeginOffset: CGPoint = .zero
+    var scrollDidEndOffset: CGPoint = .zero
+    
+    var isConfigurationRunning = false
 
     func onDownloadButton() {
+        if !CurrentUserLocalManager.shared.isUserSignedIn {
+            // require to sign in
+            presenter?.presentPickModalAlert(title: "Alert",
+                                             text: "You need to sign in",
+                                             mainButtonText: "Sign in",
+                                             mainButtonStyle: .cancel,
+                                             action: { [weak self] in
+                guard let self = self else { return }
+                self.presenter?.showSignin()
+            })
+            return 
+        }
+        
         if let loadedQuotes = loadedQuotes {
             let quote = loadedQuotes[currentPage]
             let isAllowed = quote.isScreenshotAllowed
             if isAllowed {
                 // vc saves image
                 if PHPhotoLibrary.authorizationStatus(for: .addOnly) == .authorized {
-                    presenter?.screenShot()
+                    
+                    let currentUserID = CurrentUserLocalManager.shared.getCurrentUserID()!.lowercased()
+                    let userType = CurrentUserLocalManager.shared.type!
+                    let quoteID = quote.id!.uuidString.lowercased()
+                    let imageID = quote.quoteImageID.lowercased()
+                    print(imageID)
+                    
+//                    presenter?.screenShot()
+                    Task.init { [weak self] in
+                        guard let self = self else { return }
+                        
+                        let response = try await self.exploreNetworkWorker?.saveQuote(quoteIDString: quoteID,
+                                                                                      imageIDString: imageID,
+                                                                                      userIDString: currentUserID,
+                                                                                         userType: userType)
+                        await MainActor.run {
+                            switch response?.response {
+                            case .success:
+                                presenter?.screenShot()
+                            case .failure(let errorMessage):
+                                presenter?.presentAlert(title: "Alert",
+                                                        text: errorMessage,
+                                                        mainButtonText: "ok",
+                                                        mainButtonStyle: .default,
+                                                        action: nil)
+                            default:
+                                break
+                            }
+                        }
+                    }
                 }
                 else {
                     presenter?.presentAlert(title: "Alert",
@@ -137,15 +186,6 @@ class ExploreInteractor: ExploreInteractorProtocol {
             if item.isLoading {
                 cell.startAnimating()
             }
-//            if !item.isLoading && cell.imgView.image == nil {
-//                cell.startAnimating()
-//
-//                cell.imgView.sd_setImage(with: URL(string: item.quoteImageURLString ?? "")) {_,_,_,_ in
-//
-//                    cell.stopAnimating()
-//                }
-//            }
-
             Task.init(priority: .high) { [weak self] in
                 guard let self = self else { return }
                 var quote: ExploreQuoteProtocol = ExploreQuote()
@@ -165,9 +205,11 @@ class ExploreInteractor: ExploreInteractorProtocol {
                                                       name: quoteModel!.author.name,
                                                       authorImageURLString: quoteModel!.author.authorImageURLString,
                                                       authorDesc: quoteModel!.author.authorDesc)
-                    let exploreQuote = ExploreQuote(quoteImageURLString: quoteModel!.quoteImageURLString,
+                    let exploreQuote = ExploreQuote(id: quoteModel?.id,
+                                                    quoteImageURLString: quoteModel!.quoteImageURLString,
                                                     content: quoteModel!.content,
-                                                    author: exploreAuthor)
+                                                    author: exploreAuthor,
+                                                    quoteImageID: quoteModel!.quoteImageID)
                     quote = exploreQuote
                 }
                 await MainActor.run { [quote] in
@@ -220,13 +262,25 @@ class ExploreInteractor: ExploreInteractorProtocol {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let prevPage = currentPage
-        currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        if currentPage == loadedQuotes?.count ?? 0 - 1 {
-            loadedQuotes?.append(ExploreQuote())
+        //let prevPage = currentPage
+        //var contentOffsetX: CGFloat
+        var shouldAddCell: Bool = false
+        if scrollDidEndOffset.x > scrollBeginOffset.x {
+            //contentOffsetX = Constants.screenWidth
+            currentPage += 1
+            print(currentPage)
+            print(loadedQuotes?.count ?? 0)
+            shouldAddCell = currentPage >= (loadedQuotes?.count ?? 0) - 4
+            if currentPage >= (loadedQuotes?.count ?? 0) - 4 {
+                loadedQuotes?.append(ExploreQuote())
+            }
         }
+        else {
+            //contentOffsetX = -Constants.screenWidth
+            currentPage -= 1
+        }
+        //currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
         let indexPaths = [IndexPath(item: loadedQuotes!.count - 2, section: 0)]
-        let shouldAddCell = currentPage == loadedQuotes?.count ?? 0 - 1
         presenter?.addCellWhenSwiping(indexPaths: indexPaths, shouldAddCell: shouldAddCell)
     }
     
@@ -253,8 +307,6 @@ class ExploreInteractor: ExploreInteractorProtocol {
             }
         }
         let indexPaths = [IndexPath(item: loadedQuotes!.count - 2, section: 0)]
-//        let shouldAddCell = currentPage >= (loadedQuotes?.count ?? 0) - 4
-
         presenter?.scroll(direction: direction, contentOffsetX: contentOffsetX!, indexPaths: indexPaths, shouldAddCell: shouldAddCell)
     }
     

@@ -8,8 +8,10 @@
 import Foundation
 
 protocol ExploreQuoteProtocol {
+    var id: UUID? { get set }
     var content: String? { get set }
     var author: ExploreAuthorProtocol? { get set }
+    var quoteImageID: String { get set }
     var quoteImageURLString: String? { get set }
     var isScreenshotAllowed: Bool { get set }
     var isLoading: Bool { get set }
@@ -24,9 +26,11 @@ protocol ExploreAuthorProtocol {
 }
 
 struct ExploreQuote: ExploreQuoteProtocol {
+    var id: UUID?
     var quoteImageURLString: String?
     var content: String?
     var author: ExploreAuthorProtocol?
+    var quoteImageID: String = ""
     var isScreenshotAllowed: Bool = false
     var isLoading: Bool = true
 }

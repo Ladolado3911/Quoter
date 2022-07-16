@@ -18,14 +18,14 @@ extension UIViewController {
         let alert = UIAlertController(title: title,
                                       message: text,
                                       preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "cancel", style: .cancel) { [weak self] alertAction in
+        let cancelAction = UIAlertAction(title: "cancel", style: .default) { [weak self] alertAction in
             self?.dismiss(animated: true)
         }
         let mainAction = UIAlertAction(title: mainButtonText, style: mainButtonStyle) { _ in
             mainButtonAction()
         }
-        alert.addAction(mainAction)
         alert.addAction(cancelAction)
+        alert.addAction(mainAction)
         present(alert, animated: true)
     }
     

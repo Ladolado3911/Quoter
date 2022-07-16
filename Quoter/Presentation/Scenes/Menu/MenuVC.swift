@@ -23,7 +23,10 @@ class MenuVC: UIViewController {
     lazy var leftSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeftOnMenuView(sender:)))
     
     var selectedItemIndex: Int = 0
-    let viewControllers = MenuModels.shared.menuItems.map { $0.viewController }
+    var viewControllers: [UIViewController] {
+        MenuModels.shared.menuItems.map { $0.viewController }
+    }
+    //var viewControllers = MenuModels.shared.menuItems.map { $0.viewController }
     var menuItems = MenuModels.shared.menuItems
     var selectedVC: UIViewController {
         viewControllers[selectedItemIndex]
@@ -63,12 +66,37 @@ class MenuVC: UIViewController {
         leftSwipeRecognizer.direction = .left
         menuView.addGestureRecognizer(leftSwipeRecognizer)
         blurEffectView.addGestureRecognizer(tapGesture)
+        
+        if let profileVC = MenuAuthorizationControllers.profileVC as? ProfileVCProtocol,
+           let signinVC = MenuAuthorizationControllers.signInVC as? SigninVCProtocol,
+           let signupVC = MenuAuthorizationControllers.signUpVC as? SignupVCProtocol,
+           let signinVCModal = MenuAuthorizationControllers.signInVCModal as? SigninVCProtocol {
+            profileVC.router?.reloadDelegate = self
+            signinVC.router?.reloadDelegate = self
+            signupVC.router?.reloadDelegate = self
+            signinVCModal.router?.reloadDelegate = self
+        }
+//
+//        MenuAuthorizationControllers.profileVC.router?.reloadDelegate = self
+//        MenuAuthorizationControllers.signInVC.router?.reloadDelegate = self
+//        MenuAuthorizationControllers.signUpVC.router?.reloadDelegate = self
         for childIndex in 0..<MenuModels.shared.menuItems.count {
             let vc = MenuModels.shared.menuItems[childIndex].viewController
             addChild(vc)
             if childIndex == 0 {
                 view.addSubview(vc.view)
             }
+//            if childIndex == 2 {
+//                if let vc = vc as? ProfileVC {
+//                    vc.router?.reloadDelegate = self
+//                }
+//                if let vc = vc as? SigninVC {
+//                    vc.router?.reloadDelegate = self
+//                }
+//                if let vc = vc as? SignupVC {
+//                    vc.router?.reloadDelegate = self
+//                }
+//            }
         }
         menuVCButton.addTarget(self, action: #selector(didTapOnMenuVCButton(sender:)), for: .touchUpInside)
         bringSubviewsToFront()
@@ -86,6 +114,11 @@ class MenuVC: UIViewController {
         view.addSubview(selectedVC.view)
         view.sendSubviewToBack(selectedVC.view)
     }
+    
+//    static func update(index: Int) {
+//
+//
+//    }
     
     private func configTableView() {
         menuView.tableView.dataSource = self
@@ -187,5 +220,36 @@ extension MenuVC: UITableViewDataSource, UITableViewDelegate {
         switchVC(index: indexPath.row)
         tableView.reloadData()
         didTapOnVC()
+    }
+}
+
+extension MenuVC: ReloadMenuTableViewDelegate {
+    func reloadTableView() {
+        for subview in view.subviews {
+            if !(subview is MenuView || subview is UIButton || subview is StatusRectView || subview is UIVisualEffectView) {
+                subview.removeFromSuperview()
+            }
+        }
+        for vc in viewControllers {
+            if let vc = vc as? ProfileVC {
+                vc.view.removeFromSuperview()
+                view.addSubview(vc.view)
+            }
+            if let vc = vc as? SigninVC {
+                vc.view.removeFromSuperview()
+                view.addSubview(vc.view)
+            }
+            if let vc = vc as? SignupVC {
+                vc.view.removeFromSuperview()
+                view.addSubview(vc.view)
+            }
+            view.bringSubviewToFront(menuView)
+            view.bringSubviewToFront(menuVCButton)
+            view.bringSubviewToFront(blurEffectView)
+        }
+    }
+    
+    func reloadFromExplore() {
+        MenuAuthorizationControllers.signInVC.view.transform = .identity
     }
 }

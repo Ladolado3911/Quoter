@@ -18,11 +18,19 @@ protocol ExplorePresenterProtocol {
                       mainButtonText: String,
                       mainButtonStyle: UIAlertAction.Style,
                       action: (() -> Void)?)
+    
+    func presentPickModalAlert(title: String,
+                               text: String,
+                               mainButtonText: String,
+                               mainButtonStyle: UIAlertAction.Style,
+                               action: (() -> Void)?)
     func turnLeftArrowOn()
     func reloadCollectionView()
     
     func turnInteractionOn()
     func turnInteractionOff()
+    
+    func showSignin()
 }
 
 class ExplorePresenter: ExplorePresenterProtocol {
@@ -52,6 +60,19 @@ class ExplorePresenter: ExplorePresenterProtocol {
                          action: action)
     }
     
+    func presentPickModalAlert(title: String,
+                               text: String,
+                               mainButtonText: String,
+                               mainButtonStyle: UIAlertAction.Style,
+                               action: (() -> Void)?) {
+        
+        vc?.presentPickModalAlert(title: title,
+                                  text: text,
+                                  mainButtonText: mainButtonText,
+                                  mainButtonStyle: mainButtonStyle,
+                                  action: action)
+    }
+    
     func reloadCollectionView() {
         vc?.reloadCollectionView()
     }
@@ -65,5 +86,9 @@ class ExplorePresenter: ExplorePresenterProtocol {
     }
     func turnInteractionOff() {
         vc?.turnInteractionOff()
+    }
+    
+    func showSignin() {
+        vc?.showSignin()
     }
 }
