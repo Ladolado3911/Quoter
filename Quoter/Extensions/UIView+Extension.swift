@@ -87,6 +87,19 @@ extension UIView {
         completion()
     }
     
+    func takeScreenshot(size: CGSize, completion: @escaping () -> Void) {
+        UIGraphicsBeginImageContextWithOptions(
+            CGSize(width: size.width, height: size.height),
+            false,
+            2
+        )
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        UIImageWriteToSavedPhotosAlbum(screenshot, self, nil, nil)
+        completion()
+    }
+    
 }
 
 extension UIView {
