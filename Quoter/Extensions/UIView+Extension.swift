@@ -45,6 +45,33 @@ extension UIView {
         }
     }
     
+    func createAndStartLoadingLottieAnimation(animation: LottieAnimation,
+                                              animationSpeed: CGFloat = 1,
+                                              loopMode: LottieLoopMode = .loop,
+                                              size: CGFloat,
+                                              contentMode: UIView.ContentMode = .scaleAspectFit,
+                                              completion: ((Bool) -> Void)?) {
+        
+        let lottieAnimation = AnimationView(name: animation.rawValue)
+        lottieAnimation.frame = CGRect(x: (bounds.width / 2) - (size / 2),
+                                       y: (bounds.height / 2) - (size / 2),
+                                       width: size,
+                                       height: size)
+        lottieAnimation.contentMode = contentMode
+        lottieAnimation.loopMode = loopMode
+        lottieAnimation.animationSpeed = animationSpeed
+        // loading animation will always have tag of 1
+        lottieAnimation.tag = 1
+        addSubview(lottieAnimation)
+        if let completion = completion {
+            let lottieCompletion = completion
+            lottieAnimation.play(completion: lottieCompletion)
+        }
+        else {
+            lottieAnimation.play()
+        }
+    }
+    
     func stopLoadingLottieAnimationIfExists() {
         if let lottieAnimation = loadingLottieAnimationView {
             lottieAnimation.removeFromSuperview()
