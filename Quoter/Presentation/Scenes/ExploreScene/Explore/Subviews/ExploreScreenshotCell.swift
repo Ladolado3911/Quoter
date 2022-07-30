@@ -76,21 +76,21 @@ class ExploreScreenshotCell: UICollectionViewCell {
         return imageView
     }()
     
-    let authorNameLabel: UILabel = {
+    lazy var authorNameLabel: UILabel = {
         let authorNameLabel = UILabel()
         authorNameLabel.textColor = DarkModeColors.white
         authorNameLabel.textAlignment = .center
-        authorNameLabel.font = Fonts.businessFonts.libreBaskerville.bold(size: Constants.screenHeight * 0.027)
+        authorNameLabel.font = Fonts.businessFonts.libreBaskerville.bold(size: bounds.height * 0.035)
         authorNameLabel.translatesAutoresizingMaskIntoConstraints = false
         return authorNameLabel
     }()
     
-    let quoteContentLabel: UILabel = {
+    lazy var quoteContentLabel: UILabel = {
         // 55 char is max
         let quoteContentLabel = UILabel()
         quoteContentLabel.numberOfLines = 2
-        quoteContentLabel.addLineHeight(lineHeight: Constants.screenHeight * 0.043)
-        //quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: Constants.screenHeight * 0.02)
+        //quoteContentLabel.addLineHeight(lineHeight: Constants.screenHeight * 0.1)
+        quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: bounds.height * 0.027)
         quoteContentLabel.textColor = .white
         quoteContentLabel.textAlignment = .center
         quoteContentLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -108,7 +108,7 @@ class ExploreScreenshotCell: UICollectionViewCell {
     private func setData() {
         if let exploreCell = exploreCell {
             quoteContentLabel.text = exploreCell.quoteContentLabel.text
-            quoteContentLabel.font = exploreCell.quoteContentLabel.font
+            //quoteContentLabel.font = exploreCell.quoteContentLabel.font
             authorNameLabel.text = exploreCell.authorNameLabel.text
             imgView.image = exploreCell.imgView.image
         }
@@ -123,19 +123,19 @@ class ExploreScreenshotCell: UICollectionViewCell {
     
     private func buildConstraints() {
         NSLayoutConstraint.activate([
-            quoteContentLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.screenHeight * 0.04),
+            quoteContentLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bounds.height * 0.04),
             quoteContentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             quoteContentLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            quoteContentLabel.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.1232),
+            quoteContentLabel.heightAnchor.constraint(equalToConstant: bounds.height * 0.1),
             
-            authorNameLabel.bottomAnchor.constraint(equalTo: quoteContentLabel.topAnchor, constant: -Constants.screenHeight * 0.0352),
+            authorNameLabel.bottomAnchor.constraint(equalTo: quoteContentLabel.topAnchor, constant: -bounds.height * 0.04),
             authorNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            authorNameLabel.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.037),
+            authorNameLabel.heightAnchor.constraint(equalToConstant: bounds.height * 0.06),
             
-            quotieLogoImageView.bottomAnchor.constraint(equalTo: authorNameLabel.topAnchor, constant: -Constants.screenHeight * 0.0088),
-            quotieLogoImageView.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
-            quotieLogoImageView.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
+            quotieLogoImageView.bottomAnchor.constraint(equalTo: authorNameLabel.topAnchor, constant: -bounds.height * 0.015),
+            quotieLogoImageView.heightAnchor.constraint(equalToConstant: bounds.height * 0.08),
+            quotieLogoImageView.widthAnchor.constraint(equalToConstant: bounds.height * 0.08),
             quotieLogoImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }

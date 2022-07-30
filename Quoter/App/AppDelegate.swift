@@ -25,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         GADMobileAds.sharedInstance().start()
         Analytics.setAnalyticsCollectionEnabled(false)
+        //print("Application directory: \()")
+        
         guard let _ = UserDefaults.standard.value(forKey: "firstLaunch") as? Bool else { return true }
         return true
     }

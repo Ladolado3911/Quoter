@@ -235,6 +235,7 @@ extension SigninVC {
             }
             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                            accessToken: authentication.accessToken)
+        
             // ...AuthCredential
             Auth.auth().signIn(with: credential) { [weak self] result, error in
                 guard let self = self else { return }

@@ -322,7 +322,12 @@ extension ExploreVC: ExploreVCProtocol {
     func screenshot() {
         if let exploreView = exploreView,
            let exploreCell = exploreView.collectionView.cellForItem(at: IndexPath(item: interactor!.currentPage, section: 0)) as? ExploreCell {
-            let newCell = ExploreScreenshotCell(exploreCell: exploreCell, frame: exploreCell.bounds)
+            let width = exploreCell.bounds.width + 400
+            let height = width
+            let newCell = ExploreScreenshotCell(exploreCell: exploreCell, frame: CGRect(x: 0,
+                                                                                        y: 0,
+                                                                                        width: width,
+                                                                                        height: height))
             newCell.takeScreenshot { [weak self] in
                 guard let self = self else { return }
                 self.interactor?.presentAlert(title: "Alert",
