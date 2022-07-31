@@ -6,9 +6,6 @@ target 'Quoter' do
   use_frameworks!
 
   pod 'Google-Mobile-Ads-SDK'
-  pod 'FBSDKCoreKit'
-  pod 'FBSDKLoginKit'
-  pod 'FBSDKShareKit'
 
   # Pods for Quoter
 

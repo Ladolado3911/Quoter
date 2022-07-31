@@ -80,7 +80,7 @@ class ExploreScreenshotCell: UICollectionViewCell {
         let authorNameLabel = UILabel()
         authorNameLabel.textColor = DarkModeColors.white
         authorNameLabel.textAlignment = .center
-        authorNameLabel.font = Fonts.businessFonts.libreBaskerville.bold(size: bounds.height * 0.035)
+        authorNameLabel.font = Fonts.businessFonts.libreBaskerville.bold(size: bounds.height * 0.05)
         authorNameLabel.translatesAutoresizingMaskIntoConstraints = false
         return authorNameLabel
     }()
@@ -90,7 +90,7 @@ class ExploreScreenshotCell: UICollectionViewCell {
         let quoteContentLabel = UILabel()
         quoteContentLabel.numberOfLines = 2
         //quoteContentLabel.addLineHeight(lineHeight: Constants.screenHeight * 0.1)
-        quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: bounds.height * 0.027)
+        quoteContentLabel.font = Fonts.businessFonts.libreBaskerville.regular(size: bounds.height * 0.04)
         quoteContentLabel.textColor = .white
         quoteContentLabel.textAlignment = .center
         quoteContentLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -126,16 +126,16 @@ class ExploreScreenshotCell: UICollectionViewCell {
             quoteContentLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bounds.height * 0.04),
             quoteContentLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             quoteContentLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            quoteContentLabel.heightAnchor.constraint(equalToConstant: bounds.height * 0.1),
+            quoteContentLabel.heightAnchor.constraint(equalToConstant: bounds.height * 0.15),
             
             authorNameLabel.bottomAnchor.constraint(equalTo: quoteContentLabel.topAnchor, constant: -bounds.height * 0.04),
             authorNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             authorNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            authorNameLabel.heightAnchor.constraint(equalToConstant: bounds.height * 0.06),
+            authorNameLabel.heightAnchor.constraint(equalToConstant: bounds.height * 0.07),
             
-            quotieLogoImageView.bottomAnchor.constraint(equalTo: authorNameLabel.topAnchor, constant: -bounds.height * 0.015),
-            quotieLogoImageView.heightAnchor.constraint(equalToConstant: bounds.height * 0.08),
-            quotieLogoImageView.widthAnchor.constraint(equalToConstant: bounds.height * 0.08),
+            quotieLogoImageView.bottomAnchor.constraint(equalTo: authorNameLabel.topAnchor, constant: -bounds.height * 0.02),
+            quotieLogoImageView.heightAnchor.constraint(equalToConstant: bounds.height * 0.12),
+            quotieLogoImageView.widthAnchor.constraint(equalToConstant: bounds.height * 0.12),
             quotieLogoImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
