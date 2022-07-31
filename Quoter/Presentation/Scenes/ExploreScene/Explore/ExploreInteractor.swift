@@ -102,45 +102,88 @@ class ExploreInteractor: ExploreInteractorProtocol {
             let isAllowed = quote.isScreenshotAllowed
             if isAllowed {
                 // vc saves image
-                if PHPhotoLibrary.authorizationStatus(for: .addOnly) == .authorized {
-                    
-                    let currentUserID = CurrentUserLocalManager.shared.getCurrentUserID()!.lowercased()
-                    let userType = CurrentUserLocalManager.shared.type!
-                    let quoteID = quote.id!.uuidString.lowercased()
-                    let imageID = quote.quoteImageID.lowercased()
-                    print(imageID)
-                    
-//                    presenter?.screenShot()
-                    Task.init { [weak self] in
-                        guard let self = self else { return }
+                
+                PHPhotoLibrary.requestAuthorization({ [weak self] status in
+                    if status == .authorized {
+                        let currentUserID = CurrentUserLocalManager.shared.getCurrentUserID()!.lowercased()
+                        let userType = CurrentUserLocalManager.shared.type!
+                        let quoteID = quote.id!.uuidString.lowercased()
+                        let imageID = quote.quoteImageID.lowercased()
+                        print(imageID)
                         
-                        let response = try await self.exploreNetworkWorker?.saveQuote(quoteIDString: quoteID,
-                                                                                      imageIDString: imageID,
-                                                                                      userIDString: currentUserID,
-                                                                                         userType: userType)
-                        await MainActor.run {
-                            switch response?.response {
-                            case .success:
-                                presenter?.screenShot()
-                            case .failure(let errorMessage):
-                                presenter?.presentAlert(title: "Alert",
-                                                        text: errorMessage,
-                                                        mainButtonText: "ok",
-                                                        mainButtonStyle: .default,
-                                                        action: nil)
-                            default:
-                                break
+    //                    presenter?.screenShot()
+                        Task.init { [weak self] in
+                            guard let self = self else { return }
+                            
+                            let response = try await self.exploreNetworkWorker?.saveQuote(quoteIDString: quoteID,
+                                                                                          imageIDString: imageID,
+                                                                                          userIDString: currentUserID,
+                                                                                             userType: userType)
+                            await MainActor.run {
+                                switch response?.response {
+                                case .success:
+                                    self.presenter?.screenShot()
+                                case .failure(let errorMessage):
+                                    self.presenter?.presentAlert(title: "Alert",
+                                                            text: errorMessage,
+                                                            mainButtonText: "ok",
+                                                            mainButtonStyle: .default,
+                                                            action: nil)
+                                default:
+                                    break
+                                }
                             }
                         }
                     }
-                }
-                else {
-                    presenter?.presentAlert(title: "Alert",
-                                            text: "Acces to photos is denied",
-                                            mainButtonText: "Ok",
-                                            mainButtonStyle: .default,
-                                            action: nil)
-                }
+                    else {
+                        self?.presenter?.presentAlert(title: "Alert",
+                                                text: "Acces to photos is denied",
+                                                mainButtonText: "Ok",
+                                                mainButtonStyle: .default,
+                                                action: nil)
+                    }
+                })
+//
+//
+//                if PHPhotoLibrary.authorizationStatus(for: .addOnly) == .authorized {
+//
+////                    let currentUserID = CurrentUserLocalManager.shared.getCurrentUserID()!.lowercased()
+////                    let userType = CurrentUserLocalManager.shared.type!
+////                    let quoteID = quote.id!.uuidString.lowercased()
+////                    let imageID = quote.quoteImageID.lowercased()
+////                    print(imageID)
+////
+//////                    presenter?.screenShot()
+////                    Task.init { [weak self] in
+////                        guard let self = self else { return }
+////
+////                        let response = try await self.exploreNetworkWorker?.saveQuote(quoteIDString: quoteID,
+////                                                                                      imageIDString: imageID,
+////                                                                                      userIDString: currentUserID,
+////                                                                                         userType: userType)
+////                        await MainActor.run {
+////                            switch response?.response {
+////                            case .success:
+////                                presenter?.screenShot()
+////                            case .failure(let errorMessage):
+////                                presenter?.presentAlert(title: "Alert",
+////                                                        text: errorMessage,
+////                                                        mainButtonText: "ok",
+////                                                        mainButtonStyle: .default,
+////                                                        action: nil)
+////                            default:
+////                                break
+////                            }
+////                        }
+////                    }
+//                }
+//                else {
+////                    presenter?.presentAlert(title: "Alert",
+////                                            text: "Acces to photos is denied",
+////                                            mainButtonText: "Ok",
+////                                            mainButtonStyle: .default,
+////                                            action: nil)
+//                }
             }
             else {
                 // vc presents alert
