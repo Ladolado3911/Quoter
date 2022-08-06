@@ -51,7 +51,7 @@ protocol ExploreInteractorProtocol {
     func scroll(direction: ExploreDirection)
 }
 
-class ExploreInteractor: ExploreInteractorProtocol {
+final class ExploreInteractor: ExploreInteractorProtocol {
     
     var presenter: ExplorePresenterProtocol?
     var exploreNetworkWorker: ExploreNetworkWorkerProtocol?

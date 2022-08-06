@@ -13,7 +13,7 @@ protocol FilterNetworkWorkerProtocol {
     //func getCategories() async throws -> [MainCategoryModel]
 }
 
-class FilterNetworkWorker: FilterNetworkWorkerProtocol {
+final class FilterNetworkWorker: FilterNetworkWorkerProtocol {
     var networkWorker: NetworkWorkerProtocol = NetworkWorker()
     
 //    func getCategories() async throws -> [MainCategoryModel] {

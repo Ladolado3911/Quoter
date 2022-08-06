@@ -21,7 +21,7 @@ protocol SigninInteractorProtocol {
     //func signin()
 }
 
-class SigninInteractor: SigninInteractorProtocol {
+final class SigninInteractor: SigninInteractorProtocol {
     var presenter: SigninPresenterProtocol?
     var signinNetworkWorker: SigninNetworkWorkerProtocol?
     var signupNetworkWorker: SignupNetworkWorkerProtocol?

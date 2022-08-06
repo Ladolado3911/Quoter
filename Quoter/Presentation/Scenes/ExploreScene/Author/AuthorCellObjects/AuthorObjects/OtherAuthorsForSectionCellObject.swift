@@ -8,7 +8,7 @@
 import UIKit
 
 
-class OtherAuthorsForSectionCellObject: CellProtocol {
+final class OtherAuthorsForSectionCellObject: CellProtocol {
     
     var sectionNameOfCell: String = "Other authors"
     
@@ -28,7 +28,7 @@ class OtherAuthorsForSectionCellObject: CellProtocol {
         5
     }
     
-    class OtherAuthorsForSectionCell: UITableViewCell {
+    final class OtherAuthorsForSectionCell: UITableViewCell {
         
         static let cellIdentifier: String = String(describing: OtherAuthorsForSectionCellObject.OtherAuthorsForSectionCell.self)
         
@@ -62,7 +62,7 @@ class OtherAuthorsForSectionCellObject: CellProtocol {
         }
     }
     
-    class ChildCell: UICollectionViewCell {
+    final class ChildCell: UICollectionViewCell {
         
         static let cellIdentifier: String = String(describing: ChildCell.self)
         

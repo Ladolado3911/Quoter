@@ -23,7 +23,7 @@ protocol ProfileNetworkWorkerProtocol {
 
 }
 
-class ProfileNetworkWorker: ProfileNetworkWorkerProtocol {
+final class ProfileNetworkWorker: ProfileNetworkWorkerProtocol {
     
     var networkWorker: NetworkWorkerProtocol = NetworkWorker()
     

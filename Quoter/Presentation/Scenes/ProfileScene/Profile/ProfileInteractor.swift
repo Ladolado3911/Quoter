@@ -30,7 +30,7 @@ protocol ProfileInteractorProtocol {
     func deleteAccount()
 }
 
-class ProfileInteractor: ProfileInteractorProtocol {
+final class ProfileInteractor: ProfileInteractorProtocol {
     var presenter: ProfilePresenterProtocol?
     var menuItems: [ProfileMenuItem] = [
         ProfileMenuItem(icon: ProfileIcons.galleryIcon, title: "Gallery"),

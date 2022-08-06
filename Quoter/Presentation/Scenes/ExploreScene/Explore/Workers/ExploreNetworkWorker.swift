@@ -15,7 +15,7 @@ protocol ExploreNetworkWorkerProtocol {
     
 }
 
-class ExploreNetworkWorker: ExploreNetworkWorkerProtocol {
+final class ExploreNetworkWorker: ExploreNetworkWorkerProtocol {
     
     var networkWorker: NetworkWorkerProtocol = NetworkWorker()
     

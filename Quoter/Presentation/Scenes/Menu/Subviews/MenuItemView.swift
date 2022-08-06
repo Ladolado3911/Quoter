@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MenuItemView: UIView {
+final class MenuItemView: UIView {
     
     let titleLabel: UILabel = {
         let field = UILabel()

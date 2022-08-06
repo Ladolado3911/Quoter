@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MenuHeaderView: UITableViewHeaderFooterView {
+final class MenuHeaderView: UITableViewHeaderFooterView {
     
     let logoIconView: UIImageView = {
         let imageView = UIImageView()

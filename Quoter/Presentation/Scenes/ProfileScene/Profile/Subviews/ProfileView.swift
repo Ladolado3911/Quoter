@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileView: UIView {
+final class ProfileView: UIView {
     
     let vstack: UIStackView = {
         let vstack = UIStackView()

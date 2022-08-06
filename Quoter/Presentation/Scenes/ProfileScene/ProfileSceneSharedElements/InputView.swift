@@ -14,7 +14,7 @@ enum InputViewType {
     case verification
 }
 
-class InputView: UIView {
+final class InputView: UIView {
     
     let inputViewTitleLabel: UILabel = {
         let label = UILabel()

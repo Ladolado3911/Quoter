@@ -15,7 +15,7 @@ protocol ExploreRouterProtocol {
     func routeToSigninVC(with vc: UIViewController)
 }
 
-class ExploreRouter: ExploreRouterProtocol {
+final class ExploreRouter: ExploreRouterProtocol {
     weak var vc: ExploreVCProtocol?
     
     func routeToFilterVC(with currentGenre: Genre) {

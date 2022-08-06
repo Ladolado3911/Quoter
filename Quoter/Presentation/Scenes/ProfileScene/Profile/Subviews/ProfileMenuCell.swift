@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileMenuCell: UICollectionViewCell {
+final class ProfileMenuCell: UICollectionViewCell {
     
     let rectView: UIView = {
         let rectView = UIView()

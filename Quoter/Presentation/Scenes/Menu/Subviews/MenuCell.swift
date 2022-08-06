@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MenuCell: UITableViewCell {
+final class MenuCell: UITableViewCell {
     
     var menuView: MenuItemView?
     

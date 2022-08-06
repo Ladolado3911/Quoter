@@ -18,7 +18,7 @@ protocol AuthorPresenterProtocol {
     func dismissView()
 }
 
-class AuthorPresenter: AuthorPresenterProtocol {
+final class AuthorPresenter: AuthorPresenterProtocol {
     var vc: AuthorVCProtocol?
     
     func showView() {

@@ -15,7 +15,7 @@ enum FormType: String {
     case deleteAccount = "Delete account"
 }
 
-class CallToActionButton: UIButton {
+final class CallToActionButton: UIButton {
     
     var callToActionButtonType: FormType? {
         didSet {

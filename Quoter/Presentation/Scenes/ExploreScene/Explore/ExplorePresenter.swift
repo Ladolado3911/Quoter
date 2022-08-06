@@ -33,7 +33,7 @@ protocol ExplorePresenterProtocol {
     func showSignin()
 }
 
-class ExplorePresenter: ExplorePresenterProtocol {
+final class ExplorePresenter: ExplorePresenterProtocol {
     var vc: ExploreVCProtocol?
     
     func scroll(direction: ExploreDirection, contentOffsetX: CGFloat, indexPaths: [IndexPath], shouldAddCell: Bool) {

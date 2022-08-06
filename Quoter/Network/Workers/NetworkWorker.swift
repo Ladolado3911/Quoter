@@ -23,7 +23,7 @@ struct Resource<T: Codable> {
     var model: T.Type
 }
 
-class NetworkWorker: NetworkWorkerProtocol {
+final class NetworkWorker: NetworkWorkerProtocol {
 
     func request<T: Codable>(endpoint: EndpointProtocol, model: Resource<T>) async throws -> T {
         var components = URLComponents()

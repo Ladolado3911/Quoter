@@ -7,16 +7,16 @@
 
 import UIKit
 
-class ExploreLayout: UICollectionViewFlowLayout {
+final class ExploreLayout: UICollectionViewFlowLayout {
     /// Overrided so that we can store extra information in the layout attributes.
-    open override class var layoutAttributesClass: AnyClass { return AnimatedCollectionViewLayoutAttributes.self }
+    public override class var layoutAttributesClass: AnyClass { return AnimatedCollectionViewLayoutAttributes.self }
     
-    open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         guard let attributes = super.layoutAttributesForElements(in: rect) else { return nil }
         return attributes.compactMap { $0.copy() as? AnimatedCollectionViewLayoutAttributes }.map { self.transformLayoutAttributes($0) }
     }
     
-    open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+    public override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         // We have to return true here so that the layout attributes would be recalculated
         // everytime we scroll the collection view.
         return true

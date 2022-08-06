@@ -20,7 +20,7 @@ protocol SignupVCProtocol: AnyObject {
     func dismiss(completion: (() -> Void)?)
 }
 
-class SignupVC: UIViewController {
+final class SignupVC: UIViewController {
     
     var interactor: SignupInteractorProtocol?
     var router: SignupRouterProtocol?

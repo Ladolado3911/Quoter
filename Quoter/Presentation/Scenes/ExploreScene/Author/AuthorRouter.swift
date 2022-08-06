@@ -14,7 +14,7 @@ protocol AuthorRouterProtocol {
     //func routeToFilterVC(with currentGenre: Genre)
 }
 
-class AuthorRouter: AuthorRouterProtocol {
+final class AuthorRouter: AuthorRouterProtocol {
     weak var vc: AuthorVC?
     
 //    func routeToFilterVC(with currentGenre: Genre) {

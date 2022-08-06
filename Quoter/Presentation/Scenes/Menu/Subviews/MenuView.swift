@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MenuView: UIView {
+final class MenuView: UIView {
     
     lazy var tableView: UITableView = {
         let table = UITableView()

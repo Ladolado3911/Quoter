@@ -23,7 +23,7 @@ protocol FilterPresenterProtocol {
     func selectCell(indexPath: IndexPath)
 }
 
-class FilterPresenter: FilterPresenterProtocol {
+final class FilterPresenter: FilterPresenterProtocol {
     var vc: FilterVCProtocol?
     
     func panFunc(sender: UIPanGestureRecognizer, targetView: FilterView) {

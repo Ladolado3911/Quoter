@@ -14,7 +14,7 @@ protocol SignupNetworkWorkerProtocol {
     func signupUserWithApple(appleUser: AppleUserCredentials) async throws -> QuotieResponse
 }
 
-class SignupNetworkWorker: SignupNetworkWorkerProtocol {
+final class SignupNetworkWorker: SignupNetworkWorkerProtocol {
     
     var networkWorker: NetworkWorkerProtocol = NetworkWorker()
     

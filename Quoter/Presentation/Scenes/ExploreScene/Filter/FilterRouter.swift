@@ -11,6 +11,6 @@ protocol FilterRouterProtocol {
     var vc: FilterVCProtocol? { get set }
 }
 
-class FilterRouter: FilterRouterProtocol {
+final class FilterRouter: FilterRouterProtocol {
     weak var vc: FilterVCProtocol?
 }

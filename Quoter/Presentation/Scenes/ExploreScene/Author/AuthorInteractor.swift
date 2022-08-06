@@ -41,7 +41,7 @@ protocol AuthorInteractorProtocol {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
 }
 
-class AuthorInteractor: AuthorInteractorProtocol {
+final class AuthorInteractor: AuthorInteractorProtocol {
     var presenter: AuthorPresenterProtocol?
     var authorNetworkWorker: AuthorNetworkWorkerProtocol?
     

@@ -9,7 +9,7 @@ import UIKit
 import Lottie
 
 
-class AuthorQuotesForSectionCellObject: CellProtocol {
+final class AuthorQuotesForSectionCellObject: CellProtocol {
     
     var sectionNameOfCell: String = "Other quotes"
     
@@ -31,7 +31,7 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
     
     var dataForInnerCollectionView: [Any?] = []
     
-    class AuthorQuotesForSectionCell: UITableViewCell {
+    final class AuthorQuotesForSectionCell: UITableViewCell {
         
         static let cellIdentifier: String = String(describing: AuthorQuotesForSectionCellObject.AuthorQuotesForSectionCell.self)
         
@@ -66,7 +66,7 @@ class AuthorQuotesForSectionCellObject: CellProtocol {
         }
     }
     
-    class ChildCell: UICollectionViewCell {
+    final class ChildCell: UICollectionViewCell {
         
         static let cellIdentifier: String = String(describing: ChildCell.self)
         

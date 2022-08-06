@@ -16,7 +16,7 @@ protocol SigninNetworkWorkerProtocol {
 //    func getUserProfileContent(using id: String) async throws -> UserProfileContent
 }
 
-class SigninNetworkWorker: SigninNetworkWorkerProtocol {
+final class SigninNetworkWorker: SigninNetworkWorkerProtocol {
     
     var networkWorker: NetworkWorkerProtocol = NetworkWorker()
     

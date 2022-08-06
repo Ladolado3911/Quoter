@@ -26,7 +26,7 @@ protocol AuthorNetworkWorkerProtocol: CustomNetworkWorkerProtocol {
     func getOtherAuthorsForSection(categoryName: String) async throws -> OtherAuthorsForSectionProtocol
 }
 
-class AuthorNetworkWorker: AuthorNetworkWorkerProtocol {
+final class AuthorNetworkWorker: AuthorNetworkWorkerProtocol {
     var networkWorker: NetworkWorkerProtocol = NetworkWorker()
 //
 //    func getDataSourceInfo() async throws -> AuthorDataSourceInfoProtocol {

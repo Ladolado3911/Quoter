@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExploreCell: UICollectionViewCell {
+final class ExploreCell: UICollectionViewCell {
     
     lazy var gradientLayer: CAGradientLayer = {
         let gradient = CAGradientLayer()

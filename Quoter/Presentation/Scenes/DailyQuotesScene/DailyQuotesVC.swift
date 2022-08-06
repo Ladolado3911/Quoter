@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class DailyQuotesVC: BaseVC {
+final class DailyQuotesVC: BaseVC {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel(frame: view.bounds)

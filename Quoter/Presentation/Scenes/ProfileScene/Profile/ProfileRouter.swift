@@ -15,7 +15,7 @@ protocol ProfileRouterProtocol {
     
 }
 
-class ProfileRouter: ProfileRouterProtocol {
+final class ProfileRouter: ProfileRouterProtocol {
     weak var vc: ProfileVCProtocol?
     
     var reloadDelegate: ReloadMenuTableViewDelegate?

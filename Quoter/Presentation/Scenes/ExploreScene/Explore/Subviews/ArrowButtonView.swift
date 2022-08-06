@@ -14,7 +14,7 @@ enum Direction {
     case down
 }
 
-class ArrowButton: UIButton {
+final class ArrowButton: UIButton {
     
     var direction: Direction = .left
 

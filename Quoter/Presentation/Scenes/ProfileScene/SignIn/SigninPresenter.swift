@@ -11,6 +11,6 @@ protocol SigninPresenterProtocol {
     var vc: SigninVCProtocol? { get set }
 }
 
-class SigninPresenter: SigninPresenterProtocol {
+final class SigninPresenter: SigninPresenterProtocol {
     var vc: SigninVCProtocol?
 }

@@ -36,7 +36,7 @@ import UIKit
 //    }
 //}
 
-class ExploreScreenshotCell: UICollectionViewCell {
+final class ExploreScreenshotCell: UICollectionViewCell {
     var exploreCell: ExploreCell?
     
     override init(frame: CGRect) {

@@ -35,7 +35,7 @@ protocol SigninVCProtocol: AnyObject {
     func present(vc: UIViewController)
 }
 
-class SigninVC: UIViewController {
+final class SigninVC: UIViewController {
     
     var interactor: SigninInteractorProtocol?
     var router: SigninRouterProtocol?

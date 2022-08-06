@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExploreView: UIView {
+final class ExploreView: UIView {
     
     lazy var collectionView: UICollectionView = {
         let layout = ExploreLayout()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class QuoteButtonView: UIView {
+final class QuoteButtonView: UIView {
     
     let imageView: UIImageView = {
         let imgView: UIImageView = UIImageView()

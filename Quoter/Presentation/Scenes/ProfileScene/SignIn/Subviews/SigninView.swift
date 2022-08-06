@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SigninView: UIView {
+final class SigninView: UIView {
 
     let titleLabel: UILabel = {
         let titleLabel = UILabel()

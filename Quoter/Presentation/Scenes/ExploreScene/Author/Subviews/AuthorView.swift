@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AuthorView: UIView {
+final class AuthorView: UIView {
     
     let backButton: ArrowButton = {
         let button = ArrowButton(direction: .up, arrowIcon: FilterIcons.arrowDown)

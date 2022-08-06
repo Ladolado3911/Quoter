@@ -16,7 +16,7 @@ protocol SigninRouterProtocol {
     func routeToProfileVC(type: SigninVCType)
 }
 
-class SigninRouter: SigninRouterProtocol {
+final class SigninRouter: SigninRouterProtocol {
     weak var vc: SigninVCProtocol?
     
     var reloadDelegate: ReloadMenuTableViewDelegate?

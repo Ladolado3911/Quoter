@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AuthorTableHeaderView: UIView {
+final class AuthorTableHeaderView: UIView {
     
     let imageView: UIImageView = {
         let imgView = UIImageView()

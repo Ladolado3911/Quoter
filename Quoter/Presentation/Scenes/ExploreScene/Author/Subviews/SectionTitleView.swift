@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-class SectionTitleView: UITableViewHeaderFooterView {
+final class SectionTitleView: UITableViewHeaderFooterView {
     
     static let identifier: String = String(describing: SectionTitleView.self)
     

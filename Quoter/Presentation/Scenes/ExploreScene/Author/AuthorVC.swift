@@ -19,7 +19,7 @@ protocol AuthorVCProtocol: AnyObject {
     func dismissView()
 }
 
-class AuthorVC: UIViewController {
+final class AuthorVC: UIViewController {
     var interactor: AuthorInteractorProtocol?
     var router: AuthorRouterProtocol?
     

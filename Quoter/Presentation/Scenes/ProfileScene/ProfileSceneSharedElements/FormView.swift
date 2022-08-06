@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FormView: UIView {
+final class FormView: UIView {
 
     let firstInputView: InputView = {
         let firstInput = InputView(type: .email)

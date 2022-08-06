@@ -31,7 +31,7 @@ protocol FilterVCProtocol: AnyObject {
     func selectCell(indexPath: IndexPath)
 }
 
-class FilterVC: UIViewController {
+final class FilterVC: UIViewController {
     var interactor: FilterInteractorProtocol?
     var router: FilterRouterProtocol?
     var filterToExploreDelegate: FilterToExploreProtocol?

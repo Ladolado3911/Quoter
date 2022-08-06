@@ -18,7 +18,7 @@ protocol SignupRouterProtocol {
     func routeToProfileVC()
 }
 
-class SignupRouter: SignupRouterProtocol {
+final class SignupRouter: SignupRouterProtocol {
     weak var vc: SignupVCProtocol?
     
     var reloadDelegate: ReloadMenuTableViewDelegate?

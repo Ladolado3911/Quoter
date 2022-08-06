@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FilterCell: UICollectionViewCell {
+final class FilterCell: UICollectionViewCell {
     
     lazy var iconImageView: UIImageView = {
         let imgView = UIImageView()

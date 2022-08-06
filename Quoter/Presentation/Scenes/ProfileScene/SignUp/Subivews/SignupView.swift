@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignupView: UIView {
+final class SignupView: UIView {
     
     lazy var arrowButton: UIButton = {
         let button = UIButton()

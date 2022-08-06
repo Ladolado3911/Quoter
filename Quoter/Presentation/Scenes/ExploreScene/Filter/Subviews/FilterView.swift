@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FilterView: ModalViewWithTopBorder {
+final class FilterView: ModalViewWithTopBorder {
     
     lazy var collectionView: UICollectionView = {
         let layout = FilterLayout()

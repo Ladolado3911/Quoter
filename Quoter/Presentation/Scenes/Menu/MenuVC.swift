@@ -12,11 +12,11 @@ enum MenuViewVisibility {
     case invisible
 }
 
-class TapOnBlurGesture: UITapGestureRecognizer {
+final class TapOnBlurGesture: UITapGestureRecognizer {
     
 }
 
-class MenuVC: UIViewController {
+final class MenuVC: UIViewController {
     
     lazy var menuAppearTransform = CGAffineTransform(translationX: view.bounds.width * 0.521875, y: 0)
     lazy var tapGesture = TapOnBlurGesture(target: self, action: #selector(didTapOnVCGesture(sender:)))

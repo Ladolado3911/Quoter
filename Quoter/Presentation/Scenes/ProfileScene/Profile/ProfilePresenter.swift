@@ -19,7 +19,7 @@ protocol ProfilePresenterProtocol {
     func deleteAccount(result: AccountDeletionResult)
 }
 
-class ProfilePresenter: ProfilePresenterProtocol {
+final class ProfilePresenter: ProfilePresenterProtocol {
     var vc: ProfileVCProtocol?
     
     func setProfileContent(content: UserProfileContent) {

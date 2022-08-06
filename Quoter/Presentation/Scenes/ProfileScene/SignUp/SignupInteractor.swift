@@ -13,7 +13,7 @@ protocol SignupInteractorProtocol {
     var signupNetworkWorker: SignupNetworkWorker? { get set }
 }
 
-class SignupInteractor: SignupInteractorProtocol {
+final class SignupInteractor: SignupInteractorProtocol {
     var presenter: SignupPresenterProtocol?
     var signupNetworkWorker: SignupNetworkWorker?
 }

@@ -21,7 +21,7 @@ protocol FilterLayoutDelegate {
     func heightOfAllItems(collectionView: UICollectionView) -> CGFloat
 }
 
-class FilterLayout: UICollectionViewFlowLayout {
+final class FilterLayout: UICollectionViewFlowLayout {
     
     var dataSource: FilterLayoutDataSource?
     var delegate: FilterLayoutDelegate?

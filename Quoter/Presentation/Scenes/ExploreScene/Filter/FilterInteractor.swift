@@ -46,7 +46,7 @@ protocol FilterInteractorProtocol {
     
 }
 
-class FilterInteractor: FilterInteractorProtocol {
+final class FilterInteractor: FilterInteractorProtocol {
     
     var presenter: FilterPresenterProtocol?
     var filterNetworkWorker: FilterNetworkWorkerProtocol?

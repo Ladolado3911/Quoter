@@ -18,7 +18,7 @@ protocol ProfileVCProtocol: AnyObject {
     func accountDeleteFail(errorMessage: String)
 }
 
-class ProfileVC: UIViewController {
+final class ProfileVC: UIViewController {
     var interactor: ProfileInteractorProtocol?
     var router: ProfileRouterProtocol?
     var profileView: ProfileView?

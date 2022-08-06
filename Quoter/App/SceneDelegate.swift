@@ -88,7 +88,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GADFullScreenContentDel
             print("load ad")
             let testUnit = "ca-app-pub-3940256099942544/3419835294"
             let paidUnut = "ca-app-pub-4520908978346246/8487103681"
-            GADAppOpenAd.load(withAdUnitID: paidUnut,
+            GADAppOpenAd.load(withAdUnitID: testUnit,
                               request: request,
                               orientation: UIInterfaceOrientation.portrait,
                               completionHandler: { [weak self] (appOpenAdIn, _) in

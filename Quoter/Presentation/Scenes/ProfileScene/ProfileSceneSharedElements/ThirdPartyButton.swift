@@ -12,7 +12,7 @@ enum ThirdPartyButtonType {
     case apple
 }
 
-class ThirdPartyButtonView: UIView {
+final class ThirdPartyButtonView: UIView {
 
     let iconView: UIImageView = {
         let iconView = UIImageView()
