@@ -6,16 +6,12 @@
 //
 
 import UIKit
-import GoogleMobileAds
 import FBSDKCoreKit
 import GoogleSignIn
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate, GADFullScreenContentDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var appOpenAd: GADAppOpenAd?
-    var loadTime = Date()
-    var isAdOnScreen = false
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         guard let url = URLContexts.first?.url else {
@@ -51,7 +47,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GADFullScreenContentDel
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         
-        self.tryToPresentAd()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -80,64 +75,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GADFullScreenContentDel
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }
-    
-    func requestAppOpenAd(completion: (() -> Void)?) {
-        let request = GADRequest()
-        // this is test ad unit
-        if !isAdOnScreen {
-            print("load ad")
-            let testUnit = "ca-app-pub-3940256099942544/3419835294"
-            let paidUnut = "ca-app-pub-4520908978346246/8487103681"
-            GADAppOpenAd.load(withAdUnitID: testUnit,
-                              request: request,
-                              orientation: UIInterfaceOrientation.portrait,
-                              completionHandler: { [weak self] (appOpenAdIn, _) in
-                guard let self = self else { return }
-                self.appOpenAd = appOpenAdIn
-                self.appOpenAd?.fullScreenContentDelegate = self
-                //self.tryToPresentAd()
-                //print("Ad is ready")
-                if let completion = completion {
-                    self.isAdOnScreen = true
-                    completion()
-                }
-                
-            })
-        }
-    }
-    func tryToPresentAd() {
-        if let gOpenAd = self.appOpenAd, let rwc = window!.rootViewController {
-            gOpenAd.present(fromRootViewController: rwc)
-        }
-        else {
-            self.requestAppOpenAd() { [weak self] in
-                guard let self = self else { return }
-                self.appOpenAd?.present(fromRootViewController: self.window!.rootViewController!)
-            }
-            
-        }
-    }
-    
-    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
-        print("error is \(error.localizedDescription)")
-        //requestAppOpenAd(completion: nil)
-    }
-    
-    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        print("dismiss")
-        
-        //requestAppOpenAd(completion: nil)
-    }
-    
-    func adWillDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        print("will dismiss")
-        self.isAdOnScreen = false
-        self.appOpenAd = nil
-    }
-    
-//    func adDidPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-//        print("Ad did present")
-//
-//    }
-    
 }

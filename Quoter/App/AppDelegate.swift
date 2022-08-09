@@ -8,7 +8,6 @@
 import UIKit
 import CoreData
 import Firebase
-import GoogleMobileAds
 import GoogleSignIn
 
 @main
@@ -23,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         //Thread.sleep(forTimeInterval: 2.0)
         FirebaseApp.configure()
-        GADMobileAds.sharedInstance().start()
         Analytics.setAnalyticsCollectionEnabled(false)
         guard let _ = UserDefaults.standard.value(forKey: "firstLaunch") as? Bool else { return true }
         return true
