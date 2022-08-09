@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ExploreVCProtocol: AnyObject, FilterToExploreProtocol {
+protocol ExploreVCProtocol: AnyObject {
     var interactor: ExploreInteractorProtocol? { get set }
     var router: ExploreRouterProtocol? { get set }
     var exploreView: ExploreView? { get set }
@@ -88,7 +88,7 @@ class ExploreVC: UIViewController {
         exploreView?.leftArrowButton.addTarget(self, action: #selector(scrollLeft), for: .touchUpInside)
         exploreView?.rightArrowButton.addTarget(self, action: #selector(scrollRight), for: .touchUpInside)
         exploreView?.downloadQuotePictureButton.addTarget(self, action: #selector(onDownloadButton), for: .touchUpInside)
-        exploreView?.filterButton.addTarget(self, action: #selector(onFilterButton), for: .touchUpInside)
+        //exploreView?.filterButton.addTarget(self, action: #selector(onFilterButton), for: .touchUpInside)
         exploreView?.quoteButtonView.addGestureRecognizer(quoteButtonTapGesture)
     }
     
@@ -169,7 +169,7 @@ extension ExploreVC {
     @objc func buttonAnimationTimerFire(sender: Timer) {
         //interactor?.buttonAnimationTimerFire(collectionView: exploreView?.collectionView)
         exploreView?.animateQuoteButton()
-        exploreView?.animateFilterButton()
+        //exploreView?.animateFilterButton()
         interactor?.websocketTask?.sendPing(pongReceiveHandler: { [weak self] error in
             if let error = error {
                 guard let self = self else { return }
@@ -370,25 +370,6 @@ extension ExploreVC: ExploreVCProtocol {
     }
 }
 
-extension ExploreVC: FilterToExploreProtocol {
-    func sendBackGenre(genre: Genre) {
-        exploreView?.collectionView.isUserInteractionEnabled = false
-        exploreView?.rightArrowButton.isEnabled = false
-        exploreView?.leftArrowButton.isEnabled = false
-        exploreView?.filterButton.setTitle(genre.rawValue.capitalized, for: .normal)
-        exploreView?.stopAnimating()
-        UIView.animate(withDuration: 1, delay: 0) { [weak self] in
-            guard let self = self else { return }
-            self.exploreView?.collectionView.alpha = 0
-        } completion: { [weak self] didFinish in
-            guard let self = self else { return }
-            if didFinish {
-                
-                self.interactor?.currentGenre = genre
-            }
-        }
-    }
-}
 
 extension ExploreVC: URLSessionWebSocketDelegate {
 

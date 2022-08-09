@@ -19,14 +19,14 @@ final class ExploreRouter: ExploreRouterProtocol {
     weak var vc: ExploreVCProtocol?
     
     func routeToFilterVC(with currentGenre: Genre) {
-        let filterVC = FilterVC()
-        if let vc = vc {
-            filterVC.modalPresentationStyle = .custom
-            filterVC.modalTransitionStyle = .crossDissolve
-            filterVC.filterToExploreDelegate = vc
-            filterVC.currentGenre = currentGenre
-            vc.present(vc: filterVC, animated: false)
-        }
+//        let filterVC = FilterVC()
+//        if let vc = vc {
+//            filterVC.modalPresentationStyle = .custom
+//            filterVC.modalTransitionStyle = .crossDissolve
+//            filterVC.filterToExploreDelegate = vc
+//            filterVC.currentGenre = currentGenre
+//            vc.present(vc: filterVC, animated: false)
+//        }
     }
     
     func routeToAuthorVC(authorID: String, authorName: String, authorImageURLString: String, authorDesc: String) {

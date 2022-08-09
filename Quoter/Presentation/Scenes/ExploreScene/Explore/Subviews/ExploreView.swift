@@ -40,31 +40,31 @@ final class ExploreView: UIView {
         return button
     }()
     
-    lazy var filterButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("General", for: .normal)
-        button.setTitleColor(DarkModeColors.white, for: .normal)
-        button.backgroundColor = DarkModeColors.black
-        button.layer.borderWidth = 1
-        button.layer.borderColor = DarkModeColors.white.cgColor
-        button.titleLabel?.contentMode = .center
-        button.titleLabel?.font = button.titleLabel?.font.withSize(Constants.screenHeight * 0.020)
-        return button
-    }()
+//    lazy var filterButton: UIButton = {
+//        let button = UIButton()
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.setTitle("General", for: .normal)
+//        button.setTitleColor(DarkModeColors.white, for: .normal)
+//        button.backgroundColor = DarkModeColors.black
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = DarkModeColors.white.cgColor
+//        button.titleLabel?.contentMode = .center
+//        button.titleLabel?.font = button.titleLabel?.font.withSize(Constants.screenHeight * 0.020)
+//        return button
+//    }()
     
-    lazy var filterButtonCopy: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("General", for: .normal)
-        button.setTitleColor(DarkModeColors.white, for: .normal)
-        button.backgroundColor = DarkModeColors.black
-        button.layer.borderWidth = 1
-        button.layer.borderColor = DarkModeColors.white.cgColor
-        button.titleLabel?.contentMode = .center
-        button.titleLabel?.font = button.titleLabel?.font.withSize(Constants.screenHeight * 0.020)
-        return button
-    }()
+//    lazy var filterButtonCopy: UIButton = {
+//        let button = UIButton()
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.setTitle("General", for: .normal)
+//        button.setTitleColor(DarkModeColors.white, for: .normal)
+//        button.backgroundColor = DarkModeColors.black
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = DarkModeColors.white.cgColor
+//        button.titleLabel?.contentMode = .center
+//        button.titleLabel?.font = button.titleLabel?.font.withSize(Constants.screenHeight * 0.020)
+//        return button
+//    }()
     
     let quoteButtonView: QuoteButtonView = {
         let quoteButtonView = QuoteButtonView()
@@ -98,34 +98,34 @@ final class ExploreView: UIView {
         }
     }
 
-    func animateFilterButton() {
-        UIView.animate(withDuration: 1.5, delay: 0) { [weak self] in
-            guard let self = self else { return }
-            self.filterButtonCopy.alpha = 0
-            self.filterButtonCopy.transform = CGAffineTransform(scaleX: 1.2, y: 1.4)
-        } completion: { [weak self] didFinish in
-            guard let self = self else { return }
-            if didFinish {
-                self.filterButtonCopy.alpha = 1
-                self.filterButtonCopy.transform = .identity
-            }
-        }
-    }
+//    func animateFilterButton() {
+//        UIView.animate(withDuration: 1.5, delay: 0) { [weak self] in
+//            guard let self = self else { return }
+//            self.filterButtonCopy.alpha = 0
+//            self.filterButtonCopy.transform = CGAffineTransform(scaleX: 1.2, y: 1.4)
+//        } completion: { [weak self] didFinish in
+//            guard let self = self else { return }
+//            if didFinish {
+//                self.filterButtonCopy.alpha = 1
+//                self.filterButtonCopy.transform = .identity
+//            }
+//        }
+//    }
     
     private func buildSubviews() {
         addSubview(collectionView)
         addSubview(leftArrowButton)
         addSubview(rightArrowButton)
         addSubview(downloadQuotePictureButton)
-        addSubview(filterButtonCopy)
-        addSubview(filterButton)
+        //addSubview(filterButtonCopy)
+        //addSubview(filterButton)
         addSubview(quoteButtonViewCopy)
         addSubview(quoteButtonView)
         bringSubviewToFront(leftArrowButton)
         bringSubviewToFront(rightArrowButton)
         bringSubviewToFront(downloadQuotePictureButton)
-        bringSubviewToFront(filterButtonCopy)
-        bringSubviewToFront(filterButton)
+        //bringSubviewToFront(filterButtonCopy)
+        //bringSubviewToFront(filterButton)
         bringSubviewToFront(quoteButtonViewCopy)
         bringSubviewToFront(quoteButtonView)
     }
@@ -147,16 +147,16 @@ final class ExploreView: UIView {
             downloadQuotePictureButton.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.06),
             downloadQuotePictureButton.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.06),
             
-            filterButton.trailingAnchor.constraint(equalTo: downloadQuotePictureButton.leadingAnchor, constant: -Constants.screenHeight * 0.01),
-            filterButton.centerYAnchor.constraint(equalTo: downloadQuotePictureButton.centerYAnchor),
-            filterButton.heightAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 0.6),
-            filterButton.widthAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 2),
-            
-            filterButtonCopy.trailingAnchor.constraint(equalTo: downloadQuotePictureButton.leadingAnchor, constant: -Constants.screenHeight * 0.01),
-            filterButtonCopy.centerYAnchor.constraint(equalTo: downloadQuotePictureButton.centerYAnchor),
-            filterButtonCopy.heightAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 0.6),
-            filterButtonCopy.widthAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 2),
-            
+//            filterButton.trailingAnchor.constraint(equalTo: downloadQuotePictureButton.leadingAnchor, constant: -Constants.screenHeight * 0.01),
+//            filterButton.centerYAnchor.constraint(equalTo: downloadQuotePictureButton.centerYAnchor),
+//            filterButton.heightAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 0.6),
+//            filterButton.widthAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 2),
+//            
+//            filterButtonCopy.trailingAnchor.constraint(equalTo: downloadQuotePictureButton.leadingAnchor, constant: -Constants.screenHeight * 0.01),
+//            filterButtonCopy.centerYAnchor.constraint(equalTo: downloadQuotePictureButton.centerYAnchor),
+//            filterButtonCopy.heightAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 0.6),
+//            filterButtonCopy.widthAnchor.constraint(equalTo: downloadQuotePictureButton.heightAnchor, multiplier: 2),
+//            
             quoteButtonView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.screenHeight * 0.245),
             quoteButtonView.heightAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
             quoteButtonView.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
@@ -167,8 +167,8 @@ final class ExploreView: UIView {
             quoteButtonViewCopy.widthAnchor.constraint(equalToConstant: Constants.screenHeight * 0.0528),
             quoteButtonViewCopy.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
-        filterButtonCopy.layer.cornerRadius = filterButton.bounds.height * 0.4347
-        filterButton.layer.cornerRadius = filterButton.bounds.height * 0.4347
+//        filterButtonCopy.layer.cornerRadius = filterButton.bounds.height * 0.4347
+//        filterButton.layer.cornerRadius = filterButton.bounds.height * 0.4347
     }
     
     func startAnimating() {
