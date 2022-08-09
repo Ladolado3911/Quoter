@@ -20,7 +20,7 @@ protocol ExploreInteractorProtocol {
     
     var loadedQuotes: [ExploreQuoteProtocol]? { get set }
     var currentPage: Int { get set }
-    var currentGenre: Genre { get set }
+    //var currentGenre: Genre { get set }
     var websocketTask: URLSessionWebSocketTask? { get set }
     var timer: Timer? { get set }
     var isConfigurationRunning: Bool { get set }
@@ -63,18 +63,18 @@ final class ExploreInteractor: ExploreInteractorProtocol {
 //            print(loadedQuotes?.count ?? 0)
         }
     }
-    var currentGenre: Genre = .general {
-        didSet {
-            SDWebImageDownloader.shared.cancelAllDownloads()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                guard let self = self else { return }
-                self.loadedQuotes = [ExploreQuote(), ExploreQuote(), ExploreQuote(), ExploreQuote(), ExploreQuote()]
-                print("cancel all downloads")
-                self.currentPage = 0
-                self.presenter?.reloadCollectionView()
-            }
-        }
-    }
+//    var currentGenre: Genre = .general {
+//        didSet {
+//            SDWebImageDownloader.shared.cancelAllDownloads()
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+//                guard let self = self else { return }
+//                self.loadedQuotes = [ExploreQuote(), ExploreQuote(), ExploreQuote(), ExploreQuote(), ExploreQuote()]
+//                print("cancel all downloads")
+//                self.currentPage = 0
+//                self.presenter?.reloadCollectionView()
+//            }
+//        }
+//    }
     var websocketTask: URLSessionWebSocketTask?
     var timer: Timer?
     
@@ -143,47 +143,6 @@ final class ExploreInteractor: ExploreInteractorProtocol {
                                                 action: nil)
                     }
                 })
-//
-//
-//                if PHPhotoLibrary.authorizationStatus(for: .addOnly) == .authorized {
-//
-////                    let currentUserID = CurrentUserLocalManager.shared.getCurrentUserID()!.lowercased()
-////                    let userType = CurrentUserLocalManager.shared.type!
-////                    let quoteID = quote.id!.uuidString.lowercased()
-////                    let imageID = quote.quoteImageID.lowercased()
-////                    print(imageID)
-////
-//////                    presenter?.screenShot()
-////                    Task.init { [weak self] in
-////                        guard let self = self else { return }
-////
-////                        let response = try await self.exploreNetworkWorker?.saveQuote(quoteIDString: quoteID,
-////                                                                                      imageIDString: imageID,
-////                                                                                      userIDString: currentUserID,
-////                                                                                         userType: userType)
-////                        await MainActor.run {
-////                            switch response?.response {
-////                            case .success:
-////                                presenter?.screenShot()
-////                            case .failure(let errorMessage):
-////                                presenter?.presentAlert(title: "Alert",
-////                                                        text: errorMessage,
-////                                                        mainButtonText: "ok",
-////                                                        mainButtonStyle: .default,
-////                                                        action: nil)
-////                            default:
-////                                break
-////                            }
-////                        }
-////                    }
-//                }
-//                else {
-////                    presenter?.presentAlert(title: "Alert",
-////                                            text: "Acces to photos is denied",
-////                                            mainButtonText: "Ok",
-////                                            mainButtonStyle: .default,
-////                                            action: nil)
-//                }
             }
             else {
                 // vc presents alert
@@ -239,8 +198,7 @@ final class ExploreInteractor: ExploreInteractorProtocol {
                 }
                 else {
                     print("call")
-                    
-                    send(genre: currentGenre)
+                    send(genre: .rich)
                     let quoteModel = try await receive()
                     //let quoteModel = try await exploreNetworkWorker?.getSmallQuote(genre: currentGenre)
                     let exploreAuthor = ExploreAuthor(idString: quoteModel!.author.id,

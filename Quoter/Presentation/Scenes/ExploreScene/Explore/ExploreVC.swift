@@ -146,7 +146,7 @@ extension ExploreVC {
     }
     
     @objc func onFilterButton(sender: UIButton) {
-        router?.routeToFilterVC(with: interactor?.currentGenre ?? .general)
+        //router?.routeToFilterVC(with: interactor?.currentGenre ?? .general)
     }
     
     @objc func onQuoteButton(sender: UIButton) {
