@@ -24,7 +24,7 @@ protocol PopUpVCProtocol where Self: UIViewController {
 extension PopUpVCProtocol {
     
     var popUpRectSize: CGSize {
-        CGSize(width: view.bounds.width * 0.8, height: view.bounds.height * 0.8)
+        CGSize(width: view.bounds.width * 0.8531, height: view.bounds.width * 0.8531 * 1.57875)
     }
     
     func showView() {
