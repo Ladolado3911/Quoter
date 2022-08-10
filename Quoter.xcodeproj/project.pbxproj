@@ -91,6 +91,9 @@
 		2497158027D9E15F00968E08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2497157F27D9E15F00968E08 /* GoogleService-Info.plist */; };
 		2499E1572868840D00352100 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2499E1562868840D00352100 /* IQKeyboardManagerSwift */; };
 		249BE4AC285DCBF600D30127 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249BE4AB285DCBF600D30127 /* UITableView+Extension.swift */; };
+		24A68CAB28A3F5380006D1F4 /* AdPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A68CAA28A3F5380006D1F4 /* AdPopUpVC.swift */; };
+		24A68CAD28A3F56E0006D1F4 /* AdPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A68CAC28A3F56E0006D1F4 /* AdPopUpView.swift */; };
+		24A68CAF28A3F5E80006D1F4 /* PopUpVCProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A68CAE28A3F5E80006D1F4 /* PopUpVCProtocol.swift */; };
 		24A71A31285C96F800835E8C /* AuthorCellsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A71A30285C96F800835E8C /* AuthorCellsManager.swift */; };
 		24A71A36285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A71A35285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift */; };
 		24A71A38285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A71A37285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift */; };
@@ -227,6 +230,9 @@
 		2497157F27D9E15F00968E08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2497158727D9E3FB00968E08 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		249BE4AB285DCBF600D30127 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		24A68CAA28A3F5380006D1F4 /* AdPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPopUpVC.swift; sourceTree = "<group>"; };
+		24A68CAC28A3F56E0006D1F4 /* AdPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPopUpView.swift; sourceTree = "<group>"; };
+		24A68CAE28A3F5E80006D1F4 /* PopUpVCProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpVCProtocol.swift; sourceTree = "<group>"; };
 		24A71A30285C96F800835E8C /* AuthorCellsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCellsManager.swift; sourceTree = "<group>"; };
 		24A71A35285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorQuotesForSectionCellObject.swift; sourceTree = "<group>"; };
 		24A71A37285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherAuthorsForSectionCellObject.swift; sourceTree = "<group>"; };
@@ -349,6 +355,7 @@
 				24138A3C2805B39F00044F5E /* Constants.swift */,
 				248C54132850BD600080FBBE /* ModalViewWithTopBorder.swift */,
 				248115C22872E88100671C4B /* CurrentUserManager.swift */,
+				24A68CAE28A3F5E80006D1F4 /* PopUpVCProtocol.swift */,
 			);
 			path = SharedElements;
 			sourceTree = "<group>";
@@ -602,6 +609,7 @@
 		2477CC83285F84FF00662176 /* ExploreScene */ = {
 			isa = PBXGroup;
 			children = (
+				24A68CA928A3F5200006D1F4 /* AdPopUp */,
 				24138A15280570DC00044F5E /* Explore */,
 				246700B02859D18A004C64EB /* Author */,
 			);
@@ -639,6 +647,15 @@
 				24A71A37285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift */,
 			);
 			path = AuthorObjects;
+			sourceTree = "<group>";
+		};
+		24A68CA928A3F5200006D1F4 /* AdPopUp */ = {
+			isa = PBXGroup;
+			children = (
+				24A68CAA28A3F5380006D1F4 /* AdPopUpVC.swift */,
+				24A68CAC28A3F56E0006D1F4 /* AdPopUpView.swift */,
+			);
+			path = AdPopUp;
 			sourceTree = "<group>";
 		};
 		24A71A32285C972800835E8C /* AuthorCellObjects */ = {
@@ -1022,9 +1039,11 @@
 				24E49857286B420100D119F1 /* ProfileNetworkWorker.swift in Sources */,
 				2463DAEB28648B2B00FA78BE /* SignupInteractor.swift in Sources */,
 				24C7F2A72879D74600065891 /* GalleryPresenter.swift in Sources */,
+				24A68CAB28A3F5380006D1F4 /* AdPopUpVC.swift in Sources */,
 				24138A232805748200044F5E /* MenuModels.swift in Sources */,
 				246B82A72831464B00D44DF5 /* ExploreEntities.swift in Sources */,
 				246B82A0283137D800D44DF5 /* ExploreRouter.swift in Sources */,
+				24A68CAF28A3F5E80006D1F4 /* PopUpVCProtocol.swift in Sources */,
 				241FF792285F670500646809 /* SectionTitleView.swift in Sources */,
 				24138A292805AC7300044F5E /* Colors.swift in Sources */,
 				246B828F28311DBB00D44DF5 /* QuotieEndpoint.swift in Sources */,
@@ -1096,6 +1115,7 @@
 				2463DAE128647F3400FA78BE /* SigninView.swift in Sources */,
 				24138A3B2805B16600044F5E /* MenuIcons.swift in Sources */,
 				2463DADE2864748000FA78BE /* InputView.swift in Sources */,
+				24A68CAD28A3F56E0006D1F4 /* AdPopUpView.swift in Sources */,
 				241A2A27285B5D34005681C5 /* AuthorNetworkWorker.swift in Sources */,
 				246B829E283137C700D44DF5 /* ExplorePresenter.swift in Sources */,
 				240028272858B34F005220D7 /* UICollectionView+Extension.swift in Sources */,
