@@ -94,6 +94,9 @@
 		24A68CAB28A3F5380006D1F4 /* AdPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A68CAA28A3F5380006D1F4 /* AdPopUpVC.swift */; };
 		24A68CAD28A3F56E0006D1F4 /* AdPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A68CAC28A3F56E0006D1F4 /* AdPopUpView.swift */; };
 		24A68CAF28A3F5E80006D1F4 /* PopUpVCProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A68CAE28A3F5E80006D1F4 /* PopUpVCProtocol.swift */; };
+		24A68CB228A427900006D1F4 /* AdContentBlockVStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A68CB128A427900006D1F4 /* AdContentBlockVStack.swift */; };
+		24A68CB528A427EF0006D1F4 /* TextVStackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A68CB428A427EF0006D1F4 /* TextVStackDelegate.swift */; };
+		24A68CB728A4280A0006D1F4 /* RatingVStackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A68CB628A4280A0006D1F4 /* RatingVStackDelegate.swift */; };
 		24A71A31285C96F800835E8C /* AuthorCellsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A71A30285C96F800835E8C /* AuthorCellsManager.swift */; };
 		24A71A36285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A71A35285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift */; };
 		24A71A38285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A71A37285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift */; };
@@ -233,6 +236,9 @@
 		24A68CAA28A3F5380006D1F4 /* AdPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPopUpVC.swift; sourceTree = "<group>"; };
 		24A68CAC28A3F56E0006D1F4 /* AdPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPopUpView.swift; sourceTree = "<group>"; };
 		24A68CAE28A3F5E80006D1F4 /* PopUpVCProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpVCProtocol.swift; sourceTree = "<group>"; };
+		24A68CB128A427900006D1F4 /* AdContentBlockVStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdContentBlockVStack.swift; sourceTree = "<group>"; };
+		24A68CB428A427EF0006D1F4 /* TextVStackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextVStackDelegate.swift; sourceTree = "<group>"; };
+		24A68CB628A4280A0006D1F4 /* RatingVStackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingVStackDelegate.swift; sourceTree = "<group>"; };
 		24A71A30285C96F800835E8C /* AuthorCellsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorCellsManager.swift; sourceTree = "<group>"; };
 		24A71A35285CC22100835E8C /* AuthorQuotesForSectionCellObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorQuotesForSectionCellObject.swift; sourceTree = "<group>"; };
 		24A71A37285CC26E00835E8C /* OtherAuthorsForSectionCellObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherAuthorsForSectionCellObject.swift; sourceTree = "<group>"; };
@@ -653,9 +659,28 @@
 			isa = PBXGroup;
 			children = (
 				24A68CAA28A3F5380006D1F4 /* AdPopUpVC.swift */,
-				24A68CAC28A3F56E0006D1F4 /* AdPopUpView.swift */,
+				24A68CB028A427780006D1F4 /* Subviews */,
 			);
 			path = AdPopUp;
+			sourceTree = "<group>";
+		};
+		24A68CB028A427780006D1F4 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				24A68CB328A427C50006D1F4 /* AdContentVStackDelegates */,
+				24A68CB128A427900006D1F4 /* AdContentBlockVStack.swift */,
+				24A68CAC28A3F56E0006D1F4 /* AdPopUpView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		24A68CB328A427C50006D1F4 /* AdContentVStackDelegates */ = {
+			isa = PBXGroup;
+			children = (
+				24A68CB428A427EF0006D1F4 /* TextVStackDelegate.swift */,
+				24A68CB628A4280A0006D1F4 /* RatingVStackDelegate.swift */,
+			);
+			path = AdContentVStackDelegates;
 			sourceTree = "<group>";
 		};
 		24A71A32285C972800835E8C /* AuthorCellObjects */ = {
@@ -1099,7 +1124,9 @@
 				2463DAD32864613100FA78BE /* SignupVC.swift in Sources */,
 				2463DAED28648B3600FA78BE /* SignupPresenter.swift in Sources */,
 				24D018FB280B1A460031C14B /* UILabel+Extension.swift in Sources */,
+				24A68CB528A427EF0006D1F4 /* TextVStackDelegate.swift in Sources */,
 				246B829A283124A600D44DF5 /* CategoriesModel.swift in Sources */,
+				24A68CB728A4280A0006D1F4 /* RatingVStackDelegate.swift in Sources */,
 				2463DAEF28648B4100FA78BE /* SignupRouter.swift in Sources */,
 				248C54142850BD600080FBBE /* ModalViewWithTopBorder.swift in Sources */,
 				24A71A31285C96F800835E8C /* AuthorCellsManager.swift in Sources */,
@@ -1108,6 +1135,7 @@
 				2458D29428097EBB0088C00E /* DailyQuotesVC.swift in Sources */,
 				2463DAD82864617900FA78BE /* FormView.swift in Sources */,
 				24138A172805719400044F5E /* ExploreVC.swift in Sources */,
+				24A68CB228A427900006D1F4 /* AdContentBlockVStack.swift in Sources */,
 				24D1287327903ECD00AD7F3D /* AppDelegate.swift in Sources */,
 				24138A322805AD6E00044F5E /* UIApplication+Extension.swift in Sources */,
 				2459D5B12843B712001D1812 /* ExploreLayout.swift in Sources */,
