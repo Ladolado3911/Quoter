@@ -14,20 +14,24 @@ final class StarsView: UIView {
 }
 
 final class RatingVStackDelegate: AdContentDelegateProtocol {
+
+    let ratingView: RatingView = {
+        let ratingView = RatingView()
+        ratingView.translatesAutoresizingMaskIntoConstraints = false
+        return ratingView
+    }()
     
-//    let starsView: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
-//
-    var rootVStack: UIStackView!
+    var rootVStack: UIStackView?
+    var configurator: AdVStackConfiguratorModel?
     
-    init(rootVStack: UIStackView) {
-        self.rootVStack = rootVStack
+    init(configurator: AdVStackConfiguratorModel) {
+        self.configurator = configurator
     }
     
     func configVStack() {
-        rootVStack.addArrangedSubview(contentLabel)
+        if let lowerContent = configurator?.lowerContentInfo as? Double {
+            ratingView.starsCount = CGFloat(lowerContent)
+        }
+        rootVStack!.addArrangedSubview(ratingView)
     }
 }

@@ -88,6 +88,7 @@
 		24832A32286998F9001597FC /* SignupNetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24832A31286998F9001597FC /* SignupNetworkWorker.swift */; };
 		24832A342869DACA001597FC /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24832A332869DACA001597FC /* ResponseModel.swift */; };
 		248C54142850BD600080FBBE /* ModalViewWithTopBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248C54132850BD600080FBBE /* ModalViewWithTopBorder.swift */; };
+		2491419428A5442400257DE6 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491419328A5442400257DE6 /* RatingView.swift */; };
 		2497158027D9E15F00968E08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2497157F27D9E15F00968E08 /* GoogleService-Info.plist */; };
 		2499E1572868840D00352100 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2499E1562868840D00352100 /* IQKeyboardManagerSwift */; };
 		249BE4AC285DCBF600D30127 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249BE4AB285DCBF600D30127 /* UITableView+Extension.swift */; };
@@ -230,6 +231,7 @@
 		24832A31286998F9001597FC /* SignupNetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupNetworkWorker.swift; sourceTree = "<group>"; };
 		24832A332869DACA001597FC /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		248C54132850BD600080FBBE /* ModalViewWithTopBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewWithTopBorder.swift; sourceTree = "<group>"; };
+		2491419328A5442400257DE6 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		2497157F27D9E15F00968E08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2497158727D9E3FB00968E08 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		249BE4AB285DCBF600D30127 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				248C54132850BD600080FBBE /* ModalViewWithTopBorder.swift */,
 				248115C22872E88100671C4B /* CurrentUserManager.swift */,
 				24A68CAE28A3F5E80006D1F4 /* PopUpVCProtocol.swift */,
+				2491419328A5442400257DE6 /* RatingView.swift */,
 			);
 			path = SharedElements;
 			sourceTree = "<group>";
@@ -1051,6 +1054,7 @@
 				246700B22859D1A9004C64EB /* AuthorVC.swift in Sources */,
 				2463DAD12864612100FA78BE /* ProfileVC.swift in Sources */,
 				24D8635F280C0A550060760A /* Fonts.swift in Sources */,
+				2491419428A5442400257DE6 /* RatingView.swift in Sources */,
 				246700B82859D1CD004C64EB /* AuthorRouter.swift in Sources */,
 				242E31EE285361BC00AB4C22 /* UIImageView+Extension.swift in Sources */,
 				24832A32286998F9001597FC /* SignupNetworkWorker.swift in Sources */,

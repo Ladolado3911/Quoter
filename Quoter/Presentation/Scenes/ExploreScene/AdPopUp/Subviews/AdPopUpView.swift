@@ -8,6 +8,9 @@
 import UIKit
 
 protocol AdContentDelegateProtocol: AnyObject {
+    var rootVStack: UIStackView? { get set }
+    var configurator: AdVStackConfiguratorModel? { get set }
+    
     func configVStack()
 }
 
@@ -43,7 +46,23 @@ final class AdPopUpView: UIView, PopUpViewProtocol {
         return vstack
     }()
     
-    let
+    let textVStack: AdContentBlockVStack = {
+        let vstack = AdContentBlockVStack(delegate: TextVStackDelegate(configurator: AdVStackConfiguratorModel(upperContentTitle: "Title:", lowerContentInfo: "test Title")))
+        vstack.translatesAutoresizingMaskIntoConstraints = false
+        return vstack
+    }()
+    
+    let ratingVStack: AdContentBlockVStack = {
+        let vstack = AdContentBlockVStack(delegate: RatingVStackDelegate(configurator: AdVStackConfiguratorModel(upperContentTitle: "Rating:", lowerContentInfo: 4.5)))
+        vstack.translatesAutoresizingMaskIntoConstraints = false
+        return vstack
+    }()
+    
+    let descVStack: AdContentBlockVStack = {
+        let vstack = AdContentBlockVStack(delegate: TextVStackDelegate(configurator: AdVStackConfiguratorModel(upperContentTitle: "Description", lowerContentInfo: "test Desc")))
+        vstack.translatesAutoresizingMaskIntoConstraints = false
+        return vstack
+    }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -53,5 +72,23 @@ final class AdPopUpView: UIView, PopUpViewProtocol {
     private func configView() {
         backgroundColor = .white
         layer.cornerRadius = 20
+        buildSubviews()
+        buildConstraints()
+    }
+    
+    private func buildSubviews() {
+        addSubview(titleLabel)
+        infoVStack.addArrangedSubview(textVStack)
+        infoVStack.addArrangedSubview(ratingVStack)
+        infoVStack.addArrangedSubview(descVStack)
+        contentHStack.addArrangedSubview(bookImageView)
+        contentHStack.addArrangedSubview(infoVStack)
+        addSubview(contentHStack)
+    }
+    
+    private func buildConstraints() {
+        NSLayoutConstraint.activate([
+            
+        ])
     }
 }

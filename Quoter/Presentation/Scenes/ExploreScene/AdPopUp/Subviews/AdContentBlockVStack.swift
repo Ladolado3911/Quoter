@@ -7,6 +7,11 @@
 
 import UIKit
 
+struct AdVStackConfiguratorModel {
+    var upperContentTitle: String
+    var lowerContentInfo: Any
+}
+
 final class AdContentBlockVStack: UIStackView {
     
     let titleLabel: UILabel = {
@@ -15,7 +20,7 @@ final class AdContentBlockVStack: UIStackView {
         return label
     }()
     
-    private weak var adContentDelegate: AdContentDelegateProtocol!
+    weak var adContentDelegate: AdContentDelegateProtocol!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,6 +33,8 @@ final class AdContentBlockVStack: UIStackView {
     convenience init(delegate: AdContentDelegateProtocol) {
         self.init(frame: .zero)
         adContentDelegate = delegate
+        adContentDelegate.rootVStack = self
+        titleLabel.text = delegate.configurator?.upperContentTitle
         adContentDelegate.configVStack()
     }
     

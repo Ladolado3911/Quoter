@@ -9,19 +9,23 @@ import UIKit
 
 final class TextVStackDelegate: AdContentDelegateProtocol {
     
+    var rootVStack: UIStackView?
+    var configurator: AdVStackConfiguratorModel?
+    
     let contentLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    var rootVStack: UIStackView!
-    
-    init(rootVStack: UIStackView) {
-        self.rootVStack = rootVStack
+    init(configurator: AdVStackConfiguratorModel) {
+        self.configurator = configurator
     }
-    
+
     func configVStack() {
-        rootVStack.addArrangedSubview(contentLabel)
+        if let lowerContent = configurator?.lowerContentInfo as? String {
+            contentLabel.text = lowerContent
+        }
+        rootVStack!.addArrangedSubview(contentLabel)
     }
 }
