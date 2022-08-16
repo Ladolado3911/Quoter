@@ -7,14 +7,10 @@
 
 import UIKit
 
-protocol PopUpViewProtocol where Self: UIView {
-    func showContent()
-    func hideContent()
-}
 
 protocol PopUpVCProtocol where Self: UIViewController {
     var dimmingView: UIView { get }
-    var popUpView: PopUpViewProtocol { get }
+    var popUpView: AdPopUpView { get }
     var popUpRectSize: CGSize { get }
 
     func showView()
@@ -47,7 +43,7 @@ extension PopUpVCProtocol {
     }
 }
 
-extension PopUpViewProtocol {
+extension AdPopUpView {
     func showContent() {
         UIView.animate(withDuration: 1, delay: 0) { [weak self] in
             guard let self = self else { return }

@@ -10,19 +10,34 @@ import UIKit
 class RatingView: UIView {
     
     var starsCount: CGFloat = 5
+    var rating: CGFloat = 0 
+    var orangeViewCoefficient: CGFloat = 0 {
+        didSet {
+            orangeViewWidth = bounds.width * orangeViewCoefficient
+        }
+    }
+    var orangeViewWidth: CGFloat = 0 {
+        didSet {
+            orangeView.frame = CGRect(x: 0,
+                                      y: 0,
+                                      width: orangeViewWidth,
+                                      height: frame.height)
+        }
+    }
     
-    lazy var yellowView: UIView = {
-        let width = bounds.width * 0.7
-        let newRect = CGRect(x: 0, y: 0, width: width, height: bounds.height)
-        let yellow = UIView(frame: newRect)
-        yellow.backgroundColor = .yellow
+    lazy var orangeView: UIView = {
+//        let width = bounds.width * 0.7
+//        let newRect = CGRect(x: 0, y: 0, width: width, height: bounds.height)
+        let yellow = UIView()
+        yellow.backgroundColor = .orange
+        print("2")
         return yellow
     }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        backgroundColor = .white.withAlphaComponent(0.0)
-        addSubview(yellowView)
+        backgroundColor = .orange.withAlphaComponent(0.2)
+        addSubview(orangeView)
     }
 
     func drawStar(path: UIBezierPath, starIndex: Int, starWidth: CGFloat, cornerRadius: CGFloat, rotation: CGFloat) {
@@ -56,7 +71,7 @@ class RatingView: UIView {
 
             cangle += 144
         }
-
+        
         //path.close()
         //return path
     }
@@ -65,7 +80,7 @@ class RatingView: UIView {
         let path = UIBezierPath()
         let starWidth: CGFloat = bounds.width / starsCount
         for starIndex in 0..<Int(starsCount) {
-            drawStar(path: path, starIndex: starIndex, starWidth: starWidth, cornerRadius: 0, rotation: 54)
+            drawStar(path: path, starIndex: starIndex, starWidth: starWidth, cornerRadius: 0.5, rotation: 54)
         }
         return path
     }
@@ -85,7 +100,7 @@ class RatingView: UIView {
         clipsToBounds = true
 
         alpha = 0.8
-        backgroundColor = UIColor.black
+        backgroundColor = UIColor.orange.withAlphaComponent(0.7)
     }
 
 }

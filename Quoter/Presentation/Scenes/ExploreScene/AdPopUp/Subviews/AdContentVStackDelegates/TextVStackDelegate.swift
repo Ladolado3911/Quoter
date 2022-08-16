@@ -14,6 +14,7 @@ final class TextVStackDelegate: AdContentDelegateProtocol {
     
     let contentLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

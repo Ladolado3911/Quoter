@@ -7,17 +7,11 @@
 
 import UIKit
 
-final class StarsView: UIView {
-    
-    
-    
-}
-
 final class RatingVStackDelegate: AdContentDelegateProtocol {
 
     let ratingView: RatingView = {
         let ratingView = RatingView()
-        ratingView.translatesAutoresizingMaskIntoConstraints = false
+        //ratingView.translatesAutoresizingMaskIntoConstraints = false
         return ratingView
     }()
     
@@ -30,7 +24,7 @@ final class RatingVStackDelegate: AdContentDelegateProtocol {
     
     func configVStack() {
         if let lowerContent = configurator?.lowerContentInfo as? Double {
-            ratingView.starsCount = CGFloat(lowerContent)
+            ratingView.rating = lowerContent
         }
         rootVStack!.addArrangedSubview(ratingView)
     }

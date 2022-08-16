@@ -16,6 +16,7 @@ final class AdContentBlockVStack: UIStackView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -35,12 +36,13 @@ final class AdContentBlockVStack: UIStackView {
         adContentDelegate = delegate
         adContentDelegate.rootVStack = self
         titleLabel.text = delegate.configurator?.upperContentTitle
+        addArrangedSubview(titleLabel)
         adContentDelegate.configVStack()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        distribution = .equalSpacing
+        distribution = .fillEqually
         axis = .vertical
     }
     
