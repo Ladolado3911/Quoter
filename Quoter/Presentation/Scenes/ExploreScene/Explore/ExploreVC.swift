@@ -78,12 +78,12 @@ class ExploreVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
-            let vc: PopUpVCProtocol = AdPopUpVC()
-            vc.modalTransitionStyle = .crossDissolve
-            vc.modalPresentationStyle = .overCurrentContext
-            self?.present(vc: vc, animated: false)
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
+//            let vc: PopUpVCProtocol = AdPopUpVC()
+//            vc.modalTransitionStyle = .crossDissolve
+//            vc.modalPresentationStyle = .overCurrentContext
+//            self?.present(vc: vc, animated: false)
+//        }
         
     }
 

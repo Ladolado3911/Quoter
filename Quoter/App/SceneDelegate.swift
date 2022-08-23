@@ -70,8 +70,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // MARK: new revamped version
         
-        let vc = AdPopUpVC()
-       // MenuModels.shared.initialize()
+        let vc = MenuVC()
+        MenuModels.shared.initialize()
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }

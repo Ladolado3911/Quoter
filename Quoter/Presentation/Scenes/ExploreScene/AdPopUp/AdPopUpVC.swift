@@ -25,6 +25,7 @@ final class AdPopUpVC: UIViewController, PopUpVCProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .clear
         view.addSubview(dimmingView)
         view.addSubview(popUpView)
