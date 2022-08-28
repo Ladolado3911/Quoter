@@ -357,6 +357,7 @@
 		24138A18280571AB00044F5E /* SharedElements */ = {
 			isa = PBXGroup;
 			children = (
+				24A68CA928A3F5200006D1F4 /* AdPopUp */,
 				24332B2728A268850004B6F3 /* FilterGenre.swift */,
 				24332B2528A2685F0004B6F3 /* FilterIcons.swift */,
 				24D5BC262806C2C0003D14CD /* BaseVC.swift */,
@@ -618,7 +619,6 @@
 		2477CC83285F84FF00662176 /* ExploreScene */ = {
 			isa = PBXGroup;
 			children = (
-				24A68CA928A3F5200006D1F4 /* AdPopUp */,
 				24138A15280570DC00044F5E /* Explore */,
 				246700B02859D18A004C64EB /* Author */,
 			);
@@ -1406,11 +1406,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Quoter/Quoter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 24V5M6ZW7B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Quoter/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Quotie;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need the access to the photo library to store downloaded image";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need the access to the photo library to store downloaded image";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1420,7 +1422,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.quotism;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1436,11 +1438,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Quoter/Quoter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 24V5M6ZW7B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Quoter/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Quotie;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need the access to the photo library to store downloaded image";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need the access to the photo library to store downloaded image";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1450,7 +1454,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.quotism;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
