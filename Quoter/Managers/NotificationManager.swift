@@ -74,7 +74,9 @@ final class NotificationManager {
         content.sound = sound
         
         #error("when i return, before setting local notification timings, use user location and timing and research your market's best timing to show notification")
-        
+                
+        #error("or save the time user used the app and show local notifications for that time")
+            
         var trigger: UNNotificationTrigger?
         let secondsInterval = TimeInterval(CGFloat(hour * 60 + minute) * 60)
         guard let date2 = dryDay.date else { return }
