@@ -26,7 +26,7 @@ enum PermissionStatus {
     case off
 }
 
-enum Weekday: Int {
+enum Weekday: Int, CaseIterable {
     case sun = 1
     case mon = 2
     case tue = 3
@@ -85,7 +85,7 @@ final class NotificationManager {
         let content = UNMutableNotificationContent()
         //let soundName = UNNotificationSoundName(rawValue: "new")
         //let sound = UNNotificationSound(named: soundName)
-        content.title = "Quotie - Infinite Quotes"
+        content.title = "Did you know?"
         content.body = notificationModel.message
         content.categoryIdentifier = "OrganizerPlusCategory"
         //content.sound = sound
@@ -100,7 +100,7 @@ final class NotificationManager {
         
         
 
-        //dateComponents.weekday = 3  // Tuesday
+        dateComponents.weekday = notificationModel.weekday.rawValue
         dateComponents.hour = notificationModel.hour    // 14:00 hours
         dateComponents.minute = notificationModel.minute
            
@@ -123,31 +123,49 @@ final class NotificationManager {
     func requestAndSetNotificationsIfAccepted() {
         requestAuthorization { [weak self] authorized in
             if authorized {
-                
                 let morningHour = 8
                 let morningMinute = 0
                 let eveningHour = 23
                 let eveningMinute = 10
-                
-                let mondayMorningMessage = "Your mind is the most effective in the morning. Learn from the richest!"
-                let mondayEveningMessage = "Did you know that your brain absorbs information like a sponge before sleep? It's time to get inspired!"
-                let tueMorningMessage = ""
-                let tueEveningMessage = ""
-                let wedMorningMessage = ""
-                let wedEveningMessage = ""
-                let thuMorningMessage = ""
-                let thuEveningMessage = ""
-                let friMorningMessage = ""
-                let friEveningMessage = ""
-                let satMorningMessage = ""
-                let satEveningMessage = ""
-                let sunMorningMessage = ""
-                let sunEveningMessage = ""
 
-                let monday = RepeatingNotificationModel(weekday: .mon,
-                                                        hour: 8,
-                                                        minute: 0,
-                                                        message: "")
+                for weekDay in Weekday.allCases {
+                    var morningMessage: String = ""
+                    var eveningMessage: String = ""
+                    switch weekDay {
+                    case .sun:
+                        morningMessage =
+                        eveningMessage =
+                    case .mon:
+                        morningMessage = "Your mind is the most effective in the morning. Learn from the richest!"
+                        eveningMessage = "Your brain absorbs information like a sponge before sleep. It's time to get inspired!"
+                    case .tue:
+                        morningMessage =
+                        eveningMessage = "Sleep helps you remember "
+                    case .wed:
+                        morningMessage = ""
+                        eveningMessage = "Anything you learn grows you differently. Grow like the rich!"
+                    case .thu:
+                        morningMessage = "You learn the best when teaching others. Share valuable quotes!"
+                        eveningMessage = "Learning that is spread out over time increases knowledge retention. Learn from the richest!"
+                    case .fri:
+                        morningMessage =
+                        eveningMessage = "You retain 65% more information when an image is added to the learning process!"
+                    case .sat:
+                        morningMessage =
+                        eveningMessage = "Your brain prefers images over text. Learn from quotes from the richest people with images in the background!"
+                    }
+                    let morningModel = RepeatingNotificationModel(weekday: weekDay,
+                                                                  hour: morningHour,
+                                                                  minute: morningMinute,
+                                                                  message: morningMessage)
+                    let eveningModel = RepeatingNotificationModel(weekday: weekDay,
+                                                                  hour: morningHour,
+                                                                  minute: morningMinute,
+                                                                  message: eveningMessage)
+                    
+                    self?.scheduleRepeatingNotification(notificationModel: morningModel)
+                    self?.scheduleRepeatingNotification(notificationModel: eveningModel)
+                }
             }
         }
     }
