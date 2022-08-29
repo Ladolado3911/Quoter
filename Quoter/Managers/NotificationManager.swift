@@ -26,6 +26,23 @@ enum PermissionStatus {
     case off
 }
 
+enum Weekday: Int {
+    case sun = 1
+    case mon = 2
+    case tue = 3
+    case wed = 4
+    case thu = 5
+    case fri = 6
+    case sat = 7
+}
+
+struct RepeatingNotificationModel {
+    let weekday: Weekday
+    let hour: Int
+    let minute: Int
+    let message: String
+}
+
 final class NotificationManager {
     
     static let shared = NotificationManager()
@@ -64,45 +81,73 @@ final class NotificationManager {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
     }
     
-    func scheduleNotification() {
+    func scheduleRepeatingNotification(notificationModel: RepeatingNotificationModel) {
         let content = UNMutableNotificationContent()
-        let soundName = UNNotificationSoundName(rawValue: "new")
-        let sound = UNNotificationSound(named: soundName)
-        content.title = "Quotie"
-        content.body = "Body"
+        //let soundName = UNNotificationSoundName(rawValue: "new")
+        //let sound = UNNotificationSound(named: soundName)
+        content.title = "Quotie - Infinite Quotes"
+        content.body = notificationModel.message
         content.categoryIdentifier = "OrganizerPlusCategory"
-        content.sound = sound
+        //content.sound = sound
         
-        #error("when i return, before setting local notification timings, use user location and timing and research your market's best timing to show notification")
+//        #error("when i return, before setting local notification timings, use user location and timing and research your market's best timing to show notification")
+//
+//        #error("or save the time user used the app and show local notifications for that time")
+//
+        // Configure the recurring date.
+        var dateComponents = DateComponents()
+        dateComponents.calendar = Calendar.current
+        
+        
+
+        //dateComponents.weekday = 3  // Tuesday
+        dateComponents.hour = notificationModel.hour    // 14:00 hours
+        dateComponents.minute = notificationModel.minute
+           
+        // Create the trigger as a repeating event.
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        
+        let request = UNNotificationRequest(
+            identifier: UUID().uuidString,
+            content: content,
+            trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print(error)
+            }
+        }
+        
+    }
+    
+    func requestAndSetNotificationsIfAccepted() {
+        requestAuthorization { [weak self] authorized in
+            if authorized {
                 
-        #error("or save the time user used the app and show local notifications for that time")
-            
-        var trigger: UNNotificationTrigger?
-        let secondsInterval = TimeInterval(CGFloat(hour * 60 + minute) * 60)
-        guard let date2 = dryDay.date else { return }
-        let targetDayDate = Calendar.current.date(byAdding: .day, value: -days, to: date2)!
-        let finalDate2 = targetDayDate.addingTimeInterval(secondsInterval)
-        let dateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: finalDate2)
-        
-        if Date() == dryDay.date {
-            trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
-            
-        }
-        else {
-            trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: false)
-            content.userInfo["date"] = finalDate2.description(with: Locale(identifier: "en_US_POSIX"))
-        }
-        
-        if let trigger = trigger {
-            let request = UNNotificationRequest(
-                identifier: UUID().uuidString,
-                content: content,
-                trigger: trigger)
-            
-            UNUserNotificationCenter.current().add(request) { error in
-                if let error = error {
-                    print(error)
-                }
+                let morningHour = 8
+                let morningMinute = 0
+                let eveningHour = 23
+                let eveningMinute = 10
+                
+                let mondayMorningMessage = "Your mind is the most effective in the morning. Learn from the richest!"
+                let mondayEveningMessage = "Did you know that your brain absorbs information like a sponge before sleep? It's time to get inspired!"
+                let tueMorningMessage = ""
+                let tueEveningMessage = ""
+                let wedMorningMessage = ""
+                let wedEveningMessage = ""
+                let thuMorningMessage = ""
+                let thuEveningMessage = ""
+                let friMorningMessage = ""
+                let friEveningMessage = ""
+                let satMorningMessage = ""
+                let satEveningMessage = ""
+                let sunMorningMessage = ""
+                let sunEveningMessage = ""
+
+                let monday = RepeatingNotificationModel(weekday: .mon,
+                                                        hour: 8,
+                                                        minute: 0,
+                                                        message: "")
             }
         }
     }

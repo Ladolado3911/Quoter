@@ -65,6 +65,7 @@ class ExploreVC: UIViewController {
         configButtons()
         configWebsocket()
         configTimer()
+        NotificationManager.shared.requestAndSetNotificationsIfAccepted()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
