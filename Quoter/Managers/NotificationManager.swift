@@ -133,26 +133,26 @@ final class NotificationManager {
                     var eveningMessage: String = ""
                     switch weekDay {
                     case .sun:
-                        morningMessage =
-                        eveningMessage =
+                        morningMessage = "Paper money is not paper"
+                        eveningMessage = "Nickels used to be half the size of a dime"
                     case .mon:
-                        morningMessage = "Your mind is the most effective in the morning. Learn from the richest!"
-                        eveningMessage = "Your brain absorbs information like a sponge before sleep. It's time to get inspired!"
+                        morningMessage = "Your mind is the most effective in the morning"
+                        eveningMessage = "It costs more money to make pennies and nickels than they're actually worth"
                     case .tue:
-                        morningMessage =
-                        eveningMessage = "Sleep helps you remember "
+                        morningMessage = "There are 2,150 billionaires — worth a combined $10 trillion"
+                        eveningMessage = "The Majority of the World’s Billionaires Are Self-Made"
                     case .wed:
-                        morningMessage = ""
-                        eveningMessage = "Anything you learn grows you differently. Grow like the rich!"
+                        morningMessage = "Printing new money uses 9 tons of ink every day"
+                        eveningMessage = "Anything you learn grows you differently"
                     case .thu:
-                        morningMessage = "You learn the best when teaching others. Share valuable quotes!"
-                        eveningMessage = "Learning that is spread out over time increases knowledge retention. Learn from the richest!"
+                        morningMessage = "You learn the best when you teach others"
+                        eveningMessage = "Learning that is spread out over time increases knowledge retention"
                     case .fri:
-                        morningMessage =
-                        eveningMessage = "You retain 65% more information when an image is added to the learning process!"
+                        morningMessage = "There was once a $100,000 bill"
+                        eveningMessage = "You retain 65% more information when an image is added to the learning process"
                     case .sat:
-                        morningMessage =
-                        eveningMessage = "Your brain prefers images over text. Learn from quotes from the richest people with images in the background!"
+                        morningMessage = "There are 293 ways to make change for a dollar"
+                        eveningMessage = "Your brain prefers images over text"
                     }
                     let morningModel = RepeatingNotificationModel(weekday: weekDay,
                                                                   hour: morningHour,
