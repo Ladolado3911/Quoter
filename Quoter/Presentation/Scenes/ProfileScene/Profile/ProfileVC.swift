@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 protocol ProfileVCProtocol: AnyObject {
     var interactor: ProfileInteractorProtocol? { get set }
@@ -74,12 +75,13 @@ final class ProfileVC: UIViewController {
 
 extension ProfileVC {
     @objc func onSignoutButton(sender: UIButton) {
-        
+        Analytics.logEvent(#function, parameters: nil)
         interactor?.signoutUser()
         router?.routeToSigninVC()
     }
     
     @objc func onDeleteButton(sender: UIButton) {
+        Analytics.logEvent(#function, parameters: nil)
         interactor?.deleteAccount()
     }
 }

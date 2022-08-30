@@ -8,6 +8,7 @@
 
 import UIKit
 import Combine
+import FirebaseAnalytics
 
 protocol SignupVCProtocol: AnyObject {
     var interactor: SignupInteractorProtocol? { get set }
@@ -116,6 +117,7 @@ extension SignupVC {
     }
 
     @objc func onSignupButton(sender: UIButton) {
+        Analytics.logEvent("on sign up button", parameters: nil)
         let credentials = UserCredentials(email: trackEmail,
                                           password: trackPassword,
                                           isMailVerified: false,

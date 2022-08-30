@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 enum MenuViewVisibility {
     case visible
@@ -172,14 +173,17 @@ final class MenuVC: UIViewController {
     
     @objc func didSwipeLeftOnMenuView(sender: UISwipeGestureRecognizer) {
         didTapOnVC()
+        Analytics.logEvent(#function, parameters: nil)
     }
     
     @objc func didTapOnVCGesture(sender: UITapGestureRecognizer) {
         didTapOnVC()
+        Analytics.logEvent(#function, parameters: nil)
     }
     
     @objc func didTapOnMenuVCButton(sender: UIButton) {
         didTapOnVC()
+        Analytics.logEvent(#function, parameters: nil)
     }
 }
 
@@ -220,6 +224,7 @@ extension MenuVC: UITableViewDataSource, UITableViewDelegate {
         switchVC(index: indexPath.row)
         tableView.reloadData()
         didTapOnVC()
+        Analytics.logEvent("didselect \(indexPath.row)", parameters: nil)
     }
 }
 

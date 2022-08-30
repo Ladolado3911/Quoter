@@ -132,6 +132,7 @@ final class SigninVC: UIViewController {
 
 extension SigninVC {
     @objc func onSignupButton(sender: UIButton) {
+        Analytics.logEvent("on sign up button from \(signinVCType == .explore ? "from explore" : "from modal") scene", parameters: nil)
         router?.routeToSignupVC { [weak self] in
             guard let self = self else { return }
             self.router?.routeToProfileVC(type: self.signinVCType)
@@ -139,6 +140,7 @@ extension SigninVC {
     }
     
     @objc func onSigninButton(sender: UIButton) {
+        Analytics.logEvent("on sign in button from \(signinVCType == .explore ? "from explore" : "from modal") scene", parameters: nil)
         let credentials = UserCredentials(email: trackEmail,
                                           password: trackPassword,
                                           isMailVerified: false,
@@ -208,6 +210,7 @@ extension SigninVC {
     }
     
     @objc func continueWithApple(sender: UIButton) {
+        Analytics.logEvent("continue with apple from \(signinVCType == .explore ? "from explore" : "from modal") scene", parameters: nil)
         let provider = ASAuthorizationAppleIDProvider()
         let request = provider.createRequest()
         request.requestedScopes = [.email]
@@ -218,7 +221,7 @@ extension SigninVC {
     }
     
     @objc func continueWithGoogle(sender: UIButton) {
-        
+        Analytics.logEvent("continue with google from \(signinVCType == .explore ? "from explore" : "from modal") scene", parameters: nil)
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         // Create Google Sign In configuration object.
         let config = GIDConfiguration(clientID: clientID)

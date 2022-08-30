@@ -8,6 +8,7 @@
 import Foundation
 import UserNotifications
 import UIKit
+import FirebaseAnalytics
 
 //MARK: USA Working hours
 // The traditional American business hours are 9:00 a.m. to 5:00 p.m., Monday to Friday, representing a workweek of five eight-hour days comprising 40 hours in total.
@@ -123,6 +124,7 @@ final class NotificationManager {
     func requestAndSetNotificationsIfAccepted() {
         requestAuthorization { [weak self] authorized in
             if authorized {
+                Analytics.logEvent("Notifications set", parameters: nil)
                 let morningHour = 8
                 let morningMinute = 0
                 let eveningHour = 23
@@ -159,8 +161,8 @@ final class NotificationManager {
                                                                   minute: morningMinute,
                                                                   message: morningMessage)
                     let eveningModel = RepeatingNotificationModel(weekday: weekDay,
-                                                                  hour: morningHour,
-                                                                  minute: morningMinute,
+                                                                  hour: eveningHour,
+                                                                  minute: eveningMinute,
                                                                   message: eveningMessage)
                     
                     self?.scheduleRepeatingNotification(notificationModel: morningModel)

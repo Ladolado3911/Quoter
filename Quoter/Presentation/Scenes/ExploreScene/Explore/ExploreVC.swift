@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 protocol ExploreVCProtocol: AnyObject {
     var interactor: ExploreInteractorProtocol? { get set }
@@ -145,16 +146,19 @@ extension ExploreVC {
         exploreView?.collectionView.isUserInteractionEnabled = false
         exploreView?.leftArrowButton.isEnabled = false
         interactor?.scroll(direction: .left)
+        Analytics.logEvent("scroll", parameters: nil)
     }
     
     @objc func scrollRight(sender: ArrowButton) {
         exploreView?.collectionView.isUserInteractionEnabled = false
         exploreView?.rightArrowButton.isEnabled = false
         interactor?.scroll(direction: .right)
+        Analytics.logEvent("scroll", parameters: nil)
     }
     
     @objc func onDownloadButton(sender: UIButton) {
         interactor?.onDownloadButton()
+        Analytics.logEvent("download image button pressed", parameters: nil)
     }
     
     @objc func onFilterButton(sender: UIButton) {
@@ -163,6 +167,7 @@ extension ExploreVC {
     
     @objc func onQuoteButton(sender: UIButton) {
         let quote = interactor!.loadedQuotes![interactor!.currentPage]
+        Analytics.logEvent("author details button pressed", parameters: nil)
         if quote.isLoading {
             presentAlert(title: "Alert",
                          text: "Content is still loading",
@@ -175,6 +180,7 @@ extension ExploreVC {
                                     authorName: quote.author!.name,
                                     authorImageURLString: quote.author!.authorImageURLString,
                                     authorDesc: quote.author!.authorDesc)
+            Analytics.logEvent("author details shown", parameters: nil)
         }
     }
     
@@ -329,6 +335,7 @@ extension ExploreVC: ExploreVCProtocol {
                               mainButtonText: "Sign in",
                               mainButtonStyle: .default,
                               mainButtonAction: newAction)
+        Analytics.logEvent("sign in alert shown", parameters: nil)
     }
     
     func screenshot() {
@@ -342,6 +349,7 @@ extension ExploreVC: ExploreVCProtocol {
                                               mainButtonText: "Ok",
                                               mainButtonStyle: .default,
                                               action: nil)
+                Analytics.logEvent("image is saved", parameters: nil)
             }
         }
     }
@@ -378,6 +386,7 @@ extension ExploreVC: ExploreVCProtocol {
                 
             }
         }
+        Analytics.logEvent("sign in scene appeared from explore scene", parameters: nil)
         router?.routeToSigninVC(with: MenuAuthorizationControllers.signInVCModal)
     }
 }

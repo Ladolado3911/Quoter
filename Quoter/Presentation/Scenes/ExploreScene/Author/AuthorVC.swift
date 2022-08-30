@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FirebaseAnalytics
 
 protocol AuthorVCProtocol: AnyObject {
     var interactor: AuthorInteractorProtocol? { get set }
@@ -98,6 +98,7 @@ final class AuthorVC: UIViewController {
     
     @objc func onBackButton(sender: UIButton) {
         interactor?.hideView()
+        Analytics.logEvent("back button pressed from author details scene", parameters: nil)
     }
     
 }

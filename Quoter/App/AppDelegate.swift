@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         //Thread.sleep(forTimeInterval: 2.0)
         FirebaseApp.configure()
-        Analytics.setAnalyticsCollectionEnabled(false)
+        Analytics.setAnalyticsCollectionEnabled(true)
         guard let _ = UserDefaults.standard.value(forKey: "firstLaunch") as? Bool else { return true }
         return true
     }
